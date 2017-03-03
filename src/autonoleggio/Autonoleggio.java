@@ -1,11 +1,12 @@
 package autonoleggio;
 
+import GUI.*;
+
 public class Autonoleggio {
 
 	public static void main(String[] args) {
-		System.out.println("Hello, World");	
-		System.out.println("ciao 123");
-
+		Login log = new Login(); 
+		log.login();
 	}
 
 }
