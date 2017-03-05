@@ -5,7 +5,7 @@ import GUI.*;
 public class Autonoleggio {
 
 	public static void main(String[] args) {
-		Login log = new Login();
-		log.run();
+			Login log = new Login();
+			log.run();
 	}
 }

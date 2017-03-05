@@ -13,32 +13,35 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JFormattedTextField;
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.SwingConstants;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JPasswordField txtPassword;
 	private JTextField txtUsername;
 	private JFormattedTextField frmtdtxtfldPassword;
-
+	private JButton btnAccedi = new JButton("Accedi");
+	private JButton btnEsci = new JButton("Esci");
+	
 	/* Crea il frame Login.*/
 	
 	public void run() {
-			try {
-				Login frame = new Login();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
+		try {
+			Login frame = new Login();
+			frame.setLocationRelativeTo(null);
+			frame.setVisible(true);
 			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			e.printStackTrace();
+		}
 	}
 	
 	/* Definisce il frame Login.*/
 	
 	public Login() {
+		setResizable(false);
 		setTitle("Autonoleggio - Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 350, 350);
@@ -46,15 +49,12 @@ public class Login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JButton btnAccedi = new JButton("Accedi");
-		btnAccedi.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JButton btnEsci = new JButton("Esci");
+		btnAccedi.setFont(new Font("Arial", Font.PLAIN, 12));
+	    btnAccedi.addActionListener(this);	/* Action Listener per il bottone Accedi.*/
+	    
 		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEsci.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		btnEsci.addActionListener(this);	/* Action Listener per il bottone Esci.*/
 		
 		txtPassword = new JPasswordField();
 		
@@ -81,18 +81,31 @@ public class Login extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(27)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnAccedi, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-						.addComponent(frmtdtxtUsername, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
-						.addComponent(frmtdtxtfldPassword, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
-					.addGap(23)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(btnEsci, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-							.addComponent(txtUsername, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-							.addComponent(txtPassword, 152, 152, 152)))
-					.addGap(10))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(27)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(frmtdtxtUsername, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(frmtdtxtfldPassword, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE))))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addContainerGap(40, Short.MAX_VALUE)
+							.addComponent(btnAccedi, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(23)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(txtUsername, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
+							.addGap(10))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+							.addGap(36))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -107,10 +120,21 @@ public class Login extends JFrame {
 						.addComponent(frmtdtxtfldPassword, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 					.addGap(75)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAccedi, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(63, Short.MAX_VALUE))
+						.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnAccedi, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(73, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+	}
+	
+	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
+	
+	public void actionPerformed(ActionEvent e){
+		if (btnAccedi == e.getSource()){
+			/* Inserire cosa fa il pulsante Accedi*/
+			}
+		else if (btnEsci == e.getSource()){
+			System.exit(0); 
+		}
 	}
 }
