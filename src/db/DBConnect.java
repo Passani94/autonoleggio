@@ -1,34 +1,29 @@
 package db;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 public class DBConnect{
 	
-	private Connection con;
-	private Statement st;
-	private ResultSet rs;
+	public Connection con;
+	public Statement st;
+	
+	/*Stabilisce la connessione col DB*/
 	
 	public DBConnect(String user, String pass){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/autonoleggio",user,pass);
 			st = con.createStatement();
-		}catch(Exception ex){
-		System.out.println("Errore:"+ex); /*da sostituire nella GUI*/
+		}catch(Exception e){
+			e.printStackTrace(); 
 		}
 	}
 	
-	public void getData(String query){  /*trovare un modo per adattare il codice in base alla query*/
-		try{
-			rs = st.executeQuery(query);
-			System.out.println("Contenuto richiesto dalla query"); /*da sostituire nella GUI*/
-			while (rs.next()){
-				String name= rs.getString("CF_PIVA");
-				System.out.println("Nome:"+name); /*da sostituire nella GUI*/
-			}
-		}catch(Exception ex){
-		System.out.println("Errore:"+ex); /*da sostituire nella GUI*/
-		}
+	/*Costruttore DBConnect*/
+	
+	public DBConnect() {
+		
 	}
 }
