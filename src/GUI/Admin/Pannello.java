@@ -14,13 +14,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import GUI.*;
 import javax.swing.JLabel;
+import java.awt.Panel;
+import java.awt.FlowLayout;
 
 public class Pannello extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
-	private Calendario cal = new Calendario();
 	
 	/* Crea il frame Login.*/
 	
@@ -54,37 +55,37 @@ public class Pannello extends JFrame implements ActionListener{
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
+		Calendario cal = new Calendario(contentPane);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap(472, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(cal, GroupLayout.PREFERRED_SIZE, 367, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lbllog)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lbllog)
-							.addGap(91))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(cal, GroupLayout.PREFERRED_SIZE, 258, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)))
-							.addGap(44))))
+							.addGap(125)
+							.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)))
+					.addGap(60))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lbllog)
-					.addGap(98)
-					.addComponent(cal, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+					.addGap(81)
+					.addComponent(cal, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
+		cal.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		contentPane.setLayout(gl_contentPane);
 	}
 	

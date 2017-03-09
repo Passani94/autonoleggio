@@ -15,6 +15,8 @@ import javax.swing.JFormattedTextField;
 import java.awt.Color;
 
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Login extends JFrame implements ActionListener{
@@ -41,6 +43,13 @@ public class Login extends JFrame implements ActionListener{
 	/* Definisce il frame Login.*/
 	
 	public Login() {
+        // Look and feel
+        try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+        catch (ClassNotFoundException e) {}
+        catch (InstantiationException e) {}
+         catch (IllegalAccessException e) {}
+        catch (UnsupportedLookAndFeelException e) {}
+        
 		setResizable(false);
 		setTitle("Autonoleggio - Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
