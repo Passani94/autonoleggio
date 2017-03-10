@@ -13,10 +13,9 @@ public class Calendario extends JPanel{
     static JComboBox cmbYear;
     static DefaultTableModel mtblCalendar; 
     static JScrollPane stblCalendar;
-    static JPanel pnlCalendar;
     static int realYear, realMonth, realDay, currentYear, currentMonth;
     
-    public Calendario(JPanel pane){
+    public Calendario(JPanel pane,JPanel pnlCalendar){
         // Look and feel
         try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
         catch (ClassNotFoundException e) {}
@@ -35,7 +34,6 @@ public class Calendario extends JPanel{
         mtblCalendar = new DefaultTableModel(){public boolean isCellEditable(int rowIndex, int mColIndex){return false;}};
         tblCalendar = new JTable(mtblCalendar);
         stblCalendar = new JScrollPane(tblCalendar);
-        pnlCalendar = new JPanel(null);
         
         pnlCalendar.setBorder(BorderFactory.createTitledBorder("Calendario"));
         
@@ -53,13 +51,13 @@ public class Calendario extends JPanel{
         pnlCalendar.add(btnNext);
         pnlCalendar.add(stblCalendar);
         
-        pnlCalendar.setBounds(0, 0, 320, 335);
+        pnlCalendar.setBounds(0, 0, 320, 180);
         lblMonth.setBounds(160-lblMonth.getPreferredSize().width/2, 25, 100, 25);
-        lblYear.setBounds(10, 305, 80, 20);
-        cmbYear.setBounds(230, 305, 80, 20);
+        lblYear.setBounds(10, 205, 80, 20);
+        cmbYear.setBounds(230, 205, 80, 20);
         btnPrev.setBounds(10, 25, 50, 25);
         btnNext.setBounds(260, 25, 50, 25);
-        stblCalendar.setBounds(10, 50, 300, 250);
+        stblCalendar.setBounds(10, 50, 300, 147);
         
         //Prende i valori attuali di giorno/mese/anno
         GregorianCalendar cal = new GregorianCalendar(); //Crea il calendaio
@@ -87,7 +85,7 @@ public class Calendario extends JPanel{
         tblCalendar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         //Indica il numero di righe/colonne
-        tblCalendar.setRowHeight(38);
+        tblCalendar.setRowHeight(20);
         mtblCalendar.setColumnCount(7);
         mtblCalendar.setRowCount(6);
         
@@ -134,6 +132,7 @@ public class Calendario extends JPanel{
         tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
     }
     
+    //Colori celle
     static class tblCalendarRenderer extends DefaultTableCellRenderer{
         public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused, int row, int column){
             super.getTableCellRendererComponent(table, value, selected, focused, row, column);
