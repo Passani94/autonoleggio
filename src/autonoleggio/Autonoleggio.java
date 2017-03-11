@@ -1,11 +1,11 @@
 package autonoleggio;
 
-import GUI.Admin.*;
+import GUI.Login;
 
 public class Autonoleggio {
 
 	public static void main(String[] args) {
-			Pannello pan = new Pannello();
-			pan.run();
+			Login log = new Login();
+			log.run();
 	}
 }

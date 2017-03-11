@@ -3,6 +3,9 @@ package GUI;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import GUI.Admin.Pannello;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -43,6 +46,7 @@ public class Login extends JFrame implements ActionListener{
 	/* Definisce il frame Login.*/
 	
 	public Login() {
+	
         // Look and feel
         try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
         catch (ClassNotFoundException e) {}
@@ -141,6 +145,8 @@ public class Login extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if (btnAccedi == e.getSource()){
 			/* Inserire cosa fa il pulsante Accedi*/
+			this.dispose();
+			Pannello op = new Pannello();
 			}
 		else if (btnEsci == e.getSource()){
 			System.exit(0); 

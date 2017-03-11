@@ -11,32 +11,31 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import java.awt.Dimension;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import GUI.*;
 import javax.swing.JLabel;
-import java.awt.Panel;
 import java.awt.FlowLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.SwingConstants;
 import javax.swing.JMenu;
 
 public class Pannello extends JFrame implements ActionListener{
 
-	private JPanel contentPane;
+	private JPanel contentPane = new JPanel();
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private JPanel pnlCalendar = new JPanel(null);
 	private final JMenuBar menuBar = new JMenuBar();
+	private JMenuItem mntmHome = new JMenuItem("Home");
+	private JMenuItem mntmOperatore = new JMenuItem("Operatore");
 	
-	/* Crea il frame Login.*/
+	/* Crea il frame Pannello.*/
 	
 	public void run() {
 		try {
-			Pannello frame = new Pannello();
+			Pannello frame = new Pannello(contentPane);
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
 			} catch (Exception e) {
@@ -44,9 +43,9 @@ public class Pannello extends JFrame implements ActionListener{
 		}
 	}
 	
-	/* Definisce il frame Login.*/
+	/* Definisce il frame Pannello.*/
 	
-	public Pannello() {
+	public Pannello(JPanel contentPane) {
         try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
         catch (ClassNotFoundException e) {}
         catch (InstantiationException e) {}
@@ -56,11 +55,16 @@ public class Pannello extends JFrame implements ActionListener{
 		setTitle("Autonoleggio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
 		
 		setJMenuBar(menuBar);
 		
 		JMenu mnHome = new JMenu("Home");
 		menuBar.add(mnHome);
+		
+		mntmHome.addActionListener(this);  /* Action Listener per il menu/Operatore.*/
+		mnHome.add(mntmHome);
 		
 		JMenu mnCliente = new JMenu("Cliente");
 		menuBar.add(mnCliente);
@@ -73,13 +77,12 @@ public class Pannello extends JFrame implements ActionListener{
 		
 		JMenu mnOperatore = new JMenu("Operatore");
 		menuBar.add(mnOperatore);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		
+		mntmOperatore.addActionListener(this);  /* Action Listener per il menu/Operatore.*/
+		mnOperatore.add(mntmOperatore);
 		
 		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnEsci.addActionListener(this); /* Action Listener per il bottone Esci.*/
-		
 		
 		btnLogout.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnLogout.addActionListener(this); /* Action Listener per il bottone Logout.*/
@@ -124,6 +127,10 @@ public class Pannello extends JFrame implements ActionListener{
 		contentPane.setLayout(gl_contentPane);
 	}
 	
+	public Pannello() {
+		this.run();
+	}
+	
 	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
 	
 	public void actionPerformed(ActionEvent e){
@@ -132,7 +139,16 @@ public class Pannello extends JFrame implements ActionListener{
 		else if(btnLogout == e.getSource()){
 			this.dispose();
 			Login log = new Login();
-			log.run();
+			log.run();}
+		else if(mntmHome == e.getSource()){
+			contentPane.removeAll();
+			contentPane.revalidate();
+			Pannello op = new Pannello(contentPane);
+		}
+		else if(mntmOperatore == e.getSource()){
+			contentPane.removeAll();
+			contentPane.revalidate();
+			Operatore op = new Operatore(contentPane);
 		}
 	}
 }
