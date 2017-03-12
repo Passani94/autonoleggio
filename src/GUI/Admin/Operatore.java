@@ -19,6 +19,7 @@ import GUI.*;
 public class Operatore extends JPanel implements ActionListener{
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
+	private Pannello frame;
 	
 	/* Modifica il contentPane Operatore.*/
 	
@@ -68,9 +69,10 @@ public class Operatore extends JPanel implements ActionListener{
 		return contentPane;
 	}
 	
-	
+	/* Costruttore contentPane Operatore .*/
 	
 	public Operatore(Pannello pn) {
+		frame = pn;
 		pn.setTitle("Autonoleggio - Operatore");
 		pn.setContentPane(this.run(pn.contentPane));
 	}
@@ -81,7 +83,7 @@ public class Operatore extends JPanel implements ActionListener{
 		if (btnEsci == e.getSource()){
 			System.exit(0);}
 		else if(btnLogout == e.getSource()){
-			//dispose();
+			frame.dispose();
 			Login log = new Login();
 			log.run();
 			}

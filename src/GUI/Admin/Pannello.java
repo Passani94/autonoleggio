@@ -59,7 +59,7 @@ public class Pannello extends JFrame implements ActionListener{
 		mnOperatore.add(mntmOperatore);
 	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
+	/* Definisce le azioni da eseguire in base al menù clickato.*/
 	
 	public void actionPerformed(ActionEvent e){
 		if(mntmHome == e.getSource()){			

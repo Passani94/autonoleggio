@@ -21,8 +21,9 @@ public class Home extends JPanel implements ActionListener{
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private JPanel pnlCalendar = new JPanel(null);
+	private Pannello frame;
 	
-	/* Modifica il contentPane Operatore.*/
+	/* Modifica il contentPane Home.*/
 	
 	public JPanel run(JPanel contentPane) {
 		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
@@ -78,9 +79,10 @@ public class Home extends JPanel implements ActionListener{
 		return contentPane;
 	}
 	
-	/* Definisce il frame Pannello.*/
+	/* Costruttore contentPane Home .*/
 	
 	public Home(Pannello pn) {
+		frame = pn;
 		pn.setTitle("Autonoleggio - Home");
 		pn.setContentPane(this.run(pn.contentPane));
 	}
@@ -91,7 +93,7 @@ public class Home extends JPanel implements ActionListener{
 		if (btnEsci == e.getSource()){
 			System.exit(0);}
 		else if(btnLogout == e.getSource()){
-			//pn.dispose();
+			frame.dispose();
 			Login log = new Login();
 			log.run();
 			}
