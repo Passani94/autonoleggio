@@ -10,7 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Pannello extends JFrame implements ActionListener{
-
+	
+	public String Username;
 	public JPanel contentPane = new JPanel();
 	private final JMenuBar menuBar = new JMenuBar();
 	private JMenuItem mntmHome = new JMenuItem("Home");
@@ -18,7 +19,8 @@ public class Pannello extends JFrame implements ActionListener{
 
 	/* Crea il frame Pannello.*/
 	
-	public Pannello() {
+	public Pannello(String user) {
+		Username = user;
 		try {
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

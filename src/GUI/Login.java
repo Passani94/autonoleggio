@@ -145,8 +145,9 @@ public class Login extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if (btnAccedi == e.getSource()){
 			/* Inserire cosa fa il pulsante Accedi*/
+			String user = txtUsername.getText();
 			this.dispose();
-			Pannello op = new Pannello();
+			Pannello op = new Pannello(user);
 			}
 		else if (btnEsci == e.getSource()){
 			System.exit(0); 

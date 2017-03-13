@@ -41,6 +41,9 @@ public class Home extends JPanel implements ActionListener{
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
+		JLabel user = new JLabel(frame.Username);
+		user.setFont(new Font("Arial", Font.PLAIN, 12));
+		
 		Calendario cal = new Calendario(contentPane,pnlCalendar);
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -51,7 +54,8 @@ public class Home extends JPanel implements ActionListener{
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(lbllog)
-							.addGap(101))
+							.addGap(60)
+							.addComponent(user))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_contentPane.createSequentialGroup()
@@ -66,6 +70,7 @@ public class Home extends JPanel implements ActionListener{
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lbllog)
+					.addComponent(user)
 					.addGap(84)
 					.addComponent(pnlCalendar, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
