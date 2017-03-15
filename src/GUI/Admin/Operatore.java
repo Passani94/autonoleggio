@@ -17,7 +17,7 @@ import GUI.*;
 
 
 public class Operatore extends JPanel implements ActionListener{
-	private JButton btnElenca = new JButton("Elenca Operatori");
+	private JButton btnAggiorna = new JButton("Elenca Operatori");
 	private JButton btnNuovo = new JButton("Nuovo Operatore");
 	private JPanel pnlModulo = new JPanel(null);
 	private JButton btnEsci = new JButton("Esci");
@@ -33,8 +33,8 @@ public class Operatore extends JPanel implements ActionListener{
         catch (IllegalAccessException e) {}
         catch (UnsupportedLookAndFeelException e) {}
 		
-        btnElenca.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnElenca.addActionListener(this); /* Action Listener per il bottone Elenca.*/
+        btnAggiorna.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnAggiorna.addActionListener(this); /* Action Listener per il bottone Elenca.*/
 		
 		btnNuovo.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnNuovo.addActionListener(this); /* Action Listener per il bottone Nuovo.*/
@@ -56,17 +56,18 @@ public class Operatore extends JPanel implements ActionListener{
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_contentPane.createSequentialGroup()
 						.addContainerGap()
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 							.addGroup(gl_contentPane.createSequentialGroup()
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-									.addComponent(btnNuovo, Alignment.LEADING)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 									.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(pnlModulo, GroupLayout.PREFERRED_SIZE, 506, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)))
-								.addPreferredGap(ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+										.addComponent(btnAggiorna)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE))
+									.addComponent(pnlModulo, GroupLayout.PREFERRED_SIZE, 506, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
 								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 								.addComponent(user, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
-							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createSequentialGroup()
 								.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
@@ -80,8 +81,9 @@ public class Operatore extends JPanel implements ActionListener{
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addComponent(user, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(pnlModulo, GroupLayout.PREFERRED_SIZE, 434, GroupLayout.PREFERRED_SIZE)
 								.addGap(15)
@@ -112,5 +114,11 @@ public class Operatore extends JPanel implements ActionListener{
 			Login log = new Login();
 			log.run();
 			}
+		else if(btnAggiorna == e.getSource()){
+			
+		}
+		else if(btnNuovo == e.getSource()){
+			
+		}
 	}
 }
