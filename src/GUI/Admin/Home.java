@@ -8,6 +8,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
@@ -43,6 +44,7 @@ public class Home extends JPanel implements ActionListener{
 		
 		JLabel user = new JLabel(frame.Username);
 		user.setFont(new Font("Arial", Font.PLAIN, 12));
+		user.setForeground(Color.RED);
 		
 		Calendario cal = new Calendario(contentPane,pnlCalendar);
 		

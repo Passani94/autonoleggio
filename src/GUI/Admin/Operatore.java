@@ -11,6 +11,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 import java.awt.Font;
 
 import GUI.*;
@@ -19,7 +20,8 @@ import GUI.*;
 public class Operatore extends JPanel implements ActionListener{
 	private JButton btnAggiorna = new JButton("Elenca Operatori");
 	private JButton btnNuovo = new JButton("Nuovo Operatore");
-	private JPanel pnlModulo = new JPanel(null);
+	private JButton btnElimina = new JButton("Elimina Operatore");
+	private ModuloOp pnlModulo = new ModuloOp("Elenca");
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private Pannello frame;
@@ -34,10 +36,13 @@ public class Operatore extends JPanel implements ActionListener{
         catch (UnsupportedLookAndFeelException e) {}
 		
         btnAggiorna.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAggiorna.addActionListener(this); /* Action Listener per il bottone Elenca.*/
+		btnAggiorna.addActionListener(this); /* Action Listener per il bottone Aggiorna.*/
 		
 		btnNuovo.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnNuovo.addActionListener(this); /* Action Listener per il bottone Nuovo.*/
+		
+		btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnElimina.addActionListener(this); /* Action Listener per il bottone Elimina.*/
 		
 		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnEsci.addActionListener(this); /* Action Listener per il bottone Esci.*/
@@ -50,46 +55,52 @@ public class Operatore extends JPanel implements ActionListener{
 		
 		JLabel user = new JLabel(frame.Username);
 		user.setFont(new Font("Arial", Font.PLAIN, 12));
+		user.setForeground(Color.RED);
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_contentPane.createSequentialGroup()
 						.addContainerGap()
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addComponent(pnlModulo, GroupLayout.PREFERRED_SIZE, 506, GroupLayout.PREFERRED_SIZE)
 							.addGroup(gl_contentPane.createSequentialGroup()
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-									.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(btnAggiorna)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE))
-									.addComponent(pnlModulo, GroupLayout.PREFERRED_SIZE, 506, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-								.addComponent(user, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnAggiorna)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap())))
+								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+								.addGap(203)
+								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(user, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)))
+						.addContainerGap())
+					.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+						.addContainerGap(546, Short.MAX_VALUE)
+						.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap())
 			);
 			gl_contentPane.setVerticalGroup(
 				gl_contentPane.createParallelGroup(Alignment.TRAILING)
 					.addGroup(gl_contentPane.createSequentialGroup()
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(user, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-							.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(pnlModulo, GroupLayout.PREFERRED_SIZE, 434, GroupLayout.PREFERRED_SIZE)
-								.addGap(15)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-									.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))))
+									.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(pnlModulo, GroupLayout.PREFERRED_SIZE, 434, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(user, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))
+						.addGap(15)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 						.addContainerGap())
 			);
 		contentPane.setLayout(gl_contentPane);
@@ -115,10 +126,13 @@ public class Operatore extends JPanel implements ActionListener{
 			log.run();
 			}
 		else if(btnAggiorna == e.getSource()){
-			
+			pnlModulo.set("Elenca");
 		}
 		else if(btnNuovo == e.getSource()){
-			
+			pnlModulo.set("Nuovo");
+		}
+		else if(btnElimina == e.getSource()){
+			pnlModulo.set("Elimina");
 		}
 	}
 }
