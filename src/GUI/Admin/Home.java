@@ -1,8 +1,6 @@
 package GUI.Admin;
 
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -27,11 +25,6 @@ public class Home extends JPanel implements ActionListener{
 	/* Modifica il contentPane Home.*/
 	
 	public JPanel run(JPanel contentPane) {
-		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-        catch (ClassNotFoundException e) {}
-        catch (InstantiationException e) {}
-        catch (IllegalAccessException e) {}
-        catch (UnsupportedLookAndFeelException e) {}
 		
 		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnEsci.addActionListener(this); /* Action Listener per il bottone Esci.*/

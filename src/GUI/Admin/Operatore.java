@@ -1,8 +1,6 @@
 package GUI.Admin;
 
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -18,7 +16,7 @@ import GUI.*;
 
 
 public class Operatore extends JPanel implements ActionListener{
-	private JButton btnAggiorna = new JButton("Elenca Operatori");
+	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
 	private JButton btnNuovo = new JButton("Nuovo Operatore");
 	private JButton btnElimina = new JButton("Elimina Operatore");
 	private ModuloOp pnlModulo = new ModuloOp("Elenca");
@@ -29,13 +27,8 @@ public class Operatore extends JPanel implements ActionListener{
 	/* Modifica il contentPane Operatore.*/
 	
 	public JPanel run(JPanel contentPane){
-        try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-        catch (ClassNotFoundException e) {}
-        catch (InstantiationException e) {}
-        catch (IllegalAccessException e) {}
-        catch (UnsupportedLookAndFeelException e) {}
 		
-        btnAggiorna.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnAggiorna.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAggiorna.addActionListener(this); /* Action Listener per il bottone Aggiorna.*/
 		
 		btnNuovo.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -65,11 +58,11 @@ public class Operatore extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 							.addComponent(pnlModulo, GroupLayout.PREFERRED_SIZE, 506, GroupLayout.PREFERRED_SIZE)
 							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(btnAggiorna)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnNuovo)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
 								.addGap(203)
 								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
@@ -89,9 +82,9 @@ public class Operatore extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_contentPane.createSequentialGroup()
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-									.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 									.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+									.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(pnlModulo, GroupLayout.PREFERRED_SIZE, 434, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
@@ -126,12 +119,15 @@ public class Operatore extends JPanel implements ActionListener{
 			log.run();
 			}
 		else if(btnAggiorna == e.getSource()){
+			btnAggiorna.setText("Aggiorna Elenco");
 			pnlModulo.set("Elenca");
 		}
 		else if(btnNuovo == e.getSource()){
+			btnAggiorna.setText("Elenco Operatori");
 			pnlModulo.set("Nuovo");
 		}
 		else if(btnElimina == e.getSource()){
+			btnAggiorna.setText("Elenco Operatori");
 			pnlModulo.set("Elimina");
 		}
 	}

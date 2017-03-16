@@ -16,15 +16,7 @@ public class Calendario extends JPanel{
     static int realYear, realMonth, realDay, currentYear, currentMonth;
     
     public Calendario(JPanel pane,JPanel pnlCalendar){
-        // Look and feel
-        try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-        catch (ClassNotFoundException e) {}
-        catch (InstantiationException e) {}
-        catch (IllegalAccessException e) {}
-        catch (UnsupportedLookAndFeelException e) {}
-
-        
-        
+ 
         //Crea i controlli
         lblMonth = new JLabel ("January");
         lblYear = new JLabel ("Cambia anno:");

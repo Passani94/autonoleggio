@@ -46,13 +46,11 @@ public class Login extends JFrame implements ActionListener{
 	/* Definisce il frame Login.*/
 	
 	public Login() {
-	
-        // Look and feel
         try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-        catch (ClassNotFoundException e) {}
-        catch (InstantiationException e) {}
-         catch (IllegalAccessException e) {}
         catch (UnsupportedLookAndFeelException e) {}
+         catch (ClassNotFoundException e) {}
+         catch (InstantiationException e) {}
+         catch (IllegalAccessException e) {}
         
 		setResizable(false);
 		setTitle("Autonoleggio - Login");

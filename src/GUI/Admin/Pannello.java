@@ -2,6 +2,8 @@ package GUI.Admin;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -22,6 +24,11 @@ public class Pannello extends JFrame implements ActionListener{
 	public Pannello(String user) {
 		Username = user;
 		try {
+			try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+	        catch (ClassNotFoundException e) {}
+	        catch (InstantiationException e) {}
+	        catch (IllegalAccessException e) {}
+	        catch (UnsupportedLookAndFeelException e) {}
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.menu();
