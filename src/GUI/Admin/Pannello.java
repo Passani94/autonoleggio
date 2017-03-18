@@ -17,7 +17,8 @@ public class Pannello extends JFrame implements ActionListener{
 	public JPanel contentPane = new JPanel();
 	private final JMenuBar menuBar = new JMenuBar();
 	private JMenuItem mntmHome = new JMenuItem("Home");
-	private JMenuItem mntmOperatore = new JMenuItem("Operatore");
+	private JMenuItem mntmFlotta = new JMenuItem("Pannello Flotta");
+	private JMenuItem mntmOperatore = new JMenuItem("Pannello Operatore");
 
 	/* Crea il frame Pannello.*/
 	
@@ -32,7 +33,6 @@ public class Pannello extends JFrame implements ActionListener{
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.menu();
-			this.setTitle("Autonoleggio - Pannello");
 			this.setBounds(100, 100, 800, 600);
 			this.setLocationRelativeTo(null);
 			Home home = new Home(this);
@@ -49,7 +49,7 @@ public class Pannello extends JFrame implements ActionListener{
 		JMenu mnHome = new JMenu("Home");
 		menuBar.add(mnHome);
 		
-		mntmHome.addActionListener(this);  /* Action Listener per il menu/Operatore.*/
+		mntmHome.addActionListener(this);  /* Action Listener per il menu/Home.*/
 		mnHome.add(mntmHome);
 		
 		JMenu mnCliente = new JMenu("Cliente");
@@ -60,6 +60,9 @@ public class Pannello extends JFrame implements ActionListener{
 		
 		JMenu mnFlotta = new JMenu("Flotta");
 		menuBar.add(mnFlotta);
+		
+		mntmFlotta.addActionListener(this);  /* Action Listener per il menu/Flotta.*/
+		mnFlotta.add(mntmFlotta);
 		
 		JMenu mnOperatore = new JMenu("Operatore");
 		menuBar.add(mnOperatore);
@@ -75,10 +78,15 @@ public class Pannello extends JFrame implements ActionListener{
 			getContentPane().removeAll();
 			Home op = new Home(this);
 			getContentPane().revalidate();
-			}
+		}
 		else if(mntmOperatore == e.getSource()){
 			getContentPane().removeAll();
 			Operatore op = new Operatore(this);
+			getContentPane().revalidate();
+		}
+		else if(mntmFlotta == e.getSource()){
+			getContentPane().removeAll();
+			Flotta op = new Flotta(this);
 			getContentPane().revalidate();
 		}
 	}

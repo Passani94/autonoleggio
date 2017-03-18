@@ -21,7 +21,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 
 
-public class ModuloOp extends JPanel implements ActionListener{
+public class ModuloFl extends JPanel implements ActionListener{
 
 	private JTable tblOperatori;
 	private JTextField txtPassword;
@@ -30,14 +30,14 @@ public class ModuloOp extends JPanel implements ActionListener{
 	private JButton btnAggiungi;
 	private JButton btnElimina;
 	
-	public ModuloOp(String str){
+	public ModuloFl(String str){
 		set(str);
 	}
 
 	public void set(String str){
 		if (str == "Elenca"){
 			this.removeAll();
-			this.setBorder(BorderFactory.createTitledBorder("Elenco Operatori"));
+			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli"));
 			
 			tblOperatori = new JTable();
 			tblOperatori.setModel(new DefaultTableModel(
@@ -68,7 +68,7 @@ public class ModuloOp extends JPanel implements ActionListener{
 		}
 		else if (str == "Nuovo"){
 			this.removeAll();
-			this.setBorder(BorderFactory.createTitledBorder("Nuovo Operatore"));
+			this.setBorder(BorderFactory.createTitledBorder("Nuovo Veicolo"));
 			
 			btnAggiungi = new JButton("Aggiungi");
 			btnAggiungi.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -133,7 +133,7 @@ public class ModuloOp extends JPanel implements ActionListener{
 		}
 		else if (str == "Elimina"){
 			this.removeAll();
-			this.setBorder(BorderFactory.createTitledBorder("Elimina Operatore"));
+			this.setBorder(BorderFactory.createTitledBorder("Elimina Veicolo"));
 			
 			btnElimina = new JButton("Elimina");
 			btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -187,12 +187,12 @@ public class ModuloOp extends JPanel implements ActionListener{
 			/* Inserire cosa fa il pulsante Aggiungi*/
 			String user = txtUsername.getText();
 			String pass = txtPassword.getText();
-			JOptionPane.showMessageDialog(null , "Nuovo Operatore Aggiunto!");
+			JOptionPane.showMessageDialog(null , "Nuovo Veicolo Aggiunto!");
 			txtUsername.setText("");
 			txtPassword.setText("");
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Operatore non Aggiunto!",
+				JOptionPane.showMessageDialog(null, "Errore, Veicolo non Aggiunto!",
 					    "Errore ",
 					    JOptionPane.ERROR_MESSAGE);
 			}
@@ -201,7 +201,7 @@ public class ModuloOp extends JPanel implements ActionListener{
 			try{
 			/* Inserire cosa fa il pulsante Elimina*/
 			String user = txtUsername.getText();
-			JOptionPane.showMessageDialog(null , "Operatore Eliminato!");
+			JOptionPane.showMessageDialog(null , "Veicolo Eliminato!");
 			txtUsername.setText("");
 			} catch (Exception ex) {
 				ex.printStackTrace();

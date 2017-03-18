@@ -15,16 +15,16 @@ import java.awt.Font;
 import GUI.*;
 
 
-public class Operatore extends JPanel implements ActionListener{
+public class Flotta extends JPanel implements ActionListener{
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
-	private JButton btnNuovo = new JButton("Nuovo Operatore");
-	private JButton btnElimina = new JButton("Elimina Operatore");
-	private ModuloOp pnlModulo = new ModuloOp("Elenca");
+	private JButton btnNuovo = new JButton("Nuovo Veicolo");
+	private JButton btnElimina = new JButton("Elimina Veicolo");
+	private ModuloFl pnlModulo = new ModuloFl("Elenca");
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private Pannello frame;
 	
-	/* Modifica il contentPane Operatore.*/
+	/* Modifica il contentPane Flotta.*/
 	
 	public JPanel run(JPanel contentPane){
 		
@@ -103,9 +103,9 @@ public class Operatore extends JPanel implements ActionListener{
 	
 	/* Costruttore contentPane Operatore .*/
 	
-	public Operatore(Pannello pn) {
+	public Flotta(Pannello pn) {
 		frame = pn;
-		pn.setTitle("Autonoleggio - Operatore");
+		pn.setTitle("Autonoleggio - Flotta");
 		pn.setContentPane(this.run(pn.contentPane));
 	}
 	
