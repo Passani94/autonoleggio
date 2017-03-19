@@ -88,6 +88,9 @@ public class Login extends JFrame implements ActionListener{
 		frmtdtxtfldPassword.setFont(new Font("Arial", Font.BOLD, 14));
 		frmtdtxtfldPassword.setEditable(false);
 		frmtdtxtfldPassword.setBorder(null);
+		
+		/*Crea il Layout per il Login.*/
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)

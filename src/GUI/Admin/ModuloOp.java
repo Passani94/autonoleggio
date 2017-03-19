@@ -12,8 +12,10 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import javax.swing.GroupLayout.Alignment;
@@ -29,6 +31,9 @@ public class ModuloOp extends JPanel implements ActionListener{
 	private JFormattedTextField frmtdtxtfldPassword;
 	private JButton btnAggiungi;
 	private JButton btnElimina;
+	private JScrollPane scroll = new JScrollPane(tblOperatori);
+	
+	/* Costruttore ModuloOp */
 	
 	public ModuloOp(String str){
 		set(str);
@@ -38,7 +43,7 @@ public class ModuloOp extends JPanel implements ActionListener{
 		if (str == "Elenca"){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Operatori"));
-			
+
 			tblOperatori = new JTable();
 			tblOperatori.setModel(new DefaultTableModel(
 				new Object[][] {
@@ -48,21 +53,26 @@ public class ModuloOp extends JPanel implements ActionListener{
 				}
 			));
 			
+			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scroll.setViewportView(tblOperatori);
+			
+			/* Crea il Layout per l'elenco degli Operatori. */
+			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
-				gl_contentPane.createParallelGroup(Alignment.TRAILING)
-					.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-						.addGap(64)
-						.addComponent(tblOperatori, GroupLayout.PREFERRED_SIZE, 360, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(66, Short.MAX_VALUE))
-			);
-			gl_contentPane.setVerticalGroup(
-				gl_contentPane.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_contentPane.createSequentialGroup()
-						.addGap(35)
-						.addComponent(tblOperatori, GroupLayout.PREFERRED_SIZE, 307, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(33, Short.MAX_VALUE))
-			);
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(64)
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 360, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(66, Short.MAX_VALUE))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(35)
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 307, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(307, Short.MAX_VALUE))
+				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
@@ -96,6 +106,9 @@ public class ModuloOp extends JPanel implements ActionListener{
 			frmtdtxtfldPassword.setEditable(false);
 			frmtdtxtfldPassword.setBorder(null);
 			GroupLayout gl_contentPane = new GroupLayout(this);
+			
+			/* Crea il Layout per un nuovo Operatore. */
+			
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -150,6 +163,8 @@ public class ModuloOp extends JPanel implements ActionListener{
 			frmtdtxtUsername.setFont(new Font("Arial", Font.BOLD, 14));
 			frmtdtxtUsername.setEditable(false);
 			frmtdtxtUsername.setText("Username");
+			
+			/* Crea il Layout per eleminare un Operatore. */
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(

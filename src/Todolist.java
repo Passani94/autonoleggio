@@ -7,7 +7,8 @@ public class Todolist {
 	 * 	Creare interfaccia Operatore
 	 * 	Completare Home Admin
 	 * 	Completare pulsanti nel ModuloOp
-	 * Completare pulsanti nel ModuloFl
+	 *  Completare pulsanti nel ModuloFl
 	 * 	Scrivere codice per tutte le possibili eccezioni 	
+	 * 	Scrivere codice per tutte le query possibili
 	*/
 }
