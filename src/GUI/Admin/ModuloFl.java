@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -25,11 +27,10 @@ import javax.swing.table.DefaultTableModel;
 public class ModuloFl extends JPanel implements ActionListener{
 
 	private JTable tblOperatori;
-	private JTextField txtPassword;
-	private JTextField txtUsername;
 	private JButton btnAggiungi;
 	private JButton btnElimina;
 	private JButton btnModifica;
+	private JButton btnCerca;
 	private JScrollPane scroll = new JScrollPane(tblOperatori);
 	private JTextField txtTipologia;
 	private JTextField txtNome;
@@ -38,7 +39,16 @@ public class ModuloFl extends JPanel implements ActionListener{
 	private JTextField txtAlimentazione;
 	private JTextField txtKm;
 	private JTextField txtTarga;
+	private JTextField txtDimensioni;
 	private JFormattedTextField frmtdtxtfldTipologia;
+	private JFormattedTextField frmtdtxtfldImma2;
+	private JFormattedTextField frmtdtxtfldBollo2;
+	private JFormattedTextField frmtdtxtfldTagliando2;
+	private JFormattedTextField frmtdtxtfldAssicurazione2;
+	private JFormattedTextField frmtdtxtfldOrmeggio2;
+	private JFormattedTextField frmtdtxtfldAlaggio2;
+	
+	/* Costruttore ModuloFl */
 	
 	public ModuloFl(String str){
 		set(str);
@@ -54,11 +64,13 @@ public class ModuloFl extends JPanel implements ActionListener{
 				new Object[][] {
 				},
 				new String[] {
-					"Operatore", "Password"
+					"Targa", "Tipologia","Nome","Disponibilità","Marca","Alimentazione","Km Effettuati","Dimensioni","Data Immatricolazione","Data Scadenza Bollo","Data Scadenza Tagliando", "Data Scadenza Assicurazione","Data Scadenza Ormeggio","Data Scadenza Alaggio"
 				}
 			));
+			tblOperatori.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			
 			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 			scroll.setViewportView(tblOperatori);
 			
 			/* Crea il Layout per l'elenco dei Veicoli. */
@@ -87,10 +99,10 @@ public class ModuloFl extends JPanel implements ActionListener{
 			
 			btnAggiungi = new JButton("Aggiungi");
 			btnAggiungi.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnAggiungi.addActionListener(this);	/* Action Listener per il bottone Aggiungi.*/
 			
 			txtTarga = new JTextField();
 			txtTarga.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtTarga.setColumns(10);
 			
 			JFormattedTextField frmtdtxtTarga = new JFormattedTextField();
 			frmtdtxtTarga.setHorizontalAlignment(SwingConstants.CENTER);
@@ -110,11 +122,9 @@ public class ModuloFl extends JPanel implements ActionListener{
 		
 			txtTipologia = new JTextField();
 			txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtTipologia.setColumns(10);
 		
 			txtNome = new JTextField();
 			txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtNome.setColumns(10);
 		
 			JFormattedTextField frmtdtxtfldNome = new JFormattedTextField();
 			frmtdtxtfldNome.setText("Nome*");
@@ -125,7 +135,7 @@ public class ModuloFl extends JPanel implements ActionListener{
 			frmtdtxtfldNome.setBorder(null);
 		
 			JFormattedTextField frmtdtxtfldDisponibilita = new JFormattedTextField();
-			frmtdtxtfldDisponibilita.setText("Disponibilit\u00E0*");
+			frmtdtxtfldDisponibilita.setText("Disponibilit\u00E0(si/no)*");
 			frmtdtxtfldDisponibilita.setHorizontalAlignment(SwingConstants.CENTER);
 			frmtdtxtfldDisponibilita.setForeground(Color.BLACK);
 			frmtdtxtfldDisponibilita.setFont(new Font("Arial", Font.BOLD, 14));
@@ -134,7 +144,6 @@ public class ModuloFl extends JPanel implements ActionListener{
 		
 			txtDisp = new JTextField();
 			txtDisp.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtDisp.setColumns(10);
 		
 			JFormattedTextField frmtdtxtfldMarca = new JFormattedTextField();
 			frmtdtxtfldMarca.setText("Marca*");
@@ -146,7 +155,6 @@ public class ModuloFl extends JPanel implements ActionListener{
 		
 			txtMarca = new JTextField();
 			txtMarca.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtMarca.setColumns(10);
 		
 			JFormattedTextField frmtdtxtfldAlimentazione = new JFormattedTextField();
 			frmtdtxtfldAlimentazione.setText("Alimentazione*");
@@ -158,7 +166,6 @@ public class ModuloFl extends JPanel implements ActionListener{
 		
 			txtAlimentazione = new JTextField();
 			txtAlimentazione.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtAlimentazione.setColumns(10);
 		
 			JFormattedTextField frmtdtxtfldKm = new JFormattedTextField();
 			frmtdtxtfldKm.setText("Km Effettuati*");
@@ -170,7 +177,17 @@ public class ModuloFl extends JPanel implements ActionListener{
 		
 			txtKm = new JTextField();
 			txtKm.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtKm.setColumns(10);
+			
+			JFormattedTextField frmtdtxtfldDimnesioni = new JFormattedTextField();
+			frmtdtxtfldDimnesioni.setText("Dimensionii*");
+			frmtdtxtfldDimnesioni.setHorizontalAlignment(SwingConstants.CENTER);
+			frmtdtxtfldDimnesioni.setForeground(Color.BLACK);
+			frmtdtxtfldDimnesioni.setFont(new Font("Arial", Font.BOLD, 14));
+			frmtdtxtfldDimnesioni.setEditable(false);
+			frmtdtxtfldDimnesioni.setBorder(null);
+			
+			txtDimensioni = new JTextField();
+			txtDimensioni.setFont(new Font("Arial", Font.PLAIN, 12));
 			
 			JFormattedTextField frmtdtxtfldImma = new JFormattedTextField();
 			frmtdtxtfldImma.setText("Data Immatricolazione");
@@ -228,20 +245,48 @@ public class ModuloFl extends JPanel implements ActionListener{
 			frmtdtxtfldMex.setEditable(false);
 			frmtdtxtfldMex.setBorder(null);
 			
+			DateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+			
+			frmtdtxtfldImma2 = new JFormattedTextField(dateformat);
+			frmtdtxtfldImma2.setFont(new Font("Arial", Font.PLAIN, 12));
+			frmtdtxtfldImma2.setColumns(10);
+			frmtdtxtfldImma2.setText("aaaa/mm/gg");
+			
+			frmtdtxtfldBollo2 = new JFormattedTextField(dateformat);
+			frmtdtxtfldBollo2.setFont(new Font("Arial", Font.PLAIN, 12));
+			frmtdtxtfldBollo2.setColumns(10);
+			frmtdtxtfldBollo2.setText("aaaa/mm/gg");
+			
+			frmtdtxtfldTagliando2 = new JFormattedTextField(dateformat);
+			frmtdtxtfldTagliando2.setFont(new Font("Arial", Font.PLAIN, 12));
+			frmtdtxtfldTagliando2.setColumns(10);
+			frmtdtxtfldTagliando2.setText("aaaa/mm/gg");
+			
+			frmtdtxtfldAssicurazione2 = new JFormattedTextField(dateformat);
+			frmtdtxtfldAssicurazione2.setFont(new Font("Arial", Font.PLAIN, 12));
+			frmtdtxtfldAssicurazione2.setColumns(10);
+			frmtdtxtfldAssicurazione2.setText("aaaa/mm/gg");
+			
+			frmtdtxtfldOrmeggio2 = new JFormattedTextField(dateformat);
+			frmtdtxtfldOrmeggio2.setFont(new Font("Arial", Font.PLAIN, 12));
+			frmtdtxtfldOrmeggio2.setColumns(10);
+			frmtdtxtfldOrmeggio2.setText("aaaa/mm/gg");
+			
+			frmtdtxtfldAlaggio2 = new JFormattedTextField(dateformat);
+			frmtdtxtfldAlaggio2.setFont(new Font("Arial", Font.PLAIN, 12));
+			frmtdtxtfldAlaggio2.setColumns(10);
+			frmtdtxtfldAlaggio2.setText("aaaa/mm/gg");
+			
 			/* Crea il Layout per un nuovo Veicolo. */
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
-					gl_contentPane.createParallelGroup(Alignment.TRAILING)
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(27)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addComponent(frmtdtxtfldKm, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-											.addGap(91)
-											.addComponent(txtKm, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
 										.addGroup(gl_contentPane.createSequentialGroup()
 											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 												.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -259,24 +304,40 @@ public class ModuloFl extends JPanel implements ActionListener{
 												.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 												.addComponent(txtDisp, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 												.addComponent(txtMarca, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtAlimentazione, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))))
+												.addComponent(txtAlimentazione, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addComponent(frmtdtxtfldKm, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+											.addGap(91)
+											.addComponent(txtKm, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
 									.addGap(61))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(frmtdtxtfldImma, Alignment.LEADING)
-										.addComponent(frmtdtxtfldBollo, Alignment.LEADING)
-										.addComponent(frmtdtxtfldTagliando, Alignment.LEADING)
-										.addComponent(frmtdtxtfldAlaggio, Alignment.LEADING)
-										.addComponent(frmtdtxtfldOrmeggio, Alignment.LEADING)
-										.addComponent(frmtdtxtfldAssicurazione, Alignment.LEADING))
-									.addContainerGap())
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(frmtdtxtfldMex, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+											.addGroup(gl_contentPane.createSequentialGroup()
+												.addGap(305)
+												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+													.addComponent(frmtdtxtfldImma2)
+													.addComponent(frmtdtxtfldBollo2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+													.addComponent(frmtdtxtfldTagliando2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+													.addComponent(frmtdtxtfldAssicurazione2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+													.addComponent(frmtdtxtfldOrmeggio2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+													.addComponent(frmtdtxtfldAlaggio2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+												.addComponent(frmtdtxtfldImma, Alignment.LEADING)
+												.addComponent(frmtdtxtfldBollo, Alignment.LEADING)
+												.addComponent(frmtdtxtfldTagliando, Alignment.LEADING)
+												.addComponent(frmtdtxtfldAlaggio, Alignment.LEADING)
+												.addComponent(frmtdtxtfldOrmeggio, Alignment.LEADING)
+												.addComponent(frmtdtxtfldAssicurazione, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+											.addComponent(frmtdtxtfldMex, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)
+											.addGroup(gl_contentPane.createSequentialGroup()
+												.addGap(193)
+												.addComponent(btnAggiungi)))
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addComponent(frmtdtxtfldDimnesioni, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
+											.addGap(91)
+											.addComponent(txtDimensioni, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
 									.addContainerGap())))
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(220)
-							.addComponent(btnAggiungi)
-							.addContainerGap(241, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -310,22 +371,40 @@ public class ModuloFl extends JPanel implements ActionListener{
 								.addComponent(frmtdtxtfldKm, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtKm, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addComponent(frmtdtxtfldImma, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(2)
+									.addComponent(frmtdtxtfldDimnesioni, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtDimensioni, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addComponent(frmtdtxtfldBollo, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldImma, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(frmtdtxtfldImma2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addComponent(frmtdtxtfldTagliando, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldBollo, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(frmtdtxtfldBollo2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addComponent(frmtdtxtfldAssicurazione, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldTagliando, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(frmtdtxtfldTagliando2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addComponent(frmtdtxtfldOrmeggio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldAssicurazione, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(frmtdtxtfldAssicurazione2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addComponent(frmtdtxtfldAlaggio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldOrmeggio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(frmtdtxtfldOrmeggio2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldAlaggio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(frmtdtxtfldAlaggio2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addComponent(frmtdtxtfldMex, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 							.addGap(53)
 							.addComponent(btnAggiungi, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(56, Short.MAX_VALUE))
+							.addContainerGap(50, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
@@ -334,21 +413,21 @@ public class ModuloFl extends JPanel implements ActionListener{
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elimina Veicolo"));
 			
-			btnElimina = new JButton("Elimina");
+			btnElimina = new JButton("Elimina Veicolo");
 			btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnElimina.addActionListener(this);	/* Action Listener per il bottone Elimina.*/
 			
-			txtUsername = new JTextField();
-			txtUsername.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtUsername.setColumns(10);
+			txtTarga = new JTextField();
+			txtTarga.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtTarga.setColumns(10);
 			
-			JFormattedTextField frmtdtxtUsername = new JFormattedTextField();
-			frmtdtxtUsername.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtUsername.setBorder(null);
-			frmtdtxtUsername.setForeground(new Color(0, 0, 0));
-			frmtdtxtUsername.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtUsername.setEditable(false);
-			frmtdtxtUsername.setText("Username");
+			JFormattedTextField frmtdtxtTarga = new JFormattedTextField();
+			frmtdtxtTarga.setHorizontalAlignment(SwingConstants.CENTER);
+			frmtdtxtTarga.setBorder(null);
+			frmtdtxtTarga.setForeground(new Color(0, 0, 0));
+			frmtdtxtTarga.setFont(new Font("Arial", Font.BOLD, 14));
+			frmtdtxtTarga.setEditable(false);
+			frmtdtxtTarga.setText("Targa Veicolo");
 			
 			/* Crea il Layout per un eliminare un Veicolo. */
 			
@@ -356,26 +435,26 @@ public class ModuloFl extends JPanel implements ActionListener{
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(27)
-							.addComponent(frmtdtxtUsername, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
-							.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-							.addGap(10))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap(188, Short.MAX_VALUE)
+							.addGap(42)
+							.addComponent(frmtdtxtTarga, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+							.addComponent(txtTarga, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+							.addGap(62))
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addGap(179)
 							.addComponent(btnElimina)
-							.addGap(169))
+							.addContainerGap(194, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(37)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(118)
+								.addComponent(frmtdtxtTarga, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtTarga, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(116)
 							.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(167, Short.MAX_VALUE))
+							.addContainerGap(169, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
@@ -384,63 +463,88 @@ public class ModuloFl extends JPanel implements ActionListener{
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Modifica Veicolo"));
 			
-			btnModifica = new JButton("Modifica");
-			btnModifica.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnModifica.addActionListener(this);	/* Action Listener per il bottone Modifica.*/
+			btnCerca = new JButton("Cerca Veicolo");
+			btnCerca.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnCerca.addActionListener(this);	/* Action Listener per il bottone Cerca.*/
 			
-			txtUsername = new JTextField();
-			txtUsername.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtUsername.setColumns(10);
+			txtTarga = new JTextField();
+			txtTarga.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JFormattedTextField frmtdtxtUsername = new JFormattedTextField();
-			frmtdtxtUsername.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtUsername.setBorder(null);
-			frmtdtxtUsername.setForeground(new Color(0, 0, 0));
-			frmtdtxtUsername.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtUsername.setEditable(false);
-			frmtdtxtUsername.setText("Username");
+			JFormattedTextField frmtdtxtTarga = new JFormattedTextField();
+			frmtdtxtTarga.setHorizontalAlignment(SwingConstants.CENTER);
+			frmtdtxtTarga.setBorder(null);
+			frmtdtxtTarga.setForeground(new Color(0, 0, 0));
+			frmtdtxtTarga.setFont(new Font("Arial", Font.BOLD, 14));
+			frmtdtxtTarga.setEditable(false);
+			frmtdtxtTarga.setText("Targa Veicolo da Modificare");
 			
 			/* Crea il Layout per modificare un Veicolo. */
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
-					gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(27)
-							.addComponent(frmtdtxtUsername, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
-							.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-							.addGap(10))
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap(188, Short.MAX_VALUE)
-							.addComponent(btnModifica)
-							.addGap(169))
+							.addGap(42)
+							.addComponent(frmtdtxtTarga, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+							.addComponent(txtTarga, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+							.addGap(39))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(191)
+							.addComponent(btnCerca)
+							.addContainerGap(190, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(37)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(118)
-							.addComponent(btnModifica, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(167, Short.MAX_VALUE))
+								.addComponent(frmtdtxtTarga, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtTarga, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(btnCerca, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(267, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
 	}
 	
+	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
+
 	public void actionPerformed(ActionEvent e){
 		if (btnAggiungi == e.getSource()){
 			try{
 			/* Inserire cosa fa il pulsante Aggiungi*/
-			String user = txtUsername.getText();
-			String pass = txtPassword.getText();
+			String Tipologia = txtTipologia.getText();
+			String Nome = txtNome.getText();
+			String Disp = txtDisp.getText();
+			String Marca = txtMarca.getText();
+			String Alimentazione = txtAlimentazione.getText();
+			String Km = txtKm.getText();
+			String Targa = txtTarga.getText();
+			String Dimensioni = txtDimensioni.getText();
+			String Imma = frmtdtxtfldImma2.getText();
+			String Bollo = frmtdtxtfldBollo2.getText();
+			String Tagliando = frmtdtxtfldTagliando2.getText();
+			String Assicurazione = frmtdtxtfldAssicurazione2.getText();
+			String Ormeggio = frmtdtxtfldOrmeggio2.getText();
+			String Alaggio = frmtdtxtfldAlaggio2.getText();
 			JOptionPane.showMessageDialog(null , "Nuovo Veicolo Aggiunto!");
-			txtUsername.setText("");
-			txtPassword.setText("");
+			txtTipologia.setText("");
+			txtNome.setText("");
+			txtDisp.setText("");
+			txtMarca.setText("");
+			txtAlimentazione.setText("");
+			txtKm.setText("");
+			txtTarga.setText("");
+			txtDimensioni.setText("");
+			frmtdtxtfldImma2.setText("aaaa/mm/gg");
+			frmtdtxtfldBollo2.setText("aaaa/mm/gg");
+			frmtdtxtfldTagliando2.setText("aaaa/mm/gg");
+			frmtdtxtfldAssicurazione2.setText("aaaa/mm/gg");
+			frmtdtxtfldOrmeggio2.setText("aaaa/mm/gg");
+			frmtdtxtfldAlaggio2.setText("aaaa/mm/gg");
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore, Veicolo non Aggiunto!",
@@ -451,11 +555,26 @@ public class ModuloFl extends JPanel implements ActionListener{
 		else if(btnElimina == e.getSource()){
 			try{
 			/* Inserire cosa fa il pulsante Elimina*/
-			String user = txtUsername.getText();
+			String targa = txtTarga.getText();
 			JOptionPane.showMessageDialog(null , "Veicolo Eliminato!");
-			txtUsername.setText("");
+			txtTarga.setText("");
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Errore, Veicolo non Eliminato!",
+					    "Errore ",
+					    JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		else if(btnCerca == e.getSource()){
+			try{
+			/* Inserire cosa fa il pulsante Cerca*/
+			String targa = txtTarga.getText();
+			txtTarga.setText("");
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Errore, Veicolo non Trovato!",
+					    "Errore ",
+					    JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

@@ -136,15 +136,15 @@ public class Flotta extends JPanel implements ActionListener{
 			pnlModulo.set("Elenca");
 		}
 		else if(btnNuovo == e.getSource()){
-			btnAggiorna.setText("Elenco Operatori");
+			btnAggiorna.setText("Elenco Veicoli");
 			pnlModulo.set("Nuovo");
 		}
 		else if(btnElimina == e.getSource()){
-			btnAggiorna.setText("Elenco Operatori");
+			btnAggiorna.setText("Elenco Veicoli");
 			pnlModulo.set("Elimina");
 		}
 		else if(btnModifica == e.getSource()){
-			btnAggiorna.setText("Elenco Operatori");
+			btnAggiorna.setText("Elenco Veicoli");
 			pnlModulo.set("Modifica");
 		}
 	}

@@ -80,7 +80,7 @@ public class ModuloOp extends JPanel implements ActionListener{
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Nuovo Operatore"));
 			
-			btnAggiungi = new JButton("Aggiungi");
+			btnAggiungi = new JButton("Aggiungi Operatore");
 			btnAggiungi.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnAggiungi.addActionListener(this);	/* Action Listener per il bottone Accedi.*/
 			
@@ -88,7 +88,6 @@ public class ModuloOp extends JPanel implements ActionListener{
 			
 			txtUsername = new JTextField();
 			txtUsername.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtUsername.setColumns(10);
 			
 			JFormattedTextField frmtdtxtUsername = new JFormattedTextField();
 			frmtdtxtUsername.setHorizontalAlignment(SwingConstants.CENTER);
@@ -148,13 +147,12 @@ public class ModuloOp extends JPanel implements ActionListener{
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elimina Operatore"));
 			
-			btnElimina = new JButton("Elimina");
+			btnElimina = new JButton("Elimina Operatore");
 			btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnElimina.addActionListener(this);	/* Action Listener per il bottone Elimina.*/
 			
 			txtUsername = new JTextField();
 			txtUsername.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtUsername.setColumns(10);
 			
 			JFormattedTextField frmtdtxtUsername = new JFormattedTextField();
 			frmtdtxtUsername.setHorizontalAlignment(SwingConstants.CENTER);
@@ -196,6 +194,8 @@ public class ModuloOp extends JPanel implements ActionListener{
 		}
 	}
 	
+	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
+	
 	public void actionPerformed(ActionEvent e){
 		if (btnAggiungi == e.getSource()){
 			try{
@@ -220,6 +220,9 @@ public class ModuloOp extends JPanel implements ActionListener{
 			txtUsername.setText("");
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Errore, Operatore non Eliminato!",
+					    "Errore ",
+					    JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
