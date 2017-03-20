@@ -64,14 +64,14 @@ public class ModuloOp extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(64)
 							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 360, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(66, Short.MAX_VALUE))
+							.addContainerGap(360, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(35)
-							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 307, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(307, Short.MAX_VALUE))
+							.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+							.addGap(50))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
