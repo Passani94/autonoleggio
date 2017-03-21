@@ -2,7 +2,6 @@ package GUI.Admin;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JMenuBar;
@@ -18,6 +17,7 @@ public class Pannello extends JFrame implements ActionListener{
 	public JPanel contentPane = new JPanel();
 	private final JMenuBar menuBar = new JMenuBar();
 	private JMenuItem mntmHome = new JMenuItem("Home");
+	private JMenuItem mntmCliente = new JMenuItem("Pannello Cliente");
 	private JMenuItem mntmFlotta = new JMenuItem("Pannello Flotta");
 	private JMenuItem mntmOperatore = new JMenuItem("Pannello Operatore");
 
@@ -56,6 +56,9 @@ public class Pannello extends JFrame implements ActionListener{
 		JMenu mnCliente = new JMenu("Cliente");
 		menuBar.add(mnCliente);
 		
+		mntmCliente.addActionListener(this);  /* Action Listener per il menu/Cliente.*/
+		mnCliente.add(mntmCliente);
+		
 		JMenu mnContratto = new JMenu("Contratto");
 		menuBar.add(mnContratto);
 		
@@ -77,7 +80,7 @@ public class Pannello extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if(mntmHome == e.getSource()){			
 			getContentPane().removeAll();
-			Home op = new Home(this);
+			Home hm = new Home(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmOperatore == e.getSource()){
@@ -87,7 +90,12 @@ public class Pannello extends JFrame implements ActionListener{
 		}
 		else if(mntmFlotta == e.getSource()){
 			getContentPane().removeAll();
-			Flotta op = new Flotta(this);
+			Flotta fl = new Flotta(this);
+			getContentPane().revalidate();
+		}
+		else if(mntmCliente == e.getSource()){
+			getContentPane().removeAll();
+			Cliente cl = new Cliente(this);
 			getContentPane().revalidate();
 		}
 	}

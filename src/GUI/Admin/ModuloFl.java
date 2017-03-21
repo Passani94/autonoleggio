@@ -26,12 +26,12 @@ import javax.swing.table.DefaultTableModel;
 
 public class ModuloFl extends JPanel implements ActionListener{
 
-	private JTable tblOperatori;
+	private JTable tblVeicoli;
 	private JButton btnAggiungi;
 	private JButton btnElimina;
 	private JButton btnModificaV;
 	private JButton btnCerca;
-	private JScrollPane scroll = new JScrollPane(tblOperatori);
+	private JScrollPane scroll = new JScrollPane(tblVeicoli);
 	private JTextField txtTipologia;
 	private JTextField txtNome;
 	private JTextField txtDisp;
@@ -60,19 +60,19 @@ public class ModuloFl extends JPanel implements ActionListener{
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli"));
 			
-			tblOperatori = new JTable();
-			tblOperatori.setModel(new DefaultTableModel(
+			tblVeicoli = new JTable();
+			tblVeicoli.setModel(new DefaultTableModel(
 				new Object[][] {
 				},
 				new String[] {
-					"Targa", "Tipologia","Nome","Disponibilità","Marca","Alimentazione","Km Effettuati","Dimensioni","Data Immatricolazione","Data Scadenza Bollo","Data Scadenza Tagliando", "Data Scadenza Assicurazione","Data Scadenza Ormeggio","Data Scadenza Alaggio"
+					"Targa", "Tipologia","Nome","Disponibilità","Marca","Alimentazione","Km Effettuati","Dimensioni","Immatricolazione","Scadenza Bollo","Scadenza Tagliando", "Scadenza Assicurazione","Scadenza Ormeggio","Scadenza Alaggio"
 				}
 			));
-			tblOperatori.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			
 			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			scroll.setViewportView(tblOperatori);
+			scroll.setViewportView(tblVeicoli);
 			
 			/* Crea il Layout per l'elenco dei Veicoli. */
 			
@@ -561,7 +561,7 @@ public class ModuloFl extends JPanel implements ActionListener{
 			txtKm.setFont(new Font("Arial", Font.PLAIN, 12));
 			
 			JFormattedTextField frmtdtxtfldDimnesioni = new JFormattedTextField();
-			frmtdtxtfldDimnesioni.setText("Dimensionii*");
+			frmtdtxtfldDimnesioni.setText("Dimensioni*");
 			frmtdtxtfldDimnesioni.setHorizontalAlignment(SwingConstants.CENTER);
 			frmtdtxtfldDimnesioni.setForeground(Color.BLACK);
 			frmtdtxtfldDimnesioni.setFont(new Font("Arial", Font.BOLD, 14));
@@ -851,7 +851,7 @@ public class ModuloFl extends JPanel implements ActionListener{
 			try{
 			/* Inserire cosa fa il pulsante Cerca*/
 			String targa = txtTarga.getText();
-			txtTarga.setText("");
+			txtTargaCerca.setEditable(false);
 			/*if veicolo trovato riempi i textfields*/
 			txtTipologia.setEditable(true);
 			txtNome.setEditable(true);
@@ -892,6 +892,8 @@ public class ModuloFl extends JPanel implements ActionListener{
 				String Ormeggio = frmtdtxtfldOrmeggio2.getText();
 				String Alaggio = frmtdtxtfldAlaggio2.getText();
 				JOptionPane.showMessageDialog(null , "Veicolo Modificato!");
+				txtTargaCerca.setText("");
+				txtTargaCerca.setEditable(true);
 				txtTipologia.setEditable(false);
 				txtNome.setEditable(false);
 				txtDisp.setEditable(false);
