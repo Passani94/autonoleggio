@@ -112,7 +112,7 @@ public class Flotta extends JPanel implements ActionListener{
 		return contentPane;
 	}
 	
-	/* Costruttore contentPane Operatore .*/
+	/* Costruttore contentPane Flotta .*/
 	
 	public Flotta(Pannello pn) {
 		frame = pn;

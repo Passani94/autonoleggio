@@ -112,7 +112,7 @@ public class Cliente extends JPanel implements ActionListener{
 		return contentPane;
 	}
 	
-	/* Costruttore contentPane Operatore .*/
+	/* Costruttore contentPane Cliente .*/
 	
 	public Cliente(Pannello pn) {
 		frame = pn;

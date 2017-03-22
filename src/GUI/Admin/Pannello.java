@@ -20,7 +20,8 @@ public class Pannello extends JFrame implements ActionListener{
 	private JMenuItem mntmCliente = new JMenuItem("Pannello Cliente");
 	private JMenuItem mntmFlotta = new JMenuItem("Pannello Flotta");
 	private JMenuItem mntmOperatore = new JMenuItem("Pannello Operatore");
-
+	private JMenuItem mntmExtra = new JMenuItem("Funzionalità Aggiuntive");
+	
 	/* Crea il frame Pannello.*/
 	
 	public Pannello(String user) {
@@ -73,6 +74,12 @@ public class Pannello extends JFrame implements ActionListener{
 		
 		mntmOperatore.addActionListener(this);  /* Action Listener per il menu/Operatore.*/
 		mnOperatore.add(mntmOperatore);
+		
+		JMenu mnExtra = new JMenu("Extra");
+		menuBar.add(mnExtra);
+		
+		mntmExtra.addActionListener(this);  /* Action Listener per il menu/Extra.*/
+		mnExtra.add(mntmExtra);
 	}
 	
 	/* Definisce le azioni da eseguire in base al menù clickato.*/
@@ -98,5 +105,10 @@ public class Pannello extends JFrame implements ActionListener{
 			Cliente cl = new Cliente(this);
 			getContentPane().revalidate();
 		}
-	}
+		else if(mntmExtra == e.getSource()){
+			getContentPane().removeAll();
+			Extra ex = new Extra(this);
+			getContentPane().revalidate();
+		}
+	}	
 }
