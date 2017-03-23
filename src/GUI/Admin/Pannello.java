@@ -18,6 +18,7 @@ public class Pannello extends JFrame implements ActionListener{
 	private final JMenuBar menuBar = new JMenuBar();
 	private JMenuItem mntmHome = new JMenuItem("Home");
 	private JMenuItem mntmCliente = new JMenuItem("Pannello Cliente");
+	private JMenuItem mntmContratto = new JMenuItem("Pannello Contratto");
 	private JMenuItem mntmFlotta = new JMenuItem("Pannello Flotta");
 	private JMenuItem mntmOperatore = new JMenuItem("Pannello Operatore");
 	private JMenuItem mntmExtra = new JMenuItem("Funzionalità Aggiuntive");
@@ -62,6 +63,9 @@ public class Pannello extends JFrame implements ActionListener{
 		
 		JMenu mnContratto = new JMenu("Contratto");
 		menuBar.add(mnContratto);
+		
+		mntmContratto.addActionListener(this);  /* Action Listener per il menu/Contratto.*/
+		mnContratto.add(mntmContratto);
 		
 		JMenu mnFlotta = new JMenu("Flotta");
 		menuBar.add(mnFlotta);
@@ -108,6 +112,11 @@ public class Pannello extends JFrame implements ActionListener{
 		else if(mntmExtra == e.getSource()){
 			getContentPane().removeAll();
 			Extra ex = new Extra(this);
+			getContentPane().revalidate();
+		}
+		else if(mntmContratto == e.getSource()){
+			getContentPane().removeAll();
+			Contratto ct = new Contratto(this);
 			getContentPane().revalidate();
 		}
 	}	

@@ -41,6 +41,8 @@ public class ModuloFl extends JPanel implements ActionListener{
 	private JTextField txtTarga;
 	private JTextField txtDimensioni;
 	private JTextField txtTargaCerca;
+	private JTextField txtBreve;
+	private JTextField txtLungo;
 	private JFormattedTextField frmtdtxtfldTipologia;
 	private JFormattedTextField frmtdtxtfldImma2;
 	private JFormattedTextField frmtdtxtfldBollo2;
@@ -278,6 +280,28 @@ public class ModuloFl extends JPanel implements ActionListener{
 			frmtdtxtfldAlaggio2.setColumns(10);
 			frmtdtxtfldAlaggio2.setText("aaaa/mm/gg");
 			
+			JFormattedTextField frmtdtxtfldBreve = new JFormattedTextField();
+			frmtdtxtfldBreve.setText("Costo Breve Termine*");
+			frmtdtxtfldBreve.setHorizontalAlignment(SwingConstants.CENTER);
+			frmtdtxtfldBreve.setForeground(Color.BLACK);
+			frmtdtxtfldBreve.setFont(new Font("Arial", Font.BOLD, 14));
+			frmtdtxtfldBreve.setEditable(false);
+			frmtdtxtfldBreve.setBorder(null);
+			
+			txtBreve = new JTextField();
+			txtBreve.setFont(new Font("Arial", Font.PLAIN, 12));
+			
+			JFormattedTextField frmtdtxtfldLungo = new JFormattedTextField();
+			frmtdtxtfldLungo.setText("Costo Lungo Termine");
+			frmtdtxtfldLungo.setHorizontalAlignment(SwingConstants.CENTER);
+			frmtdtxtfldLungo.setForeground(Color.BLACK);
+			frmtdtxtfldLungo.setFont(new Font("Arial", Font.BOLD, 14));
+			frmtdtxtfldLungo.setEditable(false);
+			frmtdtxtfldLungo.setBorder(null);
+			
+			txtLungo = new JTextField();
+			txtLungo.setFont(new Font("Arial", Font.PLAIN, 12));
+			
 			/* Crea il Layout per un nuovo Veicolo. */
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
@@ -287,58 +311,72 @@ public class ModuloFl extends JPanel implements ActionListener{
 							.addGap(27)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+									.addComponent(frmtdtxtfldLungo, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap())
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(frmtdtxtfldBreve, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+										.addContainerGap())
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-													.addComponent(frmtdtxtTarga, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-													.addComponent(frmtdtxtfldTipologia, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-													.addComponent(frmtdtxtfldNome, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-													.addComponent(frmtdtxtfldMarca)
-													.addComponent(frmtdtxtfldDisponibilita, Alignment.LEADING)
-													.addComponent(frmtdtxtfldAlimentazione, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))
-											.addGap(101)
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-												.addComponent(txtTipologia, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtTarga, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtDisp, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtMarca, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-												.addComponent(txtAlimentazione, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addComponent(frmtdtxtfldKm, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-											.addGap(91)
-											.addComponent(txtKm, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
-									.addGap(61))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(frmtdtxtfldMex, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)
+												.addGroup(gl_contentPane.createSequentialGroup()
+													.addGap(193)
+													.addComponent(btnAggiungi)))
+											.addContainerGap())
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 											.addGroup(gl_contentPane.createSequentialGroup()
-												.addGap(305)
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-													.addComponent(frmtdtxtfldImma2)
-													.addComponent(frmtdtxtfldBollo2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-													.addComponent(frmtdtxtfldTagliando2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-													.addComponent(frmtdtxtfldAssicurazione2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-													.addComponent(frmtdtxtfldOrmeggio2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-													.addComponent(frmtdtxtfldAlaggio2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-												.addComponent(frmtdtxtfldImma, Alignment.LEADING)
-												.addComponent(frmtdtxtfldBollo, Alignment.LEADING)
-												.addComponent(frmtdtxtfldTagliando, Alignment.LEADING)
-												.addComponent(frmtdtxtfldAlaggio, Alignment.LEADING)
-												.addComponent(frmtdtxtfldOrmeggio, Alignment.LEADING)
-												.addComponent(frmtdtxtfldAssicurazione, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-											.addComponent(frmtdtxtfldMex, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)
+												.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+													.addGroup(gl_contentPane.createSequentialGroup()
+														.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+															.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+																.addComponent(frmtdtxtTarga, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+																.addComponent(frmtdtxtfldTipologia, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+																.addComponent(frmtdtxtfldNome, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+															.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+																.addComponent(frmtdtxtfldMarca)
+																.addComponent(frmtdtxtfldDisponibilita, Alignment.LEADING)
+																.addComponent(frmtdtxtfldAlimentazione, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))
+														.addGap(101)
+														.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+															.addComponent(txtTipologia, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+															.addComponent(txtTarga, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+															.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+															.addComponent(txtDisp, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+															.addComponent(txtMarca, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+															.addComponent(txtAlimentazione, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
+													.addGroup(gl_contentPane.createSequentialGroup()
+														.addComponent(frmtdtxtfldKm, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+														.addGap(91)
+														.addComponent(txtKm, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
+												.addGap(61))
 											.addGroup(gl_contentPane.createSequentialGroup()
-												.addGap(193)
-												.addComponent(btnAggiungi)))
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addComponent(frmtdtxtfldDimnesioni, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
-											.addGap(91)
-											.addComponent(txtDimensioni, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
-									.addContainerGap())))
+												.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+													.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+														.addGroup(gl_contentPane.createSequentialGroup()
+															.addGap(305)
+															.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+																.addComponent(frmtdtxtfldImma2)
+																.addComponent(frmtdtxtfldBollo2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+																.addComponent(frmtdtxtfldTagliando2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+																.addComponent(frmtdtxtfldAssicurazione2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+																.addComponent(frmtdtxtfldOrmeggio2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+																.addComponent(frmtdtxtfldAlaggio2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtBreve, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtLungo, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
+														.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+															.addComponent(frmtdtxtfldImma, Alignment.LEADING)
+															.addComponent(frmtdtxtfldBollo, Alignment.LEADING)
+															.addComponent(frmtdtxtfldTagliando, Alignment.LEADING)
+															.addComponent(frmtdtxtfldAlaggio, Alignment.LEADING)
+															.addComponent(frmtdtxtfldOrmeggio, Alignment.LEADING)
+															.addComponent(frmtdtxtfldAssicurazione, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+													.addGroup(gl_contentPane.createSequentialGroup()
+														.addComponent(frmtdtxtfldDimnesioni, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
+														.addGap(91)
+														.addComponent(txtDimensioni, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
+												.addContainerGap()))))))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -402,10 +440,18 @@ public class ModuloFl extends JPanel implements ActionListener{
 								.addComponent(frmtdtxtfldAlaggio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(frmtdtxtfldAlaggio2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldBreve, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtBreve, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldLungo, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtLungo, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+							.addGap(24)
 							.addComponent(frmtdtxtfldMex, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 							.addGap(53)
 							.addComponent(btnAggiungi, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(50, Short.MAX_VALUE))
+							.addContainerGap(96, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
@@ -812,6 +858,8 @@ public class ModuloFl extends JPanel implements ActionListener{
 			String Assicurazione = frmtdtxtfldAssicurazione2.getText();
 			String Ormeggio = frmtdtxtfldOrmeggio2.getText();
 			String Alaggio = frmtdtxtfldAlaggio2.getText();
+			String Breve = txtBreve.getText();
+			String Lungo = txtLungo.getText();
 			JOptionPane.showMessageDialog(null , "Nuovo Veicolo Aggiunto!");
 			txtTipologia.setText("");
 			txtNome.setText("");
@@ -827,6 +875,8 @@ public class ModuloFl extends JPanel implements ActionListener{
 			frmtdtxtfldAssicurazione2.setText("aaaa/mm/gg");
 			frmtdtxtfldOrmeggio2.setText("aaaa/mm/gg");
 			frmtdtxtfldAlaggio2.setText("aaaa/mm/gg");
+			txtBreve.setText("");
+			txtLungo.setText("");
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore, Veicolo non Aggiunto!",
