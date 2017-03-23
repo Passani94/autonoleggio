@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import GUI.*;
+import GUI.User.PannelloU;
 
 
 public class Contratto extends JPanel implements ActionListener{
@@ -24,6 +25,9 @@ public class Contratto extends JPanel implements ActionListener{
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private Pannello frame;
+	private PannelloU frameU;
+	private String tipo;
+	private JLabel user;
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	
 	/* Modifica il contentPane Contratto.*/
@@ -52,7 +56,11 @@ public class Contratto extends JPanel implements ActionListener{
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JLabel user = new JLabel(frame.Username);
+		if (tipo=="Pn"){
+			user = new JLabel(frame.Username);}
+			else{
+			user = new JLabel(frameU.Username);
+		}
 		user.setFont(new Font("Arial", Font.PLAIN, 12));
 		user.setForeground(Color.RED);
 		
@@ -109,6 +117,16 @@ public class Contratto extends JPanel implements ActionListener{
 	
 	public Contratto(Pannello pn) {
 		frame = pn;
+		tipo="Pn";
+		pn.setTitle("Autonoleggio - Contratto");
+		pn.setContentPane(this.run(pn.contentPane));
+	}
+	
+	/* Costruttore contentPane Contratto per l'Utente.*/
+	
+	public Contratto(PannelloU pn) {
+		frameU = pn;
+		tipo="PnU";
 		pn.setTitle("Autonoleggio - Contratto");
 		pn.setContentPane(this.run(pn.contentPane));
 	}
@@ -119,7 +137,11 @@ public class Contratto extends JPanel implements ActionListener{
 		if (btnEsci == e.getSource()){
 			System.exit(0);}
 		else if(btnLogout == e.getSource()){
-			frame.dispose();
+			if (tipo=="Pn"){
+				frame.dispose();}
+				else{
+					frameU.dispose();
+			}
 			Login log = new Login();
 			log.run();
 			}

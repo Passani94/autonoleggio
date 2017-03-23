@@ -14,9 +14,11 @@ import java.awt.Color;
 import java.awt.Font;
 
 import GUI.*;
+import GUI.User.PannelloU;
 
 
 public class Cliente extends JPanel implements ActionListener{
+
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
 	private JButton btnNuovo = new JButton("Nuovo Cliente");
 	private JButton btnElimina = new JButton("Elimina Cliente");
@@ -24,8 +26,11 @@ public class Cliente extends JPanel implements ActionListener{
 	private ModuloCl pnlModulo = new ModuloCl("Elenca");
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
-	private Pannello frame;
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
+	private Pannello frame;
+	private PannelloU frameU;
+	private String tipo;
+	private JLabel user;
 	
 	/* Modifica il contentPane Cliente.*/
 	
@@ -56,7 +61,11 @@ public class Cliente extends JPanel implements ActionListener{
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JLabel user = new JLabel(frame.Username);
+		if (tipo=="Pn"){
+			user = new JLabel(frame.Username);}
+			else{
+			user = new JLabel(frameU.Username);
+		}
 		user.setFont(new Font("Arial", Font.PLAIN, 12));
 		user.setForeground(Color.RED);
 		
@@ -116,6 +125,16 @@ public class Cliente extends JPanel implements ActionListener{
 	
 	public Cliente(Pannello pn) {
 		frame = pn;
+		tipo="Pn";
+		pn.setTitle("Autonoleggio - Cliente");
+		pn.setContentPane(this.run(pn.contentPane));
+	}
+	
+	/* Costruttore contentPane Cliente per l'Utente.*/
+	
+	public Cliente(PannelloU pn) {
+		frameU = pn;
+		tipo="PnU";
 		pn.setTitle("Autonoleggio - Cliente");
 		pn.setContentPane(this.run(pn.contentPane));
 	}
@@ -126,7 +145,11 @@ public class Cliente extends JPanel implements ActionListener{
 		if (btnEsci == e.getSource()){
 			System.exit(0);}
 		else if(btnLogout == e.getSource()){
-			frame.dispose();
+			if (tipo=="Pn"){
+				frame.dispose();}
+				else{
+				frameU.dispose();
+			}
 			Login log = new Login();
 			log.run();
 			}
