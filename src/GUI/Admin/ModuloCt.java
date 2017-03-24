@@ -43,8 +43,7 @@ public class ModuloCt extends JPanel implements ActionListener{
 	private JTextField txtCognome;
 	private JTextField txtPatente;
 	private JFormattedTextField frmtdtxtfldinizio;
-	private JFormattedTextField frmtdtxtfldFine;
-	private JFormattedTextField frmtdtxtfldTipologia;
+	private JFormattedTextField	frmtdtxtfldFine;
 	private JFormattedTextField frmtdtxtfldRilasciatail2;
 	private JFormattedTextField frmtdtxtfldValida2;
 	private JFormattedTextField frmtdtxtfldInizio2;
@@ -141,95 +140,51 @@ public class ModuloCt extends JPanel implements ActionListener{
 			btnAggiungi.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnAggiungi.addActionListener(this);
 			
-			frmtdtxtfldTipologia = new JFormattedTextField();
-			frmtdtxtfldTipologia.setText("Tipologia*");
-			frmtdtxtfldTipologia.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldTipologia.setForeground(Color.BLACK);
-			frmtdtxtfldTipologia.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldTipologia.setEditable(false);
-			frmtdtxtfldTipologia.setBorder(null);
+			JLabel lblTipologia = new JLabel("Tipologia*");
+			lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtTipologia = new JTextField();
 			txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JFormattedTextField frmtdtxtflddatainizio = new JFormattedTextField();
-			frmtdtxtflddatainizio.setText("Data Inizio*");
-			frmtdtxtflddatainizio.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtflddatainizio.setForeground(Color.BLACK);
-			frmtdtxtflddatainizio.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtflddatainizio.setEditable(false);
-			frmtdtxtflddatainizio.setBorder(null);
+			JLabel lblDataInizio = new JLabel("Data Inizio*");
+			lblDataInizio.setFont(new Font("Arial", Font.BOLD, 14));
+
+			JLabel lblDataFine = new JLabel("Data Fine*");
+			lblDataFine.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			JFormattedTextField frmtdtxtflddatafine = new JFormattedTextField();
-			frmtdtxtflddatafine.setText("Data Fine*");
-			frmtdtxtflddatafine.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtflddatafine.setForeground(Color.BLACK);
-			frmtdtxtflddatafine.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtflddatafine.setEditable(false);
-			frmtdtxtflddatafine.setBorder(null);
-		
-			JFormattedTextField frmtdtxtfldcosto = new JFormattedTextField();
-			frmtdtxtfldcosto.setText("Costo Totale*");
-			frmtdtxtfldcosto.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldcosto.setForeground(Color.BLACK);
-			frmtdtxtfldcosto.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldcosto.setEditable(false);
-			frmtdtxtfldcosto.setBorder(null);
+			JLabel lblCosto = new JLabel("Costo Totale*");
+			lblCosto.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtCosto = new JTextField();
 			txtCosto.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JFormattedTextField frmtdtxtfldPagato = new JFormattedTextField();
-			frmtdtxtfldPagato.setText("Gi\u00E0 Pagato");
-			frmtdtxtfldPagato.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldPagato.setForeground(Color.BLACK);
-			frmtdtxtfldPagato.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldPagato.setEditable(false);
-			frmtdtxtfldPagato.setBorder(null);
+			JLabel lblPagato = new JLabel("Gi\u00E0 Pagato");
+			lblPagato.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtPagato = new JTextField();
 			txtPagato.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JFormattedTextField frmtdtxtfldNome = new JFormattedTextField();
-			frmtdtxtfldNome.setText("Nome*");
-			frmtdtxtfldNome.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldNome.setForeground(Color.BLACK);
-			frmtdtxtfldNome.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldNome.setEditable(false);
-			frmtdtxtfldNome.setBorder(null);
+			JLabel lblNome = new JLabel("Nome*");
+			lblNome.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtNome = new JTextField();
 			txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JFormattedTextField frmtdtxtfldCognome = new JFormattedTextField();
-			frmtdtxtfldCognome.setText("Cognome*");
-			frmtdtxtfldCognome.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldCognome.setForeground(Color.BLACK);
-			frmtdtxtfldCognome.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldCognome.setEditable(false);
-			frmtdtxtfldCognome.setBorder(null);
+			JLabel lblCognome = new JLabel("Cognome*");
+			lblCognome.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			txtCognome = new JTextField();
 			txtCognome.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JFormattedTextField frmtdtxtfldPatente = new JFormattedTextField();
-			frmtdtxtfldPatente.setText("Numero Patente*");
-			frmtdtxtfldPatente.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldPatente.setForeground(Color.BLACK);
-			frmtdtxtfldPatente.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldPatente.setEditable(false);
-			frmtdtxtfldPatente.setBorder(null);
+			JLabel lblPatente = new JLabel("Numero Patente*");
+			lblPatente.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtPatente = new JTextField();
 			txtPatente.setFont(new Font("Arial", Font.PLAIN, 12));
 						
-			JFormattedTextField frmtdtxtfldMex = new JFormattedTextField();
-			frmtdtxtfldMex.setText("Inserire tutti i campi con l'asterisco!");
-			frmtdtxtfldMex.setHorizontalAlignment(SwingConstants.LEFT);
-			frmtdtxtfldMex.setForeground(Color.RED);
-			frmtdtxtfldMex.setFont(new Font("Arial", Font.PLAIN, 14));
-			frmtdtxtfldMex.setEditable(false);
-			frmtdtxtfldMex.setBorder(null);
+			JLabel lblMex = new JLabel("Inserire tutti i campi con l'asterisco!");
+			lblMex.setForeground(Color.RED);
+			lblMex.setFont(new Font("Arial", Font.PLAIN, 14));
 			
 			DateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
 			
@@ -239,32 +194,17 @@ public class ModuloCt extends JPanel implements ActionListener{
 			frmtdtxtfldFine = new JFormattedTextField(dateformat);
 			frmtdtxtfldFine.setText("aaaa/mm/gg");
 		
-			JFormattedTextField frmtdtxtfldRilasciatada = new JFormattedTextField();
-			frmtdtxtfldRilasciatada.setText("Rilasciata da");
-			frmtdtxtfldRilasciatada.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldRilasciatada.setForeground(Color.BLACK);
-			frmtdtxtfldRilasciatada.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldRilasciatada.setEditable(false);
-			frmtdtxtfldRilasciatada.setBorder(null);
+			JLabel lblRilasciataDa = new JLabel("Rilasciata da");
+			lblRilasciataDa.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtRilasciatada = new JTextField();
 			txtRilasciatada.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JFormattedTextField frmtdtxtfldRilasciatail = new JFormattedTextField();
-			frmtdtxtfldRilasciatail.setText("Rilasciata il");
-			frmtdtxtfldRilasciatail.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldRilasciatail.setForeground(Color.BLACK);
-			frmtdtxtfldRilasciatail.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldRilasciatail.setEditable(false);
-			frmtdtxtfldRilasciatail.setBorder(null);
+			JLabel lblRilasciataIl = new JLabel("Rilasciata il");
+			lblRilasciataIl.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			JFormattedTextField frmtdtxtfldValida = new JFormattedTextField();
-			frmtdtxtfldValida.setText("Valida Fino a");
-			frmtdtxtfldValida.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldValida.setForeground(Color.BLACK);
-			frmtdtxtfldValida.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldValida.setEditable(false);
-			frmtdtxtfldValida.setBorder(null);
+			JLabel lblValida = new JLabel("Valida Fino a");
+			lblValida.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			frmtdtxtfldRilasciatail2 = new JFormattedTextField(dateformat);
 			frmtdtxtfldRilasciatail2.setText("aaaa/mm/gg");
@@ -272,21 +212,11 @@ public class ModuloCt extends JPanel implements ActionListener{
 			frmtdtxtfldValida2 = new JFormattedTextField(dateformat);
 			frmtdtxtfldValida2.setText("aaaa/mm/gg");
 		
-			JFormattedTextField frmtdtxtfldCliente = new JFormattedTextField();
-			frmtdtxtfldCliente.setText("Cliente*");
-			frmtdtxtfldCliente.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldCliente.setForeground(Color.BLACK);
-			frmtdtxtfldCliente.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldCliente.setEditable(false);
-			frmtdtxtfldCliente.setBorder(null);
+			JLabel lblCliente = new JLabel("Cliente*");
+			lblCliente.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			JFormattedTextField frmtdtxtfldVeicolo = new JFormattedTextField();
-			frmtdtxtfldVeicolo.setText("Veicolo*");
-			frmtdtxtfldVeicolo.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldVeicolo.setForeground(Color.BLACK);
-			frmtdtxtfldVeicolo.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldVeicolo.setEditable(false);
-			frmtdtxtfldVeicolo.setBorder(null);
+			JLabel lblVeicolo = new JLabel("Veicolo*");
+			lblVeicolo.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtCliente = new JTextField();
 			txtCliente.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -304,14 +234,14 @@ public class ModuloCt extends JPanel implements ActionListener{
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(frmtdtxtfldTipologia, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtflddatainizio, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldNome, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtflddatafine, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldcosto, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldPagato, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldPatente, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldCognome, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE))
+										.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblDataFine, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCosto, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblPagato, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblPatente, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCognome, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE))
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 										.addGroup(gl_contentPane.createSequentialGroup()
 											.addGap(81)
@@ -328,33 +258,33 @@ public class ModuloCt extends JPanel implements ActionListener{
 											.addComponent(frmtdtxtfldFine, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
 									.addContainerGap())
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(frmtdtxtfldRilasciatada, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblRilasciataDa, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
 									.addComponent(txtRilasciatada, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 									.addContainerGap())
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(frmtdtxtfldRilasciatail, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblRilasciataIl, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
 									.addComponent(frmtdtxtfldRilasciatail2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 									.addContainerGap())
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(frmtdtxtfldValida, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblValida, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
 									.addComponent(frmtdtxtfldValida2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 									.addContainerGap())
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(frmtdtxtfldCliente, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblCliente, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
 									.addComponent(txtCliente, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 									.addContainerGap())
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(frmtdtxtfldVeicolo, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblVeicolo, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
 									.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 									.addContainerGap())
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-										.addComponent(frmtdtxtfldMex, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblMex, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_contentPane.createSequentialGroup()
 											.addGap(190)
 											.addComponent(btnAggiungi, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
@@ -366,58 +296,58 @@ public class ModuloCt extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(29)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldTipologia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtTipologia, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtflddatainizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(frmtdtxtfldinizio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtflddatafine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDataFine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(frmtdtxtfldFine, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldcosto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCosto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtCosto, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldPagato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPagato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtPagato, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldNome, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldCognome, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCognome, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtCognome, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldPatente, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPatente, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtPatente, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldRilasciatada, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRilasciataDa, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtRilasciatada, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldRilasciatail, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRilasciataIl, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(frmtdtxtfldRilasciatail2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldValida, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblValida, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(frmtdtxtfldValida2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldCliente, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCliente, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtCliente, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldVeicolo, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblVeicolo, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(20)
-							.addComponent(frmtdtxtfldMex, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblMex, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 							.addGap(28)
 							.addComponent(btnAggiungi, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(28, Short.MAX_VALUE))
@@ -437,29 +367,14 @@ public class ModuloCt extends JPanel implements ActionListener{
 			txtVeicolo.setFont(new Font("Arial", Font.PLAIN, 12));
 			txtVeicolo.setColumns(10);
 			
-			JFormattedTextField frmtdtxtfldVeicolo = new JFormattedTextField();
-			frmtdtxtfldVeicolo.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldVeicolo.setBorder(null);
-			frmtdtxtfldVeicolo.setForeground(new Color(0, 0, 0));
-			frmtdtxtfldVeicolo.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldVeicolo.setEditable(false);
-			frmtdtxtfldVeicolo.setText("Veicolo Da Noleggiare");
+			JLabel lblVeicolo = new JLabel("Veicolo Da Noleggiare");
+			lblVeicolo.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			JFormattedTextField frmtdtxtfldInizio = new JFormattedTextField();
-			frmtdtxtfldInizio.setText("Data Inizio Noleggio");
-			frmtdtxtfldInizio.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldInizio.setForeground(Color.BLACK);
-			frmtdtxtfldInizio.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldInizio.setEditable(false);
-			frmtdtxtfldInizio.setBorder(null);
+			JLabel lblInizio = new JLabel("Data Inizio Noleggio");
+			lblInizio.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			JFormattedTextField frmtdtxtfldFine = new JFormattedTextField();
-			frmtdtxtfldFine.setText("Data Fine Noleggio");
-			frmtdtxtfldFine.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldFine.setForeground(Color.BLACK);
-			frmtdtxtfldFine.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldFine.setEditable(false);
-			frmtdtxtfldFine.setBorder(null);
+			JLabel lblFine = new JLabel("Data Fine Noleggio");
+			lblFine.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			DateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
 			
@@ -481,9 +396,9 @@ public class ModuloCt extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(30)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(frmtdtxtfldVeicolo, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtfldInizio, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtfldFine, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblVeicolo, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblInizio, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblFine, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(frmtdtxtfldFine2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
@@ -503,15 +418,15 @@ public class ModuloCt extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(37)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldVeicolo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblVeicolo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(frmtdtxtfldInizio2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldFine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblFine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(frmtdtxtfldFine2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(27)
 							.addComponent(lblPreventivo, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)

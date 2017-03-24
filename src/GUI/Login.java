@@ -1,23 +1,25 @@
 package GUI;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import GUI.Admin.Pannello;
+import GUI.User.PannelloU;
+import db.DBConnect;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.awt.Font;
-import javax.swing.JFormattedTextField;
-import java.awt.Color;
 
-import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -27,7 +29,6 @@ public class Login extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	private JPasswordField txtPassword;
 	private JTextField txtUsername;
-	private JFormattedTextField frmtdtxtfldPassword;
 	private JButton btnAccedi = new JButton("Accedi");
 	private JButton btnEsci = new JButton("Esci");
 	
@@ -73,21 +74,11 @@ public class Login extends JFrame implements ActionListener{
 		txtUsername.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtUsername.setColumns(10);
 		
-		JFormattedTextField frmtdtxtUsername = new JFormattedTextField();
-		frmtdtxtUsername.setHorizontalAlignment(SwingConstants.CENTER);
-		frmtdtxtUsername.setBorder(null);
-		frmtdtxtUsername.setForeground(new Color(0, 0, 0));
-		frmtdtxtUsername.setFont(new Font("Arial", Font.BOLD, 14));
-		frmtdtxtUsername.setEditable(false);
-		frmtdtxtUsername.setText("Username");
+		JLabel lblUsername = new JLabel("Username");
+		lblUsername.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		frmtdtxtfldPassword = new JFormattedTextField();
-		frmtdtxtfldPassword.setText("Password");
-		frmtdtxtfldPassword.setHorizontalAlignment(SwingConstants.CENTER);
-		frmtdtxtfldPassword.setForeground(Color.BLACK);
-		frmtdtxtfldPassword.setFont(new Font("Arial", Font.BOLD, 14));
-		frmtdtxtfldPassword.setEditable(false);
-		frmtdtxtfldPassword.setBorder(null);
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setFont(new Font("Arial", Font.BOLD, 14));
 		
 		/*Crea il Layout per il Login.*/
 		
@@ -100,10 +91,10 @@ public class Login extends JFrame implements ActionListener{
 							.addGap(27)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(frmtdtxtUsername, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(frmtdtxtfldPassword, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE))))
 						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 							.addContainerGap(40, Short.MAX_VALUE)
@@ -127,11 +118,11 @@ public class Login extends JFrame implements ActionListener{
 					.addGap(37)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(frmtdtxtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(54)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(frmtdtxtfldPassword, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 					.addGap(75)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
@@ -147,8 +138,31 @@ public class Login extends JFrame implements ActionListener{
 		if (btnAccedi == e.getSource()){
 			/* Inserire cosa fa il pulsante Accedi*/
 			String user = txtUsername.getText();
-			this.dispose();
-			Pannello op = new Pannello(user);
+			char[] pass = txtPassword.getPassword();
+			String pwd=String.copyValueOf(pass);
+			DBConnect log = new DBConnect("SELECT * FROM operatore WHERE ID_Operatore='" + user + "' AND Password='" + pwd + "'");
+			try {
+				log.rs.next();
+				user=log.rs.getString("ID_Operatore");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			if (log.rs!=null && user=="admin"){
+				this.dispose();
+				Pannello op = new Pannello(user);}
+				else if (log.rs!=null && user!="admin"){
+					this.dispose();
+					Pannello op = new Pannello(user);}
+					else if (log.rs==null){
+						txtUsername.setText("");
+						txtPassword.setText("");
+						user=null;
+						pass=null;
+						pwd=null;
+						JOptionPane.showMessageDialog(null, "Errore, Utente non Trovato!",
+					    "Errore ",
+						JOptionPane.ERROR_MESSAGE);
+					}
 			}
 		else if (btnEsci == e.getSource()){
 			System.exit(0); 

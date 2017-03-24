@@ -8,13 +8,12 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -40,7 +39,6 @@ public class ModuloCl extends JPanel implements ActionListener{
 	private JTextField txtEmail;
 	private JTextField txtTelefono;
 	private JTextField txtClienteCerca;
-	private JFormattedTextField frmtdtxtfldTipologia;
 	
 	/* Costruttore ModuloCl */
 	
@@ -98,21 +96,11 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtCF_PIVA = new JTextField();
 			txtCF_PIVA.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JFormattedTextField frmtdtxtid = new JFormattedTextField();
-			frmtdtxtid.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtid.setBorder(null);
-			frmtdtxtid.setForeground(new Color(0, 0, 0));
-			frmtdtxtid.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtid.setEditable(false);
-			frmtdtxtid.setText("CF o PIVA*");
+			JLabel lblid = new JLabel("CF o PIVA*");
+			lblid.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			frmtdtxtfldTipologia = new JFormattedTextField();
-			frmtdtxtfldTipologia.setText("Tipologia*");
-			frmtdtxtfldTipologia.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldTipologia.setForeground(Color.BLACK);
-			frmtdtxtfldTipologia.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldTipologia.setEditable(false);
-			frmtdtxtfldTipologia.setBorder(null);
+			JLabel lblTipologia = new JLabel("Tipologia*");
+			lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtTipologia = new JTextField();
 			txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -120,87 +108,49 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtRS = new JTextField();
 			txtRS.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JFormattedTextField frmtdtxtfldRS = new JFormattedTextField();
-			frmtdtxtfldRS.setText("Ragione Sociale*");
-			frmtdtxtfldRS.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldRS.setForeground(Color.BLACK);
-			frmtdtxtfldRS.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldRS.setEditable(false);
-			frmtdtxtfldRS.setBorder(null);
+			JLabel lblRS = new JLabel("Ragione Sociale*");
+			lblRS.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			JFormattedTextField frmtdtxtfldCAP = new JFormattedTextField();
-			frmtdtxtfldCAP.setText("CAP");
-			frmtdtxtfldCAP.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldCAP.setForeground(Color.BLACK);
-			frmtdtxtfldCAP.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldCAP.setEditable(false);
-			frmtdtxtfldCAP.setBorder(null);
+			JLabel lblCAP = new JLabel("CAP");
+			lblCAP.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtCAP = new JTextField();
 			txtCAP.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JFormattedTextField frmtdtxtfldcitta = new JFormattedTextField();
-			frmtdtxtfldcitta.setText("Città");
-			frmtdtxtfldcitta.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldcitta.setForeground(Color.BLACK);
-			frmtdtxtfldcitta.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldcitta.setEditable(false);
-			frmtdtxtfldcitta.setBorder(null);
+			JLabel lblcitta = new JLabel("Città");
+			lblcitta.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtCitta = new JTextField();
 			txtCitta.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JFormattedTextField frmtdtxtfldVia = new JFormattedTextField();
-			frmtdtxtfldVia.setText("Via");
-			frmtdtxtfldVia.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldVia.setForeground(Color.BLACK);
-			frmtdtxtfldVia.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldVia.setEditable(false);
-			frmtdtxtfldVia.setBorder(null);
+			JLabel lblVia = new JLabel("Via");
+			lblVia.setFont(new Font("Arial", Font.BOLD, 14));
+
 		
 			txtVia = new JTextField();
 			txtVia.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JFormattedTextField frmtdtxtfldNumero = new JFormattedTextField();
-			frmtdtxtfldNumero.setText("Numero");
-			frmtdtxtfldNumero.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldNumero.setForeground(Color.BLACK);
-			frmtdtxtfldNumero.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldNumero.setEditable(false);
-			frmtdtxtfldNumero.setBorder(null);
+			JLabel lblNumero = new JLabel("Numero");
+			lblNumero.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtNumero = new JTextField();
 			txtNumero.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JFormattedTextField frmtdtxtfldEmail = new JFormattedTextField();
-			frmtdtxtfldEmail.setText("Email");
-			frmtdtxtfldEmail.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldEmail.setForeground(Color.BLACK);
-			frmtdtxtfldEmail.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldEmail.setEditable(false);
-			frmtdtxtfldEmail.setBorder(null);
+			JLabel lblEmail = new JLabel("Email");
+			lblEmail.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			txtEmail = new JTextField();
 			txtEmail.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JFormattedTextField frmtdtxtfldTelefono = new JFormattedTextField();
-			frmtdtxtfldTelefono.setText("Telefono");
-			frmtdtxtfldTelefono.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldTelefono.setForeground(Color.BLACK);
-			frmtdtxtfldTelefono.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldTelefono.setEditable(false);
-			frmtdtxtfldTelefono.setBorder(null);
+			JLabel lblTelefono = new JLabel("Telefono");
+			lblTelefono.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtTelefono = new JTextField();
 			txtTelefono.setFont(new Font("Arial", Font.PLAIN, 12));
 						
-			JFormattedTextField frmtdtxtfldMex = new JFormattedTextField();
-			frmtdtxtfldMex.setText("Inserire tutti i campi con l'asterisco!");
-			frmtdtxtfldMex.setHorizontalAlignment(SwingConstants.LEFT);
-			frmtdtxtfldMex.setForeground(Color.RED);
-			frmtdtxtfldMex.setFont(new Font("Arial", Font.PLAIN, 14));
-			frmtdtxtfldMex.setEditable(false);
-			frmtdtxtfldMex.setBorder(null);
+			JLabel lblMex = new JLabel("Inserire tutti i campi con l'asterisco!");
+			lblMex.setForeground(Color.RED);
+			lblMex.setFont(new Font("Arial", Font.PLAIN, 14));
 			
 			/* Crea il Layout per un nuovo Cliente. */
 			
@@ -212,15 +162,15 @@ public class ModuloCl extends JPanel implements ActionListener{
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(frmtdtxtid, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldTipologia, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldRS, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldNumero, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldCAP, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldcitta, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldVia, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldTelefono, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldEmail, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE))
+										.addComponent(lblid, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblRS, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCAP, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblcitta, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblVia, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblTelefono, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE))
 									.addGap(81)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
@@ -233,7 +183,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 											.addComponent(txtNumero, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
 											.addComponent(txtEmail))
 										.addComponent(txtTelefono, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(frmtdtxtfldMex, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblMex, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE))
 							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(200)
@@ -245,42 +195,42 @@ public class ModuloCl extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(37)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtCF_PIVA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(21)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldTipologia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtTipologia, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldRS, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRS, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtRS, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldCAP, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCAP, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtCAP, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldcitta, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblcitta, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtCitta, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldVia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblVia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtVia, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldNumero, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtNumero, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldEmail, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldTelefono, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTelefono, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtTelefono, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addComponent(frmtdtxtfldMex, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblMex, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 							.addGap(28)
 							.addComponent(btnAggiungi, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(20, Short.MAX_VALUE))
@@ -300,13 +250,8 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtCF_PIVA.setFont(new Font("Arial", Font.PLAIN, 12));
 			txtCF_PIVA.setColumns(10);
 			
-			JFormattedTextField frmtdtxtid = new JFormattedTextField();
-			frmtdtxtid.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtid.setBorder(null);
-			frmtdtxtid.setForeground(new Color(0, 0, 0));
-			frmtdtxtid.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtid.setEditable(false);
-			frmtdtxtid.setText("CF o P.IVA");
+			JLabel lblid = new JLabel("CF o P.IVA");
+			lblid.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			/* Crea il Layout per un eliminare un Cliente. */
 			
@@ -315,7 +260,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 					gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 							.addGap(42)
-							.addComponent(frmtdtxtid, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblid, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
 							.addComponent(txtCF_PIVA, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 							.addGap(62))
@@ -329,7 +274,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(37)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtCF_PIVA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(116)
 							.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
@@ -349,13 +294,8 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtClienteCerca = new JTextField();
 			txtClienteCerca.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JFormattedTextField frmtdtxtClienteCerca = new JFormattedTextField();
-			frmtdtxtClienteCerca.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtClienteCerca.setBorder(null);
-			frmtdtxtClienteCerca.setForeground(new Color(0, 0, 0));
-			frmtdtxtClienteCerca.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtClienteCerca.setEditable(false);
-			frmtdtxtClienteCerca.setText("CF o P.IVA Cliente da Modificare");
+			JLabel lblClienteCerca = new JLabel("CF o P.IVA Cliente da Modificare");
+			lblClienteCerca.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			btnModificaC = new JButton("Modifica Cliente");
 			btnModificaC.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -364,21 +304,11 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtCF_PIVA = new JTextField();
 			txtCF_PIVA.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JFormattedTextField frmtdtxtid = new JFormattedTextField();
-			frmtdtxtid.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtid.setBorder(null);
-			frmtdtxtid.setForeground(new Color(0, 0, 0));
-			frmtdtxtid.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtid.setEditable(false);
-			frmtdtxtid.setText("CF o PIVA*");
+			JLabel lblid = new JLabel("CF o PIVA");
+			lblid.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			frmtdtxtfldTipologia = new JFormattedTextField();
-			frmtdtxtfldTipologia.setText("Tipologia*");
-			frmtdtxtfldTipologia.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldTipologia.setForeground(Color.BLACK);
-			frmtdtxtfldTipologia.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldTipologia.setEditable(false);
-			frmtdtxtfldTipologia.setBorder(null);
+			JLabel lblTipologia = new JLabel("Tipologia");
+			lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtTipologia = new JTextField();
 			txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -386,76 +316,41 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtRS = new JTextField();
 			txtRS.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JFormattedTextField frmtdtxtfldRS = new JFormattedTextField();
-			frmtdtxtfldRS.setText("Ragione Sociale*");
-			frmtdtxtfldRS.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldRS.setForeground(Color.BLACK);
-			frmtdtxtfldRS.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldRS.setEditable(false);
-			frmtdtxtfldRS.setBorder(null);
+			JLabel lblRS = new JLabel("Ragione Sociale");
+			lblRS.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			JFormattedTextField frmtdtxtfldCAP = new JFormattedTextField();
-			frmtdtxtfldCAP.setText("CAP");
-			frmtdtxtfldCAP.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldCAP.setForeground(Color.BLACK);
-			frmtdtxtfldCAP.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldCAP.setEditable(false);
-			frmtdtxtfldCAP.setBorder(null);
+			JLabel lblCAP = new JLabel("CAP");
+			lblCAP.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtCAP = new JTextField();
 			txtCAP.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JFormattedTextField frmtdtxtfldcitta = new JFormattedTextField();
-			frmtdtxtfldcitta.setText("Città");
-			frmtdtxtfldcitta.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldcitta.setForeground(Color.BLACK);
-			frmtdtxtfldcitta.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldcitta.setEditable(false);
-			frmtdtxtfldcitta.setBorder(null);
+			JLabel lblcitta = new JLabel("Città");
+			lblcitta.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtCitta = new JTextField();
 			txtCitta.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JFormattedTextField frmtdtxtfldVia = new JFormattedTextField();
-			frmtdtxtfldVia.setText("Via");
-			frmtdtxtfldVia.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldVia.setForeground(Color.BLACK);
-			frmtdtxtfldVia.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldVia.setEditable(false);
-			frmtdtxtfldVia.setBorder(null);
-		
+			JLabel lblVia = new JLabel("Via");
+			lblVia.setFont(new Font("Arial", Font.BOLD, 14));
+			
 			txtVia = new JTextField();
 			txtVia.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JFormattedTextField frmtdtxtfldNumero = new JFormattedTextField();
-			frmtdtxtfldNumero.setText("Numero");
-			frmtdtxtfldNumero.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldNumero.setForeground(Color.BLACK);
-			frmtdtxtfldNumero.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldNumero.setEditable(false);
-			frmtdtxtfldNumero.setBorder(null);
+			JLabel lblNumero = new JLabel("Numero");
+			lblNumero.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtNumero = new JTextField();
 			txtNumero.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JFormattedTextField frmtdtxtfldEmail = new JFormattedTextField();
-			frmtdtxtfldEmail.setText("Email");
-			frmtdtxtfldEmail.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldEmail.setForeground(Color.BLACK);
-			frmtdtxtfldEmail.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldEmail.setEditable(false);
-			frmtdtxtfldEmail.setBorder(null);
+			JLabel lblEmail = new JLabel("Email");
+			lblEmail.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			txtEmail = new JTextField();
 			txtEmail.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JFormattedTextField frmtdtxtfldTelefono = new JFormattedTextField();
-			frmtdtxtfldTelefono.setText("Data Immatricolazione");
-			frmtdtxtfldTelefono.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldTelefono.setForeground(Color.BLACK);
-			frmtdtxtfldTelefono.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldTelefono.setEditable(false);
-			frmtdtxtfldTelefono.setBorder(null);
+			JLabel lblTelefono = new JLabel("Telefono");
+			lblTelefono.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtTelefono = new JTextField();
 			txtTelefono.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -479,16 +374,16 @@ public class ModuloCl extends JPanel implements ActionListener{
 							.addContainerGap()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(frmtdtxtfldTelefono, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-									.addComponent(frmtdtxtfldEmail))
-								.addComponent(frmtdtxtClienteCerca, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtfldRS, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-								.addComponent(frmtdtxtfldTipologia, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-								.addComponent(frmtdtxtid, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-								.addComponent(frmtdtxtfldCAP, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtfldcitta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-								.addComponent(frmtdtxtfldVia, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-								.addComponent(frmtdtxtfldNumero, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+									.addComponent(lblTelefono, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+									.addComponent(lblEmail))
+								.addComponent(lblClienteCerca, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRS, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+								.addComponent(lblTipologia, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+								.addComponent(lblid, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+								.addComponent(lblCAP, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblcitta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+								.addComponent(lblVia, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+								.addComponent(lblNumero, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
 							.addGap(91)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(txtTelefono, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
@@ -516,45 +411,45 @@ public class ModuloCl extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(39)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtClienteCerca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblClienteCerca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtClienteCerca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addComponent(btnCerca, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addGap(37)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtCF_PIVA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(21)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldTipologia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtTipologia, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldRS, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRS, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtRS, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldCAP, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCAP, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtCAP, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldcitta, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblcitta, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtCitta, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldVia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblVia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtVia, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldNumero, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtNumero, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(20)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldEmail, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addGap(20)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldTelefono, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTelefono, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtTelefono, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(26)
 							.addComponent(btnModificaC, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)

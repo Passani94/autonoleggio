@@ -1,6 +1,5 @@
 package GUI.Admin;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -16,7 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -28,7 +26,6 @@ public class ModuloOp extends JPanel implements ActionListener{
 	private JTable tblOperatori;
 	private JTextField txtPassword;
 	private JTextField txtUsername;
-	private JFormattedTextField frmtdtxtfldPassword;
 	private JButton btnAggiungi;
 	private JButton btnElimina;
 	private JScrollPane scroll = new JScrollPane(tblOperatori);
@@ -89,21 +86,12 @@ public class ModuloOp extends JPanel implements ActionListener{
 			txtUsername = new JTextField();
 			txtUsername.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JFormattedTextField frmtdtxtUsername = new JFormattedTextField();
-			frmtdtxtUsername.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtUsername.setBorder(null);
-			frmtdtxtUsername.setForeground(new Color(0, 0, 0));
-			frmtdtxtUsername.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtUsername.setEditable(false);
-			frmtdtxtUsername.setText("Username");
+			JLabel lblUsername = new JLabel("Username");
+			lblUsername.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			frmtdtxtfldPassword = new JFormattedTextField();
-			frmtdtxtfldPassword.setText("Password");
-			frmtdtxtfldPassword.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtfldPassword.setForeground(Color.BLACK);
-			frmtdtxtfldPassword.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtfldPassword.setEditable(false);
-			frmtdtxtfldPassword.setBorder(null);
+			JLabel lblPassword = new JLabel("Password");
+			lblPassword.setFont(new Font("Arial", Font.BOLD, 14));
+
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			
 			/* Crea il Layout per un nuovo Operatore. */
@@ -113,8 +101,8 @@ public class ModuloOp extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(27)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(frmtdtxtUsername, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtfldPassword, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 								.addComponent(txtUsername, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
@@ -131,11 +119,11 @@ public class ModuloOp extends JPanel implements ActionListener{
 							.addGap(37)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(54)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtfldPassword, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 							.addGap(78)
 							.addComponent(btnAggiungi, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(133, Short.MAX_VALUE))
@@ -154,13 +142,8 @@ public class ModuloOp extends JPanel implements ActionListener{
 			txtUsername = new JTextField();
 			txtUsername.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JFormattedTextField frmtdtxtUsername = new JFormattedTextField();
-			frmtdtxtUsername.setHorizontalAlignment(SwingConstants.CENTER);
-			frmtdtxtUsername.setBorder(null);
-			frmtdtxtUsername.setForeground(new Color(0, 0, 0));
-			frmtdtxtUsername.setFont(new Font("Arial", Font.BOLD, 14));
-			frmtdtxtUsername.setEditable(false);
-			frmtdtxtUsername.setText("Username");
+			JLabel lblUsername = new JLabel("Username");
+			lblUsername.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			/* Crea il Layout per eleminare un Operatore. */
 			
@@ -169,7 +152,7 @@ public class ModuloOp extends JPanel implements ActionListener{
 					gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 							.addGap(27)
-							.addComponent(frmtdtxtUsername, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
 							.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 							.addGap(10))
@@ -184,7 +167,7 @@ public class ModuloOp extends JPanel implements ActionListener{
 							.addGap(37)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(118)
 							.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(167, Short.MAX_VALUE))
