@@ -43,7 +43,7 @@ public class Login extends JFrame implements ActionListener{
 			e.printStackTrace();
 		}
 	}
-	
+	 
 	/* Definisce il frame Login.*/
 	
 	public Login() {
