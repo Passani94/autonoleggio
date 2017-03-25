@@ -135,35 +135,43 @@ public class Login extends JFrame implements ActionListener{
 	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
 	
 	public void actionPerformed(ActionEvent e){
+		int size=0;
 		if (btnAccedi == e.getSource()){
-			/* Inserire cosa fa il pulsante Accedi*/
+			try {
 			String user = txtUsername.getText();
 			char[] pass = txtPassword.getPassword();
 			String pwd=String.copyValueOf(pass);
-			DBConnect log = new DBConnect("SELECT * FROM operatore WHERE ID_Operatore='" + user + "' AND Password='" + pwd + "'");
-			try {
-				log.rs.next();
-				user=log.rs.getString("ID_Operatore");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			if (log.rs!=null && user=="admin"){
-				this.dispose();
-				Pannello op = new Pannello(user);}
-				else if (log.rs!=null && user!="admin"){
-					this.dispose();
-					Pannello op = new Pannello(user);}
-					else if (log.rs==null){
-						txtUsername.setText("");
-						txtPassword.setText("");
-						user=null;
-						pass=null;
-						pwd=null;
-						JOptionPane.showMessageDialog(null, "Errore, Utente non Trovato!",
-					    "Errore ",
+			DBConnect log = new DBConnect("SELECT * FROM operatore WHERE ID_Operatore='" + user + "' AND Password='" + pwd + "'"); /* Si connette al DB e cerca se l'utente inserito è presente*/
+			if (log.rs.next()) size=1;	/* Se l'utente è presente il valore size va ad 1*/
+			if (user.equals("") || pwd.equals("")){	/* Se non si inserisce l'username o la password viene notificato con un errore. */
+				JOptionPane.showMessageDialog(null, "Errore, Inserisci l'Username e/o la Password!",
+						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
+				txtUsername.requestFocus();
+			}else if (size==0){	/* Se non esiste l'utente con cui si prova ad accedere viene notificato con un errore */
+				log.rs.beforeFirst();
+				txtUsername.setText("");
+				txtPassword.setText("");
+				user=null;
+				pass=null;
+				pwd=null;
+				JOptionPane.showMessageDialog(null, "Errore, Utente non Trovato!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+				txtUsername.requestFocus();
+				}
+				else if (user.equals("admin")){	/* Se l'utente esiste ed è l'admin viene avviato il pannello di controllo dell'admin */
+					this.dispose();
+					Pannello op = new Pannello(user);
 					}
+					else{	/* Se l'utente esiste ed è un operatore viene avviato il pannello di controllo dell'operatore */
+						this.dispose();
+						PannelloU op = new PannelloU(user);
+					}
+			} catch (SQLException e1) {
+			e1.printStackTrace();
 			}
+		}
 		else if (btnEsci == e.getSource()){
 			System.exit(0); 
 		}
