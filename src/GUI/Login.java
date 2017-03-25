@@ -138,7 +138,7 @@ public class Login extends JFrame implements ActionListener{
 		int size=0;
 		if (btnAccedi == e.getSource()){
 			try {
-			String user = txtUsername.getText();
+			String user = txtUsername.getText().trim();
 			char[] pass = txtPassword.getPassword();
 			String pwd=String.copyValueOf(pass);
 			DBConnect log = new DBConnect("SELECT * FROM operatore WHERE ID_Operatore='" + user + "' AND Password='" + pwd + "'"); /* Si connette al DB e cerca se l'utente inserito è presente*/

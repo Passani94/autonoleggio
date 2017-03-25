@@ -22,11 +22,11 @@ public class DBConnect{
 			st = con.prepareStatement(query);
 			rs = st.executeQuery();
 		 } catch (ClassNotFoundException e) { // 
-				JOptionPane.showMessageDialog(null, "Driver non trovato!" + e,
+				JOptionPane.showMessageDialog(null, "Driver non trovato! " + e,
 					    "Errore ",
 						JOptionPane.ERROR_MESSAGE);
 		    } catch (SQLException e) {
-		    	JOptionPane.showMessageDialog(null, "Connessione non Possibile!" + e,
+		    	JOptionPane.showMessageDialog(null, "Connessione non Possibile! " + e,
 					    "Errore ",
 						JOptionPane.ERROR_MESSAGE);
 		    }

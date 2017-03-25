@@ -9,6 +9,10 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
+import Utils.TableColumnAdjuster;
+import db.CostruisciTabella;
+import db.DBConnect;
+
 public class ModuloHmU extends JPanel{
 	
 	private JTable tblDisponibili;
@@ -16,15 +20,14 @@ public class ModuloHmU extends JPanel{
 
 	public void set(){
 		this.setBorder(BorderFactory.createTitledBorder("Mezzi Disponibili per il Noleggio"));
-
+		
+		DBConnect Disponibili = new DBConnect("SELECT * FROM veicolo WHERE disponibilita='si'");
+		
 		tblDisponibili = new JTable();
-		tblDisponibili.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Targa", "Tipologia","Nome"
-				}
-		));
+		tblDisponibili.setModel(new CostruisciTabella(Disponibili.rs).model);
+		tblDisponibili.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		TableColumnAdjuster tca = new TableColumnAdjuster(tblDisponibili);
+		tca.adjustColumns();
 		
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setViewportView(tblDisponibili);
