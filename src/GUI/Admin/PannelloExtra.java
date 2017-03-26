@@ -16,7 +16,7 @@ import java.awt.Font;
 import GUI.*;
 
 
-public class Extra extends JPanel implements ActionListener{
+public class PannelloExtra extends JPanel implements ActionListener{
 	private JButton btnScadenze = new JButton("Scadenze Varie");
 	private JButton btnStatistica = new JButton("Veicoli Pi\u00F9 Noleggiati");
 	private JButton btnMensile = new JButton("Calcola Profitto Mensile");
@@ -118,7 +118,7 @@ public class Extra extends JPanel implements ActionListener{
 	
 	/* Costruttore contentPane Extra .*/
 	
-	public Extra(Pannello pn) {
+	public PannelloExtra(Pannello pn) {
 		frame = pn;
 		pn.setTitle("Autonoleggio - Altre Funzionalità");
 		pn.setContentPane(this.run(pn.contentPane));

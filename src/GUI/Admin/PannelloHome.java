@@ -1,4 +1,4 @@
-package GUI.User;
+package GUI.Admin;
 
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -15,13 +15,13 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import GUI.*;
 import javax.swing.JLabel;
 
-public class HomeU extends JPanel implements ActionListener{
+public class PannelloHome extends JPanel implements ActionListener{
 	
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private JPanel pnlCalendar = new JPanel(null);
-	private ModuloHmU pnlModulo = new ModuloHmU();
-	private PannelloU frame;
+	private ModuloHm pnlModulo = new ModuloHm();
+	private Pannello frame;
 	
 	/* Modifica il contentPane Home.*/
 	
@@ -88,9 +88,9 @@ public class HomeU extends JPanel implements ActionListener{
 		return contentPane;
 	}
 	
-	/* Costruttore contentPane HomeU .*/
+	/* Costruttore contentPane Home .*/
 	
-	public HomeU(PannelloU pn) {
+	public PannelloHome(Pannello pn) {
 		frame = pn;
 		pn.setTitle("Autonoleggio - Home");
 		pn.setContentPane(this.run(pn.contentPane));

@@ -38,7 +38,7 @@ public class Pannello extends JFrame implements ActionListener{
 			this.menu();
 			this.setBounds(100, 100, 800, 600);
 			this.setLocationRelativeTo(null);
-			Home home = new Home(this);
+			PannelloHome home = new PannelloHome(this);
 			} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -91,32 +91,32 @@ public class Pannello extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if(mntmHome == e.getSource()){			
 			getContentPane().removeAll();
-			Home hm = new Home(this);
+			PannelloHome hm = new PannelloHome(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmOperatore == e.getSource()){
 			getContentPane().removeAll();
-			Operatore op = new Operatore(this);
+			PannelloOperatore op = new PannelloOperatore(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmFlotta == e.getSource()){
 			getContentPane().removeAll();
-			Flotta fl = new Flotta(this);
+			PannelloFlotta fl = new PannelloFlotta(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmCliente == e.getSource()){
 			getContentPane().removeAll();
-			Cliente cl = new Cliente(this);
+			PannelloCliente cl = new PannelloCliente(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmExtra == e.getSource()){
 			getContentPane().removeAll();
-			Extra ex = new Extra(this);
+			PannelloExtra ex = new PannelloExtra(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmContratto == e.getSource()){
 			getContentPane().removeAll();
-			Contratto ct = new Contratto(this);
+			PannelloContratto ct = new PannelloContratto(this);
 			getContentPane().revalidate();
 		}
 	}	

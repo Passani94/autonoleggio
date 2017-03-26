@@ -18,7 +18,7 @@ public class DBConnect{
 	public DBConnect(String query){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/autonoleggio","root","");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/autonoleggio","root","Pcmaniac_12");
 			st = con.prepareStatement(query);
 			rs = st.executeQuery();
 		 } catch (ClassNotFoundException e) { // 

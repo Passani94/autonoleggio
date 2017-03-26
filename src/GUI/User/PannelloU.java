@@ -11,8 +11,8 @@ import javax.swing.JMenu;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import GUI.Admin.Cliente;
-import GUI.Admin.Contratto;
+import GUI.Admin.PannelloCliente;
+import GUI.Admin.PannelloContratto;
 
 public class PannelloU extends JFrame implements ActionListener{
 	
@@ -38,7 +38,7 @@ public class PannelloU extends JFrame implements ActionListener{
 			this.menu();
 			this.setBounds(100, 100, 800, 600);
 			this.setLocationRelativeTo(null);
-			HomeU home = new HomeU(this);
+			PannelloHomeU home = new PannelloHomeU(this);
 			} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,17 +73,17 @@ public class PannelloU extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if(mntmHome == e.getSource()){			
 			getContentPane().removeAll();
-			HomeU hm = new HomeU(this);
+			PannelloHomeU hm = new PannelloHomeU(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmCliente == e.getSource()){
 			getContentPane().removeAll();
-			Cliente cl = new Cliente(this);
+			PannelloCliente cl = new PannelloCliente(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmContratto == e.getSource()){
 			getContentPane().removeAll();
-			Contratto ct = new Contratto(this);
+			PannelloContratto ct = new PannelloContratto(this);
 			getContentPane().revalidate();
 		}
 	}	

@@ -14,20 +14,23 @@ import java.awt.Color;
 import java.awt.Font;
 
 import GUI.*;
+import GUI.User.PannelloU;
 
 
-public class Flotta extends JPanel implements ActionListener{
+public class PannelloContratto extends JPanel implements ActionListener{
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
-	private JButton btnNuovo = new JButton("Nuovo Veicolo");
-	private JButton btnElimina = new JButton("Elimina Veicolo");
-	private JButton btnModifica = new JButton("Modifica Veicolo");
-	private ModuloFl pnlModulo = new ModuloFl("Elenca");
+	private JButton btnNuovo = new JButton("Nuovo Contratto");
+	private JButton btnPreventivo = new JButton("Calcola Preventivo");
+	private ModuloCt pnlModulo = new ModuloCt("Elenca");
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private Pannello frame;
+	private PannelloU frameU;
+	private String tipo;
+	private JLabel user;
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	
-	/* Modifica il contentPane Flotta.*/
+	/* Modifica il contentPane Contratto.*/
 	
 	public JPanel run(JPanel contentPane){
 		
@@ -41,11 +44,8 @@ public class Flotta extends JPanel implements ActionListener{
 		btnNuovo.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnNuovo.addActionListener(this); /* Action Listener per il bottone Nuovo.*/
 		
-		btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnElimina.addActionListener(this); /* Action Listener per il bottone Elimina.*/
-		
-		btnModifica.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnModifica.addActionListener(this); /* Action Listener per il bottone Modifica.*/
+		btnPreventivo.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnPreventivo.addActionListener(this);/* Action Listener per il bottone Modifica.*/
 		
 		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnEsci.addActionListener(this); /* Action Listener per il bottone Esci.*/
@@ -56,7 +56,11 @@ public class Flotta extends JPanel implements ActionListener{
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JLabel user = new JLabel(frame.Username);
+		if (tipo=="Pn"){
+			user = new JLabel(frame.Username);}
+			else{
+			user = new JLabel(frameU.Username);
+		}
 		user.setFont(new Font("Arial", Font.PLAIN, 12));
 		user.setForeground(Color.RED);
 		
@@ -71,12 +75,10 @@ public class Flotta extends JPanel implements ActionListener{
 							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 								.addComponent(btnNuovo)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnModifica, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnPreventivo, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+								.addPreferredGap(ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
 								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(user, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))
@@ -94,8 +96,7 @@ public class Flotta extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnModifica, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnPreventivo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(user, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
@@ -112,11 +113,21 @@ public class Flotta extends JPanel implements ActionListener{
 		return contentPane;
 	}
 	
-	/* Costruttore contentPane Flotta .*/
+	/* Costruttore contentPane Contratto .*/
 	
-	public Flotta(Pannello pn) {
+	public PannelloContratto(Pannello pn) {
 		frame = pn;
-		pn.setTitle("Autonoleggio - Flotta");
+		tipo="Pn";
+		pn.setTitle("Autonoleggio - Contratto");
+		pn.setContentPane(this.run(pn.contentPane));
+	}
+	
+	/* Costruttore contentPane Contratto per l'Utente.*/
+	
+	public PannelloContratto(PannelloU pn) {
+		frameU = pn;
+		tipo="PnU";
+		pn.setTitle("Autonoleggio - Contratto");
 		pn.setContentPane(this.run(pn.contentPane));
 	}
 	
@@ -126,7 +137,11 @@ public class Flotta extends JPanel implements ActionListener{
 		if (btnEsci == e.getSource()){
 			System.exit(0);}
 		else if(btnLogout == e.getSource()){
-			frame.dispose();
+			if (tipo=="Pn"){
+				frame.dispose();}
+				else{
+					frameU.dispose();
+			}
 			Login log = new Login();
 			log.run();
 			}
@@ -135,16 +150,12 @@ public class Flotta extends JPanel implements ActionListener{
 			pnlModulo.set("Elenca");
 		}
 		else if(btnNuovo == e.getSource()){
-			btnAggiorna.setText("Elenco Veicoli");
+			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Nuovo");
 		}
-		else if(btnElimina == e.getSource()){
-			btnAggiorna.setText("Elenco Veicoli");
-			pnlModulo.set("Elimina");
-		}
-		else if(btnModifica == e.getSource()){
-			btnAggiorna.setText("Elenco Veicoli");
-			pnlModulo.set("Modifica");
+		else if(btnPreventivo == e.getSource()){
+			btnAggiorna.setText("Elenco Contratti");
+			pnlModulo.set("Preventivo");
 		}
 	}
 }

@@ -7,10 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.table.DefaultTableModel;
 
 import Utils.TableColumnAdjuster;
-import db.CostruisciTabella;
+import Utils.CostruisciTabella;
 import db.DBConnect;
 
 public class ModuloHmU extends JPanel{

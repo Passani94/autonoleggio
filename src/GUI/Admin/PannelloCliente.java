@@ -17,7 +17,7 @@ import GUI.*;
 import GUI.User.PannelloU;
 
 
-public class Cliente extends JPanel implements ActionListener{
+public class PannelloCliente extends JPanel implements ActionListener{
 
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
 	private JButton btnNuovo = new JButton("Nuovo Cliente");
@@ -123,7 +123,7 @@ public class Cliente extends JPanel implements ActionListener{
 	
 	/* Costruttore contentPane Cliente .*/
 	
-	public Cliente(Pannello pn) {
+	public PannelloCliente(Pannello pn) {
 		frame = pn;
 		tipo="Pn";
 		pn.setTitle("Autonoleggio - Cliente");
@@ -132,7 +132,7 @@ public class Cliente extends JPanel implements ActionListener{
 	
 	/* Costruttore contentPane Cliente per l'Utente.*/
 	
-	public Cliente(PannelloU pn) {
+	public PannelloCliente(PannelloU pn) {
 		frameU = pn;
 		tipo="PnU";
 		pn.setTitle("Autonoleggio - Cliente");

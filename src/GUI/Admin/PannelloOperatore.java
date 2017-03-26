@@ -1,7 +1,6 @@
 package GUI.Admin;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -14,38 +13,29 @@ import java.awt.Color;
 import java.awt.Font;
 
 import GUI.*;
-import GUI.User.PannelloU;
 
 
-public class Contratto extends JPanel implements ActionListener{
+public class PannelloOperatore extends JPanel implements ActionListener{
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
-	private JButton btnNuovo = new JButton("Nuovo Contratto");
-	private JButton btnPreventivo = new JButton("Calcola Preventivo");
-	private ModuloCt pnlModulo = new ModuloCt("Elenca");
+	private JButton btnNuovo = new JButton("Nuovo Operatore");
+	private JButton btnElimina = new JButton("Elimina Operatore");
+	private ModuloOp pnlModulo = new ModuloOp("Elenca");
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private Pannello frame;
-	private PannelloU frameU;
-	private String tipo;
-	private JLabel user;
-	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	
-	/* Modifica il contentPane Contratto.*/
+	/* Modifica il contentPane Operatore.*/
 	
 	public JPanel run(JPanel contentPane){
 		
-		scrollPane.setViewportView(pnlModulo);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	        
 		btnAggiorna.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAggiorna.addActionListener(this); /* Action Listener per il bottone Aggiorna.*/
 		
 		btnNuovo.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnNuovo.addActionListener(this); /* Action Listener per il bottone Nuovo.*/
 		
-		btnPreventivo.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnPreventivo.addActionListener(this);/* Action Listener per il bottone Modifica.*/
+		btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnElimina.addActionListener(this); /* Action Listener per il bottone Elimina.*/
 		
 		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnEsci.addActionListener(this); /* Action Listener per il bottone Esci.*/
@@ -56,11 +46,7 @@ public class Contratto extends JPanel implements ActionListener{
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		if (tipo=="Pn"){
-			user = new JLabel(frame.Username);}
-			else{
-			user = new JLabel(frameU.Username);
-		}
+		JLabel user = new JLabel(frame.Username);
 		user.setFont(new Font("Arial", Font.PLAIN, 12));
 		user.setForeground(Color.RED);
 		
@@ -72,37 +58,39 @@ public class Contratto extends JPanel implements ActionListener{
 					.addGroup(gl_contentPane.createSequentialGroup()
 						.addContainerGap()
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createSequentialGroup()
 								.addComponent(btnNuovo)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnPreventivo, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
+								.addPreferredGap(ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
 								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(user, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))
+								.addComponent(user, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap())
+							.addComponent(pnlModulo, GroupLayout.PREFERRED_SIZE, 506, GroupLayout.PREFERRED_SIZE)
 							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 								.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 506, GroupLayout.PREFERRED_SIZE))
-						.addContainerGap())
+								.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap())))
 			);
 			gl_contentPane.setVerticalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_contentPane.createSequentialGroup()
 						.addContainerGap()
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnPreventivo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+									.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(pnlModulo, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(user, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
 						.addGap(15)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 							.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
@@ -113,21 +101,11 @@ public class Contratto extends JPanel implements ActionListener{
 		return contentPane;
 	}
 	
-	/* Costruttore contentPane Contratto .*/
+	/* Costruttore contentPane Operatore .*/
 	
-	public Contratto(Pannello pn) {
+	public PannelloOperatore(Pannello pn) {
 		frame = pn;
-		tipo="Pn";
-		pn.setTitle("Autonoleggio - Contratto");
-		pn.setContentPane(this.run(pn.contentPane));
-	}
-	
-	/* Costruttore contentPane Contratto per l'Utente.*/
-	
-	public Contratto(PannelloU pn) {
-		frameU = pn;
-		tipo="PnU";
-		pn.setTitle("Autonoleggio - Contratto");
+		pn.setTitle("Autonoleggio - Operatore");
 		pn.setContentPane(this.run(pn.contentPane));
 	}
 	
@@ -137,11 +115,7 @@ public class Contratto extends JPanel implements ActionListener{
 		if (btnEsci == e.getSource()){
 			System.exit(0);}
 		else if(btnLogout == e.getSource()){
-			if (tipo=="Pn"){
-				frame.dispose();}
-				else{
-					frameU.dispose();
-			}
+			frame.dispose();
 			Login log = new Login();
 			log.run();
 			}
@@ -150,12 +124,12 @@ public class Contratto extends JPanel implements ActionListener{
 			pnlModulo.set("Elenca");
 		}
 		else if(btnNuovo == e.getSource()){
-			btnAggiorna.setText("Elenco Contratti");
+			btnAggiorna.setText("Elenco Operatori");
 			pnlModulo.set("Nuovo");
 		}
-		else if(btnPreventivo == e.getSource()){
-			btnAggiorna.setText("Elenco Contratti");
-			pnlModulo.set("Preventivo");
+		else if(btnElimina == e.getSource()){
+			btnAggiorna.setText("Elenco Operatori");
+			pnlModulo.set("Elimina");
 		}
 	}
 }
