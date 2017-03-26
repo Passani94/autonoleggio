@@ -20,7 +20,7 @@ public class ModuloHmU extends JPanel{
 	public void set(){
 		this.setBorder(BorderFactory.createTitledBorder("Mezzi Disponibili per il Noleggio"));
 		
-		DBConnect Disponibili = new DBConnect("SELECT * FROM veicolo WHERE disponibilita='si'");
+		DBConnect Disponibili = new DBConnect("SELECT * FROM veicolo WHERE disponibilita='si'","select");
 		
 		tblDisponibili = new JTable();
 		tblDisponibili.setModel(new CostruisciTabella(Disponibili.rs).model);

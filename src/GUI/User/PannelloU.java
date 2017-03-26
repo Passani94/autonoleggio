@@ -36,7 +36,7 @@ public class PannelloU extends JFrame implements ActionListener{
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.menu();
-			this.setBounds(100, 100, 800, 600);
+			this.setBounds(100, 100, 1000, 800);
 			this.setLocationRelativeTo(null);
 			PannelloHomeU home = new PannelloHomeU(this);
 			} catch (Exception e) {

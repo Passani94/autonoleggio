@@ -20,6 +20,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
+import Entità.Cliente;
+
 
 public class ModuloCl extends JPanel implements ActionListener{
 
@@ -29,16 +31,17 @@ public class ModuloCl extends JPanel implements ActionListener{
 	private JButton btnModificaC;
 	private JButton btnCerca;
 	private JScrollPane scroll = new JScrollPane(tblClienti);
-	private JTextField txtTipologia;
-	private JTextField txtRS;
-	private JTextField txtCAP;
-	private JTextField txtCitta;
-	private JTextField txtVia;
-	private JTextField txtNumero;
-	private JTextField txtCF_PIVA;
-	private JTextField txtEmail;
-	private JTextField txtTelefono;
+	public JTextField txtTipologia;
+	public JTextField txtRS;
+	public JTextField txtCAP;
+	public JTextField txtCitta;
+	public JTextField txtVia;
+	public JTextField txtNumero;
+	public JTextField txtCF_PIVA;
+	public JTextField txtEmail;
+	public JTextField txtTelefono;
 	private JTextField txtClienteCerca;
+	Cliente CL = new Cliente();
 	
 	/* Costruttore ModuloCl */
 	
@@ -130,7 +133,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtVia = new JTextField();
 			txtVia.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JLabel lblNumero = new JLabel("Numero");
+			JLabel lblNumero = new JLabel("N. Civico");
 			lblNumero.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtNumero = new JTextField();
@@ -337,7 +340,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtVia = new JTextField();
 			txtVia.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JLabel lblNumero = new JLabel("Numero");
+			JLabel lblNumero = new JLabel("N. Civico");
 			lblNumero.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtNumero = new JTextField();
@@ -464,33 +467,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		if (btnAggiungi == e.getSource()){
-			try{
-			/* Inserire cosa fa il pulsante Aggiungi*/
-			String Tipologia = txtTipologia.getText();
-			String RS = txtRS.getText();
-			String CAP = txtCAP.getText();
-			String Citta = txtCitta.getText();
-			String Via = txtVia.getText();
-			String Numero = txtNumero.getText();
-			String CF_PIVA = txtCF_PIVA.getText();
-			String Email = txtEmail.getText();
-			String Telefono = txtTelefono.getText();
-			JOptionPane.showMessageDialog(null , "Nuovo Cliente Aggiunto!");
-			txtTipologia.setText("");
-			txtRS.setText("");
-			txtCAP.setText("");
-			txtCitta.setText("");
-			txtVia.setText("");
-			txtEmail.setText("");
-			txtNumero.setText("");
-			txtCF_PIVA.setText("");
-			txtTelefono.setText("");
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Cliente non Aggiunto!",
-					    "Errore ",
-					    JOptionPane.ERROR_MESSAGE);
-			}
+			CL.aggiungi(this);
 		}
 		else if(btnElimina == e.getSource()){
 			try{

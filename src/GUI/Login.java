@@ -141,7 +141,7 @@ public class Login extends JFrame implements ActionListener{
 			String user = txtUsername.getText().trim();
 			char[] pass = txtPassword.getPassword();
 			String pwd=String.copyValueOf(pass);
-			DBConnect log = new DBConnect("SELECT * FROM operatore WHERE ID_Operatore='" + user + "' AND Password='" + pwd + "'"); /* Si connette al DB e cerca se l'utente inserito è presente*/
+			DBConnect log = new DBConnect("SELECT * FROM operatore WHERE ID_Operatore='" + user + "' AND Password='" + pwd + "'","select"); /* Si connette al DB e cerca se l'utente inserito è presente*/
 			if (log.rs.next()) size=1;	/* Se l'utente è presente il valore size va ad 1*/
 			if (user.equals("") || pwd.equals("")){	/* Se non si inserisce l'username o la password viene notificato con un errore. */
 				JOptionPane.showMessageDialog(null, "Errore, Inserisci l'Username e/o la Password!",
