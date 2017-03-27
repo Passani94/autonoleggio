@@ -9,6 +9,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 
 import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 
 import GUI.Admin.PannelloCliente;
@@ -36,7 +38,8 @@ public class PannelloU extends JFrame implements ActionListener{
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.menu();
-			this.setBounds(100, 100, 1000, 800);
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			this.setBounds(100, 100, 1000, (screenSize.height-100));
 			this.setLocationRelativeTo(null);
 			PannelloHomeU home = new PannelloHomeU(this);
 			} catch (Exception e) {

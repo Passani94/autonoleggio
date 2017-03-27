@@ -16,11 +16,12 @@ public class ModuloHmU extends JPanel{
 	
 	private JTable tblDisponibili;
 	private JScrollPane scroll = new JScrollPane(tblDisponibili);
-
+	private DBConnect Disponibili = new DBConnect();
+	
 	public void set(){
 		this.setBorder(BorderFactory.createTitledBorder("Mezzi Disponibili per il Noleggio"));
 		
-		DBConnect Disponibili = new DBConnect("SELECT * FROM veicolo WHERE disponibilita='si'","select");
+		Disponibili.exequery("SELECT * FROM veicolo WHERE disponibilita='si'","select");
 		
 		tblDisponibili = new JTable();
 		tblDisponibili.setModel(new CostruisciTabella(Disponibili.rs).model);

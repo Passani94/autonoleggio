@@ -31,6 +31,7 @@ public class Login extends JFrame implements ActionListener{
 	private JTextField txtUsername;
 	private JButton btnAccedi = new JButton("Accedi");
 	private JButton btnEsci = new JButton("Esci");
+	private DBConnect log = new DBConnect();
 	
 	/* Crea il frame Login.*/
 	
@@ -132,16 +133,15 @@ public class Login extends JFrame implements ActionListener{
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
+	/* Metodo che verifica che i dati inseriti sono validi per accedere.*/
 	
-	public void actionPerformed(ActionEvent e){
+	private void check(){
 		int size=0;
-		if (btnAccedi == e.getSource()){
 			try {
 			String user = txtUsername.getText().trim();
 			char[] pass = txtPassword.getPassword();
 			String pwd=String.copyValueOf(pass);
-			DBConnect log = new DBConnect("SELECT * FROM operatore WHERE ID_Operatore='" + user + "' AND Password='" + pwd + "'","select"); /* Si connette al DB e cerca se l'utente inserito è presente*/
+			log.exequery("SELECT * FROM operatore WHERE ID_Operatore='" + user + "' AND Password='" + pwd + "'","select"); /* Si connette al DB e cerca se l'utente inserito è presente*/
 			if (log.rs.next()) size=1;	/* Se l'utente è presente il valore size va ad 1*/
 			if (user.equals("") || pwd.equals("")){	/* Se non si inserisce l'username o la password viene notificato con un errore. */
 				JOptionPane.showMessageDialog(null, "Errore, Inserisci l'Username e/o la Password!",
@@ -171,6 +171,13 @@ public class Login extends JFrame implements ActionListener{
 			} catch (SQLException e1) {
 			e1.printStackTrace();
 			}
+	}
+	
+	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
+	
+	public void actionPerformed(ActionEvent e){
+		if (btnAccedi == e.getSource()){
+			check();
 		}
 		else if (btnEsci == e.getSource()){
 			System.exit(0); 

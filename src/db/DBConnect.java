@@ -13,39 +13,45 @@ public class DBConnect{
 	public PreparedStatement st;
 	public ResultSet rs;
 	
-	/*Stabilisce la connessione col DB ed esegue la query*/
+	/* Costruttore, stabilisce la connessione col DB*/
 	
-	public DBConnect(String query, String tipo){
-		if (tipo.equals("select")){ /* se la query è una select usa questo codice */
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/autonoleggio","root","");
-				st = con.prepareStatement(query);
-				rs = st.executeQuery();
-			} catch (ClassNotFoundException e) { // 
-					JOptionPane.showMessageDialog(null, "Driver non trovato! " + e,
-							"Errore ",
-							JOptionPane.ERROR_MESSAGE);
-			} catch (SQLException e) {
-		    	JOptionPane.showMessageDialog(null, "Errore SQL: " + e,
-					    "Errore ",
-						JOptionPane.ERROR_MESSAGE);
-		    }
-		} else if (tipo.equals("update") || tipo.equals("insert") || tipo.equals("delete")){  /* codice usato per tutti gli altri tipi di query */
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/autonoleggio","root","");
-				st = con.prepareStatement(query);
-				st.executeUpdate();
-			 } catch (ClassNotFoundException e) { // 
-					JOptionPane.showMessageDialog(null, "Driver non trovato! " + e,
-						    "Errore ",
-							JOptionPane.ERROR_MESSAGE);
-			    } catch (SQLException e) {
-			    	JOptionPane.showMessageDialog(null, "Errore SQL: " + e,
-						    "Errore ",
-							JOptionPane.ERROR_MESSAGE);
-			    }
+	public DBConnect(){
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/autonoleggio","root","");
+		}catch (ClassNotFoundException e) {  
+			JOptionPane.showMessageDialog(null, "Driver non trovato! " + e,
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);
+		}catch (SQLException e) {  
+			JOptionPane.showMessageDialog(null, "Errore, connession non stabilita! " + e,
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	/* Metodo per effettuare la query */
+	
+	public void exequery(String query, String tipo){
+		if (tipo.equals("select")){ /* se la query è una select usa questo codice */
+			try {
+				st = con.prepareStatement(query);
+				rs = st.executeQuery();
+			}catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, "Errore SQL: " + e,
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		} else if (tipo.equals("update") || tipo.equals("insert") || tipo.equals("delete")){  /* codice usato per tutti gli altri tipi di query */
+			try {
+				st = con.prepareStatement(query);
+				st.executeUpdate();
+			}catch (SQLException e) { // 
+					JOptionPane.showMessageDialog(null, "Errore SQL: " + e,
+							"Errore ",
+							JOptionPane.ERROR_MESSAGE);
+			}
+		}	
+	}
+	
 }

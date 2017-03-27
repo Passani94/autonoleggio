@@ -18,9 +18,11 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.table.DefaultTableModel;
 
 import Entità.Cliente;
+import Utils.CostruisciTabella;
+import Utils.TableColumnAdjuster;
+import db.DBConnect;
 
 
 public class ModuloCl extends JPanel implements ActionListener{
@@ -40,8 +42,9 @@ public class ModuloCl extends JPanel implements ActionListener{
 	public JTextField txtCF_PIVA;
 	public JTextField txtEmail;
 	public JTextField txtTelefono;
-	private JTextField txtClienteCerca;
-	Cliente CL = new Cliente();
+	public JTextField txtClienteCerca;
+	private Cliente CL = new Cliente();
+	private DBConnect Clienti = new DBConnect();
 	
 	/* Costruttore ModuloCl */
 	
@@ -54,15 +57,13 @@ public class ModuloCl extends JPanel implements ActionListener{
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Clienti"));
 			
+			Clienti.exequery("SELECT * FROM cliente","select");
+			
 			tblClienti = new JTable();
-			tblClienti.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"CF_PIVA", "Tipologia","Ragione Sociale","CAP","Città","Via","Numero","Email","Telefono"
-				}
-			));
+			tblClienti.setModel(new CostruisciTabella(Clienti.rs).model);
 			tblClienti.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			TableColumnAdjuster tca = new TableColumnAdjuster(tblClienti);
+			tca.adjustColumns();
 			
 			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -297,7 +298,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtClienteCerca = new JTextField();
 			txtClienteCerca.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JLabel lblClienteCerca = new JLabel("CF o P.IVA Cliente da Modificare");
+			JLabel lblClienteCerca = new JLabel("CF o PIVA Cliente da Modificare ");
 			lblClienteCerca.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			btnModificaC = new JButton("Modifica Cliente");
@@ -374,53 +375,54 @@ public class ModuloCl extends JPanel implements ActionListener{
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(lblTelefono, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-									.addComponent(lblEmail))
-								.addComponent(lblClienteCerca, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblRS, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-								.addComponent(lblTipologia, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-								.addComponent(lblid, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-								.addComponent(lblCAP, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblcitta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-								.addComponent(lblVia, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-								.addComponent(lblNumero, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
-							.addGap(91)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtTelefono, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-								.addComponent(txtNumero, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-								.addComponent(txtVia, 150, 150, 150)
-								.addComponent(txtCitta, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-								.addComponent(txtCAP, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-								.addComponent(txtRS, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-								.addComponent(txtTipologia, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-								.addComponent(txtCF_PIVA, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-								.addComponent(txtClienteCerca, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-								.addComponent(txtEmail, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-							.addGap(418))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(177)
-							.addComponent(btnCerca)
-							.addContainerGap(587, Short.MAX_VALUE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(174)
-							.addComponent(btnModificaC)
-							.addContainerGap(195, Short.MAX_VALUE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addContainerGap()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblRS, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCAP, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblcitta, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblVia, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblTelefono, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblClienteCerca)
+										.addComponent(lblid, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGap(97)
+											.addComponent(txtClienteCerca, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+										.addComponent(txtCF_PIVA, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtTipologia, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtRS, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtCAP, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtCitta, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtVia, 150, 150, 150)
+										.addComponent(txtNumero, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtTelefono, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(177)
+									.addComponent(btnCerca))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(174)
+									.addComponent(btnModificaC)))
+							.addContainerGap(387, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(39)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblClienteCerca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtClienteCerca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtClienteCerca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblClienteCerca))
 							.addGap(18)
 							.addComponent(btnCerca, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addGap(37)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblid)
 								.addComponent(txtCF_PIVA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(21)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
@@ -456,7 +458,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 								.addComponent(txtTelefono, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(26)
 							.addComponent(btnModificaC, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(50, Short.MAX_VALUE))
+							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
@@ -467,73 +469,20 @@ public class ModuloCl extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		if (btnAggiungi == e.getSource()){
+			CL.setValori(this);
 			CL.aggiungi(this);
 		}
 		else if(btnElimina == e.getSource()){
-			try{
-			/* Inserire cosa fa il pulsante Elimina*/
-			String CF_PIVA = txtCF_PIVA.getText();
-			JOptionPane.showMessageDialog(null , "Veicolo Eliminato!");
-			txtCF_PIVA.setText("");
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Cliente non Eliminato!",
-					    "Errore ",
-					    JOptionPane.ERROR_MESSAGE);
-			}
+			CL.setID(this);
+			CL.elimina(this);
 		}
 		else if(btnCerca == e.getSource()){
-			try{
-			/* Inserire cosa fa il pulsante Cerca*/
-			String targa = txtClienteCerca.getText();
-			txtClienteCerca.setEditable(false);
-			/*if veicolo trovato riempi i textfields*/
-			txtTipologia.setEditable(true);
-			txtRS.setEditable(true);
-			txtCAP.setEditable(true);
-			txtCitta.setEditable(true);
-			txtVia.setEditable(true);
-			txtNumero.setEditable(true);
-			txtCF_PIVA.setEditable(true);
-			txtEmail.setEditable(true);
-			txtTelefono.setEditable(true);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Cliente non Trovato!",
-					    "Errore ",
-					    JOptionPane.ERROR_MESSAGE);
+			CL.setIDcerca(this);
+			CL.cerca(this);
 			}
-		}
 		else if(btnModificaC == e.getSource()){
-			try{
-			/* Inserire cosa fa il pulsante Modifica*/
-				String Tipologia = txtTipologia.getText();
-				String RS = txtRS.getText();
-				String CAP = txtCAP.getText();
-				String Citta = txtCitta.getText();
-				String Via = txtVia.getText();
-				String Numero = txtNumero.getText();
-				String CF_PIVA = txtCF_PIVA.getText();
-				String Email = txtEmail.getText();
-				String Telefono = txtTelefono.getText();
-				JOptionPane.showMessageDialog(null , "Cliente Modificato!");
-				txtClienteCerca.setText("");
-				txtClienteCerca.setEditable(true);
-				txtTipologia.setEditable(false);
-				txtRS.setEditable(false);
-				txtCAP.setEditable(false);
-				txtCitta.setEditable(false);
-				txtVia.setEditable(false);
-				txtNumero.setEditable(false);
-				txtCF_PIVA.setEditable(false);
-				txtEmail.setEditable(false);
-				txtTelefono.setEditable(false);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Cliente non Modificato!",
-					    "Errore ",
-					    JOptionPane.ERROR_MESSAGE);
-			}
+			CL.setValori(this);
+			CL.modifica(this);
 		}
 	}
 }
