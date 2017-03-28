@@ -8,7 +8,6 @@ import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -18,17 +17,23 @@ import javax.swing.ScrollPaneConstants;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.table.DefaultTableModel;
+
+import Entità.Operatore;
+import Utils.CostruisciTabella;
+import Utils.TableColumnAdjuster;
+import db.DBConnect;
 
 
 public class ModuloOp extends JPanel implements ActionListener{
 
 	private JTable tblOperatori;
-	private JTextField txtPassword;
-	private JTextField txtUsername;
+	public JTextField txtPassword;
+	public JTextField txtUsername;
 	private JButton btnAggiungi;
 	private JButton btnElimina;
 	private JScrollPane scroll = new JScrollPane(tblOperatori);
+	private Operatore OP = new Operatore();
+	private DBConnect Operatori = new DBConnect();
 	
 	/* Costruttore ModuloOp */
 	
@@ -40,15 +45,13 @@ public class ModuloOp extends JPanel implements ActionListener{
 		if (str == "Elenca"){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Operatori"));
-
+			
+			Operatori.exequery("SELECT * FROM operatore","select");
+			
 			tblOperatori = new JTable();
-			tblOperatori.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Operatore", "Password"
-				}
-			));
+			tblOperatori.setModel(new CostruisciTabella(Operatori.rs).model);
+			TableColumnAdjuster tca = new TableColumnAdjuster(tblOperatori);
+			tca.adjustColumns();
 			
 			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scroll.setViewportView(tblOperatori);
@@ -181,32 +184,12 @@ public class ModuloOp extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		if (btnAggiungi == e.getSource()){
-			try{
-			/* Inserire cosa fa il pulsante Aggiungi*/
-			String user = txtUsername.getText();
-			String pass = txtPassword.getText();
-			JOptionPane.showMessageDialog(null , "Nuovo Operatore Aggiunto!");
-			txtUsername.setText("");
-			txtPassword.setText("");
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Operatore non Aggiunto!",
-					    "Errore ",
-					    JOptionPane.ERROR_MESSAGE);
-			}
+			OP.setValori(this);
+			OP.aggiungi(this);
 		}
 		else if(btnElimina == e.getSource()){
-			try{
-			/* Inserire cosa fa il pulsante Elimina*/
-			String user = txtUsername.getText();
-			JOptionPane.showMessageDialog(null , "Operatore Eliminato!");
-			txtUsername.setText("");
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Operatore non Eliminato!",
-					    "Errore ",
-					    JOptionPane.ERROR_MESSAGE);
-			}
+			OP.setValori(this);
+			OP.elimina(this);
 		}
 	}
 }

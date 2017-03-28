@@ -31,34 +31,30 @@ public class Cliente {
 	
 	/* Metodo per Aggiungere il nuovo cliente al DB. */
 	
-	public void aggiungi(ModuloCl ct){
-		if (check(ct)){
+	public void aggiungi(ModuloCl content){
+		if (check(content)){
 			try{
 				cliente.exequery("SELECT * FROM cliente where CF_PIVA='"+CF_PIVA+"'","select"); /* Cerca se esiste già il cliente nel DB */
 				if (cliente.rs.next()){	/* Verifica se esiste già il cliente nel DB */
 					JOptionPane.showMessageDialog(null, "Errore, il Cliente con il/la CF/P_IVA inserita è già presente!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
-					ct.txtCF_PIVA.setText("");
-					ct.txtCF_PIVA.requestFocus();
-				}else if (CF_PIVA.equals("") || Tipologia.equals("") || RS.equals("")){		/* Verifica se sono stati inseriti tutti i campi necessari */
-					JOptionPane.showMessageDialog(null, "Errore, Inserisci tutti i Campi con l'Asterisco!",
-						"Errore ",
-							JOptionPane.ERROR_MESSAGE);
-				} else {	/* Aggiunge il cliente e resetta il form per poter inserire un nuovo cliente */
-					String valori = new String("('"+CF_PIVA+"','"+Tipologia+"','"+RS+"','"+CAP+"','"+Citta+"','"+Via+"','"+Numero+"','"+Telefono+"','"+Email+"')");
+					content.txtCF_PIVA.setText("");
+					content.txtCF_PIVA.requestFocus();
+				}else {	/* Aggiunge il cliente e resetta il form per poter inserire un nuovo cliente */
+					String valori="('"+CF_PIVA+"','"+Tipologia+"','"+RS+"',"+CAP+",'"+Citta+"','"+Via+"',"+Numero+","+Telefono+",'"+Email+"')";
 					cliente.exequery("INSERT INTO cliente VALUES "+valori,"insert");
 					JOptionPane.showMessageDialog(null , "Nuovo Cliente Aggiunto!");
-					ct.txtTipologia.setText("");
-					ct.txtRS.setText("");
-					ct.txtCAP.setText("");
-					ct.txtCitta.setText("");
-					ct.txtVia.setText("");
-					ct.txtEmail.setText("");
-					ct.txtNumero.setText("");
-					ct.txtCF_PIVA.setText("");
-					ct.txtTelefono.setText("");
-					ct.txtCF_PIVA.requestFocus();
+					content.txtTipologia.setText("");
+					content.txtRS.setText("");
+					content.txtCAP.setText("");
+					content.txtCitta.setText("");
+					content.txtVia.setText("");
+					content.txtEmail.setText("");
+					content.txtNumero.setText("");
+					content.txtCF_PIVA.setText("");
+					content.txtTelefono.setText("");
+					content.txtCF_PIVA.requestFocus();
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -71,21 +67,21 @@ public class Cliente {
 	
 	/* Metodo usato per eliminare il cliente dal DB. */
 	
-	public void elimina(ModuloCl ct){
-		if (check(ct)){
+	public void elimina(ModuloCl content){
+		if (check(content)){
 			try{
 				cliente.exequery("SELECT * FROM cliente where CF_PIVA='"+CF_PIVA+"'","select"); /* Controlla se il cliente è presente e può essere eliminato. */
 				if(cliente.rs.next()){
 					cliente.exequery("DELETE FROM cliente WHERE CF_PIVA='"+CF_PIVA+"'","delete");
 					JOptionPane.showMessageDialog(null , "Cliente Eliminato!");
-					ct.txtCF_PIVA.setText("");
-					ct.txtCF_PIVA.requestFocus();
+					content.txtCF_PIVA.setText("");
+					content.txtCF_PIVA.requestFocus();
 				} else{
 					JOptionPane.showMessageDialog(null, "Errore, Il Cliente con il/la CF/PIVA non è presente nel DB!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
-					ct.txtCF_PIVA.setText("");
-					ct.txtCF_PIVA.requestFocus();
+					content.txtCF_PIVA.setText("");
+					content.txtCF_PIVA.requestFocus();
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -143,7 +139,7 @@ public class Cliente {
 	public void modifica(ModuloCl content){
 		if (check(content)){
 			try{
-				String valori = "Tipologia='"+Tipologia+"',Ragione_Sociale='"+RS+"',CAP='"+CAP+"',Citta='"+Citta+"',Via='"+Via+"',Numero='"+Numero+"',Telefono='"+Telefono+"',Email='"+Email+"'";
+				String valori = "Tipologia='"+Tipologia+"',Ragione_Sociale='"+RS+"',CAP="+CAP+",Citta='"+Citta+"',Via='"+Via+"',Numero="+Numero+",Telefono="+Telefono+",Email='"+Email+"'";
 				cliente.exequery("UPDATE cliente SET "+valori+" WHERE CF_PIVA='"+CF_PIVA+"'","update");
 				JOptionPane.showMessageDialog(null , "Cliente Modificato!");
 				content.txtClienteCerca.setText("");
@@ -197,7 +193,12 @@ public class Cliente {
 	
 	private boolean check(ModuloCl content){
 		boolean check=true;
-		if (CF_PIVA.length()==16 && !CF_PIVA.matches(CFPATTERN)){
+		if (CF_PIVA.equals("") || Tipologia.equals("") || RS.equals("")){		/* Verifica se sono stati inseriti tutti i campi necessari */
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore, Inserisci tutti i Campi con l'Asterisco!",
+				"Errore ",
+				JOptionPane.ERROR_MESSAGE);
+		}else if (CF_PIVA.length()==16 && !CF_PIVA.matches(CFPATTERN)){
 			content.txtCF_PIVA.setText("");
 			content.txtCF_PIVA.requestFocus();
 			check=false;
@@ -276,7 +277,14 @@ public class Cliente {
 			    JOptionPane.ERROR_MESSAGE);
 		}
 		if (check==false) test=check; 
-			else test=true;
+			else {
+				if(CAP.equals("")) CAP="NULL";
+				if(Citta.equals("")) Citta="NULL";
+				if(Via.equals("")) Via="NULL";
+				if(Numero.equals("")) Numero="NULL";
+				if(Telefono.equals("")) Telefono="NULL";
+				if(Email.equals("")) Email="NULL";
+				test=true;}
 		return test;
 	}
 	

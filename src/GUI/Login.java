@@ -31,7 +31,7 @@ public class Login extends JFrame implements ActionListener{
 	private JTextField txtUsername;
 	private JButton btnAccedi = new JButton("Accedi");
 	private JButton btnEsci = new JButton("Esci");
-	private DBConnect log = new DBConnect();
+	private DBConnect log;
 	
 	/* Crea il frame Login.*/
 	
@@ -155,7 +155,7 @@ public class Login extends JFrame implements ActionListener{
 				user=null;
 				pass=null;
 				pwd=null;
-				JOptionPane.showMessageDialog(null, "Errore, Utente non Trovato!",
+				JOptionPane.showMessageDialog(null, "Errore, Utente non Trovato o Password Sbagliata!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 				txtUsername.requestFocus();
@@ -177,6 +177,7 @@ public class Login extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		if (btnAccedi == e.getSource()){
+			log = new DBConnect();
 			check();
 		}
 		else if (btnEsci == e.getSource()){

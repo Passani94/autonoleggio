@@ -9,7 +9,6 @@ import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -254,7 +253,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtCF_PIVA.setFont(new Font("Arial", Font.PLAIN, 12));
 			txtCF_PIVA.setColumns(10);
 			
-			JLabel lblid = new JLabel("CF o P.IVA");
+			JLabel lblid = new JLabel("CF o P.IVA*");
 			lblid.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			/* Crea il Layout per un eliminare un Cliente. */
@@ -308,10 +307,10 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtCF_PIVA = new JTextField();
 			txtCF_PIVA.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JLabel lblid = new JLabel("CF o PIVA");
+			JLabel lblid = new JLabel("CF o PIVA*");
 			lblid.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			JLabel lblTipologia = new JLabel("Tipologia");
+			JLabel lblTipologia = new JLabel("Tipologia*");
 			lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtTipologia = new JTextField();
@@ -320,7 +319,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtRS = new JTextField();
 			txtRS.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JLabel lblRS = new JLabel("Ragione Sociale");
+			JLabel lblRS = new JLabel("Ragione Sociale*");
 			lblRS.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			JLabel lblCAP = new JLabel("CAP");
