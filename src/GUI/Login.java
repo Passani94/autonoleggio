@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.UIManager.*;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class Login extends JFrame implements ActionListener,Runnable{
@@ -48,12 +48,20 @@ public class Login extends JFrame implements ActionListener,Runnable{
 	/* Definisce il frame Login.*/
 	
 	public Login() {
-        try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-        catch (UnsupportedLookAndFeelException e) {}
-         catch (ClassNotFoundException e) {}
-         catch (InstantiationException e) {}
-         catch (IllegalAccessException e) {}
-        
+    	try {
+    		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+    	        if ("Nimbus".equals(info.getName())) {
+    	            UIManager.setLookAndFeel(info.getClassName());
+    	            break;
+    	        }
+    	    }
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+	        catch (Exception ex) {JOptionPane.showMessageDialog(null, "Errore, Impossibile avviare l'Interfaccia!",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);}
+		}
 		setResizable(false);
 		setTitle("Autonoleggio - Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

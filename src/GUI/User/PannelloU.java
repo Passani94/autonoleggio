@@ -3,9 +3,10 @@ package GUI.User;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 
 import java.awt.event.ActionListener;
@@ -30,11 +31,20 @@ public class PannelloU extends JFrame implements ActionListener{
 	public PannelloU(String user){
 		Username = user;
 		try {
-			try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-	        catch (ClassNotFoundException e) {}
-	        catch (InstantiationException e) {}
-	        catch (IllegalAccessException e) {}
-	        catch (UnsupportedLookAndFeelException e) {}
+	    	try {
+	    		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+	    	        if ("Nimbus".equals(info.getName())) {
+	    	            UIManager.setLookAndFeel(info.getClassName());
+	    	            break;
+	    	        }
+	    	    }
+			} catch (Exception e) {
+			    e.printStackTrace();
+			    try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+		        catch (Exception ex) {JOptionPane.showMessageDialog(null, "Errore, Impossibile avviare l'Interfaccia!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);}
+			}
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.menu();

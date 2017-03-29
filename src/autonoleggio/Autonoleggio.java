@@ -2,6 +2,7 @@ package autonoleggio;
 
 import javax.swing.JOptionPane;
 
+
 import GUI.Login;
 
 public class Autonoleggio {
@@ -14,6 +15,6 @@ public class Autonoleggio {
 			JOptionPane.showMessageDialog(null, "Errore, Impossibile Avviare L'Applicazione!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
-		}
+		}	
 	}		
 }
