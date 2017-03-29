@@ -51,29 +51,36 @@ public class Operatore {
 	/* Metodo usato per eliminare l'operatore dal DB. */
 	
 	public void elimina(ModuloOp content){
-		pass="elimina";
-		if (check(content)){
-			try{
-				operatore.exequery("SELECT * FROM operatore where ID_Operatore='"+user+"'","select"); /* Controlla se l'operatore è presente e può essere eliminato. */
-				if(operatore.rs.next()){
-					operatore.exequery("DELETE FROM operatore WHERE ID_Operatore='"+user+"'","delete");
-					JOptionPane.showMessageDialog(null , "Operatore Eliminato!");
-					content.txtUsername.setText("");
-					content.txtUsername.requestFocus();
-				} else{
-					JOptionPane.showMessageDialog(null, "Errore, l'Operatore con l'Username inserito non è presente nel DB!",
+		if (!user.equals("admin")){
+			pass="elimina";
+			if (check(content)){
+				try{
+					operatore.exequery("SELECT * FROM operatore where ID_Operatore='"+user+"'","select"); /* Controlla se l'operatore è presente e può essere eliminato. */
+					if(operatore.rs.next()){
+						operatore.exequery("DELETE FROM operatore WHERE ID_Operatore='"+user+"'","delete");
+						JOptionPane.showMessageDialog(null , "Operatore Eliminato!");
+						content.txtUsername.setText("");
+						content.txtUsername.requestFocus();
+					} else{
+						JOptionPane.showMessageDialog(null, "Errore, l'Operatore con l'Username inserito non è presente nel DB!",
+								"Errore ",
+								JOptionPane.ERROR_MESSAGE);
+						content.txtUsername.setText("");
+						content.txtUsername.requestFocus();
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Errore, Operatore non Eliminato!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
-					content.txtUsername.setText("");
-					content.txtUsername.requestFocus();
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Operatore non Eliminato!",
-						"Errore ",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		}
+		}}else{
+			content.txtUsername.setText("");
+			content.txtUsername.requestFocus();
+			JOptionPane.showMessageDialog(null, "Errore, Impossibile eliminare l'utente amministratore!",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);
+		}		
 	}
 	
 	/* Metodo per assegnare i valori all'Operatore. */
@@ -81,6 +88,12 @@ public class Operatore {
 	public void setValori(ModuloOp content){
 		user = content.txtUsername.getText().trim();
 		pass = content.txtPassword.getText().trim();
+	}
+	
+	/* Metodo per assegnare l'Username all'Operatore da eliminare. */
+	
+	public void setUsername(ModuloOp content){
+		user = content.txtUsername.getText().trim();
 	}
 	
 	/* Metodo per verificare la correttezza dei dati inseriti. */

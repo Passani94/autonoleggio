@@ -68,7 +68,7 @@ public class Cliente {
 	/* Metodo usato per eliminare il cliente dal DB. */
 	
 	public void elimina(ModuloCl content){
-		if (check(content)){
+		if (checkelimina(content)){
 			try{
 				cliente.exequery("SELECT * FROM cliente where CF_PIVA='"+CF_PIVA+"'","select"); /* Controlla se il cliente è presente e può essere eliminato. */
 				if(cliente.rs.next()){
@@ -77,7 +77,7 @@ public class Cliente {
 					content.txtCF_PIVA.setText("");
 					content.txtCF_PIVA.requestFocus();
 				} else{
-					JOptionPane.showMessageDialog(null, "Errore, Il Cliente con il/la CF/PIVA non è presente nel DB!",
+					JOptionPane.showMessageDialog(null, "Errore, Il Cliente con il/la CF/PIVA "+CF_PIVA+" non è presente nel DB!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 					content.txtCF_PIVA.setText("");
@@ -109,7 +109,7 @@ public class Cliente {
 					content.txtNumero.setText(cliente.rs.getString(7));
 					content.txtCF_PIVA.setText(cliente.rs.getString(1));
 					content.txtTelefono.setText(cliente.rs.getString(8));
-					content.txtCF_PIVA.requestFocus();
+					content.txtTipologia.requestFocus();
 					content.txtTipologia.setEditable(true);
 					content.txtRS.setEditable(true);
 					content.txtCAP.setEditable(true);
@@ -166,13 +166,13 @@ public class Cliente {
 	/* Metodo per assegnare i valori al Cliente. */
 	
 	public void setValori(ModuloCl content){
+		CF_PIVA = content.txtCF_PIVA.getText().trim();
 		Tipologia = content.txtTipologia.getText().trim();
 		RS = content.txtRS.getText().trim();
 		CAP = content.txtCAP.getText().trim();
 		Citta = content.txtCitta.getText().trim();
 		Via = content.txtVia.getText().trim();
 		Numero = content.txtNumero.getText().trim();
-		CF_PIVA = content.txtCF_PIVA.getText().trim();
 		Email = content.txtEmail.getText().trim();
 		Telefono = content.txtTelefono.getText().trim();
 	}
@@ -288,7 +288,7 @@ public class Cliente {
 		return test;
 	}
 	
-	/* Metodo per verificare la correttezza del/la CF/PIVA del lciente da cercare. */
+	/* Metodo per verificare la correttezza del/la CF/PIVA del cliente da cercare. */
 	
 	private boolean checkcerca(ModuloCl content){
 		boolean check=true;
@@ -314,14 +314,50 @@ public class Cliente {
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
 		}
-	if (check==false) test=check; 
-	else test=true;
-	return test;
+		if (check==false) test=check; 
+		else test=true;
+		return test;
+	}
+	
+	/* Metodo per verificare la correttezza del/la CF/PIVA del cliente da eliminare. */
+	
+	private boolean checkelimina(ModuloCl content){
+		boolean check=true;
+		if (CF_PIVA.equals("")){		/* Verifica se sono stati inseriti tutti i campi necessari */
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore, Inserisci il cliente da eliminare!",
+				"Errore ",
+				JOptionPane.ERROR_MESSAGE);
+		}else if (CF_PIVA.length()==16 && !CF_PIVA.matches(CFPATTERN)){
+			content.txtCF_PIVA.setText("");
+			content.txtCF_PIVA.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore, il codice fiscare inserito non è valido!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		} else if((CF_PIVA.length()==11 && !CF_PIVA.matches("\\d{11}"))){
+			content.txtCF_PIVA.setText("");
+			content.txtCF_PIVA.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore, la partita iva inserita non è valida!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		} else if(CF_PIVA.length()<11 || (CF_PIVA.length()>11 && CF_PIVA.length()<16) || CF_PIVA.length()>16){
+			content.txtCF_PIVA.setText("");
+			content.txtCF_PIVA.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore, il codice fiscare deve avere 16 caratteri e la partita IVA 11 cifre!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		}
+		if (check==false) test=check; 
+		else test=true;
+		return test;
 	}
 	
 	/* Metodo per verificare se una stringa è numerica. */
 	
-	public static boolean isNumeric(String string) {
+	private static boolean isNumeric(String string) {
 	    try {
 	        Long.parseLong(string);
 	    } catch (Exception e) {

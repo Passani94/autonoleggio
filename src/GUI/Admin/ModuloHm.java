@@ -7,24 +7,27 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.table.DefaultTableModel;
+
+import Utils.CostruisciTabella;
+import Utils.TableColumnAdjuster;
+import db.DBConnect;
 
 public class ModuloHm extends JPanel{
 	
 	private JTable tblRitorno;
 	private JScrollPane scroll = new JScrollPane(tblRitorno);
-
+	private DBConnect InRitorno = new DBConnect();
+	
 	public void set(){
 		this.setBorder(BorderFactory.createTitledBorder("Mezzi in Ritorno Oggi"));
 
+		InRitorno.exequery("SELECT * FROM veicolo WHERE disponibilita='si'","select");/*scrivere query mezzi in ritorno*/
+		
 		tblRitorno = new JTable();
-		tblRitorno.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Cliente", "Mezzo Noleggiato","Data Contratto"
-				}
-		));
+		tblRitorno.setModel(new CostruisciTabella(InRitorno.rs).model);
+		tblRitorno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		TableColumnAdjuster tca = new TableColumnAdjuster(tblRitorno);
+		tca.adjustColumns();		
 		
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setViewportView(tblRitorno);

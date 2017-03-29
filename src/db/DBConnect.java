@@ -51,7 +51,7 @@ public class DBConnect{
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 			}
-		}	
+		}
 	}
 	
 }

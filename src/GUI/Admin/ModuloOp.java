@@ -188,7 +188,7 @@ public class ModuloOp extends JPanel implements ActionListener{
 			OP.aggiungi(this);
 		}
 		else if(btnElimina == e.getSource()){
-			OP.setValori(this);
+			OP.setUsername(this);
 			OP.elimina(this);
 		}
 	}

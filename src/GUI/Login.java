@@ -24,7 +24,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class Login extends JFrame implements ActionListener{
+public class Login extends JFrame implements ActionListener,Runnable{
 
 	private JPanel contentPane;
 	private JPasswordField txtPassword;
