@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -21,6 +22,10 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
+
+import Utils.CostruisciTabella;
+import Utils.TableColumnAdjuster;
+import db.DBConnect;
 
 
 public class ModuloEx extends JPanel implements ActionListener{
@@ -42,11 +47,19 @@ public class ModuloEx extends JPanel implements ActionListener{
 	private JScrollPane scrollAssicurazione = new JScrollPane(tblAssicurazione);
 	private JScrollPane scrollOrmeggio = new JScrollPane(tblOrmeggio);
 	private JScrollPane scrollAlaggio = new JScrollPane(tblAlaggio);
+	private DBConnect Extra = new DBConnect();
+	private DBConnect Profitto = new DBConnect();
+	private int mese,anno;
 	
 	/* Costruttori ModuloEx */
 	
 	public ModuloEx(String str){
 		set(str);
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		mese = cal.get(Calendar.MONTH);
+		anno = cal.get(Calendar.YEAR);
 	}
 
 	public ModuloEx(){
@@ -81,15 +94,13 @@ public class ModuloEx extends JPanel implements ActionListener{
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli più Noleggiati"));
 			
+			Extra.exequery("SELECT COUNT(*) as Numero_Noleggi, b.Targa, b.Tipologia, b.Nome, b.Disponibilita FROM noleggio a INNER JOIN veicolo b ON a.veicolo = b.Targa GROUP BY b.Targa ORDER BY Numero_Noleggi DESC","select");
+			
 			tblVeicoli = new JTable();
-			tblVeicoli.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Targa", "Tipologia","Nome","Km Effettuati","Numero Di Noleggi"
-				}
-			));
+			tblVeicoli.setModel(new CostruisciTabella(Extra.rs).model);
 			tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			TableColumnAdjuster tca = new TableColumnAdjuster(tblVeicoli);
+			tca.adjustColumns();
 			
 			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -134,12 +145,12 @@ public class ModuloEx extends JPanel implements ActionListener{
 			lblProfitto.setFont(new Font("Arial", Font.BOLD, 12));
 			lblProfitto.setHorizontalAlignment(SwingConstants.CENTER);
 			
-			DateFormat dateformat = new SimpleDateFormat("yyyy/MM");
+			DateFormat dateformat = new SimpleDateFormat("yyyy-MM");
 			
 			frmtdtxtfldMese = new JFormattedTextField(dateformat);
 			frmtdtxtfldMese.setFont(new Font("Arial", Font.PLAIN, 12));
 			frmtdtxtfldMese.setColumns(7);
-			frmtdtxtfldMese.setText("aaaa/mm");
+			frmtdtxtfldMese.setText("aaaa-mm");
 			
 			/* Crea il Layout per Profitto Mensile. */
 			
@@ -152,8 +163,8 @@ public class ModuloEx extends JPanel implements ActionListener{
 									.addGap(114)
 									.addComponent(lblMensile, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(157)
-									.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)))
+									.addGap(120)
+									.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)))
 							.addContainerGap(121, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(34)
@@ -218,8 +229,8 @@ public class ModuloEx extends JPanel implements ActionListener{
 									.addGap(114)
 									.addComponent(lblAnnuale, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(157)
-									.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)))
+									.addGap(120)
+									.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)))
 							.addContainerGap(121, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(34)
@@ -262,29 +273,25 @@ public class ModuloEx extends JPanel implements ActionListener{
 			JLabel lblTagliando = new JLabel("Veicoli con Tagliando in Scadenza");
 			lblTagliando.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblTagliando.setFont(new Font("Arial", Font.BOLD, 12));
+
+			Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Bollo LIKE '"+anno+"-"+mese+"-%'","select");
 			
 			tblBollo = new JTable();
-			tblBollo.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Targa", "Scadenza Bollo"
-					}
-			));
+			tblBollo.setModel(new CostruisciTabella(Extra.rs).model);
 			tblBollo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-				
+			TableColumnAdjuster tca = new TableColumnAdjuster(tblBollo);
+			tca.adjustColumns();
+			
 			scrollbollo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollbollo.setViewportView(tblBollo);
 			
+			Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Tagliando LIKE '"+anno+"-"+mese+"-%'","select");
+			
 			tblTagliando = new JTable();
-			tblTagliando.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Targa", "Scadenza Tagliando"
-					}
-			));
+			tblTagliando.setModel(new CostruisciTabella(Extra.rs).model);
 			tblTagliando.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			TableColumnAdjuster tca2 = new TableColumnAdjuster(tblTagliando);
+			tca.adjustColumns();
 			
 			scrolltagliando.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrolltagliando.setViewportView(tblTagliando);
@@ -298,28 +305,25 @@ public class ModuloEx extends JPanel implements ActionListener{
 			lblOrmeggio.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblOrmeggio.setFont(new Font("Arial", Font.BOLD, 12));
 			
+			Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Assicurazione LIKE '"+anno+"-"+mese+"-%'","select");
+			
 			tblAssicurazione = new JTable();
-			tblAssicurazione.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Targa", "Scadenza Assicurazione"
-					}
-			));
+			tblAssicurazione.setModel(new CostruisciTabella(Extra.rs).model);
 			tblAssicurazione.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			TableColumnAdjuster tca3 = new TableColumnAdjuster(tblAssicurazione);
+			tca.adjustColumns();
 			
 			scrollAssicurazione.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollAssicurazione.setViewportView(tblAssicurazione);
 			
+			
+			Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Ormeggio LIKE '"+anno+"-"+mese+"-%'","select");
+			
 			tblOrmeggio = new JTable();
-			tblOrmeggio.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Targa", "Scadenza Ormeggio"
-					}
-			));
+			tblOrmeggio.setModel(new CostruisciTabella(Extra.rs).model);
 			tblOrmeggio.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			TableColumnAdjuster tca4 = new TableColumnAdjuster(tblOrmeggio);
+			tca.adjustColumns();
 			
 			scrollOrmeggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollOrmeggio.setViewportView(tblOrmeggio);
@@ -327,16 +331,14 @@ public class ModuloEx extends JPanel implements ActionListener{
 			JLabel lblAlaggio = new JLabel("Veicoli con Alaggio in Scadenza");
 			lblAlaggio.setHorizontalAlignment(SwingConstants.LEFT);
 			lblAlaggio.setFont(new Font("Arial", Font.BOLD, 12));
-		
+			
+			Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Costo_Alaggio LIKE '"+anno+"-"+mese+"-%'","select");
+			
 			tblAlaggio = new JTable();
-			tblAlaggio.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Targa", "Scadenza Alaggio"
-					}
-			));
+			tblAlaggio.setModel(new CostruisciTabella(Extra.rs).model);
 			tblAlaggio.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			TableColumnAdjuster tca5 = new TableColumnAdjuster(tblAlaggio);
+			tca.adjustColumns();
 			
 			scrollAlaggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollAlaggio.setViewportView(tblAlaggio);
@@ -414,10 +416,23 @@ public class ModuloEx extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if (btnProfitto == e.getSource()){
 			try{
-			/* Inserire cosa fa il pulsante Profitto*/
-			String mese = frmtdtxtfldMese.getText();
-			lblProfitto.setText("Profitto nel mese " + mese + "");
-			frmtdtxtfldMese.setText("aaaa/mm");
+				String mese = frmtdtxtfldMese.getText();
+				if (mese.matches("^\\d{4}-\\d{2}$")){
+					Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +mese+"-%'","select");
+					if (Profitto.rs.next()){
+						lblProfitto.setText("Profitto nel mese " + mese + " " + Profitto.rs.getString(1));
+						frmtdtxtfldMese.setText("aaaa-mm");
+					} else {
+						lblProfitto.setText("Profitto nel mese " + mese + " 0");
+						frmtdtxtfldMese.setText("aaaa-mm");
+					}
+				}else{
+					frmtdtxtfldMese.requestFocus();
+					frmtdtxtfldMese.setText("aaaa-mm");
+					JOptionPane.showMessageDialog(null, "Errore, mese inserito non valido!",
+					    "Errore ",
+					    JOptionPane.ERROR_MESSAGE);
+				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore, Profitto non Calcolato!",
@@ -427,10 +442,23 @@ public class ModuloEx extends JPanel implements ActionListener{
 		}
 		else if(btnProfittoa == e.getSource()){
 			try{
-			/* Inserire cosa fa il pulsante Profittoa*/
 				String anno = frmtdtxtfldanno.getText();
-				lblProfitto.setText("Profitto nell'anno " + anno + "");
-				frmtdtxtfldanno.setText("aaaa");
+				if (anno.matches("^\\d{4}$")){
+					Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +anno+"-%-%'","select");
+					if (Profitto.rs.next()){
+						lblProfitto.setText("Profitto nell'anno " + anno + " "+ Profitto.rs.getString(1));
+						frmtdtxtfldanno.setText("aaaa");
+					}else {
+						lblProfitto.setText("Profitto nell'anno " + anno + " 0");
+						frmtdtxtfldanno.setText("aaaa");
+					}
+					}else{
+						frmtdtxtfldanno.requestFocus();
+						frmtdtxtfldanno.setText("aaaa");
+						JOptionPane.showMessageDialog(null, "Errore, anno inserito non valido!",
+								"Errore ",
+								JOptionPane.ERROR_MESSAGE);
+				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore, Profitto non Calcolato!",
