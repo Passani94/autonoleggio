@@ -713,6 +713,12 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 		else if(frmtdtxtfldAssicurazione == e.getSource()){frmtdtxtfldAssicurazione.setText("");}
 		else if(frmtdtxtfldOrmeggio == e.getSource()){frmtdtxtfldOrmeggio.setText("");}
 		else if(frmtdtxtfldAlaggio == e.getSource()){frmtdtxtfldAlaggio.setText("");}
+		if(frmtdtxtfldImma.getText().equals("") && !(frmtdtxtfldImma == e.getSource())){frmtdtxtfldImma.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldBollo.getText().equals("") && !(frmtdtxtfldBollo == e.getSource())){frmtdtxtfldBollo.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldTagliando.getText().equals("") && !(frmtdtxtfldTagliando == e.getSource())){frmtdtxtfldTagliando.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldAssicurazione.getText().equals("") && !(frmtdtxtfldAssicurazione == e.getSource())){frmtdtxtfldAssicurazione.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldOrmeggio.getText().equals("") && !(frmtdtxtfldOrmeggio == e.getSource())){frmtdtxtfldOrmeggio.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldAlaggio.getText().equals("") && !(frmtdtxtfldAlaggio == e.getSource())){frmtdtxtfldAlaggio.setText("aaaa-mm-gg");}
     }
 	
 	/* Definisce le azioni da eseguire quando si perde il focus sui campi per inserire le date. */

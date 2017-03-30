@@ -31,20 +31,6 @@ public class Pannello extends JFrame implements ActionListener{
 	public Pannello(String user) {
 		Username = user;
 		try {
-	    	try {
-	    		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-	    	        if ("Nimbus".equals(info.getName())) {
-	    	            UIManager.setLookAndFeel(info.getClassName());
-	    	            break;
-	    	        }
-	    	    }
-			} catch (Exception e) {
-			    e.printStackTrace();
-			    try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-		        catch (Exception ex) {JOptionPane.showMessageDialog(null, "Errore, Impossibile avviare l'Interfaccia!",
-						"Errore ",
-						JOptionPane.ERROR_MESSAGE);}
-			}
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.menu();

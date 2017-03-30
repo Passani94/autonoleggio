@@ -23,17 +23,20 @@ public class Veicolo {
 	private String Assicurazione;
 	private String Ormeggio;
 	private String Alaggio;
-	private String Breve="";
-	private String Lungo="";
-	private boolean test=true;
-	private DBConnect veicolo = new DBConnect();
+	private String Breve;
+	private String Lungo;
+	private boolean test;
+	private DBConnect veicolo;
 	private static final String TGPATTERN = "[a-zA-Z]{2}\\d\\d\\d[a-zA-Z]{2}";
 	private static final String DATEPATTERN = "^\\d{4}-\\d{2}-\\d{2}$";
 	
 	/* Costruttore Veicolo */
 	
 	public Veicolo(){
-		
+		Breve="";
+		Lungo="";
+		test=true;
+		veicolo = new DBConnect();
 	}
 	
 	/* Metodo per Aggiungere il nuovo veicolo al DB. */

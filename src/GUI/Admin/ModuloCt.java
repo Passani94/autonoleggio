@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -22,32 +24,36 @@ import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.table.DefaultTableModel;
+
+import Entità.Contratto;
+import Utils.CostruisciTabella;
+import Utils.TableColumnAdjuster;
+import db.DBConnect;
 
 
-public class ModuloCt extends JPanel implements ActionListener{
+public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 
-	JLabel lblPreventivo;
-	private JTable tblNoleggi;
+	private JLabel lblPreventivo;
+	public JTable tblNoleggi;
 	private JButton btnFiltra;
 	private JButton btnAggiungi;
 	private JButton btnCalcola;
 	private JScrollPane scroll = new JScrollPane(tblNoleggi);
-	private JTextField txtRilasciatada;
-	private JTextField txtCliente;
-	private JTextField txtVeicolo;
-	private JTextField txtTipologia;
-	private JTextField txtCosto;
-	private JTextField txtPagato;
-	private JTextField txtNome;
-	private JTextField txtCognome;
-	private JTextField txtPatente;
-	private JFormattedTextField frmtdtxtfldinizio;
-	private JFormattedTextField	frmtdtxtfldFine;
-	private JFormattedTextField frmtdtxtfldRilasciatail2;
-	private JFormattedTextField frmtdtxtfldValida2;
-	private JFormattedTextField frmtdtxtfldInizio2;
-	private JFormattedTextField frmtdtxtfldFine2;
+	public JTextField txtRilasciatada;
+	public JTextField txtCliente;
+	public JTextField txtVeicolo;
+	public JTextField txtTipologia;
+	public JTextField txtCosto;
+	public JTextField txtPagato;
+	public JTextField txtNome;
+	public JTextField txtCognome;
+	public JTextField txtPatente;
+	public JFormattedTextField frmtdtxtfldFine;
+	public JFormattedTextField frmtdtxtfldRilasciatail;
+	public JFormattedTextField frmtdtxtfldValida;
+	public JFormattedTextField frmtdtxtfldInizio;
+	private Contratto CT = new Contratto();
+	private DBConnect Contratti = new DBConnect();
 	
 	/* Costruttore ModuloCt */
 	
@@ -59,16 +65,14 @@ public class ModuloCt extends JPanel implements ActionListener{
 		if (str == "Elenca"){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Contratti"));
+
+			Contratti.exequery("SELECT * FROM noleggio","select");
 			
 			tblNoleggi = new JTable();
-			tblNoleggi.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Codice Noleggio", "Tipologia","Costo Totale","Pagato","Data Inizio","Data Fine","Nome","Cognome","Numero Patente","Rilasciata Da","Rilasciata il","Valida Fino a"
-				}
-			));
+			tblNoleggi.setModel(new CostruisciTabella(Contratti.rs).model);
 			tblNoleggi.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			TableColumnAdjuster tca = new TableColumnAdjuster(tblNoleggi);
+			tca.adjustColumns();
 			
 			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -109,7 +113,7 @@ public class ModuloCt extends JPanel implements ActionListener{
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 										.addComponent(lblVeicoloDaFiltrare, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(txtVeicolo, Alignment.TRAILING))
-									.addGap(108)
+									.addGap(90)
 									.addComponent(btnFiltra, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
 									.addContainerGap())))
 				);
@@ -186,14 +190,16 @@ public class ModuloCt extends JPanel implements ActionListener{
 			lblMex.setForeground(Color.RED);
 			lblMex.setFont(new Font("Arial", Font.PLAIN, 14));
 			
-			DateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+			DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 			
-			frmtdtxtfldinizio = new JFormattedTextField(dateformat);
-			frmtdtxtfldinizio.setText("aaaa/mm/gg");
-		
+			frmtdtxtfldInizio = new JFormattedTextField(dateformat);
+			frmtdtxtfldInizio.setText("aaaa-mm-gg");
+			frmtdtxtfldInizio.addFocusListener(this);
+			
 			frmtdtxtfldFine = new JFormattedTextField(dateformat);
-			frmtdtxtfldFine.setText("aaaa/mm/gg");
-		
+			frmtdtxtfldFine.setText("aaaa-mm-gg");
+			frmtdtxtfldFine.addFocusListener(this);
+			
 			JLabel lblRilasciataDa = new JLabel("Rilasciata da");
 			lblRilasciataDa.setFont(new Font("Arial", Font.BOLD, 14));
 		
@@ -206,12 +212,14 @@ public class ModuloCt extends JPanel implements ActionListener{
 			JLabel lblValida = new JLabel("Valida Fino a");
 			lblValida.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			frmtdtxtfldRilasciatail2 = new JFormattedTextField(dateformat);
-			frmtdtxtfldRilasciatail2.setText("aaaa/mm/gg");
-		
-			frmtdtxtfldValida2 = new JFormattedTextField(dateformat);
-			frmtdtxtfldValida2.setText("aaaa/mm/gg");
-		
+			frmtdtxtfldRilasciatail = new JFormattedTextField(dateformat);
+			frmtdtxtfldRilasciatail.setText("aaaa-mm-gg");
+			frmtdtxtfldRilasciatail.addFocusListener(this);
+			
+			frmtdtxtfldValida = new JFormattedTextField(dateformat);
+			frmtdtxtfldValida.setText("aaaa-mm-gg");
+			frmtdtxtfldValida.addFocusListener(this);
+			
 			JLabel lblCliente = new JLabel("Cliente*");
 			lblCliente.setFont(new Font("Arial", Font.BOLD, 14));
 		
@@ -259,10 +267,10 @@ public class ModuloCt extends JPanel implements ActionListener{
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 										.addComponent(txtVeicolo)
 										.addComponent(txtCliente)
-										.addComponent(frmtdtxtfldValida2)
-										.addComponent(frmtdtxtfldRilasciatail2)
+										.addComponent(frmtdtxtfldValida)
+										.addComponent(frmtdtxtfldRilasciatail)
 										.addComponent(txtRilasciatada)
-										.addComponent(frmtdtxtfldinizio, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+										.addComponent(frmtdtxtfldInizio, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
 										.addComponent(frmtdtxtfldFine, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
 										.addComponent(txtCognome, Alignment.TRAILING)
 										.addComponent(txtPatente, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
@@ -282,7 +290,7 @@ public class ModuloCt extends JPanel implements ActionListener{
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtfldinizio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(frmtdtxtfldInizio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblDataFine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
@@ -314,11 +322,11 @@ public class ModuloCt extends JPanel implements ActionListener{
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblRilasciataIl, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtfldRilasciatail2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(frmtdtxtfldRilasciatail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblValida, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtfldValida2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(frmtdtxtfldValida, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblCliente, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
@@ -357,14 +365,16 @@ public class ModuloCt extends JPanel implements ActionListener{
 			JLabel lblFine = new JLabel("Data Fine Noleggio");
 			lblFine.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			DateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
+			DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 			
-			frmtdtxtfldInizio2 = new JFormattedTextField(dateformat);
-			frmtdtxtfldInizio2.setText("aaaa/mm/gg");
-		
-			frmtdtxtfldFine2 = new JFormattedTextField(dateformat);
-			frmtdtxtfldFine2.setText("aaaa/mm/gg");
-		
+			frmtdtxtfldInizio = new JFormattedTextField(dateformat);
+			frmtdtxtfldInizio.setText("aaaa-mm-gg");
+			frmtdtxtfldInizio.addFocusListener(this);
+			
+			frmtdtxtfldFine = new JFormattedTextField(dateformat);
+			frmtdtxtfldFine.setText("aaaa-mm-gg");
+			frmtdtxtfldFine.addFocusListener(this);
+			
 			lblPreventivo = new JLabel("");
 			lblPreventivo.setFont(new Font("Arial", Font.BOLD, 14));
 			lblPreventivo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -382,9 +392,9 @@ public class ModuloCt extends JPanel implements ActionListener{
 								.addComponent(lblFine, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(frmtdtxtfldFine2, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+								.addComponent(frmtdtxtfldFine, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(frmtdtxtfldInizio2)
+									.addComponent(frmtdtxtfldInizio)
 									.addComponent(txtVeicolo, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)))
 							.addGap(62))
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -404,11 +414,11 @@ public class ModuloCt extends JPanel implements ActionListener{
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtfldInizio2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(frmtdtxtfldInizio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblFine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtfldFine2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(frmtdtxtfldFine, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(27)
 							.addComponent(lblPreventivo, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
@@ -424,66 +434,23 @@ public class ModuloCt extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		if (btnFiltra == e.getSource()){
-			try{
-			/* Inserire cosa fa il pulsante Filtra*/
-			String Cliente = txtCliente.getText();
-			String Veicolo = txtVeicolo.getText();
-			txtCliente.setText("");
-		    txtVeicolo.setText("");
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Contratti non trovati!",
-					    "Errore ",
-					    JOptionPane.ERROR_MESSAGE);
-			}
+			CT.setValoriFiltra(this);
+			CT.filtra(this);
 		}
 		else if(btnAggiungi == e.getSource()){
-			try{
-			/* Inserire cosa fa il pulsante Aggiungi*/
-			String Tipologia = txtTipologia.getText();
-			String Inizio = frmtdtxtfldinizio.getText();
-			String Fine = frmtdtxtfldFine.getText();
-			String Costo = txtCosto.getText();
-			String Pagato = txtPagato.getText();
-			String Nome = txtNome.getText();
-			String Cognome = txtCognome.getText();
-			String Patente = txtPatente.getText();
-			String Rilasciatada = txtRilasciatada.getText();
-			String Rilasciatail = frmtdtxtfldRilasciatail2.getText();
-			String Valida = frmtdtxtfldValida2.getText();
-			String Cliente = txtCliente.getText();
-			String Veicolo = txtVeicolo.getText();
-			JOptionPane.showMessageDialog(null , "Nuovo Contratto Aggiunto!");
-			txtTipologia.setText("");
-			frmtdtxtfldinizio.setText("aaaa/mm/gg");
-			frmtdtxtfldFine.setText("aaaa/mm/gg");
-			txtCosto.setText("");
-			txtPagato.setText("");
-			txtNome.setText("");
-			txtCognome.setText("");
-			txtPatente.setText("");
-			txtRilasciatada.setText("");
-			frmtdtxtfldRilasciatail2.setText("aaaa/mm/gg");
-			frmtdtxtfldValida2.setText("aaaa/mm/gg");
-			txtCliente.setText("");
-			txtVeicolo.setText("");
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Contratto non Aggiunto!",
-					    "Errore ",
-					    JOptionPane.ERROR_MESSAGE);
-			}
+			CT.setValori(this);
+			CT.aggiungi(this);
 		}
 		else if(btnCalcola == e.getSource()){
 			try{
 			/* Inserire cosa fa il pulsante Calcola*/
 			String Veicolo = txtVeicolo.getText();
-			String Inizio = frmtdtxtfldInizio2.getText();
-			String Fine = frmtdtxtfldFine2.getText();
+			String Inizio = frmtdtxtfldInizio.getText();
+			String Fine = frmtdtxtfldFine.getText();
 			lblPreventivo.setText("0000");
 			txtVeicolo.setText("");
-			frmtdtxtfldInizio2.setText("aaaa/mm/gg");
-			frmtdtxtfldFine2.setText("aaaa/mm/gg");
+			frmtdtxtfldInizio.setText("aaaa/mm/gg");
+			frmtdtxtfldFine.setText("aaaa/mm/gg");
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore, Preventivo non Calcolato!",
@@ -491,5 +458,27 @@ public class ModuloCt extends JPanel implements ActionListener{
 					    JOptionPane.ERROR_MESSAGE);
 			}
 		}
+	}
+	
+	/* Definisce le azioni da eseguire quando si ha il focus sui campi per inserire le date. */
+	
+	public void focusGained(FocusEvent e){
+		if(frmtdtxtfldInizio == e.getSource()){frmtdtxtfldInizio.setText("");}
+		else if(frmtdtxtfldFine == e.getSource()){frmtdtxtfldFine.setText("");}
+		else if(frmtdtxtfldRilasciatail == e.getSource()){frmtdtxtfldRilasciatail.setText("");}
+		else if(frmtdtxtfldValida == e.getSource()){frmtdtxtfldValida.setText("");}
+		if(frmtdtxtfldInizio.getText().equals("") && !(frmtdtxtfldInizio == e.getSource())){frmtdtxtfldInizio.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldFine.getText().equals("") && !(frmtdtxtfldFine == e.getSource())){frmtdtxtfldFine.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldRilasciatail.getText().equals("") && !(frmtdtxtfldRilasciatail == e.getSource())){frmtdtxtfldRilasciatail.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldValida.getText().equals("") && !(frmtdtxtfldValida == e.getSource())){frmtdtxtfldValida.setText("aaaa-mm-gg");}
+    }
+	
+	/* Definisce le azioni da eseguire quando si perde il focus sui campi per inserire le date. */
+	
+	public void focusLost(FocusEvent e) {
+		if(frmtdtxtfldInizio.getText().equals("")){frmtdtxtfldInizio.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldFine.getText().equals("")){frmtdtxtfldFine.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldRilasciatail.getText().equals("")){frmtdtxtfldRilasciatail.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldValida.getText().equals("")){frmtdtxtfldValida.setText("aaaa-mm-gg");}
 	}
 }

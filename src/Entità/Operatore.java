@@ -10,13 +10,14 @@ import db.DBConnect;
 public class Operatore {
 	private String user;
 	private String pass;
-	private boolean test=true;
-	private DBConnect operatore = new DBConnect();
+	private boolean test;
+	private DBConnect operatore;
 	
 	/* Costruttore Operatore */
 	
 	public Operatore(){
-		
+		test=true;
+		operatore = new DBConnect();
 	}
 	
 	/* Metodo per Aggiungere il nuovo Operatore al DB. */

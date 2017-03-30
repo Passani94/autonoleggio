@@ -1,5 +1,7 @@
 package GUI.Admin;
 
+import java.util.Calendar;
+
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -20,8 +22,9 @@ public class ModuloHm extends JPanel{
 	
 	public void set(){
 		this.setBorder(BorderFactory.createTitledBorder("Mezzi in Ritorno Oggi"));
-
-		InRitorno.exequery("SELECT * FROM veicolo WHERE disponibilita='si'","select");/*scrivere query mezzi in ritorno*/
+		
+		java.sql.Date DataOggi = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		InRitorno.exequery("SELECT * FROM noleggio WHERE Data_Fine='"+DataOggi+"'","select");/*scrivere query mezzi in ritorno*/
 		
 		tblRitorno = new JTable();
 		tblRitorno.setModel(new CostruisciTabella(InRitorno.rs).model);

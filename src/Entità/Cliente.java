@@ -18,15 +18,16 @@ public class Cliente {
 	public String Email;
 	public String Telefono;
 	public String ClienteCerca;
-	private boolean test=true;
+	private boolean test;
 	private static final String EMAILPATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	private static final String CFPATTERN = "[a-zA-Z]{6}\\d\\d[a-zA-Z]\\d\\d[a-zA-Z]\\d\\d\\d[a-zA-Z]";
-	private DBConnect cliente = new DBConnect();
+	private DBConnect cliente;
 	
 	/* Costruttore Cliente */
 	
 	public Cliente(){
-		
+		test=true;
+		cliente = new DBConnect();
 	}
 	
 	/* Metodo per Aggiungere il nuovo cliente al DB. */
@@ -41,7 +42,7 @@ public class Cliente {
 							JOptionPane.ERROR_MESSAGE);
 					content.txtCF_PIVA.setText("");
 					content.txtCF_PIVA.requestFocus();
-				}else {	/* Aggiunge il cliente e resetta il form per poter inserire un nuovo cliente */
+				}else {	/* Aggiunge il cliente e resetta il form per poter inserirne uno nuovo. */
 					String valori="('"+CF_PIVA+"','"+Tipologia+"','"+RS+"',"+CAP+",'"+Citta+"','"+Via+"',"+Numero+","+Telefono+",'"+Email+"')";
 					cliente.exequery("INSERT INTO cliente VALUES "+valori,"insert");
 					JOptionPane.showMessageDialog(null , "Nuovo Cliente Aggiunto!");
