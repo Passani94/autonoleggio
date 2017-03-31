@@ -7,7 +7,7 @@ import GUI.Login;
 
 public class Autonoleggio {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args){
 		try{
 			(new Thread(new Login())).start();
 		} catch (Exception ex) {

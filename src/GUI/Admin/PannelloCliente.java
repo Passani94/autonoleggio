@@ -66,7 +66,7 @@ public class PannelloCliente extends JPanel implements ActionListener{
 			else{
 			user = new JLabel(frameU.Username);
 		}
-		user.setFont(new Font("Arial", Font.PLAIN, 12));
+		user.setFont(new Font("Arial", Font.BOLD, 12));
 		user.setForeground(Color.RED);
 		
 		/* Crea il Layout.*/

@@ -3,11 +3,13 @@ package GUI.Admin;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -46,7 +48,11 @@ public class ModuloOp extends JPanel implements ActionListener{
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Operatori"));
 			
-			Operatori.exequery("SELECT * FROM operatore","select");
+			try{Operatori.exequery("SELECT * FROM operatore","select");}
+			catch (SQLException e) {  
+				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco degli operatori!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);}
 			
 			tblOperatori = new JTable();
 			tblOperatori.setModel(new CostruisciTabella(Operatori.rs).model);

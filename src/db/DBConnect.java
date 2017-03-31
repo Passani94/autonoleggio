@@ -32,7 +32,7 @@ public class DBConnect{
 	
 	/* Metodo per effettuare la query */
 	
-	public void exequery(String query, String tipo){
+	public void exequery(String query, String tipo) throws SQLException{
 		if (tipo.equals("select")){ /* se la query è una select usa questo codice */
 			try {
 				st = con.prepareStatement(query);
@@ -41,17 +41,18 @@ public class DBConnect{
 				JOptionPane.showMessageDialog(null, "Errore SQL: " + e,
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
+				throw new SQLException(e);
 			}
 		} else if (tipo.equals("update") || tipo.equals("insert") || tipo.equals("delete")){  /* codice usato per tutti gli altri tipi di query */
 			try {
 				st = con.prepareStatement(query);
 				st.executeUpdate();
-			}catch (SQLException e) { // 
-					JOptionPane.showMessageDialog(null, "Errore SQL: " + e,
-							"Errore ",
-							JOptionPane.ERROR_MESSAGE);
+			}catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, "Errore SQL: " + e,
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+				throw new SQLException(e);
 			}
 		}
 	}
-	
 }

@@ -1,9 +1,11 @@
 package GUI.Admin;
 
+import java.sql.SQLException;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,7 +26,11 @@ public class ModuloHm extends JPanel{
 		this.setBorder(BorderFactory.createTitledBorder("Mezzi in Ritorno Oggi"));
 		
 		java.sql.Date DataOggi = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-		InRitorno.exequery("SELECT * FROM noleggio WHERE Data_Fine='"+DataOggi+"'","select");/*scrivere query mezzi in ritorno*/
+		try{InRitorno.exequery("SELECT * FROM noleggio WHERE Data_Fine='"+DataOggi+"'","select");} /*scrivere query mezzi in ritorno*/
+		catch (SQLException e) {  
+		JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli in rientro oggi!",
+				"Errore ",
+				JOptionPane.ERROR_MESSAGE);}
 		
 		tblRitorno = new JTable();
 		tblRitorno.setModel(new CostruisciTabella(InRitorno.rs).model);

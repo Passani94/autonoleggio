@@ -47,7 +47,7 @@ public class PannelloOperatore extends JPanel implements ActionListener{
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		JLabel user = new JLabel(frame.Username);
-		user.setFont(new Font("Arial", Font.PLAIN, 12));
+		user.setFont(new Font("Arial", Font.BOLD, 12));
 		user.setForeground(Color.RED);
 		
 		/* Crea il Layout.*/

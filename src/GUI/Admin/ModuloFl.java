@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -16,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -75,7 +77,11 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli"));
 			
-			Veicoli.exequery("SELECT * FROM veicolo","select");
+			try{Veicoli.exequery("SELECT * FROM veicolo","select");}
+			catch (SQLException e) {  
+			JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli! ",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);}
 			
 			tblVeicoli = new JTable();
 			tblVeicoli.setModel(new CostruisciTabella(Veicoli.rs).model);

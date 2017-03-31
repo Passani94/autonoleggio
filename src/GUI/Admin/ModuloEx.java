@@ -3,6 +3,7 @@ package GUI.Admin;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -94,7 +95,11 @@ public class ModuloEx extends JPanel implements ActionListener{
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli più Noleggiati"));
 			
-			Extra.exequery("SELECT COUNT(*) as Numero_Noleggi, b.Targa, b.Tipologia, b.Nome, b.Disponibilita FROM noleggio a INNER JOIN veicolo b ON a.veicolo = b.Targa GROUP BY b.Targa ORDER BY Numero_Noleggi DESC","select");
+			try{Extra.exequery("SELECT COUNT(*) as Numero_Noleggi, b.Targa, b.Tipologia, b.Nome, b.Disponibilita FROM noleggio a INNER JOIN veicolo b ON a.veicolo = b.Targa GROUP BY b.Targa ORDER BY Numero_Noleggi DESC","select");}
+			catch(SQLException e){
+				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli più noleggiati!",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);}
 			
 			tblVeicoli = new JTable();
 			tblVeicoli.setModel(new CostruisciTabella(Extra.rs).model);
@@ -273,8 +278,12 @@ public class ModuloEx extends JPanel implements ActionListener{
 			JLabel lblTagliando = new JLabel("Veicoli con Tagliando in Scadenza");
 			lblTagliando.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblTagliando.setFont(new Font("Arial", Font.BOLD, 12));
-
-			Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Bollo LIKE '"+anno+"-"+mese+"-%'","select");
+			
+			try{Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Bollo LIKE '"+anno+"-"+mese+"-%'","select");}
+			catch(SQLException e){
+							JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con bollo in scadenza!",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);}
 			
 			tblBollo = new JTable();
 			tblBollo.setModel(new CostruisciTabella(Extra.rs).model);
@@ -285,7 +294,11 @@ public class ModuloEx extends JPanel implements ActionListener{
 			scrollbollo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollbollo.setViewportView(tblBollo);
 			
-			Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Tagliando LIKE '"+anno+"-"+mese+"-%'","select");
+			try{Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Tagliando LIKE '"+anno+"-"+mese+"-%'","select");}
+			catch(SQLException e){
+				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con tagliando in scadenza!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);}
 			
 			tblTagliando = new JTable();
 			tblTagliando.setModel(new CostruisciTabella(Extra.rs).model);
@@ -305,7 +318,11 @@ public class ModuloEx extends JPanel implements ActionListener{
 			lblOrmeggio.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblOrmeggio.setFont(new Font("Arial", Font.BOLD, 12));
 			
-			Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Assicurazione LIKE '"+anno+"-"+mese+"-%'","select");
+			try{Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Assicurazione LIKE '"+anno+"-"+mese+"-%'","select");}
+			catch(SQLException e){
+				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con assicurazione in scadenza!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);}
 			
 			tblAssicurazione = new JTable();
 			tblAssicurazione.setModel(new CostruisciTabella(Extra.rs).model);
@@ -317,7 +334,11 @@ public class ModuloEx extends JPanel implements ActionListener{
 			scrollAssicurazione.setViewportView(tblAssicurazione);
 			
 			
-			Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Ormeggio LIKE '"+anno+"-"+mese+"-%'","select");
+			try{Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Ormeggio LIKE '"+anno+"-"+mese+"-%'","select");}
+			catch(SQLException e){
+				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con ormeggio in scadenza!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);}
 			
 			tblOrmeggio = new JTable();
 			tblOrmeggio.setModel(new CostruisciTabella(Extra.rs).model);
@@ -332,7 +353,11 @@ public class ModuloEx extends JPanel implements ActionListener{
 			lblAlaggio.setHorizontalAlignment(SwingConstants.LEFT);
 			lblAlaggio.setFont(new Font("Arial", Font.BOLD, 12));
 			
-			Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Costo_Alaggio LIKE '"+anno+"-"+mese+"-%'","select");
+			try{Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Costo_Alaggio LIKE '"+anno+"-"+mese+"-%'","select");}
+			catch(SQLException e){
+				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con alaggio in scadenza!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);}
 			
 			tblAlaggio = new JTable();
 			tblAlaggio.setModel(new CostruisciTabella(Extra.rs).model);

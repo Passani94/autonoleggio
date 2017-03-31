@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.UIManager;
 import javax.swing.UIManager.*;
@@ -40,8 +41,11 @@ public class Login extends JFrame implements ActionListener,Runnable{
 			Login frame = new Login();
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
+			frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
 			} catch (Exception e) {
-			e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Errore, Impossibile avviare il pannello di Login!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	 
@@ -52,6 +56,7 @@ public class Login extends JFrame implements ActionListener,Runnable{
     		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
     	        if ("Nimbus".equals(info.getName())) {
     	            UIManager.setLookAndFeel(info.getClassName());
+    	            UIManager.put("Button.defaultButtonFollowsFocus", Boolean.TRUE);
     	            break;
     	        }
     	    }
@@ -178,6 +183,9 @@ public class Login extends JFrame implements ActionListener,Runnable{
 					}
 			} catch (SQLException e1) {
 			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Errore, Impossibile connettersi al DB per effettuare l'accesso!",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);
 			}
 	}
 	

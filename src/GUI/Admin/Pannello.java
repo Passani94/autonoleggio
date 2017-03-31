@@ -2,11 +2,11 @@ package GUI.Admin;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
+
+import GUI.Login;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 
 import java.awt.event.ActionListener;
@@ -37,6 +37,7 @@ public class Pannello extends JFrame implements ActionListener{
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			this.setBounds(100, 100, 1000, (screenSize.height-100));
 			this.setLocationRelativeTo(null);
+			this.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
 			PannelloHome home = new PannelloHome(this);
 			} catch (Exception e) {
 			e.printStackTrace();

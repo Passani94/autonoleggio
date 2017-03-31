@@ -1,7 +1,10 @@
 package GUI.User;
 
+import java.sql.SQLException;
+
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,7 +24,11 @@ public class ModuloHmU extends JPanel{
 	public void set(){
 		this.setBorder(BorderFactory.createTitledBorder("Mezzi Disponibili per il Noleggio"));
 		
-		Disponibili.exequery("SELECT * FROM veicolo WHERE disponibilita='si'","select");
+		try{Disponibili.exequery("SELECT * FROM veicolo WHERE disponibilita='si'","select");}
+		catch (SQLException e) {  
+			JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli disponibili!",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);}
 		
 		tblDisponibili = new JTable();
 		tblDisponibili.setModel(new CostruisciTabella(Disponibili.rs).model);

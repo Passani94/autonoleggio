@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -26,6 +27,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
 
 import Entità.Contratto;
+import Entità.Preventivo;
 import Utils.CostruisciTabella;
 import Utils.TableColumnAdjuster;
 import db.DBConnect;
@@ -33,7 +35,7 @@ import db.DBConnect;
 
 public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 
-	private JLabel lblPreventivo;
+	public JLabel lblPreventivo;
 	public JTable tblNoleggi;
 	private JButton btnFiltra;
 	private JButton btnAggiungi;
@@ -53,6 +55,7 @@ public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 	public JFormattedTextField frmtdtxtfldValida;
 	public JFormattedTextField frmtdtxtfldInizio;
 	private Contratto CT = new Contratto();
+	private Preventivo PV = new Preventivo();
 	private DBConnect Contratti = new DBConnect();
 	
 	/* Costruttore ModuloCt */
@@ -66,7 +69,11 @@ public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Contratti"));
 
-			Contratti.exequery("SELECT * FROM noleggio","select");
+			try{Contratti.exequery("SELECT * FROM noleggio","select");}
+			catch(SQLException e){
+				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco noleggi!",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);}
 			
 			tblNoleggi = new JTable();
 			tblNoleggi.setModel(new CostruisciTabella(Contratti.rs).model);
@@ -442,21 +449,8 @@ public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 			CT.aggiungi(this);
 		}
 		else if(btnCalcola == e.getSource()){
-			try{
-			/* Inserire cosa fa il pulsante Calcola*/
-			String Veicolo = txtVeicolo.getText();
-			String Inizio = frmtdtxtfldInizio.getText();
-			String Fine = frmtdtxtfldFine.getText();
-			lblPreventivo.setText("0000");
-			txtVeicolo.setText("");
-			frmtdtxtfldInizio.setText("aaaa/mm/gg");
-			frmtdtxtfldFine.setText("aaaa/mm/gg");
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Preventivo non Calcolato!",
-					    "Errore ",
-					    JOptionPane.ERROR_MESSAGE);
-			}
+			PV.setValori(this);
+			PV.calcola(this);
 		}
 	}
 	
