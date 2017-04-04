@@ -84,9 +84,10 @@ public class Contratto {
 					content.txtVeicolo.setText("");
 					content.txtVeicolo.requestFocus();
 					test=false;}
-				if (test==true) {	/* Aggiunge il veicolo e resetta il form per poter inserirne uno nuovo. */
+				if (test==true && noleggio.rs.getString("Disponibilita").equals("si")) {	/* Aggiunge il veicolo e resetta il form per poter inserirne uno nuovo. */
 					String valori="(DEFAULT,'"+Tipologia+"',"+Inizio+","+Fine+","+Costo+","+Pagato+",'"+Nome+"','"+Cognome+"','"+Patente+"','"+Rilasciatada+"',"+Rilasciatail+","+Valida+",'"+Cliente+"','"+Veicolo+"')";
 					noleggio.exequery("INSERT INTO noleggio VALUES "+valori,"insert");
+					noleggio.exequery("UPDATE veicolo SET Disponibilita='no' WHERE Targa='"+Veicolo+"'","update"); /* Rende il veicolo non disponibile dopo il noleggio. */
 					JOptionPane.showMessageDialog(null , "Nuovo Contratto di Noleggio Inserito!");
 					content.txtTipologia.setText("");
 					content.frmtdtxtfldInizio.setText("aaaa-mm-gg");
@@ -102,6 +103,12 @@ public class Contratto {
 					content.txtCliente.setText("");
 					content.txtVeicolo.setText("");
 					content.txtTipologia.requestFocus();
+				} else{
+					JOptionPane.showMessageDialog(null, "Errore, Il veicolo inserito non è Disponibile per il noleggio!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+					content.txtVeicolo.setText("");
+					content.txtVeicolo.requestFocus();
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
