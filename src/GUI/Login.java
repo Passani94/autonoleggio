@@ -1,29 +1,28 @@
 package GUI;
 
+import db.DBConnect;
+import java.sql.SQLException;
+
+import GUI.Admin.Pannello;
+import GUI.User.PannelloU;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import GUI.Admin.Pannello;
-import GUI.User.PannelloU;
-import db.DBConnect;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import java.awt.Font;
-import java.awt.Toolkit;
-
 import javax.swing.UIManager;
 import javax.swing.UIManager.*;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Login extends JFrame implements ActionListener,Runnable{
 

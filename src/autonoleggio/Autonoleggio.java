@@ -1,8 +1,6 @@
 package autonoleggio;
 
 import javax.swing.JOptionPane;
-
-
 import GUI.Login;
 
 public class Autonoleggio {

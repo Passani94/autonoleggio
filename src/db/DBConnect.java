@@ -24,7 +24,7 @@ public class DBConnect{
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 		}catch (SQLException e) {  
-			JOptionPane.showMessageDialog(null, "Errore, connession non stabilita! " + e,
+			JOptionPane.showMessageDialog(null, "Errore, connessione non stabilita! \n\n" + e,
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 		}
