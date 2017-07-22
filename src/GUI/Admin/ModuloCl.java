@@ -20,10 +20,10 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
 
+import db.DBConnect;
 import Entità.Cliente;
 import Utils.CostruisciTabella;
 import Utils.TableColumnAdjuster;
-import db.DBConnect;
 
 
 public class ModuloCl extends JPanel implements ActionListener{

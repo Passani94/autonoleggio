@@ -23,6 +23,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Login extends JFrame implements ActionListener,Runnable{
 
@@ -77,12 +79,35 @@ public class Login extends JFrame implements ActionListener,Runnable{
 		setContentPane(contentPane);
 		
 		btnAccedi.setFont(new Font("Arial", Font.PLAIN, 12));
-	    btnAccedi.addActionListener(this);	/* Action Listener per il bottone Accedi.*/
+		/* ActionListener per il bottone Accedi.*/
+		btnAccedi.addActionListener(this);	
 	    
 		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEsci.addActionListener(this);	/* Action Listener per il bottone Esci.*/
+		/* ActionListener per il bottone Esci.*/
+		btnEsci.addActionListener(this);	
 		
+		/** Tra parentesi viene definita una Classe ANONIMA, cioè una classe "locale" senza 
+		 * 	un nome assegnato. Si tratta di una classe definita un'unica volta attraverso una
+		 *  singola espressione caratterizzata da una versione estesa della sintassi
+		 *  dell'operatore new. 
+		 *  In particolare viene implementata una classe ASTRATTA (KeyAdapter) e quindi devono
+		 *  essere implementati tutti i suoi metodi (--> Infatti si può notare la presenza di 
+		 *  due metodi "vuoti". 
+		 **/
 		txtPassword = new JPasswordField();
+		/* KeyListener per il tasto Enter.*/
+		txtPassword.addKeyListener(new KeyAdapter() {
+				public void keyPressed(KeyEvent evt) {
+					if(evt.getKeyCode()==KeyEvent.VK_ENTER) {
+						log = new DBConnect();
+						check();
+					}
+				}
+				public void keyTyped(KeyEvent evt) {
+				}
+				public void keyReleased(KeyEvent evt) {
+				}
+		});
 		
 		txtUsername = new JTextField();
 		txtUsername.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -146,7 +171,7 @@ public class Login extends JFrame implements ActionListener,Runnable{
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	/* Verifica che i dati inseriti per l'accesso siano validi.*/
+	/* Metodo. Verifica che i dati inseriti per l'accesso siano validi.*/
 	
 	private void check(){
 		int size=0;

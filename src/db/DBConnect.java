@@ -30,7 +30,7 @@ public class DBConnect{
 		}
 	}
 	
-	/* Metodo per effettuare la query */
+	/* Metodo. Codice per effettuare la query */
 	
 	public void exequery(String query, String tipo) throws SQLException{
 		/* Codice usato se la query è una select. */
