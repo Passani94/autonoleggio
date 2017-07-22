@@ -26,12 +26,14 @@ import java.awt.event.ActionEvent;
 
 public class Login extends JFrame implements ActionListener,Runnable{
 
+	private DBConnect log;
+	
 	private JPanel contentPane;
 	private JPasswordField txtPassword;
 	private JTextField txtUsername;
 	private JButton btnAccedi = new JButton("Accedi");
 	private JButton btnEsci = new JButton("Esci");
-	private DBConnect log;
+	
 	
 	/* Crea il frame Login.*/
 	
@@ -42,7 +44,7 @@ public class Login extends JFrame implements ActionListener,Runnable{
 			frame.setVisible(true);
 			frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Errore, Impossibile avviare il pannello di Login!",
+				JOptionPane.showMessageDialog(null, "Errore! Impossibile avviare il pannello di login!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 		}
@@ -62,7 +64,7 @@ public class Login extends JFrame implements ActionListener,Runnable{
 		} catch (Exception e) {
 		    e.printStackTrace();
 		    try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-	        catch (Exception ex) {JOptionPane.showMessageDialog(null, "Errore, Impossibile avviare l'Interfaccia!",
+	        catch (Exception ex) {JOptionPane.showMessageDialog(null, "Errore! Impossibile avviare l'interfaccia!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);}
 		}
@@ -73,7 +75,6 @@ public class Login extends JFrame implements ActionListener,Runnable{
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
 		
 		btnAccedi.setFont(new Font("Arial", Font.PLAIN, 12));
 	    btnAccedi.addActionListener(this);	/* Action Listener per il bottone Accedi.*/
@@ -145,50 +146,54 @@ public class Login extends JFrame implements ActionListener,Runnable{
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	/* Metodo che verifica che i dati inseriti sono validi per accedere.*/
+	/* Verifica che i dati inseriti per l'accesso siano validi.*/
 	
 	private void check(){
 		int size=0;
 			try {
-			String user = txtUsername.getText().trim();
+			String user = txtUsername.getText().trim(); //Il metodo trim() prende una stringa e rimuove eventuali whitespaces in testa ed in coda
 			char[] pass = txtPassword.getPassword();
 			String pwd=String.copyValueOf(pass);
-			log.exequery("SELECT * FROM operatore WHERE ID_Operatore='" + user + "' AND Password='" + pwd + "'","select"); /* Si connette al DB e cerca se l'utente inserito è presente*/
-			if (log.rs.next()) size=1;	/* Se l'utente è presente il valore size va ad 1*/
-			if (user.equals("") || pwd.equals("")){	/* Se non si inserisce l'username o la password viene notificato con un errore. */
-				JOptionPane.showMessageDialog(null, "Errore, Inserisci l'Username e/o la Password!",
+			/* Effettua una connessione al DB e cerca una corrispondenza con l'utente e la password inseriti.*/
+			log.exequery("SELECT * FROM operatore WHERE ID_Operatore='" + user + "' AND Password='" + pwd + "'","select"); 
+			/* Se la ricerca ha esito positivo, aggiorna il valore size ad 1*/
+			if (log.rs.next()) size=1;	
+			/* Se non viene inserito l'username o la password, viene restituito un errore.*/
+			if (user.equals("") || pwd.equals("")){	
+				JOptionPane.showMessageDialog(null, "Errore! Inserisci l'username e/o la password!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 				txtUsername.requestFocus();
-			}else if (size==0){	/* Se non esiste l'utente con cui si prova ad accedere viene notificato con un errore */
+			} /* Se non esiste l'utente o se la password è errata, viene restituito un errore.*/
+			else if (size==0){	
 				log.rs.beforeFirst();
 				txtUsername.setText("");
 				txtPassword.setText("");
 				user=null;
 				pass=null;
 				pwd=null;
-				JOptionPane.showMessageDialog(null, "Errore, Utente non Trovato o Password Sbagliata!",
+				JOptionPane.showMessageDialog(null, "Errore! Utente non trovato o password errata!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 				txtUsername.requestFocus();
-				}
-				else if (user.equals("admin")){	/* Se l'utente esiste ed è l'admin viene avviato il pannello di controllo dell'admin */
+				}/* Se l'utente viene trovato ed è l'admin, viene avviato il pannello di controllo dell'admin */
+				else if (user.equals("admin")){	
 					this.dispose();
 					Pannello op = new Pannello(user);
-					}
-					else{	/* Se l'utente esiste ed è un operatore viene avviato il pannello di controllo dell'operatore */
+					}/* Se l'utente viene trovato ed è un operatore, viene avviato il pannello di controllo dell'operatore */
+					else{	
 						this.dispose();
 						PannelloU op = new PannelloU(user);
 					}
 			} catch (SQLException e1) {
 			e1.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Errore, Impossibile connettersi al DB per effettuare l'accesso!",
+			JOptionPane.showMessageDialog(null, "Errore! Impossibile connettersi al DB per effettuare l'accesso!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 			}
 	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
+	/* Definisce le azioni da eseguire in base al pulsante cliccato.*/
 	
 	public void actionPerformed(ActionEvent e){
 		if (btnAccedi == e.getSource()){

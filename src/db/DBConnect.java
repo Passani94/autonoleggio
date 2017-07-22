@@ -24,7 +24,7 @@ public class DBConnect{
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 		}catch (SQLException e) {  
-			JOptionPane.showMessageDialog(null, "Errore, connessione non stabilita! \n\n" + e,
+			JOptionPane.showMessageDialog(null, "Errore! Connessione non stabilita! \n\n" + e,
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 		}
@@ -33,7 +33,8 @@ public class DBConnect{
 	/* Metodo per effettuare la query */
 	
 	public void exequery(String query, String tipo) throws SQLException{
-		if (tipo.equals("select")){ /* se la query è una select usa questo codice */
+		/* Codice usato se la query è una select. */
+		if (tipo.equals("select")){
 			try {
 				st = con.prepareStatement(query);
 				rs = st.executeQuery();
@@ -42,8 +43,8 @@ public class DBConnect{
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 				throw new SQLException(e);
-			}
-		} else if (tipo.equals("update") || tipo.equals("insert") || tipo.equals("delete")){  /* codice usato per tutti gli altri tipi di query */
+			} /*Codice usato per tutte le altre query.*/
+		} else if (tipo.equals("update") || tipo.equals("insert") || tipo.equals("delete")){
 			try {
 				st = con.prepareStatement(query);
 				st.executeUpdate();

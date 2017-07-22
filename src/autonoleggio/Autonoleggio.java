@@ -10,7 +10,7 @@ public class Autonoleggio {
 			(new Thread(new Login())).start();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Errore, Impossibile Avviare L'Applicazione!",
+			JOptionPane.showMessageDialog(null, "Errore! Impossibile avviare l'applicazione!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 		}	
