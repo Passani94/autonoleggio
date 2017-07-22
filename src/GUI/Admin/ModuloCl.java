@@ -28,6 +28,9 @@ import Utils.TableColumnAdjuster;
 
 public class ModuloCl extends JPanel implements ActionListener{
 
+	private Cliente CL = new Cliente();
+	private DBConnect Clienti = new DBConnect();
+	
 	private JTable tblClienti;
 	private JButton btnAggiungi;
 	private JButton btnElimina;
@@ -44,8 +47,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 	public JTextField txtEmail;
 	public JTextField txtTelefono;
 	public JTextField txtClienteCerca;
-	private Cliente CL = new Cliente();
-	private DBConnect Clienti = new DBConnect();
+	
 	
 	/* Costruttore ModuloCl */
 	
@@ -78,7 +80,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
-					gl_contentPane.createParallelGroup(Alignment.LEADING)
+					gl_contentPane.createParallelGroup(Alignment.CENTER)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(64)
 							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 360, GroupLayout.PREFERRED_SIZE)
