@@ -46,12 +46,12 @@ public class Preventivo {
 	public void calcola(ModuloCt content){
 		if (check(content)){
 			/* Prende i valori di Anno, Mese, Giorno a partire dalle date inserite. */
-			Anno_Inizio = Integer.parseInt(Inizio.substring(0,3)); 
-			Mese_Inizio = Integer.parseInt(Inizio.substring(5,6));
-			Giorno_Inizio = Integer.parseInt(Inizio.substring(8,9));
-			Anno_Fine = Integer.parseInt(Fine.substring(0,3));
-			Mese_Fine = Integer.parseInt(Fine.substring(5,6));
-			Giorno_Fine = Integer.parseInt(Fine.substring(8,9));
+			Anno_Inizio = Integer.parseInt(Inizio.substring(0,4)); 
+			Mese_Inizio = Integer.parseInt(Inizio.substring(5,7));
+			Giorno_Inizio = Integer.parseInt(Inizio.substring(8,10));
+			Anno_Fine = Integer.parseInt(Fine.substring(0,4));
+			Mese_Fine = Integer.parseInt(Fine.substring(5,7));
+			Giorno_Fine = Integer.parseInt(Fine.substring(8,10));
 			/* Calcola i giorni di noleggio.*/
 			Giorni_Noleggio = calcolaGiorni(Anno_Inizio, Mese_Inizio, Giorno_Inizio, Anno_Fine, Mese_Fine, Giorno_Fine);
 			try{
@@ -76,13 +76,11 @@ public class Preventivo {
 						/* Prende il PrezzoBT in base ai giorni di noleggio. */
 						if (preventivo.rs.next()){
 							Al_Giorno = preventivo.rs.getBigDecimal(Giorni).floatValue();
-							System.out.println(Al_Giorno);
-						}
+							}
 						if (Giorni_Noleggio>=6){
 							Totale = Al_Giorno;
 						} else {
 							Totale = Al_Giorno * Giorni_Noleggio;
-							System.out.println(Totale);
 						}
 					}
 				}
