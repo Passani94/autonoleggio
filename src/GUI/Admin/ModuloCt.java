@@ -457,8 +457,8 @@ public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 	/* Definisce le azioni da eseguire quando si ha il focus sui campi per inserire le date. */
 	
 	public void focusGained(FocusEvent e){
-		if(frmtdtxtfldInizio == e.getSource()){frmtdtxtfldInizio.setText("");}
-		else if(frmtdtxtfldFine == e.getSource()){frmtdtxtfldFine.setText("");}
+		if(frmtdtxtfldInizio == e.getSource()  && frmtdtxtfldInizio.getText().equals("aaaa-mm-gg")){frmtdtxtfldInizio.setText("");}
+		else if(frmtdtxtfldFine == e.getSource() && frmtdtxtfldFine.getText().equals("aaaa-mm-gg")){frmtdtxtfldFine.setText("");}
 		else if(frmtdtxtfldRilasciatail == e.getSource()){frmtdtxtfldRilasciatail.setText("");}
 		else if(frmtdtxtfldValida == e.getSource()){frmtdtxtfldValida.setText("");}
 		if(frmtdtxtfldInizio.getText().equals("") && !(frmtdtxtfldInizio == e.getSource())){frmtdtxtfldInizio.setText("aaaa-mm-gg");}
