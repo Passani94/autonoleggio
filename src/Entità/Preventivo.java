@@ -2,7 +2,7 @@ package Entità;
 
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
-
+import Utils.ArrotondaNumero;
 import db.DBConnect;
 import GUI.Admin.ModuloCt;
 
@@ -314,7 +314,7 @@ public class Preventivo {
 				if (km == JOptionPane.YES_OPTION){
 					Totale = Totale * 1.15;
 				} /* Visualizza il totale. */
-				content.lblPreventivo.setText("Totale Preventivo = "+String.valueOf(Totale)+" €");	
+				content.lblPreventivo.setText("Totale Preventivo = "+String.valueOf(ArrotondaNumero.arrotonda(Totale,2))+" €");	
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore! Preventivo non calcolato!",
@@ -380,4 +380,6 @@ public class Preventivo {
 			else {test=true;}
 		return test;
 	}
+	
+	
 }
