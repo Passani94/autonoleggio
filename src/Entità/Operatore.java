@@ -20,50 +20,53 @@ public class Operatore {
 		operatore = new DBConnect();
 	}
 	
-	/* Metodo per Aggiungere il nuovo Operatore al DB. */
+	/* Metodo. Aggiungi un nuovo operatore al DB. */
 	
 	public void aggiungi(ModuloOp content){
 		if (check(content)){
-			try{
-				operatore.exequery("SELECT * FROM operatore where ID_Operatore='"+user+"'","select"); /* Cerca se esiste già l'operatore nel DB */
-				if (operatore.rs.next()){	/* Verifica se esiste già l'operatore nel DB */
-					JOptionPane.showMessageDialog(null, "Errore, l'Operatore con l'Username inserito è già presente!",
+			try{ /* Cerca nel DB un operatore con l'username inserito. */
+				operatore.exequery("SELECT * FROM operatore where ID_Operatore='"+user+"'","select"); 
+				/* Verifica se l'operatore che si vuole aggiungere è già presente nel DB. */
+				if (operatore.rs.next()){	
+					JOptionPane.showMessageDialog(null, "Errore! L'operatore con l'Username inserito è già presente!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 					content.txtUsername.setText("");
 					content.txtUsername.requestFocus();
-				}else {	/* Aggiunge l'operatore e resetta il form per poter inserire un nuovo operatore */
+				} /* Aggiunge il nuovo operatore. Inoltre resetta i campi della form per un nuovo inserimento. */
+				else {	
 					String valori = new String("('"+user+"','"+pass+"')");
 					operatore.exequery("INSERT INTO operatore VALUES "+valori,"insert");
-					JOptionPane.showMessageDialog(null , "Nuovo Operatore Aggiunto!");
+					JOptionPane.showMessageDialog(null , "Nuovo operatore aggiunto!");
 					content.txtUsername.setText("");
 					content.txtPassword.setText("");
 					content.txtUsername.requestFocus();
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Operatore non Aggiunto!",
+				JOptionPane.showMessageDialog(null, "Errore! Operatore non aggiunto!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 	
-	/* Metodo usato per eliminare l'operatore dal DB. */
+	/* Metodo. Elimina un operatore dal DB. */
 	
 	public void elimina(ModuloOp content){
 		if (!user.equals("admin")){
 			pass="elimina";
 			if (check(content)){
-				try{
-					operatore.exequery("SELECT * FROM operatore where ID_Operatore='"+user+"'","select"); /* Controlla se l'operatore è presente e può essere eliminato. */
+				try{ 
+					operatore.exequery("SELECT * FROM operatore where ID_Operatore='"+user+"'","select"); 
+					/* Verifica se è presente un operatore con tale username. */
 					if(operatore.rs.next()){
 						operatore.exequery("DELETE FROM operatore WHERE ID_Operatore='"+user+"'","delete");
-						JOptionPane.showMessageDialog(null , "Operatore Eliminato!");
+						JOptionPane.showMessageDialog(null , "Operatore eliminato!");
 						content.txtUsername.setText("");
 						content.txtUsername.requestFocus();
 					} else{
-						JOptionPane.showMessageDialog(null, "Errore, l'Operatore con l'Username inserito non è presente nel DB!",
+						JOptionPane.showMessageDialog(null, "Errore! Non è presente un operatore con tale Username!",
 								"Errore ",
 								JOptionPane.ERROR_MESSAGE);
 						content.txtUsername.setText("");
@@ -71,58 +74,61 @@ public class Operatore {
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Errore, Operatore non Eliminato!",
+					JOptionPane.showMessageDialog(null, "Errore! Operatore non eliminato!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 				}
 		}}else{
 			content.txtUsername.setText("");
 			content.txtUsername.requestFocus();
-			JOptionPane.showMessageDialog(null, "Errore, Impossibile eliminare l'utente amministratore!",
+			JOptionPane.showMessageDialog(null, "Errore! Impossibile eliminare l'Amministratore!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 		}		
 	}
 	
-	/* Metodo per assegnare i valori all'Operatore. */
-	
-	public void setValori(ModuloOp content){
-		user = content.txtUsername.getText().trim();
-		pass = content.txtPassword.getText().trim();
-	}
-	
-	/* Metodo per assegnare l'Username all'Operatore da eliminare. */
-	
-	public void setUsername(ModuloOp content){
-		user = content.txtUsername.getText().trim();
-	}
-	
-	/* Metodo per verificare la correttezza dei dati inseriti. */
+	/* Metodo. Verifica la correttezza dei dati inseriti. */
 	
 	private boolean check(ModuloOp content){
 		boolean check=true;
-		if (user.equals("") || pass.equals("")){		/* Verifica se sono stati inseriti tutti i campi necessari */
+		/* Verifica se sono stati inseriti tutti i campi necessari. */
+		if (user.equals("") || pass.equals("")){		
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, Non lasciare vuoti i campi!",
+			JOptionPane.showMessageDialog(null, "Errore! Non lasciare campi vuoti!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 		}else if (user.length()>25){
 			content.txtUsername.setText("");
 			content.txtUsername.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, l'Username deve avere meno di 25 caratteri!",
+			JOptionPane.showMessageDialog(null, "Errore! L'Username deve avere meno di 25 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		} else if(pass.length()>25 || pass.length()<6){
 			content.txtPassword.setText("");
 			content.txtPassword.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, la password deve avere tra 6 e 25 caratteri!",
+			JOptionPane.showMessageDialog(null, "Errore! La password deve avere tra 6 e 25 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}
 		if (check==false) test=check; 
 			else test=true;
 		return test;
+	}
+	
+	/***** METODI USATI DALLA GUI PER LA GESTIONE DEGLI OPERATORI (--> vedi classe ModuloOp <--) *****/
+	
+	/* Metodo. Assegna i valori all'operatore. */
+	
+	public void setValori(ModuloOp content){
+		user = content.txtUsername.getText().trim();
+		pass = content.txtPassword.getText().trim();
+	}
+	
+	/* Metodo . Assegna l'username all'operatore da eliminare. */
+	
+	public void setUsername(ModuloOp content){
+		user = content.txtUsername.getText().trim();
 	}
 }

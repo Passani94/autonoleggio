@@ -27,7 +27,10 @@ public class Veicolo {
 	private String Lungo;
 	private boolean test;
 	private DBConnect veicolo;
-	private static final String TGPATTERN = "[a-zA-Z]{2}\\d\\d\\d[a-zA-Z]{2}";
+	private static final String TGPATTERN1 = "[a-zA-Z]{2}\\d\\d\\d[a-zA-Z]{2}"; //Pattern Targa Autoveicolo
+	private static final String TGPATTERN2 = "[a-zA-Z]{1}\\d\\d\\d[a-zA-Z]{2}"; //Pattern Targa Scooter
+	private static final String TGPATTERN3 = "[a-zA-Z]{2}\\d\\d\\d\\d\\d"; //Pattern Targa Motocicletta e Quad-Bike
+	private static final String TGPATTERN4 = "\\d[a-zA-Z]{2}\\d\\d\\d"; //Pattern Targa Mezzo Acquatico
 	private static final String DATEPATTERN = "^\\d{4}-\\d{2}-\\d{2}$";
 	
 	/* Costruttore Veicolo */
@@ -39,19 +42,21 @@ public class Veicolo {
 		veicolo = new DBConnect();
 	}
 	
-	/* Metodo per Aggiungere il nuovo veicolo al DB. */
+	/* Metodo. Aggiunge un nuovo veicolo al DB. */
 	
 	public void aggiungi(ModuloFl content){
 		if (check(content,"aggiungi")){
-			try{
-				veicolo.exequery("SELECT * FROM veicolo where Targa='"+Targa+"'","select"); /* Cerca se esiste già il veicolo nel DB */
-				if (veicolo.rs.next()){	/* Verifica se esiste già il veicolo nel DB */
-					JOptionPane.showMessageDialog(null, "Errore, il Veicolo con la Targa inserita è già presente!",
+			try{ /* Cerca nel DB un veicolo con la targa inserita. */
+				veicolo.exequery("SELECT * FROM veicolo where Targa='"+Targa+"'","select"); 
+				/* Verifica se il veicolo che si vuole aggiungere è già presente nel DB. */
+				if (veicolo.rs.next()){	
+					JOptionPane.showMessageDialog(null, "Errore! Esiste già un veicolo con tale targa!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 					content.txtTarga.setText("");
 					content.txtTarga.requestFocus();
-				}else {	/* Aggiunge il veicolo e resetta il form per poter inserire un nuovo veicolo */
+				} /* Aggiunge il nuovo veicolo. Inoltre resetta i campi della form per un nuovo inserimento. */
+				else {	
 					String valori="('"+Targa+"','"+Tipologia+"','"+Nome+"','"+Disp+"','"+Marca+"','"+Alimentazione+"',"+Km+",'"+Dimensioni+"',"+Imma+","+Bollo+","+Tagliando+","+Assicurazione+","+Ormeggio+","+Alaggio+",'"+Breve+"','"+Lungo+"')";
 					veicolo.exequery("INSERT INTO veicolo VALUES "+valori,"insert");
 					JOptionPane.showMessageDialog(null , "Nuovo Veicolo Aggiunto!");
@@ -75,26 +80,26 @@ public class Veicolo {
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Veicolo non Aggiunto!",
+				JOptionPane.showMessageDialog(null, "Errore! Veicolo non aggiunto!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 	
-	/* Metodo usato per eliminare il veicolo dal DB. */
+	/* Metodo. Elimina un veicolo dal DB. */
 	
 	public void elimina(ModuloFl content){
 		if (checkelimina(content)){
-			try{
-				veicolo.exequery("SELECT * FROM veicolo where Targa='"+Targa+"'","select"); /* Controlla se il veicolo è presente e può essere eliminato. */
+			try{ /* Verifica se è presente un veicolo con tale targa. */
+				veicolo.exequery("SELECT * FROM veicolo where Targa='"+Targa+"'","select"); 
 				if(veicolo.rs.next()){
 					veicolo.exequery("DELETE FROM veicolo WHERE Targa='"+Targa+"'","delete");
-					JOptionPane.showMessageDialog(null , "Veicolo Eliminato!");
+					JOptionPane.showMessageDialog(null , "Veicolo eliminato!");
 					content.txtTarga.setText("");
 					content.txtTarga.requestFocus();
 				} else{
-					JOptionPane.showMessageDialog(null, "Errore, Il Veicolo con la Targa non è presente nel DB!",
+					JOptionPane.showMessageDialog(null, "Errore! Non è presente un veicolo con tale targa!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 					content.txtTarga.setText("");
@@ -102,14 +107,14 @@ public class Veicolo {
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Targa non Eliminato!",
+				JOptionPane.showMessageDialog(null, "Errore! Veicolo non eliminato!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 
-	/* Metodo per cercare un veicolo nel DB. */
+	/* Metodo. Cerca un veicolo nel DB */
 	
 	public void cerca(ModuloFl content){
 		if (checkcerca(content)){
@@ -146,7 +151,7 @@ public class Veicolo {
 					content.frmtdtxtfldOrmeggio.setEditable(true);
 					content.frmtdtxtfldAlaggio.setEditable(true);
 				}else{
-					JOptionPane.showMessageDialog(null, "Errore, Il veicolo con la Targa cercata non è presente nel DB!",
+					JOptionPane.showMessageDialog(null, "Errore! Non è presente un veicolo con tale targa!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 					content.txtTargaCerca.setText("");
@@ -154,21 +159,21 @@ public class Veicolo {
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Veicolo non Trovato!",
+				JOptionPane.showMessageDialog(null, "Errore! Veicolo non trovato!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 	
-	/* Metodo per modificare un veicolo nel DB. */
+	/* Metodo. Modifica un veicolo nel DB. */
 	
 	public void modifica(ModuloFl content){
 		if (check(content,"modifica")){
 			try{
 				String valori = "Tipologia='"+Tipologia+"',Nome='"+Nome+"',Disponibilita='"+Disp+"',Marca='"+Marca+"',Alimentazione='"+Alimentazione+"',Km_Effettuati="+Km+",Dimensioni='"+Dimensioni+"',Data_Immatricolazione="+Imma+",Data_Scadenza_Bollo="+Bollo+",Data_Scadenza_Tagliando="+Tagliando+",Data_Scadenza_Assicurazione="+Assicurazione+",Data_Scadenza_Ormeggio="+Ormeggio+",Data_Scadenza_Costo_Alaggio="+Alaggio;
 				veicolo.exequery("UPDATE veicolo SET "+valori+" WHERE Targa='"+Targa+"'","update");
-				JOptionPane.showMessageDialog(null , "Veicolo Modificato!");
+				JOptionPane.showMessageDialog(null , "Veicolo modificato!");
 				content.txtTargaCerca.setText("");
 				content.txtTargaCerca.requestFocus();
 				content.txtTargaCerca.setEditable(true);
@@ -187,163 +192,135 @@ public class Veicolo {
 				content.frmtdtxtfldAlaggio.setEditable(false);
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Veicolo non Modificato!",
+				JOptionPane.showMessageDialog(null, "Errore! Veicolo non modificato!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
-	
-	/* Metodo per assegnare i valori al Veicolo. */
-	
-	public void setValori(ModuloFl content, String tipo){
-		Targa = content.txtTarga.getText().trim();
-		Tipologia = content.txtTipologia.getText().trim();
-		Nome = content.txtNome.getText().trim();
-		Disp = content.txtDisp.getText().trim();
-		Marca = content.txtMarca.getText().trim();
-		Alimentazione = content.txtAlimentazione.getText().trim();
-		Km = content.txtKm.getText().trim();
-		Dimensioni = content.txtDimensioni.getText().trim();
-		Imma = content.frmtdtxtfldImma.getText().trim();
-		Bollo = content.frmtdtxtfldBollo.getText().trim();
-		Tagliando = content.frmtdtxtfldTagliando.getText().trim();
-		Assicurazione = content.frmtdtxtfldAssicurazione.getText().trim();
-		Ormeggio = content.frmtdtxtfldOrmeggio.getText().trim();
-		Alaggio = content.frmtdtxtfldAlaggio.getText().trim();
-		if (tipo.equals("aggiungi")){
-			Breve = content.lstBreve.getSelectedValue().toString();
-			if (!content.lstLungo.isSelectionEmpty()) Lungo = content.lstLungo.getSelectedValue().toString();}
-	}
-	
-	/* Metodo per assegnare solo la Targa al Veicolo. */
-	
-	public void setTarga(ModuloFl content){
-		Targa = content.txtTarga.getText().trim();
-	}
-	
-	/* Metodo per assegnare solo la Targa al Veicolo da cercare. */
-	
-	public void setTargaCerca(ModuloFl content){
-		TargaCerca = content.txtTargaCerca.getText().trim();
-	}
-	
-	/* Metodo per verificare la correttezza dei dati inseriti. */
+
+	/* Metodo. Verificare che i dati inseriti siano corretti. */
 	
 	private boolean check(ModuloFl content, String tipo){
 		boolean check=true;
-		if ((Targa.equals("") || Tipologia.equals("") || Nome.equals("") || Disp.equals("") || Marca.equals("") || Alimentazione.equals("") || Km.equals("") || Dimensioni.equals("") || Breve.equals("")) && tipo.equals("aggiungi")){		/* Verifica se sono stati inseriti tutti i campi necessari */
+		/* Verifica se sono stati inseriti tutti i campi necessari. */
+		if ((Targa.equals("") || Tipologia.equals("") || Nome.equals("") || Disp.equals("") || Marca.equals("") || Alimentazione.equals("") || Km.equals("") 
+				|| Dimensioni.equals("") || Breve.equals("")) && tipo.equals("aggiungi")){
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, Inserisci tutti i Campi con l'Asterisco!",
+			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
-		}else if ((Targa.equals("") || Tipologia.equals("") || Nome.equals("") || Disp.equals("") || Marca.equals("") || Alimentazione.equals("") || Km.equals("") || Dimensioni.equals("")) && tipo.equals("modifica")){		/* Verifica se sono stati inseriti tutti i campi necessari durante la modifica*/
+		} /* Verifica se sono stati inseriti tutti i campi necessari durante la modifica di un veicolo. */
+		else if ((Targa.equals("") || Tipologia.equals("") || Nome.equals("") || Disp.equals("") || Marca.equals("") || Alimentazione.equals("") || Km.equals("") 
+				|| Dimensioni.equals("")) && tipo.equals("modifica")){		
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, Inserisci tutti i Campi con l'Asterisco!",
+			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
-		}else if(Targa.length()<7 || Targa.length()>7 || !Targa.matches(TGPATTERN)){
+		}else if(!Targa.matches(TGPATTERN1) && !Targa.matches(TGPATTERN2) && !Targa.matches(TGPATTERN3) && !Targa.matches(TGPATTERN4)){
 			content.txtTarga.setText("");
 			content.txtTarga.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, La Targa deve essere composta da 4 caratteri e 3 cifre(Es: TO175RP)!",
+			JOptionPane.showMessageDialog(null, "Errore! La Targa del veicolo deve essere composta da: \n - Autoveicolo: 4 caratteri e 3 cifre (es. TO175RP); "
+					+ "\n - Scooter: 3 caratteri e 3 cifre (es. X269DL); \n - Motocicletta e Quad-Bike: 2 caratteri e 5 cifre (es. AA12345);"
+					+ "\n - Mezzo Acquatico: 2 caratteri e 4 cifre (es. 8PC567).",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (Tipologia.length()>20){
+		}else if (Tipologia.length()>25){
 			content.txtTipologia.setText("");
 			content.txtTipologia.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, la Tipologia deve avere meno di 20 caratteri!",
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Tipologia deve avere meno di 25 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (Nome.length()>20){
 			content.txtNome.setText("");
 			content.txtNome.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, il Nome deve avere meno di 20 caratteri!",
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Nome deve avere meno di 20 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if ((Disp.length()>2 || Disp.length()<2) && (!Disp.equals("si") || !Disp.equals("no"))){
+		}else if ((Disp.length()>2 || Disp.length()<2) && (!Disp.equals("SI") || !Disp.equals("NO"))){
 			content.txtDisp.setText("");
 			content.txtDisp.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, indicare la Disponibilita del veicolo scrivendo si/no!",
+			JOptionPane.showMessageDialog(null, "Errore! Indicare la Disponibilita del veicolo con \"SI\"/\"NO\"!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (Marca.length()>15){
 			content.txtMarca.setText("");
 			content.txtMarca.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, la Marca deve avere meno di 15 caratteri!",
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Marca deve avere meno di 15 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (Alimentazione.length()>15){
 			content.txtAlimentazione.setText("");
 			content.txtAlimentazione.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, il tipo di Alimentazione deve avere meno di 15 caratteri!",
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Alimentazione deve avere meno di 15 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (!isNumeric(Km) || Km.length()>20){
 			content.txtKm.setText("");
 			content.txtKm.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, il numero di Kilometri Effettuati deve essere composto da meno di 20 cifre numeriche!",
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Kilometri Effettuati deve essere composto da meno di 20 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (Dimensioni.length()>20){
 			content.txtDimensioni.setText("");
 			content.txtDimensioni.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, la Dimensione deve essere specificata in meno di 20 caratteri!",
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Dimensione deve essere composto da meno di 20 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (!Imma.matches(DATEPATTERN) && !Imma.equals("") && !Imma.equals("aaaa-mm-gg")){
 			content.frmtdtxtfldImma.setText("");
 			content.frmtdtxtfldImma.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, la data di Immatricolazione inserita non è valida!",
+			JOptionPane.showMessageDialog(null, "Errore! La data di immatricolazione inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (!Bollo.matches(DATEPATTERN) && !Bollo.equals("") && !Bollo.equals("aaaa-mm-gg")){
 			content.frmtdtxtfldBollo.setText("");
 			content.frmtdtxtfldBollo.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, la data di scadenza Bollo inserita non è valida!",
+			JOptionPane.showMessageDialog(null, "Errore! La data di scadenza bollo inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (!Tagliando.matches(DATEPATTERN) && !Tagliando.equals("") && !Tagliando.equals("aaaa-mm-gg")){
 			content.frmtdtxtfldTagliando.setText("");
 			content.frmtdtxtfldTagliando.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, la data di scadenza Tagliando inserita non è valida!",
+			JOptionPane.showMessageDialog(null, "Errore! La data di scadenza tagliando inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (!Assicurazione.matches(DATEPATTERN) && !Assicurazione.equals("") && !Assicurazione.equals("aaaa-mm-gg")){
 			content.frmtdtxtfldAssicurazione.setText("");
 			content.frmtdtxtfldAssicurazione.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, la data di scadenza Assicurazione inserita non è valida!",
+			JOptionPane.showMessageDialog(null, "Errore! La data di scadenza assicurazione inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (!Ormeggio.matches(DATEPATTERN) && !Ormeggio.equals("") && !Ormeggio.equals("aaaa-mm-gg")){
 			content.frmtdtxtfldOrmeggio.setText("");
 			content.frmtdtxtfldOrmeggio.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, la data di scadenza Ormeggio inserita non è valida!",
+			JOptionPane.showMessageDialog(null, "Errore! La data di scadenza ormeggio inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (!Alaggio.matches(DATEPATTERN) && !Alaggio.equals("") && !Alaggio.equals("aaaa-mm-gg")){
 			content.frmtdtxtfldAlaggio.setText("");
 			content.frmtdtxtfldAlaggio.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, la data di scadenza Alaggio inserita non è valida!",
+			JOptionPane.showMessageDialog(null, "Errore! La data di scadenza alaggio inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}if (!Lungo.equals(Breve) && !content.lstLungo.isSelectionEmpty() && tipo.equals("aggiungi")){
+		}else if (!Lungo.equals(Breve) && !content.lstLungo.isSelectionEmpty() && tipo.equals("aggiungi")){
 			content.lstLungo.clearSelection();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, il codice di Costo a Lungo Termine deve corrispondere a quello di Breve Termine!",
+			JOptionPane.showMessageDialog(null, "Errore! Il codice di \"Costo Lungo Termine\" deve corrispondere a \"Costo Breve Termine\"!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}
@@ -360,15 +337,17 @@ public class Veicolo {
 		return test;
 	}
 	
-	/* Metodo per verificare la correttezza della Targa del veicolo da eliminare. */
+	/* Metodo. Verifica la correttezza della targa del veicolo da eliminare. */
 	
 	private boolean checkelimina(ModuloFl content){
 		boolean check=true;
-		if(Targa.length()<7 || Targa.length()>7 || !Targa.matches(TGPATTERN)){
+		if(!Targa.matches(TGPATTERN1) && !Targa.matches(TGPATTERN2) && !Targa.matches(TGPATTERN3) && !Targa.matches(TGPATTERN4)){
 			content.txtTarga.setText("");
 			content.txtTarga.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, La Targa deve essere composta da 4 caratteri e 3 cifre(Es: TO175RP)!",
+			JOptionPane.showMessageDialog(null, "Errore! La Targa del veicolo deve essere composta da: \n - Autoveicolo: 4 caratteri e 3 cifre (es. TO175RP); "
+					+ "\n - Scooter: 3 caratteri e 3 cifre (es. X269DL); \n - Motocicletta e Quad-Bike: 2 caratteri e 5 cifre (es. AA12345);"
+					+ "\n - Mezzo Acquatico: 2 caratteri e 4 cifre (es. 8PC567).",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}
@@ -377,15 +356,17 @@ public class Veicolo {
 		return test;
 	}
 
-	/* Metodo per verificare la correttezza della targa del veicolo da cercare. */
+	/* Metodo. Verifica la correttezza della targa del veicolo da cercare. */
 	
 	private boolean checkcerca(ModuloFl content){
 		boolean check=true;
-		if(TargaCerca.length()<7 || TargaCerca.length()>7 || !TargaCerca.matches(TGPATTERN)){
+		if(!TargaCerca.matches(TGPATTERN1) && !TargaCerca.matches(TGPATTERN2) && !TargaCerca.matches(TGPATTERN3) && !TargaCerca.matches(TGPATTERN4)){
 			content.txtTargaCerca.setText("");
 			content.txtTargaCerca.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore, La Targa deve essere composta da 4 caratteri e 3 cifre(Es: TO175RP)!",
+			JOptionPane.showMessageDialog(null, "Errore! La Targa del veicolo deve essere composta da: \n - Autoveicolo: 4 caratteri e 3 cifre (es. TO175RP); "
+					+ "\n - Scooter: 3 caratteri e 3 cifre (es. X269DL); \n - Motocicletta e Quad-Bike: 2 caratteri e 5 cifre (es. AA12345);"
+					+ "\n - Mezzo Acquatico: 2 caratteri e 4 cifre (es. 8PC567).",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}
@@ -394,7 +375,7 @@ public class Veicolo {
 		return test;
 	}
 	
-	/* Metodo per verificare se una stringa è numerica. */
+	/* Metodo. Verifica se una stringa è numerica. */
 	
 	private static boolean isNumeric(String string) {
 	    try {
@@ -404,4 +385,43 @@ public class Veicolo {
 	    }
 	    return true;
 	}
+	
+	
+/***** METODI USATI DALLA GUI PER LA GESTIONE DEI VEICOLI (--> vedi classe ModuloFl <--) *****/
+
+/* Metodo. Assegna i valori al veicolo. */
+
+public void setValori(ModuloFl content, String tipo){
+	Targa = content.txtTarga.getText().trim();
+	Tipologia = content.txtTipologia.getText().trim();
+	Nome = content.txtNome.getText().trim();
+	Disp = content.txtDisp.getText().trim();
+	Marca = content.txtMarca.getText().trim();
+	Alimentazione = content.txtAlimentazione.getText().trim();
+	Km = content.txtKm.getText().trim();
+	Dimensioni = content.txtDimensioni.getText().trim();
+	Imma = content.frmtdtxtfldImma.getText().trim();
+	Bollo = content.frmtdtxtfldBollo.getText().trim();
+	Tagliando = content.frmtdtxtfldTagliando.getText().trim();
+	Assicurazione = content.frmtdtxtfldAssicurazione.getText().trim();
+	Ormeggio = content.frmtdtxtfldOrmeggio.getText().trim();
+	Alaggio = content.frmtdtxtfldAlaggio.getText().trim();
+	if (tipo.equals("aggiungi")){
+		Breve = content.lstBreve.getSelectedValue().toString();
+		if (!content.lstLungo.isSelectionEmpty()) Lungo = content.lstLungo.getSelectedValue().toString();}
 }
+
+/* Metodo. Assegna solo la chiave (Targa) al veicolo. */
+
+public void setTarga(ModuloFl content){
+	Targa = content.txtTarga.getText().trim();
+}
+
+/* Metodo. Assegna solo la chiave (Targa) al veicolo da cercare. */
+
+public void setTargaCerca(ModuloFl content){
+	TargaCerca = content.txtTargaCerca.getText().trim();
+}
+
+}
+

@@ -472,7 +472,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 				if (anno.matches("^\\d{4}$")){
 					Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +anno+"-%-%'","select");
 					if (Profitto.rs.next()){
-						lblProfitto.setText("Profitto nell'anno " + anno + ":  " + Profitto.rs.getString(1) + ",00 €");
+						lblProfitto.setText("Profitto nell'anno " + anno + ":  " + Profitto.rs.getString(1) + " €");
 						frmtdtxtfldanno.setText("aaaa");
 					}else {
 						lblProfitto.setText("Profitto nell'anno " + anno + " 0");
