@@ -446,7 +446,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 				if (mese.matches("^\\d{4}-\\d{2}$")){
 					Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +mese+"-%'","select");
 					if (Profitto.rs.next()){
-						lblProfitto.setText("Profitto nel mese " + mese + ":  " + Profitto.rs.getString(1) + ",00 €");
+						lblProfitto.setText("Profitto nel mese " + mese + ":  " + Profitto.rs.getString(1) + " €");
 						frmtdtxtfldMese.setText("aaaa-mm");
 					} else {
 						lblProfitto.setText("Profitto nel mese " + mese + " 0");
