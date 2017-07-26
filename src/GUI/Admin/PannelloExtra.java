@@ -17,6 +17,8 @@ import GUI.*;
 
 
 public class PannelloExtra extends JPanel implements ActionListener{
+	
+	private static final long serialVersionUID = 8526472295622776147L; 
 	private JButton btnScadenze = new JButton("Scadenze Varie");
 	private JButton btnStatistica = new JButton("Veicoli Pi\u00F9 Noleggiati");
 	private JButton btnMensile = new JButton("Calcola Profitto Mensile");

@@ -27,10 +27,10 @@ import Utils.TableColumnAdjuster;
 
 
 public class ModuloCl extends JPanel implements ActionListener{
-
+	
+	private static final long serialVersionUID = 7526472295622776188L; 	
 	private Cliente CL = new Cliente();
 	private DBConnect Clienti = new DBConnect();
-	
 	private JTable tblClienti;
 	private JButton btnAggiungi;
 	private JButton btnElimina;

@@ -36,6 +36,7 @@ import db.DBConnect;
 
 public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 
+	private static final long serialVersionUID = 7526472295622516147L; 
 	private JTable tblVeicoli;
 	private JButton btnAggiungi;
 	private JButton btnElimina;

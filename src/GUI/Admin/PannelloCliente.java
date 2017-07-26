@@ -19,6 +19,7 @@ import GUI.User.PannelloU;
 
 public class PannelloCliente extends JPanel implements ActionListener{
 
+	private static final long serialVersionUID = 7526472295772776147L; 
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
 	private JButton btnNuovo = new JButton("Nuovo Cliente");
 	private JButton btnElimina = new JButton("Elimina Cliente");

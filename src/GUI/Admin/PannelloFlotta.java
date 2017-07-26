@@ -17,6 +17,8 @@ import GUI.*;
 
 
 public class PannelloFlotta extends JPanel implements ActionListener{
+	
+	private static final long serialVersionUID = 7336472295622776147L; 
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
 	private JButton btnNuovo = new JButton("Nuovo Veicolo");
 	private JButton btnElimina = new JButton("Elimina Veicolo");

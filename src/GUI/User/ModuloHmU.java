@@ -17,6 +17,7 @@ import db.DBConnect;
 
 public class ModuloHmU extends JPanel{
 	
+	private static final long serialVersionUID = 7526460295622776147L; 
 	private JTable tblDisponibili;
 	private JScrollPane scroll = new JScrollPane(tblDisponibili);
 	private DBConnect Disponibili = new DBConnect();

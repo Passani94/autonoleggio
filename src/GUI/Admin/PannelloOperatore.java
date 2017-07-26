@@ -16,6 +16,8 @@ import GUI.*;
 
 
 public class PannelloOperatore extends JPanel implements ActionListener{
+	
+	private static final long serialVersionUID = 7526472295882776147L; 
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
 	private JButton btnNuovo = new JButton("Nuovo Operatore");
 	private JButton btnElimina = new JButton("Elimina Operatore");

@@ -18,6 +18,8 @@ import GUI.User.PannelloU;
 
 
 public class PannelloContratto extends JPanel implements ActionListener{
+	
+	private static final long serialVersionUID = 7526472295622701147L; 
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
 	private JButton btnNuovo = new JButton("Nuovo Contratto");
 	private JButton btnPreventivo = new JButton("Calcola Preventivo");

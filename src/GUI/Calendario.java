@@ -1,12 +1,14 @@
 package GUI;
 import javax.swing.*;
-import javax.swing.event.*;
+//import javax.swing.event.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
 public class Calendario extends JPanel{
+	
+	private static final long serialVersionUID = 7526472295622776147L; 
     static JLabel lblMonth, lblYear;
     static JButton btnPrev, btnNext;
     static JTable tblCalendar;
@@ -23,7 +25,13 @@ public class Calendario extends JPanel{
         cmbYear = new JComboBox();
         btnPrev = new JButton ("<<");
         btnNext = new JButton (">>");
-        mtblCalendar = new DefaultTableModel(){public boolean isCellEditable(int rowIndex, int mColIndex){return false;}};
+        mtblCalendar = new DefaultTableModel()
+        {
+        	public boolean isCellEditable(int rowIndex, int mColIndex)
+        	{return false;
+        	}
+        	private static final long serialVersionUID = 7526472295622776147L; 
+        	};
         tblCalendar = new JTable(mtblCalendar);
         stblCalendar = new JScrollPane(tblCalendar);
         
@@ -126,6 +134,8 @@ public class Calendario extends JPanel{
     
     //Colori celle
     static class tblCalendarRenderer extends DefaultTableCellRenderer{
+    	
+    	private static final long serialVersionUID = 7525572295622776147L; 
         public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused, int row, int column){
             super.getTableCellRendererComponent(table, value, selected, focused, row, column);
             if (column == 0 || column == 6){ //Week-end

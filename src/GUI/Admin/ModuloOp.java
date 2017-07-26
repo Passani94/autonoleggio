@@ -28,6 +28,7 @@ import db.DBConnect;
 
 public class ModuloOp extends JPanel implements ActionListener{
 
+	private static final long serialVersionUID = 7776472295622776147L; 
 	private JTable tblOperatori;
 	public JTextField txtPassword;
 	public JTextField txtUsername;

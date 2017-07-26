@@ -18,6 +18,7 @@ import db.DBConnect;
 
 public class ModuloHm extends JPanel{
 	
+	private static final long serialVersionUID = 1826472295622776147L; 
 	private JTable tblRitorno;
 	private JScrollPane scroll = new JScrollPane(tblRitorno);
 	private DBConnect InRitorno = new DBConnect();

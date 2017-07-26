@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 
 public class Pannello extends JFrame implements ActionListener{
 	
+	private static final long serialVersionUID = 7526466295622776147L; 
 	public String Username;
 	public JPanel contentPane = new JPanel();
 	private final JMenuBar menuBar = new JMenuBar();
@@ -38,7 +39,7 @@ public class Pannello extends JFrame implements ActionListener{
 			this.setBounds(100, 100, 1000, (screenSize.height-100));
 			this.setLocationRelativeTo(null);
 			this.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
-			PannelloHome home = new PannelloHome(this);
+			new PannelloHome(this);
 			} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -91,32 +92,32 @@ public class Pannello extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if(mntmHome == e.getSource()){			
 			getContentPane().removeAll();
-			PannelloHome hm = new PannelloHome(this);
+			new PannelloHome(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmOperatore == e.getSource()){
 			getContentPane().removeAll();
-			PannelloOperatore op = new PannelloOperatore(this);
+			new PannelloOperatore(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmFlotta == e.getSource()){
 			getContentPane().removeAll();
-			PannelloFlotta fl = new PannelloFlotta(this);
+			new PannelloFlotta(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmCliente == e.getSource()){
 			getContentPane().removeAll();
-			PannelloCliente cl = new PannelloCliente(this);
+			new PannelloCliente(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmExtra == e.getSource()){
 			getContentPane().removeAll();
-			PannelloExtra ex = new PannelloExtra(this);
+			new PannelloExtra(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmContratto == e.getSource()){
 			getContentPane().removeAll();
-			PannelloContratto ct = new PannelloContratto(this);
+			new PannelloContratto(this);
 			getContentPane().revalidate();
 		}
 	}	

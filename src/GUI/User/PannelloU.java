@@ -17,6 +17,7 @@ import GUI.Admin.PannelloContratto;
 
 public class PannelloU extends JFrame implements ActionListener{
 	
+	private static final long serialVersionUID = 7512472295622776147L; 
 	public String Username;
 	public JPanel contentPane = new JPanel();
 	private final JMenuBar menuBar = new JMenuBar();
@@ -36,7 +37,7 @@ public class PannelloU extends JFrame implements ActionListener{
 			this.setBounds(100, 100, 1000, (screenSize.height-100));
 			this.setLocationRelativeTo(null);
 			this.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
-			PannelloHomeU home = new PannelloHomeU(this);
+			new PannelloHomeU(this);
 			} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -71,17 +72,17 @@ public class PannelloU extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if(mntmHome == e.getSource()){			
 			getContentPane().removeAll();
-			PannelloHomeU hm = new PannelloHomeU(this);
+			new PannelloHomeU(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmCliente == e.getSource()){
 			getContentPane().removeAll();
-			PannelloCliente cl = new PannelloCliente(this);
+			new PannelloCliente(this);
 			getContentPane().revalidate();
 		}
 		else if(mntmContratto == e.getSource()){
 			getContentPane().removeAll();
-			PannelloContratto ct = new PannelloContratto(this);
+			new PannelloContratto(this);
 			getContentPane().revalidate();
 		}
 	}	

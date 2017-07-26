@@ -28,8 +28,8 @@ import java.awt.event.KeyEvent;
 
 public class Login extends JFrame implements ActionListener,Runnable{
 
+	private static final long serialVersionUID = 7526488295622776147L; 
 	private DBConnect log;
-	
 	private JPanel contentPane;
 	private JPasswordField txtPassword;
 	private JTextField txtUsername;
@@ -204,11 +204,11 @@ public class Login extends JFrame implements ActionListener,Runnable{
 				}/* Se l'utente viene trovato ed è l'admin, viene avviato il pannello di controllo dell'admin */
 				else if (user.equals("admin")){	
 					this.dispose();
-					Pannello op = new Pannello(user);
+					new Pannello(user);
 					}/* Se l'utente viene trovato ed è un operatore, viene avviato il pannello di controllo dell'operatore */
 					else{	
 						this.dispose();
-						PannelloU op = new PannelloU(user);
+						new PannelloU(user);
 					}
 			} catch (SQLException e1) {
 			e1.printStackTrace();

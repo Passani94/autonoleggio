@@ -22,7 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.table.DefaultTableModel;
+//import javax.swing.table.DefaultTableModel;
 
 import Utils.CostruisciTabella;
 import Utils.TableColumnAdjuster;
@@ -31,6 +31,7 @@ import db.DBConnect;
 
 public class ModuloEx extends JPanel implements ActionListener{
 
+	private static final long serialVersionUID = 7526612295622776147L; 
 	private JLabel lblProfitto;
 	private JTable tblVeicoli;
 	private JButton btnProfittoa;
@@ -50,7 +51,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 	private JScrollPane scrollAlaggio = new JScrollPane(tblAlaggio);
 	private DBConnect Extra = new DBConnect();
 	private DBConnect Profitto = new DBConnect();
-	private int mese,anno;
+	private double mese,anno;
 	
 	/* Costruttori ModuloEx */
 	
@@ -303,7 +304,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			tblTagliando = new JTable();
 			tblTagliando.setModel(new CostruisciTabella(Extra.rs).model);
 			tblTagliando.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			TableColumnAdjuster tca2 = new TableColumnAdjuster(tblTagliando);
+			new TableColumnAdjuster(tblTagliando);
 			tca.adjustColumns();
 			
 			scrolltagliando.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -327,7 +328,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			tblAssicurazione = new JTable();
 			tblAssicurazione.setModel(new CostruisciTabella(Extra.rs).model);
 			tblAssicurazione.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			TableColumnAdjuster tca3 = new TableColumnAdjuster(tblAssicurazione);
+			new TableColumnAdjuster(tblAssicurazione);
 			tca.adjustColumns();
 			
 			scrollAssicurazione.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -343,7 +344,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			tblOrmeggio = new JTable();
 			tblOrmeggio.setModel(new CostruisciTabella(Extra.rs).model);
 			tblOrmeggio.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			TableColumnAdjuster tca4 = new TableColumnAdjuster(tblOrmeggio);
+			new TableColumnAdjuster(tblOrmeggio);
 			tca.adjustColumns();
 			
 			scrollOrmeggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -362,7 +363,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			tblAlaggio = new JTable();
 			tblAlaggio.setModel(new CostruisciTabella(Extra.rs).model);
 			tblAlaggio.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			TableColumnAdjuster tca5 = new TableColumnAdjuster(tblAlaggio);
+			new TableColumnAdjuster(tblAlaggio);
 			tca.adjustColumns();
 			
 			scrollAlaggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -445,7 +446,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 				if (mese.matches("^\\d{4}-\\d{2}$")){
 					Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +mese+"-%'","select");
 					if (Profitto.rs.next()){
-						lblProfitto.setText("Profitto nel mese " + mese + " " + Profitto.rs.getString(1));
+						lblProfitto.setText("Profitto nel mese " + mese + ":  " + Profitto.rs.getString(1) + ",00 €");
 						frmtdtxtfldMese.setText("aaaa-mm");
 					} else {
 						lblProfitto.setText("Profitto nel mese " + mese + " 0");
@@ -471,7 +472,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 				if (anno.matches("^\\d{4}$")){
 					Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +anno+"-%-%'","select");
 					if (Profitto.rs.next()){
-						lblProfitto.setText("Profitto nell'anno " + anno + " "+ Profitto.rs.getString(1));
+						lblProfitto.setText("Profitto nell'anno " + anno + ":  " + Profitto.rs.getString(1) + ",00 €");
 						frmtdtxtfldanno.setText("aaaa");
 					}else {
 						lblProfitto.setText("Profitto nell'anno " + anno + " 0");

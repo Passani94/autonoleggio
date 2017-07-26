@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 
 public class PannelloHomeU extends JPanel implements ActionListener{
 	
+	private static final long serialVersionUID = 7526472295692776147L; 
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private JPanel pnlCalendar = new JPanel(null);
