@@ -13,7 +13,7 @@ public class DBConnect{
 	public PreparedStatement st;
 	public ResultSet rs;
 	
-	/* Costruttore, stabilisce la connessione col DB*/
+	/* Costruttore. Stabilisce la connessione col DB*/
 	
 	public DBConnect(){
 		try {

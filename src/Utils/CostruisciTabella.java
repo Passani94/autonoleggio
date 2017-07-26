@@ -8,7 +8,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/* Classe usata per costruire una JTable dato un resultset ottenuto dopo una query */
+/* Classe usata per costruire una JTable dato un resultset ottenuto da una query */
 
 public class CostruisciTabella {
 	public DefaultTableModel model;
@@ -19,7 +19,7 @@ public class CostruisciTabella {
 		Costruisci(rs);
 	}
 	
-	/* Metodo che costruisce la tabella */
+	/* Metodo. Costruisce la tabella */
 	
 	private void Costruisci(ResultSet result){
 	try{
