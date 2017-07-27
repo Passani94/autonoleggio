@@ -43,8 +43,6 @@ public class Preventivo {
 	
 	public Preventivo() {
 		test = true;
-		Totale = 0 ;
-		Giorni = "6_7_Giorni";
 		preventivo = new DBConnect();
 	}
 	
@@ -55,6 +53,7 @@ public class Preventivo {
 			Giorni_Noleggio = CalcolaGiorni.calcolaGiorni(Inizio, Fine);
 			try {
 				Totale = 0;
+				Giorni = "6_7_Giorni";
 				content.lblPreventivo.setText("");
 				/* Controlla se esiste un veicolo con la targa digitata. */
 				preventivo.exequery("SELECT * FROM veicolo where Targa='"+Veicolo+"'","select"); 
@@ -298,7 +297,6 @@ public class Preventivo {
 				    	if (km == JOptionPane.YES_OPTION) {
 				    		Totale = Totale * 1.15;
 				    	}
-				    	System.out.println(Giorni_Noleggio);
 				    	/* Visualizza il totale e l'anticipo (nel solo caso di LungoTermine). */
 				    	content.lblPreventivo.setText("Totale Preventivo = "+String.valueOf(ArrotondaNumero.arrotonda(Totale,2))+" €");
 				    	if(((Giorni_Noleggio==366 || Giorni_Noleggio==367) && Tipologia.matches(LUNGO)) ||
