@@ -34,6 +34,7 @@ public class PannelloU extends JFrame implements ActionListener{
 			this.menu();
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			this.setBounds(100, 100, 1000, (screenSize.height-100));
+			this.setMinimumSize(new Dimension(1000,(screenSize.height-100)));
 			this.setLocationRelativeTo(null);
 			this.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
 			new PannelloHomeU(this);
