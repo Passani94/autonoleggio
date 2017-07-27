@@ -451,7 +451,15 @@ public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 		}
 		else if(btnCalcola == e.getSource()){
 			PV.setValori(this);
-			PV.calcola(this);
+			try {
+				PV.calcola(this);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Impossibile calcolare il preventivo!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+				
+			}
 		}
 	}
 	
