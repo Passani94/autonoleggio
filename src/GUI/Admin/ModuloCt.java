@@ -35,19 +35,19 @@ import db.DBConnect;
 
 public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 
-	private static final long serialVersionUID = 2126472295622776147L; 
+	private static final long serialVersionUID = 1L; 
 	public JLabel lblPreventivo;
 	public JTable tblNoleggi;
 	private JButton btnFiltra;
 	private JButton btnAggiungi;
 	private JButton btnCalcola;
 	private JScrollPane scroll = new JScrollPane(tblNoleggi);
+	public JTextField txtTipologia;
+	public JTextField txtVeicolo;
 	public JTextField txtRilasciatada;
 	public JTextField txtCliente;
-	public JTextField txtVeicolo;
-	public JTextField txtTipologia;
 	public JTextField txtCosto;
-	public JTextField txtPagato;
+	public JTextField txtAcconto;
 	public JTextField txtNome;
 	public JTextField txtCognome;
 	public JTextField txtPatente;
@@ -170,11 +170,11 @@ public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 			txtCosto = new JTextField();
 			txtCosto.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JLabel lblPagato = new JLabel("Gi\u00E0 Pagato");
-			lblPagato.setFont(new Font("Arial", Font.BOLD, 14));
+			JLabel lblAcconto = new JLabel("Acconto");
+			lblAcconto.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			txtPagato = new JTextField();
-			txtPagato.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtAcconto = new JTextField();
+			txtAcconto.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 			JLabel lblNome = new JLabel("Nome*");
 			lblNome.setFont(new Font("Arial", Font.BOLD, 14));
@@ -263,7 +263,7 @@ public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 										.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblDataFine, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblCosto, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblPagato, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblAcconto, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblPatente, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblCognome, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblRilasciataDa, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
@@ -283,7 +283,7 @@ public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 										.addComponent(txtCognome, Alignment.TRAILING)
 										.addComponent(txtPatente, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
 										.addComponent(txtNome, Alignment.TRAILING)
-										.addComponent(txtPagato, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+										.addComponent(txtAcconto, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
 										.addComponent(txtCosto, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
 										.addComponent(txtTipologia, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))
 									.addContainerGap())))
@@ -309,8 +309,8 @@ public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 								.addComponent(txtCosto, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblPagato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtPagato, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblAcconto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtAcconto, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
@@ -458,22 +458,46 @@ public class ModuloCt extends JPanel implements ActionListener,FocusListener{
 	/* Definisce le azioni da eseguire quando si ha il focus sui campi per inserire le date. */
 	
 	public void focusGained(FocusEvent e){
-		if(frmtdtxtfldInizio == e.getSource()  && frmtdtxtfldInizio.getText().equals("aaaa-mm-gg")){frmtdtxtfldInizio.setText("");}
-		else if(frmtdtxtfldFine == e.getSource() && frmtdtxtfldFine.getText().equals("aaaa-mm-gg")){frmtdtxtfldFine.setText("");}
-		else if(frmtdtxtfldRilasciatail == e.getSource()){frmtdtxtfldRilasciatail.setText("");}
-		else if(frmtdtxtfldValida == e.getSource()){frmtdtxtfldValida.setText("");}
-		if(frmtdtxtfldInizio.getText().equals("") && !(frmtdtxtfldInizio == e.getSource())){frmtdtxtfldInizio.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldFine.getText().equals("") && !(frmtdtxtfldFine == e.getSource())){frmtdtxtfldFine.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldRilasciatail.getText().equals("") && !(frmtdtxtfldRilasciatail == e.getSource())){frmtdtxtfldRilasciatail.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldValida.getText().equals("") && !(frmtdtxtfldValida == e.getSource())){frmtdtxtfldValida.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldInizio == e.getSource()  && frmtdtxtfldInizio.getText().equals("aaaa-mm-gg")){ 
+			frmtdtxtfldInizio.setText("");
+		}
+		else if(frmtdtxtfldFine == e.getSource() && frmtdtxtfldFine.getText().equals("aaaa-mm-gg")){
+			frmtdtxtfldFine.setText("");
+		}
+		else if(frmtdtxtfldRilasciatail == e.getSource()){
+			frmtdtxtfldRilasciatail.setText("");
+		}
+		else if(frmtdtxtfldValida == e.getSource()){
+			frmtdtxtfldValida.setText("");
+		}
+		if(frmtdtxtfldInizio.getText().equals("") && !(frmtdtxtfldInizio == e.getSource())){
+			frmtdtxtfldInizio.setText("aaaa-mm-gg");
+		}
+		if(frmtdtxtfldFine.getText().equals("") && !(frmtdtxtfldFine == e.getSource())){
+			frmtdtxtfldFine.setText("aaaa-mm-gg");
+		}
+		if(frmtdtxtfldRilasciatail.getText().equals("") && !(frmtdtxtfldRilasciatail == e.getSource())){
+			frmtdtxtfldRilasciatail.setText("aaaa-mm-gg");
+		}
+		if(frmtdtxtfldValida.getText().equals("") && !(frmtdtxtfldValida == e.getSource())){
+			frmtdtxtfldValida.setText("aaaa-mm-gg");
+		}
     }
 	
 	/* Definisce le azioni da eseguire quando si perde il focus sui campi per inserire le date. */
 	
 	public void focusLost(FocusEvent e) {
-		if(frmtdtxtfldInizio.getText().equals("")){frmtdtxtfldInizio.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldFine.getText().equals("")){frmtdtxtfldFine.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldRilasciatail.getText().equals("")){frmtdtxtfldRilasciatail.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldValida.getText().equals("")){frmtdtxtfldValida.setText("aaaa-mm-gg");}
+		if(frmtdtxtfldInizio.getText().equals("")){
+			frmtdtxtfldInizio.setText("aaaa-mm-gg");
+		}
+		if(frmtdtxtfldFine.getText().equals("")){
+			frmtdtxtfldFine.setText("aaaa-mm-gg");
+		}
+		if(frmtdtxtfldRilasciatail.getText().equals("")){
+			frmtdtxtfldRilasciatail.setText("aaaa-mm-gg");
+		}
+		if(frmtdtxtfldValida.getText().equals("")){
+			frmtdtxtfldValida.setText("aaaa-mm-gg");
+		}
 	}
 }

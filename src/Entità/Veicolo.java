@@ -11,9 +11,9 @@ public class Veicolo {
 	private String Targa;
 	private String TargaCerca;
 	private String Tipologia;
+	private String Marca;
 	private String Nome;
 	private String Disp;
-	private String Marca;
 	private String Alimentazione;
 	private String Km;
 	private String Dimensioni;
@@ -57,14 +57,15 @@ public class Veicolo {
 					content.txtTarga.requestFocus();
 				} /* Aggiunge il nuovo veicolo. Inoltre resetta i campi della form per un nuovo inserimento. */
 				else {	
-					String valori="('"+Targa+"','"+Tipologia+"','"+Nome+"','"+Disp+"','"+Marca+"','"+Alimentazione+"',"+Km+",'"+Dimensioni+"',"+Imma+","+Bollo+","+Tagliando+","+Assicurazione+","+Ormeggio+","+Alaggio+",'"+Breve+"','"+Lungo+"')";
+					String valori="('"+Targa+"','"+Tipologia+"','"+Marca+"','"+Nome+"','"+Disp+"','"+Alimentazione+"',"+Km+",'"+Dimensioni+"',"
+							+ ""+Imma+","+Bollo+","+Tagliando+","+Assicurazione+","+Ormeggio+","+Alaggio+",'"+Breve+"','"+Lungo+"')";
 					veicolo.exequery("INSERT INTO veicolo VALUES "+valori,"insert");
 					JOptionPane.showMessageDialog(null , "Nuovo Veicolo Aggiunto!");
 					content.txtTarga.setText("");
 					content.txtTipologia.setText("");
+					content.txtMarca.setText("");
 					content.txtNome.setText("");
 					content.txtDisp.setText("");
-					content.txtMarca.setText("");
 					content.txtAlimentazione.setText("");
 					content.txtKm.setText("");
 					content.txtDimensioni.setText("");
@@ -125,9 +126,9 @@ public class Veicolo {
 					content.txtTipologia.requestFocus();
 					content.txtTarga.setText(veicolo.rs.getString(1));
 					content.txtTipologia.setText(veicolo.rs.getString(2));
-					content.txtNome.setText(veicolo.rs.getString(3));
-					content.txtDisp.setText(veicolo.rs.getString(4));
-					content.txtMarca.setText(veicolo.rs.getString(5));
+					content.txtMarca.setText(veicolo.rs.getString(3));
+					content.txtNome.setText(veicolo.rs.getString(4));
+					content.txtDisp.setText(veicolo.rs.getString(5));
 					content.txtAlimentazione.setText(veicolo.rs.getString(6));
 					content.txtKm.setText(veicolo.rs.getString(7));
 					content.txtDimensioni.setText(veicolo.rs.getString(8));
@@ -138,9 +139,9 @@ public class Veicolo {
 					content.frmtdtxtfldOrmeggio.setText(veicolo.rs.getString(13));
 					content.frmtdtxtfldAlaggio.setText(veicolo.rs.getString(14));
 					content.txtTipologia.setEditable(true);
+					content.txtMarca.setEditable(true);
 					content.txtNome.setEditable(true);
 					content.txtDisp.setEditable(true);
-					content.txtMarca.setEditable(true);
 					content.txtAlimentazione.setEditable(true);
 					content.txtKm.setEditable(true);
 					content.txtDimensioni.setEditable(true);
@@ -171,16 +172,19 @@ public class Veicolo {
 	public void modifica(ModuloFl content){
 		if (check(content,"modifica")){
 			try{
-				String valori = "Tipologia='"+Tipologia+"',Nome='"+Nome+"',Disponibilita='"+Disp+"',Marca='"+Marca+"',Alimentazione='"+Alimentazione+"',Km_Effettuati="+Km+",Dimensioni='"+Dimensioni+"',Data_Immatricolazione="+Imma+",Data_Scadenza_Bollo="+Bollo+",Data_Scadenza_Tagliando="+Tagliando+",Data_Scadenza_Assicurazione="+Assicurazione+",Data_Scadenza_Ormeggio="+Ormeggio+",Data_Scadenza_Costo_Alaggio="+Alaggio;
+				String valori = "Tipologia='"+Tipologia+"',Marca='"+Marca+"',Nome='"+Nome+"',Disponibilita='"+Disp+"',Marca='"+Marca+"',"
+						+ "Alimentazione='"+Alimentazione+"',Km_Effettuati="+Km+",Dimensioni='"+Dimensioni+"',Data_Immatricolazione="+Imma+","
+								+ "Data_Scadenza_Bollo="+Bollo+",Data_Scadenza_Tagliando="+Tagliando+",Data_Scadenza_Assicurazione="+Assicurazione+","
+										+ "Data_Scadenza_Ormeggio="+Ormeggio+",Data_Scadenza_Costo_Alaggio="+Alaggio;
 				veicolo.exequery("UPDATE veicolo SET "+valori+" WHERE Targa='"+Targa+"'","update");
 				JOptionPane.showMessageDialog(null , "Veicolo modificato!");
 				content.txtTargaCerca.setText("");
 				content.txtTargaCerca.requestFocus();
 				content.txtTargaCerca.setEditable(true);
 				content.txtTipologia.setEditable(false);
+				content.txtMarca.setEditable(false);
 				content.txtNome.setEditable(false);
 				content.txtDisp.setEditable(false);
-				content.txtMarca.setEditable(false);
 				content.txtAlimentazione.setEditable(false);
 				content.txtKm.setEditable(false);
 				content.txtDimensioni.setEditable(false);
@@ -204,14 +208,14 @@ public class Veicolo {
 	private boolean check(ModuloFl content, String tipo){
 		boolean check=true;
 		/* Verifica se sono stati inseriti tutti i campi necessari. */
-		if ((Targa.equals("") || Tipologia.equals("") || Nome.equals("") || Disp.equals("") || Marca.equals("") || Alimentazione.equals("") || Km.equals("") 
+		if ((Targa.equals("") || Tipologia.equals("") || Marca.equals("") || Nome.equals("") || Disp.equals("") || Alimentazione.equals("") || Km.equals("") 
 				|| Dimensioni.equals("") || Breve.equals("")) && tipo.equals("aggiungi")){
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
 		} /* Verifica se sono stati inseriti tutti i campi necessari durante la modifica di un veicolo. */
-		else if ((Targa.equals("") || Tipologia.equals("") || Nome.equals("") || Disp.equals("") || Marca.equals("") || Alimentazione.equals("") || Km.equals("") 
+		else if ((Targa.equals("") || Tipologia.equals("") || Marca.equals("") || Nome.equals("") || Disp.equals("") || Alimentazione.equals("") || Km.equals("") 
 				|| Dimensioni.equals("")) && tipo.equals("modifica")){		
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
@@ -233,6 +237,13 @@ public class Veicolo {
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Tipologia deve avere meno di 25 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
+		}else if (Marca.length()>15){
+			content.txtMarca.setText("");
+			content.txtMarca.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Marca deve avere meno di 15 caratteri!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
 		}else if (Nome.length()>20){
 			content.txtNome.setText("");
 			content.txtNome.requestFocus();
@@ -245,13 +256,6 @@ public class Veicolo {
 			content.txtDisp.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Indicare la Disponibilita del veicolo con \"SI\"/\"NO\"!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if (Marca.length()>15){
-			content.txtMarca.setText("");
-			content.txtMarca.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo Marca deve avere meno di 15 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (Alimentazione.length()>15){
@@ -394,9 +398,9 @@ public class Veicolo {
 public void setValori(ModuloFl content, String tipo){
 	Targa = content.txtTarga.getText().trim();
 	Tipologia = content.txtTipologia.getText().trim();
+	Marca = content.txtMarca.getText().trim();
 	Nome = content.txtNome.getText().trim();
 	Disp = content.txtDisp.getText().trim();
-	Marca = content.txtMarca.getText().trim();
 	Alimentazione = content.txtAlimentazione.getText().trim();
 	Km = content.txtKm.getText().trim();
 	Dimensioni = content.txtDimensioni.getText().trim();

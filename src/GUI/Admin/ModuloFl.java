@@ -128,7 +128,7 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			JLabel lblTarga = new JLabel("Targa*");
 			lblTarga.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			JLabel lblTipologia = new JLabel("Tipologia*");
+			JLabel lblTipologia = new JLabel("Tipologia *");
 			lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtTipologia = new JTextField();
@@ -137,34 +137,34 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			txtNome = new JTextField();
 			txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JLabel lblNome = new JLabel("Nome*");
+			JLabel lblNome = new JLabel("Nome *");
 			lblNome.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			JLabel lblDisponibilita = new JLabel("Disponibilit\u00E0(si/no)*");
+			JLabel lblDisponibilita = new JLabel("Disponibilità (SI/NO) *");
 			lblDisponibilita.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtDisp = new JTextField();
 			txtDisp.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JLabel lblMarca = new JLabel("Marca*");
+			JLabel lblMarca = new JLabel("Marca *");
 			lblMarca.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtMarca = new JTextField();
 			txtMarca.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JLabel lblAlimentazione = new JLabel("Alimentazione*");
+			JLabel lblAlimentazione = new JLabel("Alimentazione *");
 			lblAlimentazione.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtAlimentazione = new JTextField();
 			txtAlimentazione.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JLabel lblKm = new JLabel("Km Effettuati*");
+			JLabel lblKm = new JLabel("Km Effettuati *");
 			lblKm.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtKm = new JTextField();
 			txtKm.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JLabel lblDimensioni = new JLabel("Dimensionii*");
+			JLabel lblDimensioni = new JLabel("Dimensioni *");
 			lblDimensioni.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			txtDimensioni = new JTextField();
@@ -230,7 +230,7 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			frmtdtxtfldAlaggio.setText("aaaa-mm-gg");
 			frmtdtxtfldAlaggio.addFocusListener(this);
 			
-			JLabel lblBreve = new JLabel("Costo Breve Termine*");
+			JLabel lblBreve = new JLabel("Costo Breve Termine *");
 			lblBreve.setFont(new Font("Arial", Font.BOLD, 14));
 		
 		    final DefaultListModel<String> modelB = new DefaultListModel<String>();
@@ -452,10 +452,10 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			txtTarga = new JTextField();
 			txtTarga.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JLabel lblTarga = new JLabel("Targa*");
+			JLabel lblTarga = new JLabel("Targa *");
 			lblTarga.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			JLabel lblTipologia = new JLabel("Tipologia*");
+			JLabel lblTipologia = new JLabel("Tipologia *");
 			lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtTipologia = new JTextField();
@@ -464,34 +464,34 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			txtNome = new JTextField();
 			txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JLabel lblNome = new JLabel("Nome*");
+			JLabel lblNome = new JLabel("Nome *");
 			lblNome.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			JLabel lblDisponibilita = new JLabel("Disponibilit\u00E0(si/no)*");
+			JLabel lblDisponibilita = new JLabel("Disponibilità (SI/NO) *");
 			lblDisponibilita.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtDisp = new JTextField();
 			txtDisp.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JLabel lblMarca = new JLabel("Marca*");
+			JLabel lblMarca = new JLabel("Marca *");
 			lblMarca.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtMarca = new JTextField();
 			txtMarca.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JLabel lblAlimentazione = new JLabel("Alimentazione*");
+			JLabel lblAlimentazione = new JLabel("Alimentazione *");
 			lblAlimentazione.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtAlimentazione = new JTextField();
 			txtAlimentazione.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-			JLabel lblKm = new JLabel("Km Effettuati*");
+			JLabel lblKm = new JLabel("Km Effettuati *");
 			lblKm.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtKm = new JTextField();
 			txtKm.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JLabel lblDimensioni = new JLabel("Dimensioni*");
+			JLabel lblDimensioni = new JLabel("Dimensioni *");
 			lblDimensioni.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			txtDimensioni = new JTextField();

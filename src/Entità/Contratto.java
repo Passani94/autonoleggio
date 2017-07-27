@@ -12,18 +12,19 @@ import db.DBConnect;
 
 public class Contratto {
 	public String Tipologia;
+	public String Veicolo;
+	public String Cliente;
 	public String Inizio;
 	public String Fine;
 	public String Costo;
-	public String Pagato;
-	public String Nome;
+	public String Acconto;
 	public String Cognome;
+	public String Nome;
 	public String Patente;
+	public String Valida;
 	public String Rilasciatada;
 	public String Rilasciatail;
-	public String Valida;
-	public String Cliente;
-	public String Veicolo;
+	
 	private boolean test;
 	private static final String CFPATTERN = "[a-zA-Z]{6}\\d\\d[a-zA-Z]\\d\\d[a-zA-Z]\\d\\d\\d[a-zA-Z]";
 	private static final String PTPATTERN = "^[a-zA-Z]{2}\\d{7}[a-zA-Z]{1}";
@@ -68,25 +69,26 @@ public class Contratto {
 					test=false;
 				} /* Verifica se il veicolo desiderato è disponibile. */
 				if (test==true && noleggio.rs.getString("Disponibilita").equals("SI")) {	
-					String valori="(DEFAULT,'"+Tipologia+"',"+Inizio+","+Fine+","+Costo+","+Pagato+",'"+Nome+"','"+Cognome+"','"+Patente+"','"+Rilasciatada+"',"+Rilasciatail+","+Valida+",'"+Cliente+"','"+Veicolo+"')";
+					String valori="(DEFAULT,'"+Tipologia+"',"+Veicolo+","+Cliente+","+Inizio+","+Fine+",'"+Costo+"','"+Acconto+"','"+Cognome+"',"
+							+ "'"+Nome+"',"+Patente+","+Valida+",'"+Rilasciatada+"','"+Rilasciatail+"')";
 					/* Aggiunge il contratto di noleggio. Inoltre resetta i campi della form per un nuovo inserimento. */
 					noleggio.exequery("INSERT INTO noleggio VALUES "+valori,"insert");
 					/* Rende il veicolo noleggiato non disponibile. */
 					noleggio.exequery("UPDATE veicolo SET Disponibilita='NO' WHERE Targa='"+Veicolo+"'","update"); 
 					JOptionPane.showMessageDialog(null , "Nuovo contratto di noleggio inserito!");
 					content.txtTipologia.setText("");
+					content.txtVeicolo.setText("");
+					content.txtCliente.setText("");
 					content.frmtdtxtfldInizio.setText("aaaa-mm-gg");
 					content.frmtdtxtfldFine.setText("aaaa-mm-gg");
 					content.txtCosto.setText("");
-					content.txtPagato.setText("");
-					content.txtNome.setText("");
+					content.txtAcconto.setText("");
 					content.txtCognome.setText("");
+					content.txtNome.setText("");
 					content.txtPatente.setText("");
+					content.frmtdtxtfldValida.setText("aaaa-mm-gg");
 					content.txtRilasciatada.setText("");
 					content.frmtdtxtfldRilasciatail.setText("aaaa-mm-gg");
-					content.frmtdtxtfldValida.setText("aaaa-mm-gg");
-					content.txtCliente.setText("");
-					content.txtVeicolo.setText("");
 					content.txtTipologia.requestFocus();
 				} else{
 					JOptionPane.showMessageDialog(null, "Errore! Il veicolo inserito non è disponibile per il noleggio!",
@@ -109,9 +111,15 @@ public class Contratto {
 	public void filtra(ModuloCt content){
 		if (checkfiltra(content)){
 			try{
-				if (Cliente.equals("")){noleggio.exequery("SELECT * FROM noleggio WHERE veicolo='"+Veicolo+"'","select");}
-				else if(Veicolo.equals("")){noleggio.exequery("SELECT * FROM noleggio WHERE cliente='"+Cliente+"'","select");}
-				else{noleggio.exequery("SELECT * FROM noleggio WHERE veicolo='"+Veicolo+"' AND cliente='"+Cliente+"'","select");}
+				if (Cliente.equals("")){
+					noleggio.exequery("SELECT * FROM noleggio WHERE Veicolo='"+Veicolo+"'","select");
+				}
+				else if(Veicolo.equals("")){
+					noleggio.exequery("SELECT * FROM noleggio WHERE Cliente='"+Cliente+"'","select");
+				}
+				else{
+					noleggio.exequery("SELECT * FROM noleggio WHERE Veicolo='"+Veicolo+"' AND Cliente='"+Cliente+"'","select");
+				}
 				content.tblNoleggi.setModel(new CostruisciTabella(noleggio.rs).model);
 				content.tblNoleggi.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 				TableColumnAdjuster tca = new TableColumnAdjuster(content.tblNoleggi);
@@ -131,8 +139,8 @@ public class Contratto {
 	private boolean check(ModuloCt content){
 		boolean check=true;
 		/* Verifica se sono stati inseriti tutt i campi necessari. */
-		if (Tipologia.equals("") || Inizio.equals("") || Inizio.equals("aaaa-mm-gg") || Fine.equals("") || Fine.equals("aaaa-mm-gg") 
-				|| Costo.equals("") || Nome.equals("") || Cognome.equals("") || Patente.equals("") || Cliente.equals("") || Veicolo.equals("")){		
+		if (Tipologia.equals("") || Veicolo.equals("") || Cliente.equals("") || Inizio.equals("") || Inizio.equals("aaaa-mm-gg") 
+				|| Fine.equals("") || Fine.equals("aaaa-mm-gg") || Costo.equals("") || Cognome.equals("") || Nome.equals("") || Patente.equals("")){		
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 				"Errore ",
@@ -144,74 +152,13 @@ public class Contratto {
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Tipologia deve essere \"Breve\" o \"Lungo\"!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if(!Inizio.matches(DATEPATTERN)){
-			content.frmtdtxtfldInizio.setText("");
-			content.frmtdtxtfldInizio.requestFocus();
+		}else if (!Veicolo.matches(TGPATTERN1) && !Veicolo.matches(TGPATTERN2) && !Veicolo.matches(TGPATTERN3) && !Veicolo.matches(TGPATTERN4)){
+			content.txtVeicolo.setText("");
+			content.txtVeicolo.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La data di inizio noleggio inserita non è valida!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		} else if(!Fine.matches(DATEPATTERN)){
-			content.frmtdtxtfldFine.setText("");
-			content.frmtdtxtfldFine.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La data di fine noleggio inserita non è valida!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if (!isNumeric(Costo) || Costo.length()>10){
-			content.txtCosto.setText("");
-			content.txtCosto.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo Costo Totale deve essere composto da meno di 10 cifre!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if ((!isNumeric(Pagato) || Pagato.length()>10) && !Pagato.equals("")){
-			content.txtPagato.setText("");
-			content.txtPagato.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo Acconto deve essere composto da meno di 10 cifre!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if (Nome.length()>15){
-			content.txtNome.setText("");
-			content.txtNome.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo Nome deve avere meno di 15 caratteri!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if (Cognome.length()>15){
-			content.txtCognome.setText("");
-			content.txtCognome.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo Cognome deve avere meno di 15 caratteri!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if (Patente.length()>10 ||Patente.length()<10 || !Patente.matches(PTPATTERN)){
-			content.txtPatente.setText("");
-			content.txtPatente.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo Patente deve essere composta da 3 caratteri e 7 cifre (Es:TO1234567X)!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if (Rilasciatada.length()>20){
-			content.txtRilasciatada.setText("");
-			content.txtRilasciatada.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo 'Rilasciata Da' deve avere meno di 20 caratteri!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Rilasciatail.matches(DATEPATTERN) && !Rilasciatail.equals("") && !Rilasciatail.equals("aaaa-mm-gg")){
-			content.frmtdtxtfldRilasciatail.setText("");
-			content.frmtdtxtfldRilasciatail.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La data di rilascio inserita non è valida!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Valida.matches(DATEPATTERN) && !Valida.equals("") && !Valida.equals("aaaa-mm-gg")){
-			content.frmtdtxtfldValida.setText("");
-			content.frmtdtxtfldValida.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La data di fine validità inserita non è valida!",
+			JOptionPane.showMessageDialog(null, "Errore! La Targa del veicolo deve essere composta da: \n - Autoveicolo: 4 caratteri e 3 cifre (es. TO175RP); "
+					+ "\n - Scooter: 3 caratteri e 3 cifre (es. X269DL); \n - Motocicletta e Quad-Bike: 2 caratteri e 5 cifre (es. AA12345);"
+					+ "\n - Mezzo Acquatico: 2 caratteri e 4 cifre (es. 8PC567).",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (Cliente.length()==16 && !Cliente.matches(CFPATTERN)){
@@ -235,25 +182,108 @@ public class Contratto {
 			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale deve avere 16 caratteri e la Partita IVA 11 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Veicolo.matches(TGPATTERN1) && !Veicolo.matches(TGPATTERN2) && !Veicolo.matches(TGPATTERN3) && !Veicolo.matches(TGPATTERN4)){
-			content.txtVeicolo.setText("");
-			content.txtVeicolo.requestFocus();
+		}else if(!Inizio.matches(DATEPATTERN)){
+			content.frmtdtxtfldInizio.setText("");
+			content.frmtdtxtfldInizio.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La Targa del veicolo deve essere composta da: \n - Autoveicolo: 4 caratteri e 3 cifre (es. TO175RP); "
-					+ "\n - Scooter: 3 caratteri e 3 cifre (es. X269DL); \n - Motocicletta e Quad-Bike: 2 caratteri e 5 cifre (es. AA12345);"
-					+ "\n - Mezzo Acquatico: 2 caratteri e 4 cifre (es. 8PC567).",
+			JOptionPane.showMessageDialog(null, "Errore! La data di inizio noleggio inserita non è valida!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		}else if(!Fine.matches(DATEPATTERN)){
+			content.frmtdtxtfldFine.setText("");
+			content.frmtdtxtfldFine.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! La data di fine noleggio inserita non è valida!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		}else if (!isNumeric(Costo) || Costo.length()>10){
+			content.txtCosto.setText("");
+			content.txtCosto.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Costo Totale deve essere composto da meno di 10 cifre!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		}else if ((!isNumeric(Acconto) || Acconto.length()>10) && !Acconto.equals("")){
+			content.txtAcconto.setText("");
+			content.txtAcconto.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Acconto deve essere composto da meno di 10 cifre!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		}else if (Cognome.length()>15){
+			content.txtCognome.setText("");
+			content.txtCognome.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Cognome deve avere meno di 15 caratteri!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		}else if (Nome.length()>15){
+			content.txtNome.setText("");
+			content.txtNome.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Nome deve avere meno di 15 caratteri!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		}else if (Patente.length()>10 ||Patente.length()<10 || !Patente.matches(PTPATTERN)){
+			content.txtPatente.setText("");
+			content.txtPatente.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Patente deve essere composta da 3 caratteri e 7 cifre (Es:TO1234567X)!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		}else if (!Valida.matches(DATEPATTERN) && !Valida.equals("") && !Valida.equals("aaaa-mm-gg")){
+			content.frmtdtxtfldValida.setText("");
+			content.frmtdtxtfldValida.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! La data di fine validità inserita non è valida!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		}else if (Rilasciatada.length()>20){
+			content.txtRilasciatada.setText("");
+			content.txtRilasciatada.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il campo 'Rilasciata Da' deve avere meno di 20 caratteri!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		}else if (!Rilasciatail.matches(DATEPATTERN) && !Rilasciatail.equals("") && !Rilasciatail.equals("aaaa-mm-gg")){
+			content.frmtdtxtfldRilasciatail.setText("");
+			content.frmtdtxtfldRilasciatail.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! La data di rilascio inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}
-		if (check==false) test=check; 
-			else {
-				if(Inizio.equals("") || Inizio.equals("aaaa-mm-gg")) Inizio="DEFAULT"; else Inizio="'"+Inizio+"'";
-				if(Fine.equals("") || Fine.equals("aaaa-mm-gg")) Fine="DEFAULT"; else Fine="'"+Fine+"'";;
-				if(Rilasciatail.equals("") || Rilasciatail.equals("aaaa-mm-gg")) Rilasciatail="DEFAULT"; else Rilasciatail="'"+Rilasciatail+"'";
-				if(Valida.equals("") || Valida.equals("aaaa-mm-gg")) Valida="DEFAULT"; else Valida="'"+Valida+"'";
-				if(Pagato.equals("")) Pagato="NULL";
-				if(Rilasciatada.equals("")) Rilasciatada="NULL";
-				test=true;}
+		if (check==false){
+			test=check; 
+		}
+		else {
+			if(Inizio.equals("") || Inizio.equals("aaaa-mm-gg")){ 
+				Inizio="DEFAULT";
+			}else{
+				Inizio="'"+Inizio+"'";
+			}
+			if(Fine.equals("") || Fine.equals("aaaa-mm-gg")){ 
+				Fine="DEFAULT";
+			}else{ 
+				Fine="'"+Fine+"'";
+			}
+			if(Acconto.equals("")){
+				Acconto="NULL";
+			}
+			if(Valida.equals("") || Valida.equals("aaaa-mm-gg")){
+				Valida="DEFAULT";
+			}else{ Valida="'"+Valida+"'";
+			}
+			if(Rilasciatada.equals("")){
+				Rilasciatada="NULL";
+			}
+			if(Rilasciatail.equals("") || Rilasciatail.equals("aaaa-mm-gg")){
+				Rilasciatail="DEFAULT";
+			}else{
+				Rilasciatail="'"+Rilasciatail+"'";
+			}
+			test=true;
+		}
 		return test;
 	}
 	
@@ -321,18 +351,18 @@ public class Contratto {
 	
 	public void setValori(ModuloCt content){
 		Tipologia = content.txtTipologia.getText().trim().toLowerCase();
+		Veicolo = content.txtVeicolo.getText().trim();
+		Cliente = content.txtCliente.getText().trim();
 		Inizio = content.frmtdtxtfldInizio.getText().trim();
 		Fine = content.frmtdtxtfldFine.getText().trim();
 		Costo = content.txtCosto.getText().trim();
-		Pagato = content.txtPagato.getText().trim();
-		Nome = content.txtNome.getText().trim();
+		Acconto = content.txtAcconto.getText().trim();
 		Cognome = content.txtCognome.getText().trim();
+		Nome = content.txtNome.getText().trim();
 		Patente = content.txtPatente.getText().trim();
+		Valida = content.frmtdtxtfldValida.getText().trim();
 		Rilasciatada = content.txtRilasciatada.getText().trim();
 		Rilasciatail = content.frmtdtxtfldRilasciatail.getText().trim();
-		Valida = content.frmtdtxtfldValida.getText().trim();
-		Cliente = content.txtCliente.getText().trim();
-		Veicolo = content.txtVeicolo.getText().trim();
 	}
 	
 	/* Metodo. Assegna i valori al contratto da filtrare. */

@@ -67,7 +67,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 	public ModuloEx(){
 		this.setBorder(BorderFactory.createTitledBorder("Funzionalità Aggiuntive"));
 		
-		JLabel lblFunz = new JLabel("Pannello Funzionalit\u00E0 Aggiuntive");
+		JLabel lblFunz = new JLabel("Pannello Funzionalità Aggiuntive");
 		lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
 		
@@ -96,7 +96,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli più Noleggiati"));
 			
-			try{Extra.exequery("SELECT COUNT(*) as Numero_Noleggi, b.Targa, b.Tipologia, b.Nome, b.Disponibilita FROM noleggio a INNER JOIN veicolo b ON a.veicolo = b.Targa GROUP BY b.Targa ORDER BY Numero_Noleggi DESC","select");}
+			try{Extra.exequery("SELECT COUNT(*) as Numero_Noleggi, b.Targa, b.Tipologia, b.Nome, b.Disponibilita FROM noleggio a INNER JOIN veicolo b ON a.Veicolo = b.Targa GROUP BY b.Targa ORDER BY Numero_Noleggi DESC","select");}
 			catch(SQLException e){
 				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli più noleggiati!",
 					"Errore ",
