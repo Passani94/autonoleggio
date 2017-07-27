@@ -1,10 +1,9 @@
 package GUI.User;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JMenu;
 
 import java.awt.event.ActionListener;
 import java.awt.Dimension;
@@ -17,13 +16,13 @@ import GUI.Admin.PannelloContratto;
 
 public class PannelloU extends JFrame implements ActionListener{
 	
-	private static final long serialVersionUID = 7512472295622776147L; 
+	private static final long serialVersionUID = 1L; 
 	public String Username;
 	public JPanel contentPane = new JPanel();
 	private final JMenuBar menuBar = new JMenuBar();
-	private JMenuItem mntmHome = new JMenuItem("Home");
-	private JMenuItem mntmCliente = new JMenuItem("Pannello Cliente");
-	private JMenuItem mntmContratto = new JMenuItem("Pannello Contratto");
+	private final JButton btnContratto = new JButton("Contratto");
+	private final JButton btnCliente = new JButton("Cliente");
+	private final JButton btnHome = new JButton("Home");
 	
 	/* Crea il frame PannelloU.*/
 	
@@ -48,39 +47,30 @@ public class PannelloU extends JFrame implements ActionListener{
 	public void menu(){
 		setJMenuBar(menuBar);
 		
-		JMenu mnHome = new JMenu("Home");
-		menuBar.add(mnHome);
+		menuBar.add(btnHome);
+		btnHome.addActionListener(this); /* ActionListener per il bottone Home. */
 		
-		mntmHome.addActionListener(this);  /* Action Listener per il menu/Home.*/
-		mnHome.add(mntmHome);
+		menuBar.add(btnCliente);
+		btnCliente.addActionListener(this); /* ActionListener per il bottone Cliente. */
 		
-		JMenu mnCliente = new JMenu("Cliente");
-		menuBar.add(mnCliente);
-		
-		mntmCliente.addActionListener(this);  /* Action Listener per il menu/Cliente.*/
-		mnCliente.add(mntmCliente);
-		
-		JMenu mnContratto = new JMenu("Contratto");
-		menuBar.add(mnContratto);
-		
-		mntmContratto.addActionListener(this);  /* Action Listener per il menu/Contratto.*/
-		mnContratto.add(mntmContratto);
+		menuBar.add(btnContratto);
+		btnContratto.addActionListener(this); /* ActionListener per il bottone Contratto. */
 	}
 	
-	/* Definisce le azioni da eseguire in base al menù clickato.*/
+	/* Definisce le azioni da eseguire in base al bottone cliccato. */
 	
 	public void actionPerformed(ActionEvent e){
-		if(mntmHome == e.getSource()){			
+		if(btnHome == e.getSource()){			
 			getContentPane().removeAll();
 			new PannelloHomeU(this);
 			getContentPane().revalidate();
 		}
-		else if(mntmCliente == e.getSource()){
+		else if(btnCliente == e.getSource()){
 			getContentPane().removeAll();
 			new PannelloCliente(this);
 			getContentPane().revalidate();
 		}
-		else if(mntmContratto == e.getSource()){
+		else if(btnContratto == e.getSource()){
 			getContentPane().removeAll();
 			new PannelloContratto(this);
 			getContentPane().revalidate();

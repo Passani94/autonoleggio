@@ -6,26 +6,25 @@ import javax.swing.JPanel;
 import GUI.Login;
 
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JMenu;
 
 import java.awt.event.ActionListener;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import javax.swing.JButton;
 
 public class Pannello extends JFrame implements ActionListener{
 	
-	private static final long serialVersionUID = 7526466295622776147L; 
+	private static final long serialVersionUID = 1L; 
 	public String Username;
 	public JPanel contentPane = new JPanel();
 	private final JMenuBar menuBar = new JMenuBar();
-	private JMenuItem mntmHome = new JMenuItem("Home");
-	private JMenuItem mntmCliente = new JMenuItem("Pannello Cliente");
-	private JMenuItem mntmContratto = new JMenuItem("Pannello Contratto");
-	private JMenuItem mntmFlotta = new JMenuItem("Pannello Flotta");
-	private JMenuItem mntmOperatore = new JMenuItem("Pannello Operatore");
-	private JMenuItem mntmExtra = new JMenuItem("Funzionalità Aggiuntive");
+	private final JButton btnExtra = new JButton("Extra");
+	private final JButton btnOperatore = new JButton("Operatore");
+	private final JButton btnFlotta = new JButton("Flotta");
+	private final JButton btnContratto = new JButton("Contratto");
+	private final JButton btnCliente = new JButton("Cliente");
+	private final JButton btnHome = new JButton("Home");
 	
 	/* Crea il frame Pannello.*/
 	
@@ -50,72 +49,54 @@ public class Pannello extends JFrame implements ActionListener{
 	public void menu(){
 		setJMenuBar(menuBar);
 		
-		JMenu mnHome = new JMenu("Home");
-		menuBar.add(mnHome);
+		menuBar.add(btnHome);
+		btnHome.addActionListener(this); /* ActionListener per il bottone Home. */
 		
-		mntmHome.addActionListener(this);  /* Action Listener per il menu/Home.*/
-		mnHome.add(mntmHome);
+		menuBar.add(btnCliente);
+		btnCliente.addActionListener(this); /* ActionListener per il bottone Cliente. */
 		
-		JMenu mnCliente = new JMenu("Cliente");
-		menuBar.add(mnCliente);
+		menuBar.add(btnContratto);
+		btnContratto.addActionListener(this); /* ActionListener per il bottone Contratto. */
 		
-		mntmCliente.addActionListener(this);  /* Action Listener per il menu/Cliente.*/
-		mnCliente.add(mntmCliente);
+		menuBar.add(btnFlotta);
+		btnFlotta.addActionListener(this); /* ActionListener per il bottone Flotta. */
 		
-		JMenu mnContratto = new JMenu("Contratto");
-		menuBar.add(mnContratto);
+		menuBar.add(btnOperatore);
+		btnOperatore.addActionListener(this); /* ActionListener per il bottone Operatore. */
 		
-		mntmContratto.addActionListener(this);  /* Action Listener per il menu/Contratto.*/
-		mnContratto.add(mntmContratto);
-		
-		JMenu mnFlotta = new JMenu("Flotta");
-		menuBar.add(mnFlotta);
-		
-		mntmFlotta.addActionListener(this);  /* Action Listener per il menu/Flotta.*/
-		mnFlotta.add(mntmFlotta);
-		
-		JMenu mnOperatore = new JMenu("Operatore");
-		menuBar.add(mnOperatore);
-		
-		mntmOperatore.addActionListener(this);  /* Action Listener per il menu/Operatore.*/
-		mnOperatore.add(mntmOperatore);
-		
-		JMenu mnExtra = new JMenu("Extra");
-		menuBar.add(mnExtra);
-		
-		mntmExtra.addActionListener(this);  /* Action Listener per il menu/Extra.*/
-		mnExtra.add(mntmExtra);
+		menuBar.add(btnExtra);
+		btnExtra.addActionListener(this); /* ActionListener per il bottone Extra. */
 	}
 	
-	/* Definisce le azioni da eseguire in base al menù clickato.*/
+	/* Definisce le azioni da eseguire in base al bottone cliccato.*/
 	
 	public void actionPerformed(ActionEvent e){
-		if(mntmHome == e.getSource()){			
+		if(btnHome == e.getSource()){			
 			getContentPane().removeAll();
 			new PannelloHome(this);
 			getContentPane().revalidate();
 		}
-		else if(mntmOperatore == e.getSource()){
+		else if(btnOperatore == e.getSource()){
 			getContentPane().removeAll();
 			new PannelloOperatore(this);
 			getContentPane().revalidate();
 		}
-		else if(mntmFlotta == e.getSource()){
+		else if(btnFlotta == e.getSource()){
 			getContentPane().removeAll();
 			new PannelloFlotta(this);
 			getContentPane().revalidate();
 		}
-		else if(mntmCliente == e.getSource()){
+		else if(btnCliente == e.getSource()){
 			getContentPane().removeAll();
 			new PannelloCliente(this);
 			getContentPane().revalidate();
 		}
-		else if(mntmExtra == e.getSource()){
+		else if(btnExtra == e.getSource()){
 			getContentPane().removeAll();
 			new PannelloExtra(this);
 			getContentPane().revalidate();
 		}
-		else if(mntmContratto == e.getSource()){
+		else if(btnContratto == e.getSource()){
 			getContentPane().removeAll();
 			new PannelloContratto(this);
 			getContentPane().revalidate();

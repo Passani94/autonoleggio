@@ -14,10 +14,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import GUI.*;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class PannelloHome extends JPanel implements ActionListener{
 	
-	private static final long serialVersionUID = 7526172295622776147L; 
+	private static final long serialVersionUID = 1L; 
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private JPanel pnlCalendar = new JPanel(null);
@@ -97,15 +98,30 @@ public class PannelloHome extends JPanel implements ActionListener{
 		pn.setContentPane(this.run(pn.contentPane));
 	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
+	/* Definisce le azioni da eseguire in base al pulsante cliccato.*/
 	
 	public void actionPerformed(ActionEvent e){
-		if (btnEsci == e.getSource()){
-			System.exit(0);}
+		if (btnEsci == e.getSource()){ 
+				int scelta = JOptionPane.showConfirmDialog(
+					    null,
+					    "Si desidera uscire dall'applicazione?",
+					    "Conferma uscita",
+					    JOptionPane.YES_NO_OPTION);
+				if (scelta == JOptionPane.YES_OPTION){
+					System.exit(0);
+				}
+		}
 		else if(btnLogout == e.getSource()){
-			frame.dispose();
-			Login log = new Login();
-			log.run();
-			}
+				int scelta = JOptionPane.showConfirmDialog(
+						null,
+						"Si desidera effettuare il logout?",
+						"Conferma logout",
+						JOptionPane.YES_NO_OPTION);
+				if (scelta == JOptionPane.YES_OPTION){
+					frame.dispose();
+					Login log = new Login();
+					log.run();
+				}
+		}
 	}
 }

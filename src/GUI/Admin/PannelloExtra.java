@@ -6,6 +6,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.awt.event.ActionListener;
@@ -129,13 +130,28 @@ public class PannelloExtra extends JPanel implements ActionListener{
 	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
 	
 	public void actionPerformed(ActionEvent e){
-		if (btnEsci == e.getSource()){
-			System.exit(0);}
-		else if(btnLogout == e.getSource()){
-			frame.dispose();
-			Login log = new Login();
-			log.run();
+		if (btnEsci == e.getSource()){ 
+			int scelta = JOptionPane.showConfirmDialog(
+				    null,
+				    "Si desidera uscire dall'applicazione?",
+				    "Conferma uscita",
+				    JOptionPane.YES_NO_OPTION);
+			if (scelta == JOptionPane.YES_OPTION){
+				System.exit(0);
 			}
+		}
+		else if(btnLogout == e.getSource()){
+			int scelta = JOptionPane.showConfirmDialog(
+					null,
+					"Si desidera effettuare il logout?",
+					"Conferma logout",
+					JOptionPane.YES_NO_OPTION);
+			if (scelta == JOptionPane.YES_OPTION){
+				frame.dispose();
+				Login log = new Login();
+				log.run();
+			}
+		}
 		else if(btnStatistica == e.getSource()){
 			pnlModulo.set("Statistica");
 		}

@@ -14,6 +14,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import GUI.*;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class PannelloHomeU extends JPanel implements ActionListener{
 	
@@ -100,12 +101,27 @@ public class PannelloHomeU extends JPanel implements ActionListener{
 	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
 	
 	public void actionPerformed(ActionEvent e){
-		if (btnEsci == e.getSource()){
-			System.exit(0);}
-		else if(btnLogout == e.getSource()){
-			frame.dispose();
-			Login log = new Login();
-			log.run();
+		if (btnEsci == e.getSource()){ 
+			int scelta = JOptionPane.showConfirmDialog(
+				    null,
+				    "Si desidera uscire dall'applicazione?",
+				    "Conferma uscita",
+				    JOptionPane.YES_NO_OPTION);
+			if (scelta == JOptionPane.YES_OPTION){
+				System.exit(0);
 			}
+	}
+	else if(btnLogout == e.getSource()){
+			int scelta = JOptionPane.showConfirmDialog(
+					null,
+					"Si desidera effettuare il logout?",
+					"Conferma logout",
+					JOptionPane.YES_NO_OPTION);
+			if (scelta == JOptionPane.YES_OPTION){
+				frame.dispose();
+				Login log = new Login();
+				log.run();
+			}
+		}
 	}
 }
