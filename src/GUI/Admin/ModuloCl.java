@@ -296,9 +296,9 @@ public class ModuloCl extends JPanel implements ActionListener{
 		}
 		else if (str == "Modifica"){
 			this.removeAll();
-			this.setBorder(BorderFactory.createTitledBorder("Modifica Veicolo"));
+			this.setBorder(BorderFactory.createTitledBorder("Modifica Cliente"));
 			
-			btnCerca = new JButton("Cerca Veicolo");
+			btnCerca = new JButton("Cerca Cliente");
 			btnCerca.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnCerca.addActionListener(this);	/* Action Listener per il bottone Cerca.*/
 			
