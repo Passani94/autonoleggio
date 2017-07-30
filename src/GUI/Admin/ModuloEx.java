@@ -51,17 +51,12 @@ public class ModuloEx extends JPanel implements ActionListener{
 	private JScrollPane scrollAlaggio = new JScrollPane(tblAlaggio);
 	private DBConnect Extra = new DBConnect();
 	private DBConnect Profitto = new DBConnect();
-	private double mese,anno;
+	private String dataQuery;
 	
 	/* Costruttori ModuloEx */
 	
 	public ModuloEx(String str){
-		set(str);
-		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		mese = cal.get(Calendar.MONTH);
-		anno = cal.get(Calendar.YEAR);
+		set(str);	
 	}
 
 	public ModuloEx(){
@@ -78,7 +73,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 						.addContainerGap(124, Short.MAX_VALUE)
-						.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE, 245, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE,420, GroupLayout.PREFERRED_SIZE)
 						.addGap(121))
 			);
 			gl_contentPane.setVerticalGroup(
@@ -92,7 +87,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 	}
 	
 	public void set(String str){
-		if (str == "Statistica"){
+		if (str.equals("Statistica")){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli più Noleggiati"));
 			
@@ -132,7 +127,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
-		else if (str == "Mensile"){
+		else if (str.equals("Mensile")){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Profitto Mensile"));
 			
@@ -198,7 +193,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
-		else if (str == "Annuale"){
+		else if (str.equals("Annuale")){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Profitto Annuale"));
 			
@@ -264,7 +259,10 @@ public class ModuloEx extends JPanel implements ActionListener{
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
-		else if (str == "Scadenze"){
+		else if (str.equals("Scadenze")){
+			DateFormat fmt = new SimpleDateFormat("yyyy-MM");
+			Calendar c=Calendar.getInstance();
+			dataQuery=fmt.format(c.getTime());
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Prossime Scadenze"));
 			
@@ -280,7 +278,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			lblTagliando.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblTagliando.setFont(new Font("Arial", Font.BOLD, 12));
 			
-			try{Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Bollo LIKE '"+anno+"-"+mese+"-%'","select");}
+			try{Extra.exequery("SELECT Data_Scadenza_Bollo, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati  FROM veicolo WHERE Data_Scadenza_Bollo LIKE '"+dataQuery+"-%'","select");}
 			catch(SQLException e){
 							JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con bollo in scadenza!",
 					"Errore ",
@@ -295,7 +293,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			scrollbollo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollbollo.setViewportView(tblBollo);
 			
-			try{Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Tagliando LIKE '"+anno+"-"+mese+"-%'","select");}
+			try{Extra.exequery("SELECT Data_Scadenza_Tagliando, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE Data_Scadenza_Tagliando LIKE '"+dataQuery+"-%'","select");}
 			catch(SQLException e){
 				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con tagliando in scadenza!",
 						"Errore ",
@@ -304,7 +302,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			tblTagliando = new JTable();
 			tblTagliando.setModel(new CostruisciTabella(Extra.rs).model);
 			tblTagliando.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			new TableColumnAdjuster(tblTagliando);
+			tca = new TableColumnAdjuster(tblTagliando);
 			tca.adjustColumns();
 			
 			scrolltagliando.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -319,7 +317,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			lblOrmeggio.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblOrmeggio.setFont(new Font("Arial", Font.BOLD, 12));
 			
-			try{Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Assicurazione LIKE '"+anno+"-"+mese+"-%'","select");}
+			try{Extra.exequery("SELECT Data_Scadenza_Assicurazione, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE Data_Scadenza_Assicurazione LIKE '"+dataQuery+"-%'","select");}
 			catch(SQLException e){
 				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con assicurazione in scadenza!",
 						"Errore ",
@@ -328,14 +326,14 @@ public class ModuloEx extends JPanel implements ActionListener{
 			tblAssicurazione = new JTable();
 			tblAssicurazione.setModel(new CostruisciTabella(Extra.rs).model);
 			tblAssicurazione.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			new TableColumnAdjuster(tblAssicurazione);
+			tca= new TableColumnAdjuster(tblAssicurazione);
 			tca.adjustColumns();
 			
 			scrollAssicurazione.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollAssicurazione.setViewportView(tblAssicurazione);
 			
 			
-			try{Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Ormeggio LIKE '"+anno+"-"+mese+"-%'","select");}
+			try{Extra.exequery("SELECT Data_Scadenza_Ormeggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE Data_Scadenza_Ormeggio LIKE '"+dataQuery+"-%'","select");}
 			catch(SQLException e){
 				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con ormeggio in scadenza!",
 						"Errore ",
@@ -344,7 +342,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			tblOrmeggio = new JTable();
 			tblOrmeggio.setModel(new CostruisciTabella(Extra.rs).model);
 			tblOrmeggio.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			new TableColumnAdjuster(tblOrmeggio);
+			tca= new TableColumnAdjuster(tblOrmeggio);
 			tca.adjustColumns();
 			
 			scrollOrmeggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -354,7 +352,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			lblAlaggio.setHorizontalAlignment(SwingConstants.LEFT);
 			lblAlaggio.setFont(new Font("Arial", Font.BOLD, 12));
 			
-			try{Extra.exequery("SELECT * FROM veicolo WHERE Data_Scadenza_Costo_Alaggio LIKE '"+anno+"-"+mese+"-%'","select");}
+			try{Extra.exequery("SELECT Data_Scadenza_Costo_Alaggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE Data_Scadenza_Costo_Alaggio LIKE '"+dataQuery+"-%'","select");}
 			catch(SQLException e){
 				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con alaggio in scadenza!",
 						"Errore ",
@@ -363,7 +361,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			tblAlaggio = new JTable();
 			tblAlaggio.setModel(new CostruisciTabella(Extra.rs).model);
 			tblAlaggio.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			new TableColumnAdjuster(tblAlaggio);
+			tca=new TableColumnAdjuster(tblAlaggio);
 			tca.adjustColumns();
 			
 			scrollAlaggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -381,28 +379,29 @@ public class ModuloEx extends JPanel implements ActionListener{
 									.addComponent(lblScadenze, GroupLayout.PREFERRED_SIZE, 298, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addContainerGap()
-									.addComponent(lblBollo, GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-									.addComponent(lblTagliando, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
+									.addComponent(lblBollo, GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addContainerGap()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(scrollbollo, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblAssicuarazione, GroupLayout.PREFERRED_SIZE, 229, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(scrolltagliando, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblOrmeggio, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(scrollAssicurazione, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-									.addComponent(scrollOrmeggio, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addContainerGap()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(lblAlaggio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(scrollAlaggio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))))
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+												.addComponent(scrollAlaggio, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+												.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+													.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+														.addComponent(scrollAssicurazione, 0, 0, Short.MAX_VALUE)
+														.addComponent(lblAssicuarazione, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 229, GroupLayout.PREFERRED_SIZE)
+														.addComponent(scrollbollo, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))))
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_contentPane.createSequentialGroup()
+													.addPreferredGap(ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+													.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblTagliando)
+														.addComponent(scrolltagliando, GroupLayout.PREFERRED_SIZE, 328, GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblOrmeggio)))
+												.addGroup(gl_contentPane.createSequentialGroup()
+													.addGap(63)
+													.addComponent(scrollOrmeggio, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))))
+										.addComponent(lblAlaggio))))
 							.addContainerGap())
 				);
 				gl_contentPane.setVerticalGroup(
@@ -415,22 +414,22 @@ public class ModuloEx extends JPanel implements ActionListener{
 								.addComponent(lblBollo)
 								.addComponent(lblTagliando, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(scrollbollo, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(scrollbollo, 0, 0, Short.MAX_VALUE)
 								.addComponent(scrolltagliando, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblOrmeggio, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblAssicuarazione, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblAssicuarazione, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblOrmeggio, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(scrollAssicurazione, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
 								.addComponent(scrollOrmeggio, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addComponent(lblAlaggio, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(scrollAlaggio, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addContainerGap())
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();

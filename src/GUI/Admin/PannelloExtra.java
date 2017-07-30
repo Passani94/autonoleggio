@@ -85,7 +85,7 @@ public class PannelloExtra extends JPanel implements ActionListener{
 									.addComponent(btnScadenze, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
 									.addComponent(btnStatistica, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								.addPreferredGap(ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
-								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 550, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 800, GroupLayout.PREFERRED_SIZE)))
 						.addContainerGap())
 			);
 			gl_contentPane.setVerticalGroup(
