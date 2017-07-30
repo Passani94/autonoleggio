@@ -58,8 +58,6 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 	public JList<String> lstLungo;
 	private final static String[] BREVE={"Autobus_12_Posti","Autobus_16_Posti","Autocarava_4_Posti","Autocarava_6_Posti","Autocarro_Cabinato","Autocarro_Furgonato","Automobile_Berlina","Automobile_Cabriolet","Automobile_Coupè","Automobile_Fuoristrada","Automobile_Limousine","Automobile_Multispazio","Automobile_SUV","Automobile_Utilitaria","Motociclo_Motocicletta","Motociclo_Scooter","Quadriciclo_Quad-Bike","Imbarcazione_Barca_a_motore","Imbarcazione_Catamarano","Natante_Gommone"};
 	private final static String[] LUNGO={"Automobile_Berlina","Automobile_Cabriolet","Automobile_Coupè","Automobile_Fuoristrada","Automobile_Multispazio","Automobile_SUV","Automobile_Utilitaria"};
-	private JScrollPane listScrollerBreve;
-	private JScrollPane listScrollerLungo;
 	public JFormattedTextField frmtdtxtfldImma;
 	public JFormattedTextField frmtdtxtfldBollo;
 	public JFormattedTextField frmtdtxtfldTagliando;
@@ -249,7 +247,7 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			lstBreve.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 			lstBreve.setVisibleRowCount(-1);
 			
-			listScrollerBreve = new JScrollPane(lstBreve);
+			new JScrollPane(lstBreve);
 			
 			JLabel lblLungo = new JLabel("Costo Lungo Termine");
 			lblLungo.setFont(new Font("Arial", Font.BOLD, 14));
@@ -263,7 +261,7 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			lstLungo.setLayoutOrientation(JList.VERTICAL);
 			lstLungo.setVisibleRowCount(-1);
 			
-			listScrollerLungo = new JScrollPane(lstLungo);
+			new JScrollPane(lstLungo);
 			
 			/* Crea il Layout per un nuovo Veicolo. */
 			

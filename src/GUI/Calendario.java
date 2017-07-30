@@ -12,7 +12,7 @@ public class Calendario extends JPanel{
     static JLabel lblMonth, lblYear;
     static JButton btnPrev, btnNext;
     static JTable tblCalendar;
-    static JComboBox cmbYear;
+    static JComboBox <String> cmbYear;
     static DefaultTableModel mtblCalendar; 
     static JScrollPane stblCalendar;
     static int realYear, realMonth, realDay, currentYear, currentMonth;
@@ -22,7 +22,7 @@ public class Calendario extends JPanel{
         //Crea i controlli
         lblMonth = new JLabel ("January");
         lblYear = new JLabel ("Cambia anno:");
-        cmbYear = new JComboBox();
+        cmbYear = new JComboBox <>();
         btnPrev = new JButton ("<<");
         btnNext = new JButton (">>");
         mtblCalendar = new DefaultTableModel()
