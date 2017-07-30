@@ -118,16 +118,16 @@ public class ModuloEx extends JPanel implements ActionListener{
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(64)
-							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 360, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(360, Short.MAX_VALUE))
+							.addGap(10)
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 480, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(54, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(35)
-							.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
-							.addGap(50))
+							.addGap(10)
+							.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+							.addContainerGap())
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
