@@ -102,7 +102,7 @@ public class GestioneGiorni {
 	
 	/* Metodo. Verifica che la DataFine sia "maggiore" della DataInizio. */
 	
-	public static boolean isMaggiore (String dataInizio, String dataFine) throws Exception {
+	public static boolean isMaggiore(String dataInizio, String dataFine) throws Exception {
 		
 		boolean maggiore = false;
 		Date d1, d2;
@@ -120,5 +120,32 @@ public class GestioneGiorni {
 		maggiore = d1.after(d2);
 		
 		return maggiore;
+	}
+	
+	/* Metodo. Verifica se la data passata come argomento è antecedente alla data odierna. */
+	
+	public static boolean nonConsentito(String dataInizio) throws Exception {
+		
+		boolean nonConsentito = false;
+		Date d1, d2;
+		
+		TimeZone zone = TimeZone.getTimeZone("GMT+1");
+		
+		DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		fmt.setTimeZone(zone);
+		fmt.setLenient(false);
+		
+		Calendar today = Calendar.getInstance();
+		today.set(Calendar.HOUR_OF_DAY, 0);
+		today.set(Calendar.MINUTE, 0);
+		today.set(Calendar.SECOND, 0);
+		
+		d1 = fmt.parse(dataInizio);
+		d2 = today.getTime();
+		
+		nonConsentito = d1.before(d2);
+		
+		return nonConsentito;
+	
 	}
 }

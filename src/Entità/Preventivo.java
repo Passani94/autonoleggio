@@ -419,6 +419,12 @@ public class Preventivo {
 			JOptionPane.showMessageDialog(null, "Errore! La data di inizio noleggio inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
+		}else if (GestioneGiorni.nonConsentito(Inizio)) {
+			content.frmtdtxtfldInizio.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! La data di inizio noleggio deve essere almeno uguale alla data odierna!",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
 		}else if (!Fine.matches(DATEPATTERN) && !Fine.equals("") && !Fine.matches("aaaa-mm-gg")) {
 			content.frmtdtxtfldFine.setText("");
 			content.frmtdtxtfldFine.requestFocus();
