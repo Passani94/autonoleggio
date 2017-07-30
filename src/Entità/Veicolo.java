@@ -209,14 +209,14 @@ public class Veicolo {
 		boolean check=true;
 		/* Verifica se sono stati inseriti tutti i campi necessari. */
 		if ((Targa.equals("") || Tipologia.equals("") || Marca.equals("") || Nome.equals("") || Disp.equals("") || Alimentazione.equals("") || Km.equals("") 
-				|| Dimensioni.equals("") || Breve.equals("")) && tipo.equals("aggiungi")){
+				|| Breve.equals("")) && tipo.equals("aggiungi")){
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
 		} /* Verifica se sono stati inseriti tutti i campi necessari durante la modifica di un veicolo. */
 		else if ((Targa.equals("") || Tipologia.equals("") || Marca.equals("") || Nome.equals("") || Disp.equals("") || Alimentazione.equals("") || Km.equals("") 
-				|| Dimensioni.equals("")) && tipo.equals("modifica")){		
+				) && tipo.equals("modifica")){		
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 				"Errore ",
@@ -397,11 +397,11 @@ public class Veicolo {
 
 public void setValori(ModuloFl content, String tipo){
 	Targa = content.txtTarga.getText().trim();
-	Tipologia = content.txtTipologia.getText().trim();
+	Tipologia = content.comboBoxTipologia.getSelectedItem().toString();
 	Marca = content.txtMarca.getText().trim();
 	Nome = content.txtNome.getText().trim();
-	Disp = content.txtDisp.getText().trim();
-	Alimentazione = content.txtAlimentazione.getText().trim();
+	Disp = content.comboBoxDisponibilita.getSelectedItem().toString();
+	Alimentazione = content.comboBoxAlimentazione.getSelectedItem().toString();
 	Km = content.txtKm.getText().trim();
 	Dimensioni = content.txtDimensioni.getText().trim();
 	Imma = content.frmtdtxtfldImma.getText().trim();
@@ -411,8 +411,8 @@ public void setValori(ModuloFl content, String tipo){
 	Ormeggio = content.frmtdtxtfldOrmeggio.getText().trim();
 	Alaggio = content.frmtdtxtfldAlaggio.getText().trim();
 	if (tipo.equals("aggiungi")){
-		Breve = content.lstBreve.getSelectedValue().toString();
-		if (!content.lstLungo.isSelectionEmpty()) Lungo = content.lstLungo.getSelectedValue().toString();}
+		Breve = content.comboBoxBreveTermine.getSelectedItem().toString();
+		if (!content.lstLungo.isSelectionEmpty()) Lungo = content.comboBoxLungoTermine.getSelectedItem().toString();;}
 }
 
 /* Metodo. Assegna solo la chiave (Targa) al veicolo. */
