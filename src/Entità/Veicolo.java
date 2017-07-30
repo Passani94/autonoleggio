@@ -8,6 +8,11 @@ import db.DBConnect;
 /* Classe per l'entità Veicolo */
 
 public class Veicolo {
+	
+	private boolean test;
+	
+	private DBConnect veicolo;
+	
 	private String Targa;
 	private String TargaCerca;
 	private String Tipologia;
@@ -25,8 +30,6 @@ public class Veicolo {
 	private String Alaggio;
 	private String Breve;
 	private String Lungo;
-	private boolean test;
-	private DBConnect veicolo;
 	private static final String TGPATTERN1 = "[a-zA-Z]{2}\\d\\d\\d[a-zA-Z]{2}"; //Pattern Targa Autoveicolo
 	private static final String TGPATTERN2 = "[a-zA-Z]{1}\\d\\d\\d[a-zA-Z]{2}"; //Pattern Targa Scooter
 	private static final String TGPATTERN3 = "[a-zA-Z]{2}\\d\\d\\d\\d\\d"; //Pattern Targa Motocicletta e Quad-Bike
@@ -410,9 +413,10 @@ public void setValori(ModuloFl content, String tipo){
 	Assicurazione = content.frmtdtxtfldAssicurazione.getText().trim();
 	Ormeggio = content.frmtdtxtfldOrmeggio.getText().trim();
 	Alaggio = content.frmtdtxtfldAlaggio.getText().trim();
-	if (tipo.equals("aggiungi")){
+	if (tipo.equals("aggiungi")) {
 		Breve = content.comboBoxBreveTermine.getSelectedItem().toString();
-		if (!content.lstLungo.isSelectionEmpty()) Lungo = content.comboBoxLungoTermine.getSelectedItem().toString();;}
+		if (!content.lstLungo.isSelectionEmpty()) Lungo = content.comboBoxLungoTermine.getSelectedItem().toString();
+	}
 }
 
 /* Metodo. Assegna solo la chiave (Targa) al veicolo. */

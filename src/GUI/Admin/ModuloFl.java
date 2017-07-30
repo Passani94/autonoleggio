@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,7 +26,6 @@ import javax.swing.JTextField;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
 import Entità.Veicolo;
@@ -38,13 +36,29 @@ import db.DBConnect;
 
 public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 
-	private static final long serialVersionUID = 7526472295622516147L; 
-	private JTable tblVeicoli;
+	private static final long serialVersionUID = 1L; 
+	
+	private Veicolo VL = new Veicolo();
+	private DBConnect Veicoli = new DBConnect();
+	
+	
 	private JButton btnAggiungi;
 	private JButton btnElimina;
 	private JButton btnModificaV;
 	private JButton btnCerca;
-	private JScrollPane scroll = new JScrollPane(tblVeicoli);
+	public JComboBox <String> comboBoxTipologia;
+	public JComboBox <String> comboBoxDisponibilita;
+	public JComboBox <String> comboBoxAlimentazione;
+	public JComboBox <String> comboBoxBreveTermine;
+	public JComboBox <String> comboBoxLungoTermine;
+	public JFormattedTextField frmtdtxtfldImma;
+	public JFormattedTextField frmtdtxtfldBollo;
+	public JFormattedTextField frmtdtxtfldTagliando;
+	public JFormattedTextField frmtdtxtfldAssicurazione;
+	public JFormattedTextField frmtdtxtfldOrmeggio;
+	public JFormattedTextField frmtdtxtfldAlaggio;
+	public JList<String> lstBreve;
+	public JList<String> lstLungo;
 	public JTextField txtTipologia;
 	public JTextField txtNome;
 	public JTextField txtDisp;
@@ -54,40 +68,29 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 	public JTextField txtTarga;
 	public JTextField txtDimensioni;
 	public JTextField txtTargaCerca;
-	public JList<String> lstBreve;
-	public JList<String> lstLungo;
-	private final static String[] BREVE={"Autobus_12_Posti","Autobus_16_Posti","Autocarava_4_Posti","Autocarava_6_Posti","Autocarro_Cabinato","Autocarro_Furgonato","Automobile_Berlina","Automobile_Cabriolet","Automobile_Coupè","Automobile_Fuoristrada","Automobile_Limousine","Automobile_Multispazio","Automobile_SUV","Automobile_Utilitaria","Motociclo_Motocicletta","Motociclo_Scooter","Quadriciclo_Quad-Bike","Imbarcazione_Barca_a_motore","Imbarcazione_Catamarano","Natante_Gommone"};
-	private final static String[] LUNGO={"Automobile_Berlina","Automobile_Cabriolet","Automobile_Coupè","Automobile_Fuoristrada","Automobile_Multispazio","Automobile_SUV","Automobile_Utilitaria"};
-	public JFormattedTextField frmtdtxtfldImma;
-	public JFormattedTextField frmtdtxtfldBollo;
-	public JFormattedTextField frmtdtxtfldTagliando;
-	public JFormattedTextField frmtdtxtfldAssicurazione;
-	public JFormattedTextField frmtdtxtfldOrmeggio;
-	public JFormattedTextField frmtdtxtfldAlaggio;
-	public JComboBox <String> comboBoxTipologia;
-	public JComboBox <String> comboBoxDisponibilita;
-	public JComboBox <String> comboBoxAlimentazione;
-	public JComboBox <String> comboBoxBreveTermine;
-	public JComboBox <String> comboBoxLungoTermine;
-	private Veicolo VL = new Veicolo();
-	private DBConnect Veicoli = new DBConnect();
+	
+	private JTable tblVeicoli;
+	private JScrollPane scroll = new JScrollPane(tblVeicoli);
 	
 	/* Costruttore ModuloFl */
 	
-	public ModuloFl(String str){
+	public ModuloFl(String str) {
 		set(str);
 	}
 
-	public void set(String str){
+	public void set(String str) {
 		if (str == "Elenca"){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli"));
 			
-			try{Veicoli.exequery("SELECT * FROM veicolo","select");}
+			try{
+				Veicoli.exequery("SELECT * FROM veicolo","select");
+			}
 			catch (SQLException e) {  
 			JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli! ",
 					"Errore ",
-					JOptionPane.ERROR_MESSAGE);}
+					JOptionPane.ERROR_MESSAGE);
+			}
 			
 			tblVeicoli = new JTable();
 			tblVeicoli.setModel(new CostruisciTabella(Veicoli.rs).model);
@@ -145,7 +148,7 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			JLabel lblNome = new JLabel("Nome *");
 			lblNome.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			JLabel lblDisponibilita = new JLabel("Disponibilità (SI/NO) *");
+			JLabel lblDisponibilita = new JLabel("Disponibilità *");
 			lblDisponibilita.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtDisp = new JTextField();
@@ -169,10 +172,10 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			txtKm = new JTextField();
 			txtKm.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JLabel lblDimensioni = new JLabel("Dimensioni");
+			JLabel lblDimensioni = new JLabel("Dimensioni (cm)");
 			lblDimensioni.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			txtDimensioni = new JTextField();
+			txtDimensioni = new JTextField("lun/lar/alt");
 			txtDimensioni.setFont(new Font("Arial", Font.PLAIN, 12));
 			
 			JLabel lblImma = new JLabel("Data Immatricolazione");
@@ -238,30 +241,8 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			JLabel lblBreve = new JLabel("Costo Breve Termine *");
 			lblBreve.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		    final DefaultListModel<String> modelB = new DefaultListModel<String>();
-		    for (int i = 0, n = BREVE.length; i < n; i++) {
-		      modelB.addElement(BREVE[i]);
-		    }
-			lstBreve = new JList<String>(modelB);
-			lstBreve.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			lstBreve.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-			lstBreve.setVisibleRowCount(-1);
-			
-			new JScrollPane(lstBreve);
-			
 			JLabel lblLungo = new JLabel("Costo Lungo Termine");
 			lblLungo.setFont(new Font("Arial", Font.BOLD, 14));
-			
-		    final DefaultListModel<String> modelL = new DefaultListModel<String>();
-		    for (int i = 0, n = LUNGO.length; i < n; i++) {
-		    	modelL.addElement(LUNGO[i]);
-		    }
-			lstLungo = new JList<String>(modelL);
-			lstLungo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			lstLungo.setLayoutOrientation(JList.VERTICAL);
-			lstLungo.setVisibleRowCount(-1);
-			
-			new JScrollPane(lstLungo);
 			
 			/* Crea il Layout per un nuovo Veicolo. */
 			
@@ -269,7 +250,9 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			comboBoxTipologia.setBackground(Color.WHITE);
 			comboBoxTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxTipologia.setToolTipText("Seleziona una tipologia.");
-			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Autobus_12_Posti", "Autobus_16_Posti", "Autocaravan_4_Posti", "Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Barca_Motore", "Berlina", "Cabriolet", "Catamarano", "Coup\u00E8", "Fuoristrada", "Gommone", "Limousine", "Motocicletta", "Multispazio", "Quad_BIke", "Scooter", "SUV", "Utilitaria"}));
+			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Autobus_12_Posti", "Autobus_16_Posti", "Autocaravan_4_Posti",
+					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Barca_Motore", "Berlina", "Cabriolet", "Catamarano", "Coup\u00E8",
+					"Fuoristrada", "Gommone", "Limousine", "Motocicletta", "Multispazio", "Quad_BIke", "Scooter", "SUV", "Utilitaria"}));
 			
 			comboBoxDisponibilita = new JComboBox<>();
 			comboBoxDisponibilita.setBackground(Color.WHITE);
@@ -285,12 +268,16 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			
 			comboBoxBreveTermine = new JComboBox<>();
 			comboBoxBreveTermine.setToolTipText("Seleziona un costo a breve termine.");
-			comboBoxBreveTermine.setModel(new DefaultComboBoxModel<>(new String[] {"", "Autobus_12_Posti", "Autobus_16_Posti", "Autocaravan_4_Posti", "Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Automobile_Berlina", "Automobile_Cabriolet", "Automobile_Coup\u00E8", "Automobile_Fuoristrada", "Automobile_Limousine", "Automobile_Multispazio", "Automobile_SUV", "Automobile_Utilitaria", "Imbarcazione_Barca_Motore", "Imbarcazione_Catamarano", "Motociclo_Motocicletta\t", "Motociclo_Scooter", "Natante_Gommone", "Quadriciclo_Quad_Bike"}));
+			comboBoxBreveTermine.setModel(new DefaultComboBoxModel<>(new String[] {"", "Autobus_12_Posti", "Autobus_16_Posti", "Autocaravan_4_Posti",
+					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Automobile_Berlina", "Automobile_Cabriolet", "Automobile_Coup\u00E8",
+					"Automobile_Fuoristrada", "Automobile_Limousine", "Automobile_Multispazio", "Automobile_SUV", "Automobile_Utilitaria", "Imbarcazione_Barca_Motore",
+					"Imbarcazione_Catamarano", "Motociclo_Motocicletta\t", "Motociclo_Scooter", "Natante_Gommone", "Quadriciclo_Quad_Bike"}));
 			comboBoxBreveTermine.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxBreveTermine.setBackground(Color.WHITE);
 			
 			comboBoxLungoTermine = new JComboBox<>();
-			comboBoxLungoTermine.setModel(new DefaultComboBoxModel<>(new String[] {"", "Automobile_Berlina", "Automobile_Cabriolet", "Automobile_Coup\u00E8", "Automobile_Fuoristrada", "Automobile_Multispazio", "Automobile_SUV", "Automobile_Utilitaria"}));
+			comboBoxLungoTermine.setModel(new DefaultComboBoxModel<>(new String[] {"", "Automobile_Berlina", "Automobile_Cabriolet", "Automobile_Coup\u00E8",
+					"Automobile_Fuoristrada", "Automobile_Multispazio", "Automobile_SUV", "Automobile_Utilitaria"}));
 			comboBoxLungoTermine.setToolTipText("Seleziona un costo a lungo termine");
 			comboBoxLungoTermine.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxLungoTermine.setBackground(Color.WHITE);
@@ -421,51 +408,6 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
-		else if (str == "Elimina"){
-			this.removeAll();
-			this.setBorder(BorderFactory.createTitledBorder("Elimina Veicolo"));
-			
-			btnElimina = new JButton("Elimina Veicolo");
-			btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnElimina.addActionListener(this);	/* Action Listener per il bottone Elimina.*/
-			
-			txtTarga = new JTextField();
-			txtTarga.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtTarga.setColumns(10);
-			
-			JLabel lblTarga = new JLabel("Targa Veicolo");
-			lblTarga.setFont(new Font("Arial", Font.BOLD, 14));
-			
-			/* Crea il Layout per un eliminare un Veicolo. */
-			
-			GroupLayout gl_contentPane = new GroupLayout(this);
-			gl_contentPane.setHorizontalGroup(
-					gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(42)
-							.addComponent(lblTarga, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-							.addComponent(txtTarga, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-							.addGap(62))
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(179)
-							.addComponent(btnElimina)
-							.addContainerGap(194, Short.MAX_VALUE))
-				);
-				gl_contentPane.setVerticalGroup(
-					gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(37)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblTarga, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtTarga, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(116)
-							.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(169, Short.MAX_VALUE))
-				);
-			this.setLayout(gl_contentPane);
-			this.revalidate();
-		}
 		else if (str == "Modifica"){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Modifica Veicolo"));
@@ -526,7 +468,7 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			txtKm = new JTextField();
 			txtKm.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JLabel lblDimensioni = new JLabel("Dimensioni");
+			JLabel lblDimensioni = new JLabel("Dimensioni (cm)");
 			lblDimensioni.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			txtDimensioni = new JTextField();
@@ -556,7 +498,9 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			comboBoxTipologia.setBackground(Color.WHITE);
 			comboBoxTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxTipologia.setToolTipText("Seleziona una tipologia.");
-			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Autobus_12_Posti", "Autobus_16_Posti", "Autocaravan_4_Posti", "Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Barca_Motore", "Berlina", "Cabriolet", "Catamarano", "Coup\u00E8", "Fuoristrada", "Gommone", "Limousine", "Motocicletta", "Multispazio", "Quad_BIke", "Scooter", "SUV", "Utilitaria"}));
+			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Autobus_12_Posti", "Autobus_16_Posti", "Autocaravan_4_Posti",
+					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Barca_Motore", "Berlina", "Cabriolet", "Catamarano", "Coup\u00E8",
+					"Fuoristrada", "Gommone", "Limousine", "Motocicletta", "Multispazio", "Quad_BIke", "Scooter", "SUV", "Utilitaria"}));
 			
 			comboBoxDisponibilita = new JComboBox<>();
 			comboBoxDisponibilita.setBackground(Color.WHITE);
@@ -639,7 +583,7 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 								.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblDisponibilita, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblAlimentazione, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDimensioni, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDimensioni, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblImma)
 								.addComponent(lblBollo)
 								.addComponent(lblTagliando)
@@ -745,9 +689,54 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
+		else if (str == "Elimina"){
+			this.removeAll();
+			this.setBorder(BorderFactory.createTitledBorder("Elimina Veicolo"));
+			
+			btnElimina = new JButton("Elimina Veicolo");
+			btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnElimina.addActionListener(this);	/* Action Listener per il bottone Elimina.*/
+			
+			txtTarga = new JTextField();
+			txtTarga.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtTarga.setColumns(10);
+			
+			JLabel lblTarga = new JLabel("Targa Veicolo");
+			lblTarga.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			/* Crea il Layout per un eliminare un Veicolo. */
+			
+			GroupLayout gl_contentPane = new GroupLayout(this);
+			gl_contentPane.setHorizontalGroup(
+					gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addGap(42)
+							.addComponent(lblTarga, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+							.addComponent(txtTarga, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+							.addGap(62))
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addGap(179)
+							.addComponent(btnElimina)
+							.addContainerGap(194, Short.MAX_VALUE))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(37)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblTarga, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtTarga, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(116)
+							.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(169, Short.MAX_VALUE))
+				);
+			this.setLayout(gl_contentPane);
+			this.revalidate();
+		}
 	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
+	/* Definisce le azioni da eseguire in base al pulsante cliccato.*/
 
 	public void actionPerformed(ActionEvent e){
 		
@@ -772,29 +761,63 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 	/* Definisce le azioni da eseguire quando si ha il focus sui campi per inserire le date. */
 	
 	public void focusGained(FocusEvent e){
-		if(frmtdtxtfldImma == e.getSource()){frmtdtxtfldImma.setText("");}
-		else if(frmtdtxtfldBollo == e.getSource()){frmtdtxtfldBollo.setText("");}
-		else if(frmtdtxtfldTagliando == e.getSource()){frmtdtxtfldTagliando.setText("");}
-		else if(frmtdtxtfldAssicurazione == e.getSource()){frmtdtxtfldAssicurazione.setText("");}
-		else if(frmtdtxtfldOrmeggio == e.getSource()){frmtdtxtfldOrmeggio.setText("");}
-		else if(frmtdtxtfldAlaggio == e.getSource()){frmtdtxtfldAlaggio.setText("");}
-		if(frmtdtxtfldImma.getText().equals("") && !(frmtdtxtfldImma == e.getSource())){frmtdtxtfldImma.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldBollo.getText().equals("") && !(frmtdtxtfldBollo == e.getSource())){frmtdtxtfldBollo.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldTagliando.getText().equals("") && !(frmtdtxtfldTagliando == e.getSource())){frmtdtxtfldTagliando.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldAssicurazione.getText().equals("") && !(frmtdtxtfldAssicurazione == e.getSource())){frmtdtxtfldAssicurazione.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldOrmeggio.getText().equals("") && !(frmtdtxtfldOrmeggio == e.getSource())){frmtdtxtfldOrmeggio.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldAlaggio.getText().equals("") && !(frmtdtxtfldAlaggio == e.getSource())){frmtdtxtfldAlaggio.setText("aaaa-mm-gg");}
+		/*if (frmtdtxtfldImma == e.getSource()) {
+			frmtdtxtfldImma.setText("");
+		}else if (frmtdtxtfldBollo == e.getSource()) {
+			frmtdtxtfldBollo.setText("");
+		}else if (frmtdtxtfldTagliando == e.getSource()){
+			frmtdtxtfldTagliando.setText("");
+		}else if (frmtdtxtfldAssicurazione == e.getSource()) {
+			frmtdtxtfldAssicurazione.setText("");
+		}else if (frmtdtxtfldOrmeggio == e.getSource()) {
+			frmtdtxtfldOrmeggio.setText("");
+		}else if (frmtdtxtfldAlaggio == e.getSource()) {
+			frmtdtxtfldAlaggio.setText("");
+		}*/
+		if (frmtdtxtfldImma.getText().equals("") && !(frmtdtxtfldImma == e.getSource())) {
+			frmtdtxtfldImma.setText("aaaa-mm-gg");
+		}
+		if (frmtdtxtfldBollo.getText().equals("") && !(frmtdtxtfldBollo == e.getSource())) {
+			frmtdtxtfldBollo.setText("aaaa-mm-gg");
+		}
+		if (frmtdtxtfldTagliando.getText().equals("") && !(frmtdtxtfldTagliando == e.getSource())) {
+			frmtdtxtfldTagliando.setText("aaaa-mm-gg");
+		}
+		if (frmtdtxtfldAssicurazione.getText().equals("") && !(frmtdtxtfldAssicurazione == e.getSource())) {
+			frmtdtxtfldAssicurazione.setText("aaaa-mm-gg");
+		}
+		if (frmtdtxtfldOrmeggio.getText().equals("") && !(frmtdtxtfldOrmeggio == e.getSource())) {
+			frmtdtxtfldOrmeggio.setText("aaaa-mm-gg");
+		}
+		if (frmtdtxtfldAlaggio.getText().equals("") && !(frmtdtxtfldAlaggio == e.getSource())) {
+			frmtdtxtfldAlaggio.setText("aaaa-mm-gg");
+		}
     }
 	
 	/* Definisce le azioni da eseguire quando si perde il focus sui campi per inserire le date. */
 	
 	public void focusLost(FocusEvent e) {
-		if(frmtdtxtfldImma.getText().equals("")){frmtdtxtfldImma.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldBollo.getText().equals("")){frmtdtxtfldBollo.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldTagliando.getText().equals("")){frmtdtxtfldTagliando.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldAssicurazione.getText().equals("")){frmtdtxtfldAssicurazione.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldOrmeggio.getText().equals("")){frmtdtxtfldOrmeggio.setText("aaaa-mm-gg");}
-		if(frmtdtxtfldAlaggio.getText().equals("")){frmtdtxtfldAlaggio.setText("aaaa-mm-gg");}
+		if (txtDimensioni.getText().equals("")) {
+			txtDimensioni.setText("lun/lar/alt");
+		}
+		if (frmtdtxtfldImma.getText().equals("")) {
+			frmtdtxtfldImma.setText("aaaa-mm-gg");
+		}
+		if (frmtdtxtfldBollo.getText().equals("")) {
+			frmtdtxtfldBollo.setText("aaaa-mm-gg");
+		}
+		if (frmtdtxtfldTagliando.getText().equals("")) {
+			frmtdtxtfldTagliando.setText("aaaa-mm-gg");
+		}
+		if (frmtdtxtfldAssicurazione.getText().equals("")) {
+			frmtdtxtfldAssicurazione.setText("aaaa-mm-gg");
+		}
+		if (frmtdtxtfldOrmeggio.getText().equals("")) {
+			frmtdtxtfldOrmeggio.setText("aaaa-mm-gg");
+		}
+		if (frmtdtxtfldAlaggio.getText().equals("")) {
+			frmtdtxtfldAlaggio.setText("aaaa-mm-gg");
+		}
 	}
 
 }

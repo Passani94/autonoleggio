@@ -17,7 +17,7 @@ import java.awt.Font;
 import GUI.*;
 
 
-public class PannelloFlotta extends JPanel implements ActionListener{
+public class PannelloFlotta extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 7336472295622776147L; 
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
@@ -74,9 +74,9 @@ public class PannelloFlotta extends JPanel implements ActionListener{
 							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 								.addComponent(btnNuovo)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(btnModifica, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
@@ -97,8 +97,8 @@ public class PannelloFlotta extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnModifica, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(user, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
