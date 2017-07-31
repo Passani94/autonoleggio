@@ -63,6 +63,7 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener{
 	private Contratto CT = new Contratto();
 	private Preventivo PV = new Preventivo();
 	private DBConnect Contratti = new DBConnect();
+
 	
 	/* Costruttore ModuloCt */
 	
@@ -71,6 +72,225 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener{
 	}
 
 	public void set(String str){
+		if (str == "Passaggio") {
+			this.removeAll();
+			this.setBorder(BorderFactory.createTitledBorder("Nuovo Contratto di Noleggio"));
+			
+			btnAggiungi = new JButton("Aggiungi");
+			btnAggiungi.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnAggiungi.addActionListener(this);
+			
+			JLabel lblTipologia = new JLabel("Tipologia *");
+			lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
+		
+			txtTipologia = new JTextField();
+			txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
+			
+			JLabel lblVeicolo = new JLabel("Veicolo *");
+			lblVeicolo.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			txtVeicolo = new JTextField();
+			txtVeicolo.setFont(new Font("Arial", Font.PLAIN, 12));
+			String veicoloContratto=Preventivo.getVarVeicolo();
+			txtVeicolo.setText(veicoloContratto);
+			
+			JLabel lblCliente = new JLabel("Cliente *");
+			lblCliente.setFont(new Font("Arial", Font.BOLD, 14));
+		
+			txtCliente = new JTextField();
+			txtCliente.setFont(new Font("Arial", Font.PLAIN, 12));
+			
+			DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+			
+			JLabel lblDataInizio = new JLabel("Data Inizio *");
+			lblDataInizio.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			frmtdtxtfldInizio = new JFormattedTextField(dateformat);
+			frmtdtxtfldInizio.setText("aaaa-mm-gg");
+			frmtdtxtfldInizio.addFocusListener(this);
+			
+			JLabel lblDataFine = new JLabel("Data Fine *");
+			lblDataFine.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			frmtdtxtfldFine = new JFormattedTextField(dateformat);
+			frmtdtxtfldFine.setText("aaaa-mm-gg");
+			frmtdtxtfldFine.addFocusListener(this);
+			
+			JLabel lblCosto = new JLabel("Costo Totale *");
+			lblCosto.setFont(new Font("Arial", Font.BOLD, 14));
+		
+			txtCosto = new JTextField();
+			txtCosto.setFont(new Font("Arial", Font.PLAIN, 12));
+			double prezzoContratto=Preventivo.getVarTotale();
+			
+			txtCosto.setText(String.valueOf(prezzoContratto)); 
+		
+			JLabel lblAcconto = new JLabel("Acconto");
+			lblAcconto.setFont(new Font("Arial", Font.BOLD, 14));
+		
+			txtAcconto = new JTextField();
+			txtAcconto.setFont(new Font("Arial", Font.PLAIN, 12));
+			
+			JLabel lblCognome = new JLabel("Cognome *");
+			lblCognome.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			txtCognome = new JTextField();
+			txtCognome.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+			JLabel lblNome = new JLabel("Nome *");
+			lblNome.setFont(new Font("Arial", Font.BOLD, 14));
+		
+			txtNome = new JTextField();
+			txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
+			
+			JLabel lblPatente = new JLabel("Numero Patente *");
+			lblPatente.setFont(new Font("Arial", Font.BOLD, 14));
+		
+			txtPatente = new JTextField();
+			txtPatente.setFont(new Font("Arial", Font.PLAIN, 12));
+			
+			JLabel lblValida = new JLabel("Valida fino a");
+			lblValida.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			frmtdtxtfldValida = new JFormattedTextField(dateformat);
+			frmtdtxtfldValida.setText("aaaa-mm-gg");
+			frmtdtxtfldValida.addFocusListener(this);
+			
+			JLabel lblRilasciataDa = new JLabel("Rilasciata da");
+			lblRilasciataDa.setFont(new Font("Arial", Font.BOLD, 14));
+		
+			txtRilasciatada = new JTextField();
+			txtRilasciatada.setFont(new Font("Arial", Font.PLAIN, 12));
+			
+			JLabel lblRilasciataIl = new JLabel("Rilasciata il");
+			lblRilasciataIl.setFont(new Font("Arial", Font.BOLD, 14));
+		
+			frmtdtxtfldRilasciatail = new JFormattedTextField(dateformat);
+			frmtdtxtfldRilasciatail.setText("aaaa-mm-gg");
+			frmtdtxtfldRilasciatail.addFocusListener(this);
+						
+			JLabel lblMex = new JLabel("Inserire tutti i campi con l'asterisco!");
+			lblMex.setForeground(Color.RED);
+			lblMex.setFont(new Font("Arial", Font.PLAIN, 14));
+			
+			/* Crea il Layout per un nuovo Contratto. */
+			
+			GroupLayout gl_contentPane = new GroupLayout(this);
+			gl_contentPane.setHorizontalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addComponent(lblMex, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGap(190)
+											.addComponent(btnAggiungi, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+											.addGap(15)))
+									.addGap(178))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblVeicolo, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCliente, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblDataFine, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCosto, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblAcconto, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCognome, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblPatente, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblValida, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblRilasciataDa, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblRilasciataIl, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE))
+									.addGap(51)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(txtPatente, Alignment.TRAILING)
+												.addComponent(txtAcconto, Alignment.TRAILING)
+												.addComponent(txtCosto, Alignment.TRAILING)
+												.addComponent(frmtdtxtfldFine, Alignment.TRAILING)
+												.addComponent(frmtdtxtfldInizio, Alignment.TRAILING)
+												.addComponent(txtCliente)
+												.addComponent(txtVeicolo)
+												.addComponent(txtTipologia, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+												.addComponent(txtCognome, GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+												.addComponent(txtNome, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(frmtdtxtfldValida, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+												.addComponent(txtRilasciatada, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)))
+										.addComponent(frmtdtxtfldRilasciatail, 163, 163, 163))
+									.addContainerGap())))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(29)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(txtTipologia, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblVeicolo, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(txtCliente, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCliente, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(frmtdtxtfldInizio, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(frmtdtxtfldFine, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblDataFine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+									.addGap(19)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(txtCosto, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCosto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(274)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(txtAcconto, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblAcconto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtCognome, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCognome, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtPatente, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPatente, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldValida, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblValida, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtRilasciatada, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRilasciataDa, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldRilasciatail, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRilasciataIl, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+							.addGap(23)
+							.addComponent(lblMex, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+							.addGap(28)
+							.addComponent(btnAggiungi, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(36, Short.MAX_VALUE))
+				);
+			this.setLayout(gl_contentPane);
+			this.revalidate();
+		}
 			if (str == "Nuovo") {
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Nuovo Contratto di Noleggio"));
@@ -326,6 +546,7 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener{
 			
 			btnPassaAContratto = new JButton("Passa a contratto");
 			btnPassaAContratto.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnPassaAContratto.addActionListener(this);
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
@@ -462,7 +683,7 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener{
 				this.revalidate();
 			}
 	}
-	
+		
 	/* Definisce le azioni da eseguire in base al pulsante cliccato.*/
 	
 	public void actionPerformed(ActionEvent e) {
@@ -483,7 +704,14 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener{
 			}
 		}
 		else if (btnPassaAContratto == e.getSource()) {
-		
+			if (Preventivo.getVarTotale()!=0) {
+				this.set("Passaggio");
+			}
+			else{
+				JOptionPane.showMessageDialog(null, "Preventivo non calcolato!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		else if (btnFiltra == e.getSource()) {
 			CT.setValoriFiltra(this);

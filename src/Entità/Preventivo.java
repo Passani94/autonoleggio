@@ -21,14 +21,15 @@ public class Preventivo {
 	private String[] Date = new String[2];
 	private String Disponibilita;
 	private String Tipologia;
-	private String Veicolo;
+	private static String Veicolo;
 	private String Inizio;
 	private String Fine;
 	private String Giorni;
 	private String Anni;
 	private String Anticipo;
 	private long Giorni_Noleggio;
-	private double Al_Giorno, Al_Mese, Giorno_Extra, Mese_Scontato, Sconto, Totale ;
+	private static double Totale;
+	private double Al_Giorno, Al_Mese, Giorno_Extra, Mese_Scontato, Sconto;
 	private final static String BREVE="Autobus_12_Posti|Autobus_16_Posti|Autocarro_Cabinato|Autocarro_Furgonato|Automobile_Berlina|Automobile_Cabriolet|"
 			+ "Automobile_Coupè|Automobile_Fuoristrada|Automobile_Limousine|Automobile_Multispazio|Automobile_SUV|Automobile_Utilitaria|"
 			+ "Motociclo_Motocicletta|Motociclo_Scooter|Quadriciclo_Quad_Bike";
@@ -45,6 +46,14 @@ public class Preventivo {
 	public Preventivo() {
 		test = true;
 		preventivo = new DBConnect();
+	}
+	
+	public static double getVarTotale (){
+		return Totale;
+	}
+	
+	public static String getVarVeicolo (){
+		return Veicolo;
 	}
 	
 /* Metodo. Calcola un nuovo preventivo. */
