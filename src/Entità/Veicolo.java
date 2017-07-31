@@ -126,8 +126,7 @@ public class Veicolo {
 		if (checkcerca(content)){
 			try{
 				veicolo.exequery("SELECT * FROM veicolo where Targa='"+TargaCerca+"'","select");
-				if (veicolo.rs.next()){
-					content.txtTargaCerca.setEditable(false);					
+				if (veicolo.rs.next()){					
 					content.txtTarga.setText(veicolo.rs.getString(1));
 					
 					for (int i=1; i<21; i++) {
