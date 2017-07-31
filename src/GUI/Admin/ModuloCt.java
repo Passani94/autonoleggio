@@ -58,7 +58,6 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener{
 	public JFormattedTextField frmtdtxtfldInizio;
 	public JFormattedTextField frmtdtxtfldFine;
 	public JFormattedTextField frmtdtxtfldValida;
-	
 	public JFormattedTextField frmtdtxtfldRilasciatail;
 	
 	private Contratto CT = new Contratto();
@@ -92,8 +91,9 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener{
 			
 			txtVeicolo = new JTextField();
 			txtVeicolo.setFont(new Font("Arial", Font.PLAIN, 12));
-			String veicoloContratto=Preventivo.getVarVeicolo();
+			String veicoloContratto = Preventivo.getVarVeicolo();
 			txtVeicolo.setText(veicoloContratto);
+			txtVeicolo.setEditable(false);
 			
 			JLabel lblCliente = new JLabel("Cliente *");
 			lblCliente.setFont(new Font("Arial", Font.BOLD, 14));
@@ -122,10 +122,10 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener{
 		
 			txtCosto = new JTextField();
 			txtCosto.setFont(new Font("Arial", Font.PLAIN, 12));
-			double prezzoContratto=(Preventivo.getVarTotale());
-			prezzoContratto=ArrotondaNumero.arrotonda(prezzoContratto, 2);
-			
-			txtCosto.setText(String.valueOf(prezzoContratto)); 
+			double prezzoContratto = (Preventivo.getVarTotale());
+			prezzoContratto = ArrotondaNumero.arrotonda(prezzoContratto, 2);
+			txtCosto.setText(String.valueOf(prezzoContratto));
+			txtCosto.setEditable(false);
 		
 			JLabel lblAcconto = new JLabel("Acconto");
 			lblAcconto.setFont(new Font("Arial", Font.BOLD, 14));
@@ -709,10 +709,10 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener{
 			if (Preventivo.getVarTotale()!=0) {
 				this.set("Passaggio");
 			}
-			else{
-				JOptionPane.showMessageDialog(null, "Preventivo non calcolato!",
-						"Errore ",
-						JOptionPane.ERROR_MESSAGE);
+			else {
+				JOptionPane.showMessageDialog(null, "Si deve prima calcolare il preventivo!",
+						"INFO",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 		else if (btnFiltra == e.getSource()) {
