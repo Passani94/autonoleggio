@@ -51,8 +51,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 	private JScrollPane scrollAlaggio = new JScrollPane(tblAlaggio);
 	private DBConnect Extra = new DBConnect();
 	private DBConnect Profitto = new DBConnect();
-	private String dataQuery1;
-	private String dataQuery2;
+	private String dataQuery;
 	
 	/* Costruttori ModuloEx */
 	
@@ -261,19 +260,9 @@ public class ModuloEx extends JPanel implements ActionListener{
 			this.revalidate();
 		}
 		else if (str.equals("Scadenze")){
-			
-			DateFormat fmt1 = new SimpleDateFormat("yyyy-MM");
-			DateFormat fmt2 = new SimpleDateFormat("yyyy-MM-dd");
-			
-			Calendar c1=Calendar.getInstance();
-			Calendar c2=Calendar.getInstance();
-			
-			dataQuery1=fmt1.format(c1.getTime());
-			
-			c2.add(Calendar.DAY_OF_MONTH,14);
-			
-			dataQuery2=fmt2.format(c2.getTime());
-			
+			DateFormat fmt = new SimpleDateFormat("yyyy-MM");
+			Calendar c=Calendar.getInstance();
+			dataQuery=fmt.format(c.getTime());
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Prossime Scadenze"));
 			
@@ -289,7 +278,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			lblTagliando.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblTagliando.setFont(new Font("Arial", Font.BOLD, 12));
 			
-			try{Extra.exequery("SELECT Data_Scadenza_Bollo, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati  FROM veicolo WHERE (Data_Scadenza_Bollo LIKE '"+dataQuery1+"-%') OR (Data_Scadenza_Bollo < '"+dataQuery2+"')","select");}
+			try{Extra.exequery("SELECT Data_Scadenza_Bollo, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati  FROM veicolo WHERE Data_Scadenza_Bollo LIKE '"+dataQuery+"-%'","select");}
 			catch(SQLException e){
 							JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con bollo in scadenza!",
 					"Errore ",
@@ -304,7 +293,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			scrollbollo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollbollo.setViewportView(tblBollo);
 			
-			try{Extra.exequery("SELECT Data_Scadenza_Tagliando, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE (Data_Scadenza_Tagliando LIKE '"+dataQuery1+"-%') OR (Data_Scadenza_Tagliando < '"+dataQuery2+"')","select");}
+			try{Extra.exequery("SELECT Data_Scadenza_Tagliando, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE Data_Scadenza_Tagliando LIKE '"+dataQuery+"-%'","select");}
 			catch(SQLException e){
 				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con tagliando in scadenza!",
 						"Errore ",
@@ -328,7 +317,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			lblOrmeggio.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblOrmeggio.setFont(new Font("Arial", Font.BOLD, 12));
 			
-			try{Extra.exequery("SELECT Data_Scadenza_Assicurazione, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE (Data_Scadenza_Assicurazione LIKE '"+dataQuery1+"-%') OR (Data_Scadenza_Assicurazione < '"+dataQuery2+"')","select");}
+			try{Extra.exequery("SELECT Data_Scadenza_Assicurazione, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE Data_Scadenza_Assicurazione LIKE '"+dataQuery+"-%'","select");}
 			catch(SQLException e){
 				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con assicurazione in scadenza!",
 						"Errore ",
@@ -344,7 +333,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			scrollAssicurazione.setViewportView(tblAssicurazione);
 			
 			
-			try{Extra.exequery("SELECT Data_Scadenza_Ormeggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE (Data_Scadenza_Ormeggio LIKE '"+dataQuery1+"-%') OR (Data_Scadenza_Ormeggio < '"+dataQuery2+"')","select");}
+			try{Extra.exequery("SELECT Data_Scadenza_Ormeggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE Data_Scadenza_Ormeggio LIKE '"+dataQuery+"-%'","select");}
 			catch(SQLException e){
 				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con ormeggio in scadenza!",
 						"Errore ",
@@ -363,7 +352,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 			lblAlaggio.setHorizontalAlignment(SwingConstants.LEFT);
 			lblAlaggio.setFont(new Font("Arial", Font.BOLD, 12));
 			
-			try{Extra.exequery("SELECT Data_Scadenza_Costo_Alaggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE (Data_Scadenza_Costo_Alaggio LIKE '"+dataQuery1+"-%') OR (Data_Scadenza_Costo_Alaggio < '"+dataQuery2+"')","select");}
+			try{Extra.exequery("SELECT Data_Scadenza_Costo_Alaggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE Data_Scadenza_Costo_Alaggio LIKE '"+dataQuery+"-%'","select");}
 			catch(SQLException e){
 				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con alaggio in scadenza!",
 						"Errore ",

@@ -121,7 +121,6 @@ public class Veicolo {
 	/* Metodo. Cerca un veicolo nel DB */
 	
 	public void cerca(ModuloFl content){
-		String item;
 		if (checkcerca(content)){
 			try{
 				veicolo.exequery("SELECT * FROM veicolo where Targa='"+TargaCerca+"'","select");
@@ -129,33 +128,11 @@ public class Veicolo {
 					content.txtTargaCerca.setEditable(false);
 					content.txtTipologia.requestFocus();
 					content.txtTarga.setText(veicolo.rs.getString(1));
-					
-					
-					for (int i=1; i<21; i++) {
-						item=content.comboBoxTipologia.getItemAt(i);
-						if (item.equals(veicolo.rs.getString(2))) {
-							content.comboBoxTipologia.setSelectedIndex(i);
-						}
-					}
-					
+					content.txtTipologia.setText(veicolo.rs.getString(2));
 					content.txtMarca.setText(veicolo.rs.getString(3));
 					content.txtNome.setText(veicolo.rs.getString(4));
-				
-					
-					for (int i=1; i<2; i++) {
-						item=content.comboBoxDisponibilita.getItemAt(i);
-						if (item.equals(veicolo.rs.getString(5))) {
-							content.comboBoxDisponibilita.setSelectedIndex(i);
-						}
-					}
-					
-					for (int i=1; i<4; i++) {
-						item=content.comboBoxAlimentazione.getItemAt(i);
-						if (item.equals(veicolo.rs.getString(6))) {
-							content.comboBoxAlimentazione.setSelectedIndex(i);
-						}
-					}
-					
+					content.txtDisp.setText(veicolo.rs.getString(5));
+					content.txtAlimentazione.setText(veicolo.rs.getString(6));
 					content.txtKm.setText(veicolo.rs.getString(7));
 					content.txtDimensioni.setText(veicolo.rs.getString(8));
 					content.frmtdtxtfldImma.setText(veicolo.rs.getString(9));
@@ -164,8 +141,11 @@ public class Veicolo {
 					content.frmtdtxtfldAssicurazione.setText(veicolo.rs.getString(12));
 					content.frmtdtxtfldOrmeggio.setText(veicolo.rs.getString(13));
 					content.frmtdtxtfldAlaggio.setText(veicolo.rs.getString(14));
+					content.txtTipologia.setEditable(true);
 					content.txtMarca.setEditable(true);
 					content.txtNome.setEditable(true);
+					content.txtDisp.setEditable(true);
+					content.txtAlimentazione.setEditable(true);
 					content.txtKm.setEditable(true);
 					content.txtDimensioni.setEditable(true);
 					content.frmtdtxtfldImma.setEditable(true);
