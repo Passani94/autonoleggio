@@ -3,9 +3,12 @@ package GUI.Admin;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.sql.SQLException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
@@ -18,51 +21,58 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneConstants;
-//import javax.swing.table.DefaultTableModel;
 
+import db.DBConnect;
 import Utils.CostruisciTabella;
 import Utils.TableColumnAdjuster;
-import db.DBConnect;
-
 
 public class ModuloEx extends JPanel implements ActionListener{
 
-	private static final long serialVersionUID = 7526612295622776147L; 
-	private JLabel lblProfitto;
-	private JTable tblVeicoli;
-	private JButton btnProfittoa;
+	private static final long serialVersionUID = 1L; 
+	
 	private JButton btnProfitto;
-	private JScrollPane scroll = new JScrollPane(tblVeicoli);
+	private JButton btnProfittoA;
 	private JFormattedTextField frmtdtxtfldMese;
-	private JFormattedTextField frmtdtxtfldanno;
-	private JTable tblBollo;
-	private JTable tblTagliando;
-	private JTable tblAssicurazione;
-	private JTable tblOrmeggio;
+	private JFormattedTextField frmtdtxtfldAnno;
+	
 	private JTable tblAlaggio;
-	private JScrollPane scrollbollo = new JScrollPane(tblBollo);
-	private JScrollPane scrolltagliando = new JScrollPane(tblTagliando);
-	private JScrollPane scrollAssicurazione = new JScrollPane(tblAssicurazione);
-	private JScrollPane scrollOrmeggio = new JScrollPane(tblOrmeggio);
+	private JTable tblAssicurazione;
+	private JTable tblBollo;
+	private JTable tblOrmeggio;
+	private JLabel lblProfitto;
+	private JTable tblTagliando;
+	private JTable tblVeicoli;
+	private JScrollPane scroll = new JScrollPane(tblVeicoli);
 	private JScrollPane scrollAlaggio = new JScrollPane(tblAlaggio);
+	private JScrollPane scrollAssicurazione = new JScrollPane(tblAssicurazione);
+	private JScrollPane scrollBollo = new JScrollPane(tblBollo);
+	private JScrollPane scrollOrmeggio = new JScrollPane(tblOrmeggio);
+	private JScrollPane scrollTagliando = new JScrollPane(tblTagliando);
+	
+	private static final String MONTHPATTERN = "^\\d{4}-\\d{2}$";
+	private static final String YEARPATTERN = "^\\d{4}$";
+	
 	private DBConnect Extra = new DBConnect();
 	private DBConnect Profitto = new DBConnect();
-	private String dataQuery;
+	
+	private String dataQuery, dataQuery2;
 	
 	/* Costruttori ModuloEx */
 	
-	public ModuloEx(String str){
+	public ModuloEx (String str) {
 		set(str);	
 	}
 
-	public ModuloEx(){
+	public ModuloEx() {
 		this.setBorder(BorderFactory.createTitledBorder("Funzionalità Aggiuntive"));
 		
-		JLabel lblFunz = new JLabel("Pannello Funzionalità Aggiuntive");
+		JLabel lblFunz = new JLabel("Seleziona la funzionalità desiderata");
 		lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
 		
@@ -71,35 +81,45 @@ public class ModuloEx extends JPanel implements ActionListener{
 		GroupLayout gl_contentPane = new GroupLayout(this);
 		gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
-					.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-						.addContainerGap(124, Short.MAX_VALUE)
+					.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+						.addContainerGap(50, Short.MAX_VALUE)
 						.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE,420, GroupLayout.PREFERRED_SIZE)
-						.addGap(121))
+						.addGap(170))
 			);
 			gl_contentPane.setVerticalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_contentPane.createSequentialGroup()
-						.addGap(49)
+						.addGap(120)
 						.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(255, Short.MAX_VALUE))
 			);
 		this.setLayout(gl_contentPane);
 	}
 	
-	public void set(String str){
-		if (str.equals("Statistica")){
+	public void set(String str) {
+		if (str.equals("Statistica")) {
 			this.removeAll();
-			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli più Noleggiati"));
+			this.setBorder(BorderFactory.createTitledBorder("Elenco veicoli più noleggiati"));
 			
-			try{Extra.exequery("SELECT COUNT(*) as Numero_Noleggi, b.Targa, b.Tipologia, b.Nome, b.Disponibilita FROM noleggio a INNER JOIN veicolo b ON a.Veicolo = b.Targa GROUP BY b.Targa ORDER BY Numero_Noleggi DESC","select");}
-			catch(SQLException e){
-				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli più noleggiati!",
+			try {
+				Extra.exequery("SELECT COUNT(*) as Numero_Noleggi, b.Targa, b.Tipologia, b.Marca, b.Nome, b.Disponibilita "
+						+ "FROM noleggio a INNER JOIN veicolo b ON a.Veicolo = b.Targa GROUP BY b.Targa ORDER BY Numero_Noleggi DESC","select");
+			}
+			catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli più noleggiati!",
 					"Errore ",
-					JOptionPane.ERROR_MESSAGE);}
+					JOptionPane.ERROR_MESSAGE);
+			}
 			
 			tblVeicoli = new JTable();
 			tblVeicoli.setModel(new CostruisciTabella(Extra.rs).model);
 			tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			
+			JTableHeader header= tblVeicoli.getTableHeader();
+			TableColumnModel colMod = header.getColumnModel();
+			TableColumn tabCol = colMod.getColumn(0);
+			tabCol.setHeaderValue("Noleggi");
+			
 			TableColumnAdjuster tca = new TableColumnAdjuster(tblVeicoli);
 			tca.adjustColumns();
 			
@@ -114,7 +134,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(10)
-							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 480, GroupLayout.PREFERRED_SIZE)
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(54, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
@@ -126,16 +146,16 @@ public class ModuloEx extends JPanel implements ActionListener{
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		}
-		else if (str.equals("Mensile")){
+		} 
+		else if (str.equals("Mensile")) {
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Profitto Mensile"));
 			
-			JLabel lblMensile = new JLabel("Profitto Mensile Derivato dai Noleggi");
+			JLabel lblMensile = new JLabel("Profitto Mensile");
 			lblMensile.setHorizontalAlignment(SwingConstants.CENTER);
 			lblMensile.setFont(new Font("Arial", Font.BOLD, 13));
 			
-			JLabel lblMese = new JLabel("Seleziona Anno/Mese");
+			JLabel lblMese = new JLabel("Seleziona Anno-Mese");
 			lblMese.setHorizontalAlignment(SwingConstants.CENTER);
 			lblMese.setFont(new Font("Arial", Font.BOLD, 12));
 			
@@ -147,13 +167,14 @@ public class ModuloEx extends JPanel implements ActionListener{
 			lblProfitto.setHorizontalAlignment(SwingConstants.CENTER);
 			
 			DateFormat dateformat = new SimpleDateFormat("yyyy-MM");
+			dateformat.setLenient(false);
 			
 			frmtdtxtfldMese = new JFormattedTextField(dateformat);
 			frmtdtxtfldMese.setFont(new Font("Arial", Font.PLAIN, 12));
 			frmtdtxtfldMese.setColumns(7);
 			frmtdtxtfldMese.setText("aaaa-mm");
 			
-			/* Crea il Layout per Profitto Mensile. */
+			/* Crea il Layout per il profitto mensile. */
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
@@ -193,11 +214,11 @@ public class ModuloEx extends JPanel implements ActionListener{
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
-		else if (str.equals("Annuale")){
+		else if (str.equals("Annuale")) {
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Profitto Annuale"));
 			
-			JLabel lblAnnuale = new JLabel("Profitto Annuale Derivato dai Noleggi");
+			JLabel lblAnnuale = new JLabel("Profitto Annuale");
 			lblAnnuale.setHorizontalAlignment(SwingConstants.CENTER);
 			lblAnnuale.setFont(new Font("Arial", Font.BOLD, 13));
 			
@@ -205,21 +226,22 @@ public class ModuloEx extends JPanel implements ActionListener{
 			lblAnno.setHorizontalAlignment(SwingConstants.CENTER);
 			lblAnno.setFont(new Font("Arial", Font.BOLD, 12));
 			
-			btnProfittoa = new JButton("Calcola Profitto");
-			btnProfittoa.addActionListener(this);	/* Action Listener per il bottone Profitto Annuale.*/
+			btnProfittoA = new JButton("Calcola Profitto");
+			btnProfittoA.addActionListener(this);	/* Action Listener per il bottone Profitto Annuale.*/
 			
 			lblProfitto = new JLabel("");
 			lblProfitto.setFont(new Font("Arial", Font.BOLD, 12));
 			lblProfitto.setHorizontalAlignment(SwingConstants.CENTER);
 			
 			DateFormat dateformat = new SimpleDateFormat("yyyy");
+			dateformat.setLenient(false);
 			
-			frmtdtxtfldanno = new JFormattedTextField(dateformat);
-			frmtdtxtfldanno.setFont(new Font("Arial", Font.PLAIN, 12));
-			frmtdtxtfldanno.setColumns(4);
-			frmtdtxtfldanno.setText("aaaa");
+			frmtdtxtfldAnno = new JFormattedTextField(dateformat);
+			frmtdtxtfldAnno.setFont(new Font("Arial", Font.PLAIN, 12));
+			frmtdtxtfldAnno.setColumns(4);
+			frmtdtxtfldAnno.setText("aaaa");
 			
-			/* Crea il Layout per Profitto Annuale. */
+			/* Crea il Layout per il profitto annuale. */
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
@@ -237,9 +259,9 @@ public class ModuloEx extends JPanel implements ActionListener{
 							.addGap(34)
 							.addComponent(lblAnno, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
 							.addGap(42)
-							.addComponent(frmtdtxtfldanno, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
+							.addComponent(frmtdtxtfldAnno, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-							.addComponent(btnProfittoa)
+							.addComponent(btnProfittoA)
 							.addGap(46))
 				);
 				gl_contentPane.setVerticalGroup(
@@ -249,9 +271,9 @@ public class ModuloEx extends JPanel implements ActionListener{
 							.addComponent(lblAnnuale, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldanno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(frmtdtxtfldAnno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblAnno, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnProfittoa))
+								.addComponent(btnProfittoA))
 							.addGap(30)
 							.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(162, Short.MAX_VALUE))
@@ -261,113 +283,166 @@ public class ModuloEx extends JPanel implements ActionListener{
 		}
 		else if (str.equals("Scadenze")){
 			DateFormat fmt = new SimpleDateFormat("yyyy-MM");
-			Calendar c=Calendar.getInstance();
-			dataQuery=fmt.format(c.getTime());
+			Calendar c = Calendar.getInstance();
+			dataQuery = fmt.format(c.getTime());
+			c.setTime(c.getTime());
+			c.add(Calendar.MONTH,1);
+			dataQuery2 = fmt.format(c.getTime());
+			
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Prossime Scadenze"));
 			
-			JLabel lblScadenze = new JLabel("Lista delle Scadenze nel Prossimo Mese");
-			lblScadenze.setHorizontalAlignment(SwingConstants.CENTER);
-			lblScadenze.setFont(new Font("Arial", Font.BOLD, 13));
-			
-			JLabel lblBollo = new JLabel("Veicoli con Bollo in Scadenza");
+			JLabel lblBollo = new JLabel("Bollo");
 			lblBollo.setHorizontalAlignment(SwingConstants.LEFT);
-			lblBollo.setFont(new Font("Arial", Font.BOLD, 12));
+			lblBollo.setFont(new Font("Arial", Font.BOLD, 13));
 			
-			JLabel lblTagliando = new JLabel("Veicoli con Tagliando in Scadenza");
+			JLabel lblTagliando = new JLabel("Tagliando");
 			lblTagliando.setHorizontalAlignment(SwingConstants.RIGHT);
-			lblTagliando.setFont(new Font("Arial", Font.BOLD, 12));
+			lblTagliando.setFont(new Font("Arial", Font.BOLD, 13));
 			
-			try{Extra.exequery("SELECT Data_Scadenza_Bollo, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati  FROM veicolo WHERE Data_Scadenza_Bollo LIKE '"+dataQuery+"-%'","select");}
-			catch(SQLException e){
-							JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con bollo in scadenza!",
+			JLabel lblAssicuarazione = new JLabel("Assicurazione");
+			lblAssicuarazione.setHorizontalAlignment(SwingConstants.LEFT);
+			lblAssicuarazione.setFont(new Font("Arial", Font.BOLD, 13));
+			
+			JLabel lblOrmeggio = new JLabel("Ormeggio");
+			lblOrmeggio.setHorizontalAlignment(SwingConstants.RIGHT);
+			lblOrmeggio.setFont(new Font("Arial", Font.BOLD, 13));
+			
+			JLabel lblAlaggio = new JLabel("Alaggio");
+			lblAlaggio.setHorizontalAlignment(SwingConstants.LEFT);
+			lblAlaggio.setFont(new Font("Arial", Font.BOLD, 13));
+			
+			try{
+				Extra.exequery("SELECT Data_Scadenza_Bollo, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati  "
+					+ "FROM veicolo WHERE (Data_Scadenza_Bollo LIKE '"+dataQuery+"-%' OR Data_Scadenza_Bollo LIKE '"+dataQuery2+"-%') "
+					+ "ORDER BY Data_Scadenza_Bollo ASC","select");
+			}
+			catch (SQLException e) {
+							JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con bollo in scadenza!",
 					"Errore ",
-					JOptionPane.ERROR_MESSAGE);}
+					JOptionPane.ERROR_MESSAGE);
+			}
 			
 			tblBollo = new JTable();
 			tblBollo.setModel(new CostruisciTabella(Extra.rs).model);
 			tblBollo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			
+			JTableHeader header= tblBollo.getTableHeader();
+			TableColumnModel colMod = header.getColumnModel();
+			TableColumn tabCol = colMod.getColumn(0);
+			tabCol.setHeaderValue("Data_Scadenza");
+			
 			TableColumnAdjuster tca = new TableColumnAdjuster(tblBollo);
 			tca.adjustColumns();
 			
-			scrollbollo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scrollbollo.setViewportView(tblBollo);
+			scrollBollo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollBollo.setViewportView(tblBollo);
 			
-			try{Extra.exequery("SELECT Data_Scadenza_Tagliando, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE Data_Scadenza_Tagliando LIKE '"+dataQuery+"-%'","select");}
-			catch(SQLException e){
-				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con tagliando in scadenza!",
+			try {
+				Extra.exequery("SELECT Data_Scadenza_Tagliando, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
+					+ "FROM veicolo WHERE (Data_Scadenza_Tagliando LIKE '"+dataQuery+"-%' OR Data_Scadenza_Tagliando LIKE '"+dataQuery2+"-%') "
+					+ "ORDER BY Data_Scadenza_Tagliando ASC","select");
+			}
+			catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con tagliando in scadenza!",
 						"Errore ",
-						JOptionPane.ERROR_MESSAGE);}
+						JOptionPane.ERROR_MESSAGE);
+			}
 			
 			tblTagliando = new JTable();
 			tblTagliando.setModel(new CostruisciTabella(Extra.rs).model);
 			tblTagliando.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			
+			header= tblTagliando.getTableHeader();
+			colMod = header.getColumnModel();
+			tabCol = colMod.getColumn(0);
+			tabCol.setHeaderValue("Data_Scadenza");
+			
 			tca = new TableColumnAdjuster(tblTagliando);
 			tca.adjustColumns();
 			
-			scrolltagliando.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scrolltagliando.setViewportView(tblTagliando);
+			scrollTagliando.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollTagliando.setViewportView(tblTagliando);
 			
-			
-			JLabel lblAssicuarazione = new JLabel("Veicoli con Assicurazione in Scadenza");
-			lblAssicuarazione.setHorizontalAlignment(SwingConstants.LEFT);
-			lblAssicuarazione.setFont(new Font("Arial", Font.BOLD, 12));
-			
-			JLabel lblOrmeggio = new JLabel("Veicoli con Ormeggio in Scadenza");
-			lblOrmeggio.setHorizontalAlignment(SwingConstants.RIGHT);
-			lblOrmeggio.setFont(new Font("Arial", Font.BOLD, 12));
-			
-			try{Extra.exequery("SELECT Data_Scadenza_Assicurazione, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE Data_Scadenza_Assicurazione LIKE '"+dataQuery+"-%'","select");}
-			catch(SQLException e){
-				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con assicurazione in scadenza!",
+			try {
+				Extra.exequery("SELECT Data_Scadenza_Assicurazione, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
+						+ "FROM veicolo WHERE (Data_Scadenza_Assicurazione LIKE '"+dataQuery+"-%' OR Data_Scadenza_Assicurazione LIKE '"+dataQuery2+"-%') "
+						+ "ORDER BY Data_Scadenza_Assicurazione ASC","select");
+			}
+			catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con assicurazione in scadenza!",
 						"Errore ",
-						JOptionPane.ERROR_MESSAGE);}
+						JOptionPane.ERROR_MESSAGE);
+			}
 			
 			tblAssicurazione = new JTable();
 			tblAssicurazione.setModel(new CostruisciTabella(Extra.rs).model);
 			tblAssicurazione.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			
+			header= tblAssicurazione.getTableHeader();
+			colMod = header.getColumnModel();
+			tabCol = colMod.getColumn(0);
+			tabCol.setHeaderValue("Data_Scadenza");
+			
 			tca= new TableColumnAdjuster(tblAssicurazione);
 			tca.adjustColumns();
 			
 			scrollAssicurazione.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollAssicurazione.setViewportView(tblAssicurazione);
 			
-			
-			try{Extra.exequery("SELECT Data_Scadenza_Ormeggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE Data_Scadenza_Ormeggio LIKE '"+dataQuery+"-%'","select");}
-			catch(SQLException e){
-				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con ormeggio in scadenza!",
+			try {
+				Extra.exequery("SELECT Data_Scadenza_Ormeggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
+						+ "FROM veicolo WHERE (Data_Scadenza_Ormeggio LIKE '"+dataQuery+"-%' OR Data_Scadenza_Ormeggio LIKE '"+dataQuery2+"-%') "
+						+ "ORDER BY Data_Scadenza_Ormeggio ASC","select");
+			}
+			catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con ormeggio in scadenza!",
 						"Errore ",
-						JOptionPane.ERROR_MESSAGE);}
+						JOptionPane.ERROR_MESSAGE);
+			}
 			
 			tblOrmeggio = new JTable();
 			tblOrmeggio.setModel(new CostruisciTabella(Extra.rs).model);
 			tblOrmeggio.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			
+			header= tblOrmeggio.getTableHeader();
+			colMod = header.getColumnModel();
+			tabCol = colMod.getColumn(0);
+			tabCol.setHeaderValue("Data_Scadenza");
+			
 			tca= new TableColumnAdjuster(tblOrmeggio);
 			tca.adjustColumns();
 			
 			scrollOrmeggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollOrmeggio.setViewportView(tblOrmeggio);
 			
-			JLabel lblAlaggio = new JLabel("Veicoli con Alaggio in Scadenza");
-			lblAlaggio.setHorizontalAlignment(SwingConstants.LEFT);
-			lblAlaggio.setFont(new Font("Arial", Font.BOLD, 12));
-			
-			try{Extra.exequery("SELECT Data_Scadenza_Costo_Alaggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati FROM veicolo WHERE Data_Scadenza_Costo_Alaggio LIKE '"+dataQuery+"-%'","select");}
-			catch(SQLException e){
-				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco veicoli con alaggio in scadenza!",
+			try {
+				Extra.exequery("SELECT Data_Scadenza_Costo_Alaggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
+						+ "FROM veicolo WHERE (Data_Scadenza_Costo_Alaggio LIKE '"+dataQuery+"-%' OR Data_Scadenza_Costo_Alaggio LIKE '"+dataQuery2+"-%') "
+						+ "ORDER BY Data_Scadenza_Costo_Alaggio ASC","select");
+			}
+			catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con alaggio in scadenza!",
 						"Errore ",
-						JOptionPane.ERROR_MESSAGE);}
+						JOptionPane.ERROR_MESSAGE);
+			}
 			
 			tblAlaggio = new JTable();
 			tblAlaggio.setModel(new CostruisciTabella(Extra.rs).model);
 			tblAlaggio.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			
+			header= tblAlaggio.getTableHeader();
+			colMod = header.getColumnModel();
+			tabCol = colMod.getColumn(0);
+			tabCol.setHeaderValue("Data_Scadenza");
+			
 			tca=new TableColumnAdjuster(tblAlaggio);
 			tca.adjustColumns();
 			
 			scrollAlaggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollAlaggio.setViewportView(tblAlaggio);
 			
-			/* Crea il Layout per la lista delle Scadenze. */
+			/* Crea il Layout per la lista delle scadenze. */
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
@@ -375,8 +450,7 @@ public class ModuloEx extends JPanel implements ActionListener{
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(94)
-									.addComponent(lblScadenze, GroupLayout.PREFERRED_SIZE, 298, GroupLayout.PREFERRED_SIZE))
+									.addGap(94))
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addContainerGap()
 									.addComponent(lblBollo, GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE))
@@ -390,13 +464,13 @@ public class ModuloEx extends JPanel implements ActionListener{
 													.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 														.addComponent(scrollAssicurazione, 0, 0, Short.MAX_VALUE)
 														.addComponent(lblAssicuarazione, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 229, GroupLayout.PREFERRED_SIZE)
-														.addComponent(scrollbollo, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))))
+														.addComponent(scrollBollo, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))))
 											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 												.addGroup(gl_contentPane.createSequentialGroup()
 													.addPreferredGap(ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
 													.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 														.addComponent(lblTagliando)
-														.addComponent(scrolltagliando, GroupLayout.PREFERRED_SIZE, 328, GroupLayout.PREFERRED_SIZE)
+														.addComponent(scrollTagliando, GroupLayout.PREFERRED_SIZE, 328, GroupLayout.PREFERRED_SIZE)
 														.addComponent(lblOrmeggio)))
 												.addGroup(gl_contentPane.createSequentialGroup()
 													.addGap(63)
@@ -408,26 +482,24 @@ public class ModuloEx extends JPanel implements ActionListener{
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(lblScadenze, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblBollo)
+								.addComponent(lblBollo, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblTagliando, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
+							.addGap(5)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(scrollbollo, 0, 0, Short.MAX_VALUE)
-								.addComponent(scrolltagliando, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
+								.addComponent(scrollBollo, 0, 0, Short.MAX_VALUE)
+								.addComponent(scrollTagliando, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
+							.addGap(28)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblAssicuarazione, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblOrmeggio, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
+							.addGap(5)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(scrollAssicurazione, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
 								.addComponent(scrollOrmeggio, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
+							.addGap(28)
 							.addComponent(lblAlaggio, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
+							.addGap(5)
 							.addComponent(scrollAlaggio, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
 				);
@@ -436,57 +508,58 @@ public class ModuloEx extends JPanel implements ActionListener{
 		}
 	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
+	/* Definisce le azioni da eseguire in base al pulsante cliccato.*/
 	
-	public void actionPerformed(ActionEvent e){
-		if (btnProfitto == e.getSource()){
-			try{
+	public void actionPerformed(ActionEvent e) {
+		if (btnProfitto == e.getSource()) {
+			try {
+				lblProfitto.setText("");
 				String mese = frmtdtxtfldMese.getText();
-				if (mese.matches("^\\d{4}-\\d{2}$")){
+				if (mese.matches(MONTHPATTERN)) {
 					Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +mese+"-%'","select");
-					if (Profitto.rs.next()){
-						lblProfitto.setText("Profitto nel mese " + mese + ":  " + Profitto.rs.getString(1) + " €");
-						frmtdtxtfldMese.setText("aaaa-mm");
-					} else {
-						lblProfitto.setText("Profitto nel mese " + mese + " 0");
-						frmtdtxtfldMese.setText("aaaa-mm");
-					}
-				}else{
+					if (Profitto.rs.next()) {
+						if (Profitto.rs.getString(1) == null) {
+							lblProfitto.setText("Profitto del " + mese + ": 0 €");
+						}else {
+						lblProfitto.setText("Profitto del " + mese + ":  " + Profitto.rs.getString(1) + " €");
+						}
+					}else {
 					frmtdtxtfldMese.requestFocus();
 					frmtdtxtfldMese.setText("aaaa-mm");
-					JOptionPane.showMessageDialog(null, "Errore, mese inserito non valido!",
+					JOptionPane.showMessageDialog(null, "Errore! La data inserita non è valida!",
 					    "Errore ",
 					    JOptionPane.ERROR_MESSAGE);
+					}
 				}
-			} catch (Exception ex) {
+			}catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Profitto non Calcolato!",
+				JOptionPane.showMessageDialog(null, "Errore! Profitto non calcolato!",
 					    "Errore ",
 					    JOptionPane.ERROR_MESSAGE);
 			}
-		}
-		else if(btnProfittoa == e.getSource()){
-			try{
-				String anno = frmtdtxtfldanno.getText();
-				if (anno.matches("^\\d{4}$")){
+		}else if (btnProfittoA == e.getSource()) {
+			try {
+				lblProfitto.setText("");
+				String anno = frmtdtxtfldAnno.getText().trim();
+				if (anno.matches(YEARPATTERN)) {
 					Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +anno+"-%-%'","select");
-					if (Profitto.rs.next()){
-						lblProfitto.setText("Profitto nell'anno " + anno + ":  " + Profitto.rs.getString(1) + " €");
-						frmtdtxtfldanno.setText("aaaa");
+					if (Profitto.rs.next()) {
+						if (Profitto.rs.getString(1) == null) {
+							lblProfitto.setText("Profitto del " + anno + ": 0 €");
+						}else {
+						lblProfitto.setText("Profitto del " + anno + ":  " + Profitto.rs.getString(1) + " €");
+						}
 					}else {
-						lblProfitto.setText("Profitto nell'anno " + anno + " 0");
-						frmtdtxtfldanno.setText("aaaa");
+						frmtdtxtfldAnno.requestFocus();
+						frmtdtxtfldAnno.setText("aaaa");
+						JOptionPane.showMessageDialog(null, "Errore! La data inserita non valida!",
+							"Errore ",
+							JOptionPane.ERROR_MESSAGE);
 					}
-					}else{
-						frmtdtxtfldanno.requestFocus();
-						frmtdtxtfldanno.setText("aaaa");
-						JOptionPane.showMessageDialog(null, "Errore, anno inserito non valido!",
-								"Errore ",
-								JOptionPane.ERROR_MESSAGE);
 				}
-			} catch (Exception ex) {
+			}catch (Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore, Profitto non Calcolato!",
+				JOptionPane.showMessageDialog(null, "Errore! Profitto non calcolato!",
 					    "Errore ",
 					    JOptionPane.ERROR_MESSAGE);
 			}
