@@ -29,6 +29,7 @@ import javax.swing.SwingConstants;
 
 import Entità.Contratto;
 import Entità.Preventivo;
+import Utils.ArrotondaNumero;
 import Utils.CostruisciTabella;
 import Utils.TableColumnAdjuster;
 import db.DBConnect;
@@ -121,7 +122,8 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener{
 		
 			txtCosto = new JTextField();
 			txtCosto.setFont(new Font("Arial", Font.PLAIN, 12));
-			double prezzoContratto=Preventivo.getVarTotale();
+			double prezzoContratto=(Preventivo.getVarTotale());
+			prezzoContratto=ArrotondaNumero.arrotonda(prezzoContratto, 2);
 			
 			txtCosto.setText(String.valueOf(prezzoContratto)); 
 		
