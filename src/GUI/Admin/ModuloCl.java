@@ -7,8 +7,10 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,7 +30,7 @@ import Utils.TableColumnAdjuster;
 
 public class ModuloCl extends JPanel implements ActionListener{
 	
-	private static final long serialVersionUID = 7526472295622776188L; 	
+	private static final long serialVersionUID = 1L; 	
 	private Cliente CL = new Cliente();
 	private DBConnect Clienti = new DBConnect();
 	private JTable tblClienti;
@@ -37,7 +39,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 	private JButton btnModificaC;
 	private JButton btnCerca;
 	private JScrollPane scroll = new JScrollPane(tblClienti);
-	public JTextField txtTipologia;
+	public JComboBox <String> comboBoxTipologia;
 	public JTextField txtRS;
 	public JTextField txtCAP;
 	public JTextField txtCitta;
@@ -55,16 +57,19 @@ public class ModuloCl extends JPanel implements ActionListener{
 		set(str);
 	}
 
-	public void set(String str){
-		if (str == "Elenca"){
+	public void set(String str) {
+		if (str.equals("Elenca")) {
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Clienti"));
 			
-			try{Clienti.exequery("SELECT * FROM cliente","select");}
-			catch(SQLException e){
-				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco clienti!",
+			try{
+				Clienti.exequery("SELECT * FROM cliente","select");
+			}
+			catch(SQLException e) {
+				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei clienti!",
 					"Errore ",
-					JOptionPane.ERROR_MESSAGE);}
+					JOptionPane.ERROR_MESSAGE);
+			}
 			
 			tblClienti = new JTable();
 			tblClienti.setModel(new CostruisciTabella(Clienti.rs).model);
@@ -96,7 +101,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
-		else if (str == "Nuovo"){
+		else if (str.equals("Nuovo")) {
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Nuovo Cliente"));
 			
@@ -107,19 +112,23 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtCF_PIVA = new JTextField();
 			txtCF_PIVA.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JLabel lblid = new JLabel("CF o PIVA*");
+			JLabel lblid = new JLabel("CF o PIVA *");
 			lblid.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			JLabel lblTipologia = new JLabel("Tipologia*");
+			JLabel lblTipologia = new JLabel("Tipologia *");
 			lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			txtTipologia = new JTextField();
-			txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
+			comboBoxTipologia = new JComboBox<>();
+			comboBoxTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
+			comboBoxTipologia.setToolTipText("Seleziona la tipologia di cliente.\r\n");
+			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Associazione", "Azienda", "Privato"}));
+			comboBoxTipologia.setBackground(Color.WHITE);
 		
 			txtRS = new JTextField();
 			txtRS.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtRS.setToolTipText("Cognome Nome / Denominazione");
 		
-			JLabel lblRS = new JLabel("Ragione Sociale*");
+			JLabel lblRS = new JLabel("Ragione Sociale *");
 			lblRS.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			JLabel lblCAP = new JLabel("CAP");
@@ -136,7 +145,6 @@ public class ModuloCl extends JPanel implements ActionListener{
 		
 			JLabel lblVia = new JLabel("Via");
 			lblVia.setFont(new Font("Arial", Font.BOLD, 14));
-
 		
 			txtVia = new JTextField();
 			txtVia.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -191,7 +199,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 							.addGap(29)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 								.addComponent(txtTelefono)
-								.addComponent(txtTipologia, Alignment.LEADING)
+								.addComponent(comboBoxTipologia, Alignment.LEADING)
 								.addComponent(txtCF_PIVA, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
 								.addComponent(txtRS, Alignment.LEADING)
 								.addComponent(txtCAP)
@@ -211,7 +219,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 							.addGap(21)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtTipologia, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(comboBoxTipologia, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblRS, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
@@ -294,7 +302,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
-		else if (str == "Modifica"){
+		else if (str.equals("Modifica")){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Modifica Cliente"));
 			
@@ -321,11 +329,14 @@ public class ModuloCl extends JPanel implements ActionListener{
 			JLabel lblTipologia = new JLabel("Tipologia*");
 			lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			txtTipologia = new JTextField();
-			txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
+			comboBoxTipologia = new JComboBox<>();
+			comboBoxTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
+			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Associazione", "Azienda", "Privato"}));
+			comboBoxTipologia.setBackground(Color.WHITE);
 		
 			txtRS = new JTextField();
 			txtRS.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtRS.setToolTipText("Cognome Nome / Denominazione");
 		
 			JLabel lblRS = new JLabel("Ragione Sociale*");
 			lblRS.setFont(new Font("Arial", Font.BOLD, 14));
@@ -366,7 +377,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 			txtTelefono = new JTextField();
 			txtTelefono.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			txtTipologia.setEditable(false);
+			comboBoxTipologia.setEditable(false);
 			txtRS.setEditable(false);
 			txtCAP.setEditable(false);
 			txtCitta.setEditable(false);
@@ -401,7 +412,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 										.addComponent(txtCF_PIVA, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
 										.addComponent(txtClienteCerca, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtTipologia, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+										.addComponent(comboBoxTipologia, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
 										.addComponent(txtRS, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
 										.addComponent(txtCAP, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
 										.addComponent(txtCitta, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
@@ -434,7 +445,7 @@ public class ModuloCl extends JPanel implements ActionListener{
 							.addGap(21)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtTipologia, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(comboBoxTipologia, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblRS, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)

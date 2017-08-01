@@ -17,7 +17,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -57,13 +56,8 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 	public JFormattedTextField frmtdtxtfldAssicurazione;
 	public JFormattedTextField frmtdtxtfldOrmeggio;
 	public JFormattedTextField frmtdtxtfldAlaggio;
-	public JList<String> lstBreve;
-	public JList<String> lstLungo;
-	public JTextField txtTipologia;
 	public JTextField txtNome;
-	public JTextField txtDisp;
 	public JTextField txtMarca;
-	public JTextField txtAlimentazione;
 	public JTextField txtKm;
 	public JTextField txtTarga;
 	public JTextField txtDimensioni;
@@ -79,7 +73,7 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 	}
 
 	public void set(String str) {
-		if (str == "Elenca"){
+		if (str.equals("Elenca")){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli"));
 			
@@ -122,7 +116,7 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
-		else if (str == "Nuovo"){
+		else if (str.equals("Nuovo")){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Nuovo Veicolo"));
 			
@@ -141,10 +135,6 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 			JLabel lblTipologia = new JLabel("Tipologia *");
 			lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			txtTipologia = new JTextField();
-			txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtTipologia.addFocusListener(this);
-		
 			txtNome = new JTextField();
 			txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
 			txtNome.addFocusListener(this);
@@ -154,10 +144,6 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 		
 			JLabel lblDisponibilita = new JLabel("Disponibilità *");
 			lblDisponibilita.setFont(new Font("Arial", Font.BOLD, 14));
-		
-			txtDisp = new JTextField();
-			txtDisp.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtDisp.addFocusListener(this);
 		
 			JLabel lblMarca = new JLabel("Marca *");
 			lblMarca.setFont(new Font("Arial", Font.BOLD, 14));
@@ -169,10 +155,6 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 			JLabel lblAlimentazione = new JLabel("Alimentazione *");
 			lblAlimentazione.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			txtAlimentazione = new JTextField();
-			txtAlimentazione.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtAlimentazione.addFocusListener(this);
-		
 			JLabel lblKm = new JLabel("Km Effettuati *");
 			lblKm.setFont(new Font("Arial", Font.BOLD, 14));
 		
@@ -183,9 +165,11 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 			JLabel lblDimensioni = new JLabel("Dimensioni (cm)");
 			lblDimensioni.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			txtDimensioni = new JTextField("lun/lar/alt");
+			txtDimensioni = new JTextField();
 			txtDimensioni.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtDimensioni.setText("lun/lar/alt");
 			txtDimensioni.addFocusListener(this);
+			
 			
 			JLabel lblImma = new JLabel("Data Immatricolazione");
 			lblImma.setFont(new Font("Arial", Font.BOLD, 14));
@@ -262,13 +246,6 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 					"Fuoristrada", "Gommone", "Limousine", "Motocicletta", "Multispazio", "Quad_BIke", "Scooter", "SUV", "Utilitaria"}));
 			comboBoxTipologia.addFocusListener(this);
 			
-			comboBoxDisponibilita = new JComboBox<>();
-			comboBoxDisponibilita.setBackground(Color.WHITE);
-			comboBoxDisponibilita.setFont(new Font("Arial", Font.PLAIN, 12));
-			comboBoxDisponibilita.setModel(new DefaultComboBoxModel<>(new String[] {"", "SI", "NO"}));
-			comboBoxDisponibilita.setToolTipText("(SI/NO)");
-			comboBoxDisponibilita.addFocusListener(this);
-			
 			comboBoxAlimentazione = new JComboBox<>();
 			comboBoxAlimentazione.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxAlimentazione.setToolTipText("Seleziona l'alimentazione del veicolo.\r\n");
@@ -314,7 +291,6 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 										.addComponent(lblTagliando)
 										.addComponent(lblTarga, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblDisponibilita)
 										.addComponent(lblAlimentazione, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblDimensioni, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblBreve, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
@@ -332,7 +308,6 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 										.addComponent(frmtdtxtfldImma)
 										.addComponent(comboBoxAlimentazione, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(txtMarca)
-										.addComponent(comboBoxDisponibilita, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(txtNome)
 										.addComponent(comboBoxTipologia, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(txtKm, Alignment.TRAILING)
@@ -358,17 +333,13 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 								.addComponent(comboBoxTipologia, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+									.addComponent(lblMarca, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+									.addComponent(txtMarca, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(comboBoxDisponibilita, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDisponibilita, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblMarca, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtMarca, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(comboBoxAlimentazione, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
@@ -422,7 +393,7 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
-		else if (str == "Modifica"){
+		else if (str.equals("Modifica")){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Modifica Veicolo"));
 			
@@ -453,10 +424,6 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 			JLabel lblTipologia = new JLabel("Tipologia *");
 			lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			txtTipologia = new JTextField();
-			txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtTipologia.addFocusListener(this);
-		
 			txtNome = new JTextField();
 			txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
 			txtNome.addFocusListener(this);
@@ -467,10 +434,6 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 			JLabel lblDisponibilita = new JLabel("Disponibilità *");
 			lblDisponibilita.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			txtDisp = new JTextField();
-			txtDisp.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtDisp.addFocusListener(this);
-		
 			JLabel lblMarca = new JLabel("Marca *");
 			lblMarca.setFont(new Font("Arial", Font.BOLD, 14));
 		
@@ -480,10 +443,6 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 		
 			JLabel lblAlimentazione = new JLabel("Alimentazione *");
 			lblAlimentazione.setFont(new Font("Arial", Font.BOLD, 14));
-		
-			txtAlimentazione = new JTextField();
-			txtAlimentazione.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtAlimentazione.addFocusListener(this);
 		
 			JLabel lblKm = new JLabel("Km Effettuati *");
 			lblKm.setFont(new Font("Arial", Font.BOLD, 14));
@@ -578,11 +537,9 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 			frmtdtxtfldAlaggio.setText("aaaa-mm-gg");
 			frmtdtxtfldAlaggio.addFocusListener(this);
 			
-			txtTipologia.setEditable(false);
 			txtNome.setEditable(false);
-			txtDisp.setEditable(false);
+			comboBoxDisponibilita.setEditable(false);
 			txtMarca.setEditable(false);
-			txtAlimentazione.setEditable(false);
 			txtKm.setEditable(false);
 			txtTarga.setEditable(false);
 			txtDimensioni.setEditable(false);
@@ -718,7 +675,7 @@ public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
-		else if (str == "Elimina"){
+		else if (str.equals("Elimina")){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elimina Veicolo"));
 			

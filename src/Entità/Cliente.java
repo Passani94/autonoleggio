@@ -51,7 +51,6 @@ public class Cliente{
 					String valori="('"+CF_PIVA+"','"+Tipologia+"','"+RS+"',"+CAP+",'"+Citta+"','"+Via+"',"+Numero+","+Telefono+",'"+Email+"')";
 					cliente.exequery("INSERT INTO cliente VALUES "+valori,"insert");
 					JOptionPane.showMessageDialog(null , "Nuovo cliente aggiunto!");
-					content.txtTipologia.setText("");
 					content.txtRS.setText("");
 					content.txtCAP.setText("");
 					content.txtCitta.setText("");
@@ -102,12 +101,13 @@ public class Cliente{
 	/* Metodo. Cerca un cliente nel DB. */
 	
 	public void cerca(ModuloCl content){
+		
+		String item;
 		if (checkcerca(content)){
 			try{
 				cliente.exequery("SELECT * FROM cliente where CF_PIVA='"+ClienteCerca+"'","select");
 				if (cliente.rs.next()){
 					content.txtClienteCerca.setEditable(false);
-					content.txtTipologia.setText(cliente.rs.getString(2));
 					content.txtRS.setText(cliente.rs.getString(3));
 					content.txtCAP.setText(cliente.rs.getString(4));
 					content.txtCitta.setText(cliente.rs.getString(5));
@@ -116,8 +116,7 @@ public class Cliente{
 					content.txtNumero.setText(cliente.rs.getString(7));
 					content.txtCF_PIVA.setText(cliente.rs.getString(1));
 					content.txtTelefono.setText(cliente.rs.getString(8));
-					content.txtTipologia.requestFocus();
-					content.txtTipologia.setEditable(true);
+					content.comboBoxTipologia.setEditable(true);
 					content.txtRS.setEditable(true);
 					content.txtCAP.setEditable(true);
 					content.txtCitta.setEditable(true);
@@ -125,6 +124,13 @@ public class Cliente{
 					content.txtNumero.setEditable(true);
 					content.txtEmail.setEditable(true);
 					content.txtTelefono.setEditable(true);
+					
+					for (int i=1; i<4; i++) {						 
+			            item=content.comboBoxTipologia.getItemAt(i);			 
+			            if (item.equals(cliente.rs.getString(2))) {
+			              content.comboBoxTipologia.setSelectedIndex(i);			 
+			            }
+			          }	
 				}else{
 					JOptionPane.showMessageDialog(null, "Errore! Non è presente un cliente con tale CF/Partita IVA!",
 							"Errore ",
@@ -144,6 +150,7 @@ public class Cliente{
 	/* Metodo. Modifica un cliente nel DB. */
 	
 	public void modifica(ModuloCl content){
+	
 		if (check(content)){
 			try{
 				String valori = "Tipologia='"+Tipologia+"',Ragione_Sociale='"+RS+"',CAP="+CAP+",Citta='"+Citta+"',Via='"+Via+"',Numero="+Numero+",Telefono="+Telefono+",Email='"+Email+"'";
@@ -152,7 +159,7 @@ public class Cliente{
 				content.txtClienteCerca.setText("");
 				content.txtClienteCerca.requestFocus();
 				content.txtClienteCerca.setEditable(true);
-				content.txtTipologia.setEditable(false);
+				content.comboBoxTipologia.setEditable(false);
 				content.txtRS.setEditable(false);
 				content.txtCAP.setEditable(false);
 				content.txtCitta.setEditable(false);
@@ -202,8 +209,8 @@ public class Cliente{
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (Tipologia.length()>15){
-			content.txtTipologia.setText("");
-			content.txtTipologia.requestFocus();
+			content.comboBoxTipologia.setSelectedIndex(-1);;
+			content.comboBoxTipologia.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Tipologia deve avere meno di 15 caratteri!",
 			    "Errore ",
@@ -355,7 +362,7 @@ public class Cliente{
 
 	public void setValori(ModuloCl content){
 		CF_PIVA = content.txtCF_PIVA.getText().trim();
-		Tipologia = content.txtTipologia.getText().trim();
+		Tipologia = content.comboBoxTipologia.getSelectedItem().toString();
 		RS = content.txtRS.getText().trim();
 		CAP = content.txtCAP.getText().trim();
 		Citta = content.txtCitta.getText().trim();
@@ -364,7 +371,6 @@ public class Cliente{
 		Email = content.txtEmail.getText().trim();
 		Telefono = content.txtTelefono.getText().trim();
 	}
-
 /* Metodo. Assegna solo la chiave (CF/Partita_IVA) del cliente. */
 
 	public void setID(ModuloCl content){

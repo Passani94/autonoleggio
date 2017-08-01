@@ -47,12 +47,12 @@ public class Veicolo {
 	
 	/* Metodo. Aggiunge un nuovo veicolo al DB. */
 	
-	public void aggiungi(ModuloFl content){
-		if (check(content,"aggiungi")){
+	public void aggiungi(ModuloFl content) {
+		if (check(content,"aggiungi")) {
 			try{ /* Cerca nel DB un veicolo con la targa inserita. */
 				veicolo.exequery("SELECT * FROM veicolo where Targa='"+Targa+"'","select"); 
 				/* Verifica se il veicolo che si vuole aggiungere è già presente nel DB. */
-				if (veicolo.rs.next()){	
+				if (veicolo.rs.next()) {	
 					JOptionPane.showMessageDialog(null, "Errore! Esiste già un veicolo con tale targa!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
@@ -60,16 +60,16 @@ public class Veicolo {
 					content.txtTarga.requestFocus();
 				} /* Aggiunge il nuovo veicolo. Inoltre resetta i campi della form per un nuovo inserimento. */
 				else {	
+					Disp = "SI";
 					String valori="('"+Targa+"','"+Tipologia+"','"+Marca+"','"+Nome+"','"+Disp+"','"+Alimentazione+"',"+Km+",'"+Dimensioni+"',"
 							+ ""+Imma+","+Bollo+","+Tagliando+","+Assicurazione+","+Ormeggio+","+Alaggio+",'"+Breve+"','"+Lungo+"')";
 					veicolo.exequery("INSERT INTO veicolo VALUES "+valori,"insert");
 					JOptionPane.showMessageDialog(null , "Nuovo Veicolo Aggiunto!");
 					content.txtTarga.setText("");
-					content.txtTipologia.setText("");
+					content.comboBoxTipologia.setSelectedIndex(0);
 					content.txtMarca.setText("");
 					content.txtNome.setText("");
-					content.txtDisp.setText("");
-					content.txtAlimentazione.setText("");
+					content.comboBoxAlimentazione.setSelectedIndex(0);
 					content.txtKm.setText("");
 					content.txtDimensioni.setText("");
 					content.frmtdtxtfldImma.setText("aaaa-mm-gg");
@@ -78,8 +78,8 @@ public class Veicolo {
 					content.frmtdtxtfldAssicurazione.setText("aaaa-mm-gg");
 					content.frmtdtxtfldOrmeggio.setText("aaaa-mm-gg");
 					content.frmtdtxtfldAlaggio.setText("aaaa-mm-gg");
-					content.lstBreve.clearSelection();
-					content.lstLungo.clearSelection();
+					content.comboBoxBreveTermine.setSelectedIndex(0);
+					content.comboBoxLungoTermine.setSelectedIndex(0);
 					content.txtTarga.requestFocus();
 				}
 			} catch (Exception ex) {
@@ -139,14 +139,14 @@ public class Veicolo {
 					content.txtMarca.setText(veicolo.rs.getString(3));
 					content.txtNome.setText(veicolo.rs.getString(4));
 					
-					for (int i=1; i<2; i++) {						 
+					for (int i=1; i<3; i++) {						 
 			            item=content.comboBoxDisponibilita.getItemAt(i);			 
 			            if (item.equals(veicolo.rs.getString(5))) {
 			              content.comboBoxDisponibilita.setSelectedIndex(i);			 
 			            }
 			          }		          
 			 
-			        for (int i=1; i<4; i++) {
+			        for (int i=1; i<5; i++) {
 			            item=content.comboBoxAlimentazione.getItemAt(i);			 
 			            if (item.equals(veicolo.rs.getString(6))) {			 
 			              content.comboBoxAlimentazione.setSelectedIndex(i);
@@ -201,11 +201,11 @@ public class Veicolo {
 				content.txtTargaCerca.setText("");
 				content.txtTargaCerca.requestFocus();
 				content.txtTargaCerca.setEditable(true);
-				content.txtTipologia.setEditable(false);
+				content.comboBoxTipologia.setEditable(false);
 				content.txtMarca.setEditable(false);
 				content.txtNome.setEditable(false);
-				content.txtDisp.setEditable(false);
-				content.txtAlimentazione.setEditable(false);
+				content.comboBoxDisponibilita.setEditable(false);
+				content.comboBoxAlimentazione.setEditable(false);
 				content.txtKm.setEditable(false);
 				content.txtDimensioni.setEditable(false);
 				content.frmtdtxtfldImma.setEditable(false);
@@ -222,20 +222,22 @@ public class Veicolo {
 			}
 		}
 	}
-
+	
 	/* Metodo. Verificare che i dati inseriti siano corretti. */
 	
 	private boolean check(ModuloFl content, String tipo){
 		boolean check=true;
 		/* Verifica se sono stati inseriti tutti i campi necessari. */
-		if ((Targa.equals("") || Tipologia.equals("") || Marca.equals("") || Nome.equals("") || Disp.equals("") || Alimentazione.equals("") || Km.equals("") 
-				|| Breve.equals("")) && tipo.equals("aggiungi")){
+		if ((Targa.equals("") || content.comboBoxTipologia.getSelectedIndex() == 0 || Marca.equals("") || Nome.equals("")
+				|| content.comboBoxAlimentazione.getSelectedIndex() == 0 || Km.equals("") 
+				|| content.comboBoxBreveTermine.getSelectedIndex() == 0) && tipo.equals("aggiungi")) {
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
 		} /* Verifica se sono stati inseriti tutti i campi necessari durante la modifica di un veicolo. */
-		else if ((Targa.equals("") || Tipologia.equals("") || Marca.equals("") || Nome.equals("") || Disp.equals("") || Alimentazione.equals("") || Km.equals("") 
+		else if ((Targa.equals("") || content.comboBoxTipologia.getSelectedIndex() == 0 || Marca.equals("") || Nome.equals("")
+				|| content.comboBoxAlimentazione.getSelectedIndex() == 0 || Km.equals("") 
 				) && tipo.equals("modifica")){		
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
@@ -250,13 +252,6 @@ public class Veicolo {
 					+ "\n - Mezzo Acquatico: 2 caratteri e 4 cifre (es. 8PC567).",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (Tipologia.length()>25){
-			content.txtTipologia.setText("");
-			content.txtTipologia.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo Tipologia deve avere meno di 25 caratteri!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
 		}else if (Marca.length()>15){
 			content.txtMarca.setText("");
 			content.txtMarca.requestFocus();
@@ -269,20 +264,6 @@ public class Veicolo {
 			content.txtNome.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Nome deve avere meno di 20 caratteri!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if ((Disp.length()>2 || Disp.length()<2) && (!Disp.equals("SI") || !Disp.equals("NO"))){
-			content.txtDisp.setText("");
-			content.txtDisp.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Indicare la Disponibilita del veicolo con \"SI\"/\"NO\"!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if (Alimentazione.length()>15){
-			content.txtAlimentazione.setText("");
-			content.txtAlimentazione.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo Alimentazione deve avere meno di 15 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (!isNumeric(Km) || Km.length()>20){
@@ -341,8 +322,8 @@ public class Veicolo {
 			JOptionPane.showMessageDialog(null, "Errore! La data di scadenza alaggio inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Lungo.equals(Breve) && !content.lstLungo.isSelectionEmpty() && tipo.equals("aggiungi")){
-			content.lstLungo.clearSelection();
+		}else if (!Lungo.equals(Breve) && content.comboBoxLungoTermine.getSelectedIndex() != 0 && tipo.equals("aggiungi")){
+			content.comboBoxLungoTermine.setSelectedIndex(0);
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il codice di \"Costo Lungo Termine\" deve corrispondere a \"Costo Breve Termine\"!",
 			    "Errore ",
@@ -420,7 +401,6 @@ public void setValori(ModuloFl content, String tipo){
 	Tipologia = content.comboBoxTipologia.getSelectedItem().toString();
 	Marca = content.txtMarca.getText().trim();
 	Nome = content.txtNome.getText().trim();
-	Disp = content.comboBoxDisponibilita.getSelectedItem().toString();
 	Alimentazione = content.comboBoxAlimentazione.getSelectedItem().toString();
 	Km = content.txtKm.getText().trim();
 	Dimensioni = content.txtDimensioni.getText().trim();
@@ -432,7 +412,9 @@ public void setValori(ModuloFl content, String tipo){
 	Alaggio = content.frmtdtxtfldAlaggio.getText().trim();
 	if (tipo.equals("aggiungi")) {
 		Breve = content.comboBoxBreveTermine.getSelectedItem().toString();
-		if (!content.lstLungo.isSelectionEmpty()) Lungo = content.comboBoxLungoTermine.getSelectedItem().toString();
+		if (content.comboBoxLungoTermine.getSelectedIndex() != 0) Lungo = content.comboBoxLungoTermine.getSelectedItem().toString();
+	}else {
+		Disp = content.comboBoxDisponibilita.getSelectedItem().toString();
 	}
 }
 
