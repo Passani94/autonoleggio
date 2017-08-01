@@ -180,7 +180,7 @@ public class Login extends JFrame implements ActionListener,Runnable{
 			char[] pass = txtPassword.getPassword();
 			String pwd=String.copyValueOf(pass);
 			/* Effettua una connessione al DB e cerca una corrispondenza con l'utente e la password inseriti.*/
-			log.exequery("SELECT * FROM operatore WHERE ID_Operatore='" + user + "' AND Password='" + pwd + "'","select"); 
+			log.exequery("SELECT * FROM operatore WHERE (BINARY ID_Operatore='" + user + "' AND BINARY Password='" + pwd + "')","select"); 
 			/* Se la ricerca ha esito positivo, aggiorna il valore size ad 1*/
 			if (log.rs.next()) size=1;	
 			/* Se non viene inserito l'username o la password, viene restituito un errore.*/
