@@ -13,9 +13,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -46,7 +48,6 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener {
 	public JLabel lblPreventivo;
 	public JTable tblNoleggi;
 	private JScrollPane scroll = new JScrollPane(tblNoleggi);
-	public JTextField txtTipologia;
 	public JTextField txtVeicolo;
 	public JTextField txtCliente;	
 	public JTextField txtCosto;
@@ -54,6 +55,7 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener {
 	public JTextField txtCognome;
 	public JTextField txtNome;
 	public JTextField txtPatente;
+	public JComboBox <String> comboBoxTipologia;
 	public JTextField txtRilasciatada;
 	public JFormattedTextField frmtdtxtfldInizio;
 	public JFormattedTextField frmtdtxtfldFine;
@@ -78,10 +80,13 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener {
 			
 			JLabel lblTipologia = new JLabel("Tipologia *");
 			lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
-		
-			txtTipologia = new JTextField();
-			txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtTipologia.addFocusListener(this);
+				
+			comboBoxTipologia = new JComboBox<>();
+			comboBoxTipologia.setBackground(Color.WHITE);
+			comboBoxTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
+			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Breve", "Lungo"}));
+			comboBoxTipologia.setToolTipText("(Breve/Lungo)");
+			comboBoxTipologia.addFocusListener(this);
 			
 			JLabel lblVeicolo = new JLabel("Veicolo *");
 			lblVeicolo.setFont(new Font("Arial", Font.BOLD, 14));
@@ -220,7 +225,7 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener {
 												.addComponent(frmtdtxtfldInizio, Alignment.TRAILING)
 												.addComponent(txtCliente)
 												.addComponent(txtVeicolo)
-												.addComponent(txtTipologia, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+												.addComponent(comboBoxTipologia, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
 												.addComponent(txtCognome, GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
 												.addComponent(txtNome, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))
 											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
@@ -236,7 +241,7 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener {
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(txtTipologia, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+										.addComponent(comboBoxTipologia, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 									.addGap(18)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
@@ -307,8 +312,12 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener {
 				JLabel lblTipologia = new JLabel("Tipologia *");
 				lblTipologia.setFont(new Font("Arial", Font.BOLD, 14));
 			
-				txtTipologia = new JTextField();
-				txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
+				comboBoxTipologia = new JComboBox<>();
+				comboBoxTipologia.setBackground(Color.WHITE);
+				comboBoxTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
+				comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Breve", "Lungo"}));
+				comboBoxTipologia.setToolTipText("(Breve/Lungo)");
+				comboBoxTipologia.addFocusListener(this);
 				
 				JLabel lblVeicolo = new JLabel("Veicolo *");
 				lblVeicolo.setFont(new Font("Arial", Font.BOLD, 14));
@@ -331,14 +340,14 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener {
 				lblDataInizio.setFont(new Font("Arial", Font.BOLD, 14));
 				
 				frmtdtxtfldInizio = new JFormattedTextField(dateformat);
-				frmtdtxtfldInizio.setText("aaaa-mm-gg");
+				frmtdtxtfldInizio.setText(Preventivo.getDataInizio());
 				frmtdtxtfldInizio.addFocusListener(this);
 				
 				JLabel lblDataFine = new JLabel("Data Fine *");
 				lblDataFine.setFont(new Font("Arial", Font.BOLD, 14));
 				
 				frmtdtxtfldFine = new JFormattedTextField(dateformat);
-				frmtdtxtfldFine.setText("aaaa-mm-gg");
+				frmtdtxtfldFine.setText(Preventivo.getDataFine());
 				frmtdtxtfldFine.addFocusListener(this);
 				
 				JLabel lblCosto = new JLabel("Costo Totale *");
@@ -441,7 +450,7 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener {
 													.addComponent(frmtdtxtfldInizio, Alignment.TRAILING)
 													.addComponent(txtCliente)
 													.addComponent(txtVeicolo)
-													.addComponent(txtTipologia, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+													.addComponent(comboBoxTipologia, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
 													.addComponent(txtCognome, GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
 													.addComponent(txtNome, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))
 												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
@@ -457,7 +466,7 @@ public class ModuloCt extends JPanel implements ActionListener, FocusListener {
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 									.addGroup(gl_contentPane.createSequentialGroup()
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-											.addComponent(txtTipologia, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+											.addComponent(comboBoxTipologia, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
 											.addComponent(lblTipologia, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 										.addGap(18)
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)

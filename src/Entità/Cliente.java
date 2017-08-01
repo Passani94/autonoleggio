@@ -51,6 +51,7 @@ public class Cliente{
 					String valori="('"+CF_PIVA+"','"+Tipologia+"','"+RS+"',"+CAP+",'"+Citta+"','"+Via+"',"+Numero+","+Telefono+",'"+Email+"')";
 					cliente.exequery("INSERT INTO cliente VALUES "+valori,"insert");
 					JOptionPane.showMessageDialog(null , "Nuovo cliente aggiunto!");
+					content.comboBoxTipologia.setSelectedIndex(0);
 					content.txtRS.setText("");
 					content.txtCAP.setText("");
 					content.txtCitta.setText("");
@@ -182,7 +183,7 @@ public class Cliente{
 	private boolean check(ModuloCl content){
 		boolean check=true;
 		/* Verifica se sono stati inseriti tutti i campi necessari.*/
-		if (CF_PIVA.equals("") || Tipologia.equals("") || RS.equals("")){	
+		if (CF_PIVA.equals("") || content.comboBoxTipologia.getSelectedIndex()==0 || RS.equals("")){	
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 				"Errore ",
@@ -206,13 +207,6 @@ public class Cliente{
 			content.txtCF_PIVA.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale deve avere 16 caratteri e la Partita IVA 11 cifre!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if (Tipologia.length()>15){
-			content.comboBoxTipologia.setSelectedIndex(-1);;
-			content.comboBoxTipologia.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo Tipologia deve avere meno di 15 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (RS.length()>30){

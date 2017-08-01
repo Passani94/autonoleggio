@@ -22,8 +22,8 @@ public class Preventivo {
 	private String Disponibilita;
 	private String Tipologia;
 	private static String Veicolo;
-	private String Inizio;
-	private String Fine;
+	private static String Inizio;
+	private static String Fine;
 	private String Giorni;
 	private String Anni;
 	private String Anticipo;
@@ -54,6 +54,16 @@ public class Preventivo {
 	
 	public static String getVarVeicolo (){
 		return Veicolo;
+	}
+	
+	public static String getDataInizio () {
+		
+		return Inizio;
+	}
+	
+	public static String getDataFine () {
+		
+		return Fine;
 	}
 	
 /* Metodo. Calcola un nuovo preventivo. */

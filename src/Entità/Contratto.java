@@ -69,14 +69,14 @@ public class Contratto {
 					test=false;
 				} /* Verifica se il veicolo desiderato è disponibile. */
 				if (test==true && noleggio.rs.getString("Disponibilita").equals("SI")) {	
-					String valori="(DEFAULT,'"+Tipologia+"',"+Veicolo+","+Cliente+","+Inizio+","+Fine+",'"+Costo+"','"+Acconto+"','"+Cognome+"',"
-							+ "'"+Nome+"',"+Patente+","+Valida+",'"+Rilasciatada+"','"+Rilasciatail+"')";
+					String valori="(DEFAULT,'"+Tipologia+"','"+Veicolo+"','"+Cliente+"',"+Inizio+","+Fine+","+Costo+","+Acconto+",'"+Cognome+"',"
+							+ "'"+Nome+"','"+Patente+"',"+Valida+",'"+Rilasciatada+"',"+Rilasciatail+")";
 					/* Aggiunge il contratto di noleggio. Inoltre resetta i campi della form per un nuovo inserimento. */
 					noleggio.exequery("INSERT INTO noleggio VALUES "+valori,"insert");
 					/* Rende il veicolo noleggiato non disponibile. */
 					noleggio.exequery("UPDATE veicolo SET Disponibilita='NO' WHERE Targa='"+Veicolo+"'","update"); 
 					JOptionPane.showMessageDialog(null , "Nuovo contratto di noleggio inserito!");
-					content.txtTipologia.setText("");
+					content.comboBoxTipologia.setSelectedIndex(0);
 					content.txtVeicolo.setText("");
 					content.txtCliente.setText("");
 					content.frmtdtxtfldInizio.setText("aaaa-mm-gg");
@@ -89,7 +89,6 @@ public class Contratto {
 					content.frmtdtxtfldValida.setText("aaaa-mm-gg");
 					content.txtRilasciatada.setText("");
 					content.frmtdtxtfldRilasciatail.setText("aaaa-mm-gg");
-					content.txtTipologia.requestFocus();
 				} else{
 					JOptionPane.showMessageDialog(null, "Errore! Il veicolo inserito non è disponibile per il noleggio!",
 						"Errore ",
@@ -139,19 +138,12 @@ public class Contratto {
 	private boolean check(ModuloCt content){
 		boolean check=true;
 		/* Verifica se sono stati inseriti tutt i campi necessari. */
-		if (Tipologia.equals("") || Veicolo.equals("") || Cliente.equals("") || Inizio.equals("") || Inizio.equals("aaaa-mm-gg") 
+		if (content.comboBoxTipologia.getSelectedIndex()==0 || Veicolo.equals("") || Cliente.equals("") || Inizio.equals("") || Inizio.equals("aaaa-mm-gg") 
 				|| Fine.equals("") || Fine.equals("aaaa-mm-gg") || Costo.equals("") || Cognome.equals("") || Nome.equals("") || Patente.equals("")){		
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
-		}else if ((Tipologia.length()<5 || Tipologia.length()>5) && (!Tipologia.equals("Breve") || !Tipologia.equals("Lungo"))){
-			content.txtTipologia.setText("");
-			content.txtTipologia.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo Tipologia deve essere \"Breve\" o \"Lungo\"!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
 		}else if (!Veicolo.matches(TGPATTERN1) && !Veicolo.matches(TGPATTERN2) && !Veicolo.matches(TGPATTERN3) && !Veicolo.matches(TGPATTERN4)){
 			content.txtVeicolo.setText("");
 			content.txtVeicolo.requestFocus();
@@ -350,7 +342,7 @@ public class Contratto {
 	/* Metodo. Assegna i valori al contratto. */
 	
 	public void setValori(ModuloCt content){
-		Tipologia = content.txtTipologia.getText().trim().toLowerCase();
+		Tipologia = content.comboBoxTipologia.getSelectedItem().toString();
 		Veicolo = content.txtVeicolo.getText().trim();
 		Cliente = content.txtCliente.getText().trim();
 		Inizio = content.frmtdtxtfldInizio.getText().trim();
