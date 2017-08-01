@@ -61,6 +61,9 @@ public class Veicolo {
 				} /* Aggiunge il nuovo veicolo. Inoltre resetta i campi della form per un nuovo inserimento. */
 				else {	
 					Disp = "SI";
+					if (Dimensioni.equals("lun/lar/alt")) {
+						Dimensioni = "";						
+					}
 					String valori="('"+Targa+"','"+Tipologia+"','"+Marca+"','"+Nome+"','"+Disp+"','"+Alimentazione+"',"+Km+",'"+Dimensioni+"',"
 							+ ""+Imma+","+Bollo+","+Tagliando+","+Assicurazione+","+Ormeggio+","+Alaggio+",'"+Breve+"','"+Lungo+"')";
 					veicolo.exequery("INSERT INTO veicolo VALUES "+valori,"insert");
@@ -71,7 +74,7 @@ public class Veicolo {
 					content.txtNome.setText("");
 					content.comboBoxAlimentazione.setSelectedIndex(0);
 					content.txtKm.setText("");
-					content.txtDimensioni.setText("");
+					content.txtDimensioni.setText("lun/lar/alt");
 					content.frmtdtxtfldImma.setText("aaaa-mm-gg");
 					content.frmtdtxtfldBollo.setText("aaaa-mm-gg");
 					content.frmtdtxtfldTagliando.setText("aaaa-mm-gg");
