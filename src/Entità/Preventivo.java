@@ -70,7 +70,13 @@ public class Preventivo {
 				if (preventivo.rs.next()) {
 					Tipologia = preventivo.rs.getString("Costobt");
 					Disponibilita = preventivo.rs.getString("Disponibilita");
-					if(((Giorni_Noleggio==366 || Giorni_Noleggio==367) && !Tipologia.matches(LUNGO)) ||
+					
+					if (Disponibilita.equals("NO")) {		
+						JOptionPane.showMessageDialog(null, "Info! Il veicolo non è disponibile.",
+								"INFO",
+								JOptionPane.INFORMATION_MESSAGE);
+				    }
+					else if(((Giorni_Noleggio==366 || Giorni_Noleggio==367) && !Tipologia.matches(LUNGO)) ||
 			    				((Giorni_Noleggio==731 || Giorni_Noleggio==732) && !Tipologia.matches(LUNGO)) || 
 			    					((Giorni_Noleggio==1096 || Giorni_Noleggio==1097) && !Tipologia.matches(LUNGO))) {
 				    	JOptionPane.showMessageDialog(null, "Veicolo non noleggiabile a lungo termine.",
@@ -134,11 +140,7 @@ public class Preventivo {
 									+ "Data Fine 3 Anni di Noleggio: "+ Date[0],
 				    				"INFO", JOptionPane.INFORMATION_MESSAGE);
 						}
-					}else if (Disponibilita.equals("NO")) {		
-						JOptionPane.showMessageDialog(null, "Info! Il veicolo non è disponibile.",
-								"INFO",
-								JOptionPane.INFORMATION_MESSAGE);
-				    }else {
+					}else {
 				    	if (Giorni_Noleggio>0 && Giorni_Noleggio<=7) {
 				    		/* Caso 1. Noleggio da 1 a 7 giorni. */
 				    		if (Giorni_Noleggio==1) {
