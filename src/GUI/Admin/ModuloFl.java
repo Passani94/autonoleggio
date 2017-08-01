@@ -34,7 +34,7 @@ import Utils.TableColumnAdjuster;
 import db.DBConnect;
 
 
-public class ModuloFl extends JPanel implements ActionListener,FocusListener{
+public class ModuloFl extends JPanel implements ActionListener, FocusListener{
 
 	private static final long serialVersionUID = 1L; 
 	
@@ -128,12 +128,14 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			
 			btnAggiungi = new JButton("Aggiungi Veicolo");
 			btnAggiungi.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnAggiungi.addActionListener(this);	/* Action Listener per il bottone Aggiungi.*/
+			btnAggiungi.addActionListener(this);
+			btnAggiungi.addFocusListener(this);
 			
 			txtTarga = new JTextField();
 			txtTarga.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtTarga.addFocusListener(this);
 			
-			JLabel lblTarga = new JLabel("Targa*");
+			JLabel lblTarga = new JLabel("Targa *");
 			lblTarga.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			JLabel lblTipologia = new JLabel("Tipologia *");
@@ -141,9 +143,11 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 		
 			txtTipologia = new JTextField();
 			txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtTipologia.addFocusListener(this);
 		
 			txtNome = new JTextField();
 			txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtNome.addFocusListener(this);
 		
 			JLabel lblNome = new JLabel("Nome *");
 			lblNome.setFont(new Font("Arial", Font.BOLD, 14));
@@ -153,30 +157,35 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 		
 			txtDisp = new JTextField();
 			txtDisp.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtDisp.addFocusListener(this);
 		
 			JLabel lblMarca = new JLabel("Marca *");
 			lblMarca.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtMarca = new JTextField();
 			txtMarca.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtMarca.addFocusListener(this);
 		
 			JLabel lblAlimentazione = new JLabel("Alimentazione *");
 			lblAlimentazione.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtAlimentazione = new JTextField();
 			txtAlimentazione.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtAlimentazione.addFocusListener(this);
 		
 			JLabel lblKm = new JLabel("Km Effettuati *");
 			lblKm.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtKm = new JTextField();
 			txtKm.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtKm.addFocusListener(this);
 			
 			JLabel lblDimensioni = new JLabel("Dimensioni (cm)");
 			lblDimensioni.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			txtDimensioni = new JTextField("lun/lar/alt");
 			txtDimensioni.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtDimensioni.addFocusListener(this);
 			
 			JLabel lblImma = new JLabel("Data Immatricolazione");
 			lblImma.setFont(new Font("Arial", Font.BOLD, 14));
@@ -244,8 +253,6 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			JLabel lblLungo = new JLabel("Costo Lungo Termine");
 			lblLungo.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			/* Crea il Layout per un nuovo Veicolo. */
-			
 			comboBoxTipologia = new JComboBox<>();
 			comboBoxTipologia.setBackground(Color.WHITE);
 			comboBoxTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -253,18 +260,21 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Autobus_12_Posti", "Autobus_16_Posti", "Autocaravan_4_Posti",
 					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Barca_Motore", "Berlina", "Cabriolet", "Catamarano", "Coup\u00E8",
 					"Fuoristrada", "Gommone", "Limousine", "Motocicletta", "Multispazio", "Quad_BIke", "Scooter", "SUV", "Utilitaria"}));
+			comboBoxTipologia.addFocusListener(this);
 			
 			comboBoxDisponibilita = new JComboBox<>();
 			comboBoxDisponibilita.setBackground(Color.WHITE);
 			comboBoxDisponibilita.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxDisponibilita.setModel(new DefaultComboBoxModel<>(new String[] {"", "SI", "NO"}));
 			comboBoxDisponibilita.setToolTipText("(SI/NO)");
+			comboBoxDisponibilita.addFocusListener(this);
 			
 			comboBoxAlimentazione = new JComboBox<>();
 			comboBoxAlimentazione.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxAlimentazione.setToolTipText("Seleziona l'alimentazione del veicolo.\r\n");
 			comboBoxAlimentazione.setModel(new DefaultComboBoxModel<>(new String[] {"", "Benzina", "Diesel", "Metano", "GPL"}));
 			comboBoxAlimentazione.setBackground(Color.WHITE);
+			comboBoxAlimentazione.addFocusListener(this);
 			
 			comboBoxBreveTermine = new JComboBox<>();
 			comboBoxBreveTermine.setToolTipText("Seleziona un costo a breve termine.");
@@ -274,6 +284,7 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 					"Imbarcazione_Catamarano", "Motociclo_Motocicletta\t", "Motociclo_Scooter", "Natante_Gommone", "Quadriciclo_Quad_Bike"}));
 			comboBoxBreveTermine.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxBreveTermine.setBackground(Color.WHITE);
+			comboBoxBreveTermine.addFocusListener(this);
 			
 			comboBoxLungoTermine = new JComboBox<>();
 			comboBoxLungoTermine.setModel(new DefaultComboBoxModel<>(new String[] {"", "Automobile_Berlina", "Automobile_Cabriolet", "Automobile_Coup\u00E8",
@@ -281,6 +292,9 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			comboBoxLungoTermine.setToolTipText("Seleziona un costo a lungo termine");
 			comboBoxLungoTermine.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxLungoTermine.setBackground(Color.WHITE);
+			comboBoxLungoTermine.addFocusListener(this);
+			
+			/* Crea il Layout per un nuovo Veicolo. */
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
@@ -414,20 +428,24 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			
 			btnCerca = new JButton("Cerca Veicolo");
 			btnCerca.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnCerca.addActionListener(this);	/* Action Listener per il bottone Cerca.*/
+			btnCerca.addActionListener(this);
+			btnCerca.addFocusListener(this);
 			
 			txtTargaCerca = new JTextField();
 			txtTargaCerca.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtTargaCerca.addFocusListener(this);
 			
 			JLabel lblTargaCerca = new JLabel("Targa Veicolo da Modificare");
 			lblTargaCerca.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			btnModificaV = new JButton("Modifica Veicolo");
 			btnModificaV.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnModificaV.addActionListener(this);	/* Action Listener per il bottone Modifica.*/
+			btnModificaV.addActionListener(this);
+			btnModificaV.addFocusListener(this);
 			
 			txtTarga = new JTextField();
 			txtTarga.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtTarga.addFocusListener(this);
 			
 			JLabel lblTarga = new JLabel("Targa *");
 			lblTarga.setFont(new Font("Arial", Font.BOLD, 14));
@@ -437,9 +455,11 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 		
 			txtTipologia = new JTextField();
 			txtTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtTipologia.addFocusListener(this);
 		
 			txtNome = new JTextField();
 			txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtNome.addFocusListener(this);
 		
 			JLabel lblNome = new JLabel("Nome *");
 			lblNome.setFont(new Font("Arial", Font.BOLD, 14));
@@ -449,30 +469,35 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 		
 			txtDisp = new JTextField();
 			txtDisp.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtDisp.addFocusListener(this);
 		
 			JLabel lblMarca = new JLabel("Marca *");
 			lblMarca.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtMarca = new JTextField();
 			txtMarca.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtMarca.addFocusListener(this);
 		
 			JLabel lblAlimentazione = new JLabel("Alimentazione *");
 			lblAlimentazione.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtAlimentazione = new JTextField();
 			txtAlimentazione.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtAlimentazione.addFocusListener(this);
 		
 			JLabel lblKm = new JLabel("Km Effettuati *");
 			lblKm.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtKm = new JTextField();
 			txtKm.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtKm.addFocusListener(this);
 			
 			JLabel lblDimensioni = new JLabel("Dimensioni (cm)");
 			lblDimensioni.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			txtDimensioni = new JTextField();
+			txtDimensioni = new JTextField("lun/lar/alt");
 			txtDimensioni.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtDimensioni.addFocusListener(this);
 			
 			JLabel lblImma = new JLabel("Data Immatricolazione");
 			lblImma.setFont(new Font("Arial", Font.BOLD, 14));
@@ -501,22 +526,26 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Autobus_12_Posti", "Autobus_16_Posti", "Autocaravan_4_Posti",
 					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Barca_Motore", "Berlina", "Cabriolet", "Catamarano", "Coup\u00E8",
 					"Fuoristrada", "Gommone", "Limousine", "Motocicletta", "Multispazio", "Quad_BIke", "Scooter", "SUV", "Utilitaria"}));
+			comboBoxTipologia.addFocusListener(this);
 			
 			comboBoxDisponibilita = new JComboBox<>();
 			comboBoxDisponibilita.setBackground(Color.WHITE);
 			comboBoxDisponibilita.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxDisponibilita.setModel(new DefaultComboBoxModel<>(new String[] {"", "SI", "NO"}));
 			comboBoxDisponibilita.setToolTipText("(SI/NO)");
+			comboBoxDisponibilita.addFocusListener(this);
 			
 			comboBoxAlimentazione = new JComboBox<>();
 			comboBoxAlimentazione.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxAlimentazione.setToolTipText("Seleziona l'alimentazione del veicolo.\r\n");
 			comboBoxAlimentazione.setModel(new DefaultComboBoxModel<>(new String[] {"", "Benzina", "Diesel", "Metano", "GPL"}));
 			comboBoxAlimentazione.setBackground(Color.WHITE);
+			comboBoxAlimentazione.addFocusListener(this);
 			
 			frmtdtxtfldImma = new JFormattedTextField(dateformat);
 			frmtdtxtfldImma.setFont(new Font("Arial", Font.PLAIN, 12));
 			frmtdtxtfldImma.setColumns(10);
+			frmtdtxtfldImma.setText("aaaa-mm-gg");
 			frmtdtxtfldImma.addFocusListener(this);
 			
 			frmtdtxtfldBollo = new JFormattedTextField(dateformat);
@@ -761,63 +790,57 @@ public class ModuloFl extends JPanel implements ActionListener,FocusListener{
 	/* Definisce le azioni da eseguire quando si ha il focus sui campi per inserire le date. */
 	
 	public void focusGained(FocusEvent e){
-		/*if (frmtdtxtfldImma == e.getSource()) {
+		
+		if (txtDimensioni == e.getSource() && txtDimensioni.getText().equals("lun/lar/alt")) {
+			txtDimensioni.setText("");
+		}
+		else if (frmtdtxtfldImma == e.getSource() && frmtdtxtfldImma.getText().equals("aaaa-mm-gg")) {
 			frmtdtxtfldImma.setText("");
-		}else if (frmtdtxtfldBollo == e.getSource()) {
+		}
+		else if (frmtdtxtfldBollo == e.getSource() && frmtdtxtfldBollo.getText().equals("aaaa-mm-gg")) {
 			frmtdtxtfldBollo.setText("");
-		}else if (frmtdtxtfldTagliando == e.getSource()){
+		}
+		else if (frmtdtxtfldTagliando == e.getSource() && frmtdtxtfldTagliando.getText().equals("aaaa-mm-gg")){
 			frmtdtxtfldTagliando.setText("");
-		}else if (frmtdtxtfldAssicurazione == e.getSource()) {
+		}
+		else if (frmtdtxtfldAssicurazione == e.getSource() && frmtdtxtfldAssicurazione.getText().equals("aaaa-mm-gg")) {
 			frmtdtxtfldAssicurazione.setText("");
-		}else if (frmtdtxtfldOrmeggio == e.getSource()) {
+		}
+		else if (frmtdtxtfldOrmeggio == e.getSource() && frmtdtxtfldOrmeggio.getText().equals("aaaa-mm-gg")) {
 			frmtdtxtfldOrmeggio.setText("");
-		}else if (frmtdtxtfldAlaggio == e.getSource()) {
+		}
+		else if (frmtdtxtfldAlaggio == e.getSource() && frmtdtxtfldAlaggio.getText().equals("aaaa-mm-gg")) {
 			frmtdtxtfldAlaggio.setText("");
-		}*/
-		if (frmtdtxtfldImma.getText().equals("") && !(frmtdtxtfldImma == e.getSource())) {
+		}
+		
+		if (!(txtDimensioni == e.getSource()) && txtDimensioni.getText().equals("")) {
+			txtDimensioni.setText("lun/lar/alt");
+		}
+		else if (!(frmtdtxtfldImma == e.getSource()) && frmtdtxtfldImma.getText().equals("")) {
 			frmtdtxtfldImma.setText("aaaa-mm-gg");
 		}
-		if (frmtdtxtfldBollo.getText().equals("") && !(frmtdtxtfldBollo == e.getSource())) {
+		else if (!(frmtdtxtfldBollo == e.getSource()) && frmtdtxtfldBollo.getText().equals("")) {
 			frmtdtxtfldBollo.setText("aaaa-mm-gg");
 		}
-		if (frmtdtxtfldTagliando.getText().equals("") && !(frmtdtxtfldTagliando == e.getSource())) {
+		else if (!(frmtdtxtfldTagliando == e.getSource()) && frmtdtxtfldTagliando.getText().equals("")){
 			frmtdtxtfldTagliando.setText("aaaa-mm-gg");
 		}
-		if (frmtdtxtfldAssicurazione.getText().equals("") && !(frmtdtxtfldAssicurazione == e.getSource())) {
+		else if (!(frmtdtxtfldAssicurazione == e.getSource()) && frmtdtxtfldAssicurazione.getText().equals("")) {
 			frmtdtxtfldAssicurazione.setText("aaaa-mm-gg");
 		}
-		if (frmtdtxtfldOrmeggio.getText().equals("") && !(frmtdtxtfldOrmeggio == e.getSource())) {
+		else if (!(frmtdtxtfldOrmeggio == e.getSource()) && frmtdtxtfldOrmeggio.getText().equals("")) {
 			frmtdtxtfldOrmeggio.setText("aaaa-mm-gg");
 		}
-		if (frmtdtxtfldAlaggio.getText().equals("") && !(frmtdtxtfldAlaggio == e.getSource())) {
+		else if (!(frmtdtxtfldAlaggio == e.getSource()) && frmtdtxtfldAlaggio.getText().equals("")) {
 			frmtdtxtfldAlaggio.setText("aaaa-mm-gg");
 		}
+		
     }
 	
 	/* Definisce le azioni da eseguire quando si perde il focus sui campi per inserire le date. */
 	
 	public void focusLost(FocusEvent e) {
-		if (txtDimensioni.getText().equals("")) {
-			txtDimensioni.setText("lun/lar/alt");
-		}
-		if (frmtdtxtfldImma.getText().equals("")) {
-			frmtdtxtfldImma.setText("aaaa-mm-gg");
-		}
-		if (frmtdtxtfldBollo.getText().equals("")) {
-			frmtdtxtfldBollo.setText("aaaa-mm-gg");
-		}
-		if (frmtdtxtfldTagliando.getText().equals("")) {
-			frmtdtxtfldTagliando.setText("aaaa-mm-gg");
-		}
-		if (frmtdtxtfldAssicurazione.getText().equals("")) {
-			frmtdtxtfldAssicurazione.setText("aaaa-mm-gg");
-		}
-		if (frmtdtxtfldOrmeggio.getText().equals("")) {
-			frmtdtxtfldOrmeggio.setText("aaaa-mm-gg");
-		}
-		if (frmtdtxtfldAlaggio.getText().equals("")) {
-			frmtdtxtfldAlaggio.setText("aaaa-mm-gg");
-		}
+		
 	}
 
 }
