@@ -24,7 +24,9 @@ public class PannelloContratto extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 7526472295622701147L; 
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
 	private JButton btnNuovo = new JButton("Nuovo Contratto");
+	private JButton btnElimina = new JButton("Elimina Contratto");
 	private JButton btnPreventivo = new JButton("Calcola Preventivo");
+	private JButton btnModifica = new JButton("Modifica Contratto");
 	private ModuloContratto pnlModulo = new ModuloContratto("Elenca");
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
@@ -55,6 +57,13 @@ public class PannelloContratto extends JPanel implements ActionListener{
 		btnLogout.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnLogout.addActionListener(this); /* Action Listener per il bottone Logout.*/
 		
+		btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnElimina.addActionListener(this); /* Action Listener per il bottone Elimina.*/
+		
+		btnModifica.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		btnModifica.addActionListener(this); /* Action Listener per il bottone Modifica.*/
+		
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
@@ -71,12 +80,16 @@ public class PannelloContratto extends JPanel implements ActionListener{
 						.addContainerGap()
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-								.addComponent(btnNuovo)
-								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(btnPreventivo, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnNuovo)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnModifica)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
+								.addPreferredGap(ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
 								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(user, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))
@@ -93,20 +106,24 @@ public class PannelloContratto extends JPanel implements ActionListener{
 						.addContainerGap()
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnPreventivo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(user, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-						.addGap(15)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnModifica, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
+						.addGap(18)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(Alignment.TRAILING, gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
 						.addContainerGap())
 			);
+
 		contentPane.setLayout(gl_contentPane);
 		return contentPane;
 	}
@@ -155,9 +172,17 @@ public class PannelloContratto extends JPanel implements ActionListener{
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Nuovo");
 		}
+		else if(btnElimina == e.getSource()){
+			btnElimina.setText("Elenco Contratti");
+			pnlModulo.set("Elimina");
+		}
 		else if(btnPreventivo == e.getSource()){
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Preventivo");
+		}
+		else if(btnModifica == e.getSource()){
+			btnAggiorna.setText("Elenco Contratti");
+			pnlModulo.set("Modifica");
 		}
 	}
 }

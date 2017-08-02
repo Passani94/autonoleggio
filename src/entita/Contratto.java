@@ -25,6 +25,8 @@ public class Contratto {
 	public String Rilasciatada;
 	public String Rilasciatail;
 	
+	public int codice,codiceCerca,codiceModifica;
+	
 	private boolean test;
 	private static final String CFPATTERN = "[a-zA-Z]{6}\\d\\d[a-zA-Z]\\d\\d[a-zA-Z]\\d\\d\\d[a-zA-Z]";
 	private static final String PTPATTERN = "^[a-zA-Z]{2}\\d{7}[a-zA-Z]{1}";
@@ -105,6 +107,129 @@ public class Contratto {
 		}
 	}
 	
+	public void cerca(ModuloContratto content){
+		String item;
+			if (checkcerca(content)){
+				try{
+				noleggio.exequery("SELECT * FROM noleggio where Cod_Noleggio="+codiceCerca+"","select");
+				if (noleggio.rs.next()){
+					content.txtContrattoCerca.setEditable(false);
+					
+					for (int i=1; i<3; i++) {						 
+			            item=content.comboBoxTipologia.getItemAt(i);			 
+			            if (item.equals(noleggio.rs.getString(2))) {
+			              content.comboBoxTipologia.setSelectedIndex(i);			 
+			            }
+			          }					
+				
+					content.txtVeicolo.setText(noleggio.rs.getString(3));
+					content.txtCliente.setText(noleggio.rs.getString(4));
+					content.frmtdtxtfldInizio.setText(noleggio.rs.getString(5));
+					content.frmtdtxtfldFine.setText(noleggio.rs.getString(6));
+					content.txtCosto.setText(noleggio.rs.getString(7));
+					content.txtAcconto.setText(noleggio.rs.getString(8));
+					content.txtCognome.setText(noleggio.rs.getString(9));
+					content.txtNome.setText(noleggio.rs.getString(10));
+					content.txtPatente.setText(noleggio.rs.getString(11));
+					content.frmtdtxtfldValida.setText(noleggio.rs.getString(12));
+					content.txtRilasciatada.setText(noleggio.rs.getString(13));
+					content.frmtdtxtfldRilasciatail.setText(noleggio.rs.getString(14));
+					
+					content.comboBoxTipologia.setEditable(true);
+					content.txtVeicolo.setEditable(true);
+					content.frmtdtxtfldInizio.setEditable(true);
+					content.frmtdtxtfldFine.setEditable(true);
+					content.txtCosto.setEditable(true);
+					content.txtAcconto.setEditable(true);
+					content.txtCognome.setEditable(true);
+					content.txtNome.setEditable(true);
+					content.txtPatente.setEditable(true);
+					content.frmtdtxtfldValida.setEditable(true);
+					content.txtRilasciatada.setEditable(true);
+					content.frmtdtxtfldRilasciatail.setEditable(true);
+					
+				}else{
+					JOptionPane.showMessageDialog(null, "Errore! Non è presente un contratto con tale codice!",
+							"Errore ",
+							JOptionPane.ERROR_MESSAGE);
+					content.txtContrattoCerca.setText("");
+					content.txtContrattoCerca.requestFocus();
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Errore! Contratto non trovato!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+	/* Metodo. Elimina un contratto. */
+	
+	public void elimina(ModuloContratto content) {
+		if (checkelimina(content)){
+			try{
+				noleggio.exequery("SELECT * FROM noleggio where Cod_Noleggio="+codice+"","select");
+				/*Verifica se è presente un contratto con tale codice*/
+				if(noleggio.rs.next()){
+					noleggio.exequery("DELETE FROM noleggio WHERE Cod_Noleggio="+codice+"","delete");
+					JOptionPane.showMessageDialog(null , "Contratto Eliminato!");
+					content.txtCodice.setText("");
+					content.txtCodice.requestFocus();
+				} else{
+					JOptionPane.showMessageDialog(null, "Errore! Non è presente un contratto con tale codice!",
+							"Errore ",
+							JOptionPane.ERROR_MESSAGE);
+					content.txtCodice.setText("");
+					content.txtCodice.requestFocus();
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Errore! Contratto non eliminato!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+/* Metodo. Modifica un contratto nel DB. */
+	
+	public void modifica(ModuloContratto content){
+	
+		if (check(content)){
+			try{
+				String valori = "Cod_Noleggio="+codiceCerca+",Tipologia='"+Tipologia+"',Veicolo='"+Veicolo+"',Cliente='"+Cliente+"',"
+						+ "Data_Inizio="+Inizio+",Data_Fine="+Fine+",Costo_Totale="+Costo+",Acconto="+
+						Acconto+",Cognome='"+Cognome+"',Nome='"+Nome+"',Num_Patente='"+Patente+"',"
+								+ "Valida_Fino_a="+Valida+",Rilasciata_Da='"+Rilasciatada+"',"
+										+ "Rilasciata_Il="+Rilasciatail+"";
+				noleggio.exequery("UPDATE noleggio SET "+valori+" WHERE Cod_Noleggio="+codiceModifica+"","update");
+				JOptionPane.showMessageDialog(null , "Contratto Modificato!");
+				content.txtContrattoCerca.setText("");
+				content.txtContrattoCerca.requestFocus();
+				content.txtContrattoCerca.setEditable(true);
+				content.comboBoxTipologia.setEditable(false);
+				content.txtVeicolo.setEditable(false);
+				content.txtCliente.setEditable(false);
+				content.frmtdtxtfldInizio.setEditable(false);
+				content.frmtdtxtfldFine.setEditable(false);
+				content.txtCosto.setEditable(false);
+				content.txtAcconto.setEditable(false);
+				content.txtCognome.setEditable(false);
+				content.txtNome.setEditable(false);
+				content.txtPatente.setEditable(false);
+				content.frmtdtxtfldValida.setEditable(false);
+				content.txtRilasciatada.setEditable(false);
+				content.frmtdtxtfldRilasciatail.setEditable(false);
+				
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Errore! Contratto non modificato!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
 	/* Metodo. Filtra la tabella dei contratti. */
 	
 	public void filtra(ModuloContratto content){
@@ -195,7 +320,7 @@ public class Contratto {
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Costo Totale deve essere composto da meno di 10 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if ((!isNumeric(Acconto) || Acconto.length()>10) && !Acconto.equals("")){
+		}else if ((!isNumeric(Costo) || (Acconto.length()>10)) && !Acconto.equals("")){
 			content.txtAcconto.setText("");
 			content.txtAcconto.requestFocus();
 			check=false;
@@ -325,15 +450,38 @@ public class Contratto {
 		return test;
 	}
 	
+	private boolean checkelimina(ModuloContratto content){
+		boolean check=true;
+		/* Verifica la correttezza del codice contratto */
+		
+		if (codice<=0) {
+			check=false;
+		}
+		
+		if (check==false) test=check; 
+		else test=true;
+		
+		return test;
+	}
+	
+	private boolean checkcerca (ModuloContratto content){
+		boolean check=true;
+		/* Verifica la correttezza del codice contratto */
+		
+		if (codiceCerca<=0) {
+			check=false;
+		}
+		
+		if (check==false) test=check; 
+		else test=true;
+		
+		return test;
+	}
 	/* Metodo. Verifica se una stringa è numerica. */
 	
 	private static boolean isNumeric(String string) {
-	    try {
-	        Long.parseLong(string);
-	    } catch (Exception e) {
-	        return false;
-	    }
-	    return true;
+	    
+		return string!= null && string.matches("[-+]?\\d*\\.?\\d*");
 	}
 	
 	
@@ -342,6 +490,7 @@ public class Contratto {
 	/* Metodo. Assegna i valori al contratto. */
 	
 	public void setValori(ModuloContratto content){
+		
 		Tipologia = content.comboBoxTipologia.getSelectedItem().toString();
 		Veicolo = content.txtVeicolo.getText().trim();
 		Cliente = content.txtCliente.getText().trim();
@@ -355,6 +504,20 @@ public class Contratto {
 		Valida = content.frmtdtxtfldValida.getText().trim();
 		Rilasciatada = content.txtRilasciatada.getText().trim();
 		Rilasciatail = content.frmtdtxtfldRilasciatail.getText().trim();
+	}
+	
+	public void setCodice (ModuloContratto content) {
+		
+		codice=Integer.decode((content.txtCodice.getText().trim()));		
+	}
+	
+	public void setCodiceCerca(ModuloContratto content){
+		codiceCerca = Integer.decode(content.txtContrattoCerca.getText().trim());
+	}
+	
+	public void setCodiceModifica (ModuloContratto content){
+		
+		codiceModifica = Integer.decode(content.txtContrattoCerca.getText().trim());
 	}
 	
 	/* Metodo. Assegna i valori al contratto da filtrare. */
