@@ -25,7 +25,7 @@ public class Preventivo {
 	private String Giorni;
 	private String Anni;
 	private String Anticipo;
-	private long Giorni_Noleggio;
+	private static long Giorni_Noleggio;
 	private static double Totale;
 	private double Al_Giorno, Al_Mese, Giorno_Extra, Mese_Scontato, Sconto;
 	private final static String BREVE="Autobus_12_Posti|Autobus_16_Posti|Autocarro_Cabinato|Autocarro_Furgonato|Automobile_Berlina|Automobile_Cabriolet|"
@@ -62,6 +62,11 @@ public class Preventivo {
 	public static String getDataFine () {
 		
 		return Fine;
+	}
+	
+	public static long getGiorniNoleggio () {
+		
+		return Giorni_Noleggio;
 	}
 	
 /* Metodo. Calcola un nuovo preventivo. */

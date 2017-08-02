@@ -87,7 +87,7 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Breve", "Lungo"}));
 			comboBoxTipologia.setToolTipText("(Breve/Lungo)");
 			comboBoxTipologia.addFocusListener(this);
-			
+						
 			JLabel lblVeicolo = new JLabel("Veicolo *");
 			lblVeicolo.setFont(new Font("Arial", Font.BOLD, 14));
 			
@@ -318,6 +318,11 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 				comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Breve", "Lungo"}));
 				comboBoxTipologia.setToolTipText("(Breve/Lungo)");
 				comboBoxTipologia.addFocusListener(this);
+				if( Preventivo.getGiorniNoleggio() <=181 ) {
+					comboBoxTipologia.setSelectedIndex(1);
+				}else {
+					comboBoxTipologia.setSelectedIndex(2);
+				}
 				
 				JLabel lblVeicolo = new JLabel("Veicolo *");
 				lblVeicolo.setFont(new Font("Arial", Font.BOLD, 14));
