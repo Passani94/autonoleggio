@@ -231,17 +231,16 @@ public class Veicolo {
 	private boolean check(ModuloFlotta content, String tipo){
 		boolean check=true;
 		/* Verifica se sono stati inseriti tutti i campi necessari. */
-		if ((Targa.equals("") || content.comboBoxTipologia.getSelectedIndex() == 0 || Marca.equals("") || Nome.equals("")
+		if (tipo.equals("aggiungi") && (Targa.equals("") || content.comboBoxTipologia.getSelectedIndex() == 0 || Marca.equals("") || Nome.equals("")
 				|| content.comboBoxAlimentazione.getSelectedIndex() == 0 || Km.equals("") 
-				|| content.comboBoxBreveTermine.getSelectedIndex() == 0) && tipo.equals("aggiungi")) {
+				|| content.comboBoxBreveTermine.getSelectedIndex() == 0)) {
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
 		} /* Verifica se sono stati inseriti tutti i campi necessari durante la modifica di un veicolo. */
-		else if ((Targa.equals("") || content.comboBoxTipologia.getSelectedIndex() == 0 || Marca.equals("") || Nome.equals("")
-				|| content.comboBoxAlimentazione.getSelectedIndex() == 0 || Km.equals("") 
-				) && tipo.equals("modifica")){		
+		else if (tipo.equals("modifica") && (Targa.equals("") || content.comboBoxTipologia.getSelectedIndex() == 0 || Marca.equals("") || Nome.equals("")
+				|| content.comboBoxAlimentazione.getSelectedIndex() == 0 || Km.equals(""))){		
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 				"Errore ",
