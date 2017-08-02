@@ -16,7 +16,6 @@ import java.awt.Font;
 
 import autonoleggio.Login;
 import gui.finestre.Finestra;
-import gui.finestre.FinestraUser;
 import gui.moduli.ModuloCliente;
 
 
@@ -32,8 +31,6 @@ public class PannelloCliente extends JPanel implements ActionListener{
 	private JButton btnLogout = new JButton("Logout");
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	private Finestra frame;
-	private FinestraUser frameU;
-	private String tipo;
 	private JLabel user;
 	
 	/* Modifica il contentPane Cliente.*/
@@ -65,11 +62,7 @@ public class PannelloCliente extends JPanel implements ActionListener{
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		if (tipo=="Pn"){
-			user = new JLabel(frame.username);}
-			else{
-			user = new JLabel(frameU.Username);
-		}
+		user = new JLabel(frame.username);
 		user.setFont(new Font("Arial", Font.BOLD, 12));
 		user.setForeground(Color.RED);
 		
@@ -129,19 +122,12 @@ public class PannelloCliente extends JPanel implements ActionListener{
 	
 	public PannelloCliente(Finestra pn) {
 		frame = pn;
-		tipo="Pn";
 		pn.setTitle("Autonoleggio - Cliente");
 		pn.setContentPane(this.run(pn.contentPane));
 	}
 	
 	/* Costruttore contentPane Cliente per l'Utente.*/
-	
-	public PannelloCliente(FinestraUser pn) {
-		frameU = pn;
-		tipo="PnU";
-		pn.setTitle("Autonoleggio - Cliente");
-		pn.setContentPane(this.run(pn.contentPane));
-	}
+
 	
 	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
 	
@@ -163,12 +149,7 @@ public class PannelloCliente extends JPanel implements ActionListener{
 					"Conferma logout",
 					JOptionPane.YES_NO_OPTION);
 			if (scelta == JOptionPane.YES_OPTION){
-				if(tipo == "Pn"){
-					frame.dispose();
-				}
-				else {
-					frameU.dispose();
-				}
+				frame.dispose();
 				Login log = new Login();
 				log.run();
 			}

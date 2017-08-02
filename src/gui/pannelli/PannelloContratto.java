@@ -16,7 +16,6 @@ import java.awt.Font;
 
 import autonoleggio.Login;
 import gui.finestre.Finestra;
-import gui.finestre.FinestraUser;
 import gui.moduli.ModuloContratto;
 
 
@@ -30,8 +29,6 @@ public class PannelloContratto extends JPanel implements ActionListener{
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private Finestra frame;
-	private FinestraUser frameU;
-	private String tipo;
 	private JLabel user;
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	
@@ -61,11 +58,7 @@ public class PannelloContratto extends JPanel implements ActionListener{
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		if (tipo=="Pn"){
-			user = new JLabel(frame.username);}
-			else{
-			user = new JLabel(frameU.Username);
-		}
+		user = new JLabel(frame.username);		
 		user.setFont(new Font("Arial", Font.BOLD, 12));
 		user.setForeground(Color.RED);
 		
@@ -122,19 +115,12 @@ public class PannelloContratto extends JPanel implements ActionListener{
 	
 	public PannelloContratto(Finestra pn) {
 		frame = pn;
-		tipo="Pn";
 		pn.setTitle("Autonoleggio - Contratto");
 		pn.setContentPane(this.run(pn.contentPane));
 	}
 	
 	/* Costruttore contentPane Contratto per l'Utente.*/
 	
-	public PannelloContratto(FinestraUser pn) {
-		frameU = pn;
-		tipo="PnU";
-		pn.setTitle("Autonoleggio - Contratto");
-		pn.setContentPane(this.run(pn.contentPane));
-	}
 	
 	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
 	
@@ -156,12 +142,7 @@ public class PannelloContratto extends JPanel implements ActionListener{
 					"Conferma logout",
 					JOptionPane.YES_NO_OPTION);
 			if (scelta == JOptionPane.YES_OPTION){
-				if(tipo == "Pn"){
-					frame.dispose();
-				}
-				else {
-					frameU.dispose();
-				}
+				frame.dispose();
 				Login log = new Login();
 				log.run();
 			}
