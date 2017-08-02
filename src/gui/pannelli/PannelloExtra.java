@@ -15,7 +15,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import autonoleggio.Login;
-import gui.finestre.FinestraAdmin;
+import gui.finestre.Finestra;
 import gui.moduli.ModuloExtra;
 
 
@@ -29,7 +29,7 @@ public class PannelloExtra extends JPanel implements ActionListener{
 	private ModuloExtra pnlModulo = new ModuloExtra();
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
-	private FinestraAdmin frame;
+	private Finestra frame;
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	
 	/* Modifica il contentPane Extra.*/
@@ -60,7 +60,7 @@ public class PannelloExtra extends JPanel implements ActionListener{
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JLabel user = new JLabel(frame.Username);
+		JLabel user = new JLabel(frame.username);
 		user.setFont(new Font("Arial", Font.BOLD, 12));
 		user.setForeground(Color.RED);
 		
@@ -123,7 +123,7 @@ public class PannelloExtra extends JPanel implements ActionListener{
 	
 	/* Costruttore contentPane Extra .*/
 	
-	public PannelloExtra(FinestraAdmin pn) {
+	public PannelloExtra(Finestra pn) {
 		frame = pn;
 		pn.setTitle("Autonoleggio - Altre Funzionalità");
 		pn.setContentPane(this.run(pn.contentPane));

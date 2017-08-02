@@ -8,7 +8,7 @@ import gui.pannelli.PannelloCliente;
 import gui.pannelli.PannelloContratto;
 import gui.pannelli.PannelloExtra;
 import gui.pannelli.PannelloFlotta;
-import gui.pannelli.PannelloHomeAdmin;
+import gui.pannelli.PannelloHome;
 import gui.pannelli.PannelloOperatore;
 
 import javax.swing.JMenuBar;
@@ -19,10 +19,10 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 
-public class FinestraAdmin extends JFrame implements ActionListener{
+public class Finestra extends JFrame implements ActionListener{
 	
 	private static final long serialVersionUID = 1L; 
-	public String Username;
+	public String username;
 	public JPanel contentPane = new JPanel();
 	private final JMenuBar menuBar = new JMenuBar();
 	private final JButton btnExtra = new JButton("Extra");
@@ -34,18 +34,31 @@ public class FinestraAdmin extends JFrame implements ActionListener{
 	
 	/* Crea il frame Pannello.*/
 	
-	public FinestraAdmin(String user) {
-		Username = user;
-		try {
-			this.setVisible(true);
-			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			this.menu();
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			this.setBounds(100, 100, 1000, (screenSize.height-100));
-			this.setMinimumSize(new Dimension(1000,(screenSize.height-100)));
-			this.setLocationRelativeTo(null);
-			this.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
-			new PannelloHomeAdmin(this);
+	public Finestra(String user) {
+		username = user;
+		try {		
+			if (username.equals("admin")) {
+				this.setVisible(true);
+				this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				this.menu();
+				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+				this.setBounds(100, 100, 1000, (screenSize.height-100));
+				this.setMinimumSize(new Dimension(1000,(screenSize.height-100)));
+				this.setLocationRelativeTo(null);
+				this.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
+				new PannelloHome(this);
+			}else {
+				this.setVisible(true);
+				this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				this.menu();
+				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+				this.setBounds(100, 100, 1000, (screenSize.height-100));
+				this.setMinimumSize(new Dimension(1000,(screenSize.height-100)));
+				this.setLocationRelativeTo(null);
+				this.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
+				new PannelloHome(this);
+				
+			}
 			} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,6 +86,17 @@ public class FinestraAdmin extends JFrame implements ActionListener{
 		
 		menuBar.add(btnExtra);
 		btnExtra.addActionListener(this); /* ActionListener per il bottone Extra. */
+		
+		if (!username.equals("admin")) {
+			btnFlotta.setEnabled(false);
+			btnFlotta.removeActionListener(this);
+			
+			btnOperatore.setEnabled(false);
+			btnOperatore.removeActionListener(this);
+			
+			btnExtra.setEnabled(false);
+			btnExtra.removeActionListener(this);
+		}
 	}
 	
 	/* Definisce le azioni da eseguire in base al bottone cliccato.*/
@@ -80,7 +104,7 @@ public class FinestraAdmin extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if(btnHome == e.getSource()){			
 			getContentPane().removeAll();
-			new PannelloHomeAdmin(this);
+			new PannelloHome(this);
 			getContentPane().revalidate();
 		}
 		else if(btnOperatore == e.getSource()){

@@ -15,7 +15,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import autonoleggio.Login;
-import gui.finestre.FinestraAdmin;
+import gui.finestre.Finestra;
 import gui.moduli.ModuloFlotta;
 
 
@@ -29,7 +29,7 @@ public class PannelloFlotta extends JPanel implements ActionListener {
 	private ModuloFlotta pnlModulo = new ModuloFlotta("Elenca");
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
-	private FinestraAdmin frame;
+	private Finestra frame;
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	
 	/* Modifica il contentPane Flotta.*/
@@ -61,7 +61,7 @@ public class PannelloFlotta extends JPanel implements ActionListener {
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JLabel user = new JLabel(frame.Username);
+		JLabel user = new JLabel(frame.username);
 		user.setFont(new Font("Arial", Font.BOLD, 12));
 		user.setForeground(Color.RED);
 		
@@ -119,7 +119,7 @@ public class PannelloFlotta extends JPanel implements ActionListener {
 	
 	/* Costruttore contentPane Flotta .*/
 	
-	public PannelloFlotta(FinestraAdmin pn) {
+	public PannelloFlotta(Finestra pn) {
 		frame = pn;
 		pn.setTitle("Autonoleggio - Flotta");
 		pn.setContentPane(this.run(pn.contentPane));

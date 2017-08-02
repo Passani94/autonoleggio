@@ -15,7 +15,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import autonoleggio.Login;
-import gui.finestre.FinestraAdmin;
+import gui.finestre.Finestra;
 import gui.finestre.FinestraUser;
 import gui.moduli.ModuloContratto;
 
@@ -29,7 +29,7 @@ public class PannelloContratto extends JPanel implements ActionListener{
 	private ModuloContratto pnlModulo = new ModuloContratto("Elenca");
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
-	private FinestraAdmin frame;
+	private Finestra frame;
 	private FinestraUser frameU;
 	private String tipo;
 	private JLabel user;
@@ -62,7 +62,7 @@ public class PannelloContratto extends JPanel implements ActionListener{
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		if (tipo=="Pn"){
-			user = new JLabel(frame.Username);}
+			user = new JLabel(frame.username);}
 			else{
 			user = new JLabel(frameU.Username);
 		}
@@ -120,7 +120,7 @@ public class PannelloContratto extends JPanel implements ActionListener{
 	
 	/* Costruttore contentPane Contratto .*/
 	
-	public PannelloContratto(FinestraAdmin pn) {
+	public PannelloContratto(Finestra pn) {
 		frame = pn;
 		tipo="Pn";
 		pn.setTitle("Autonoleggio - Contratto");

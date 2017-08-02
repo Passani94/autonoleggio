@@ -1,8 +1,7 @@
 package autonoleggio;
 
 import db.DBConnect;
-import gui.finestre.FinestraAdmin;
-import gui.finestre.FinestraUser;
+import gui.finestre.Finestra;
 
 import java.sql.SQLException;
 
@@ -26,9 +25,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Login extends JFrame implements ActionListener,Runnable{
+public class Login extends JFrame implements ActionListener, Runnable{
 
-	private static final long serialVersionUID = 7526488295622776147L; 
+	private static final long serialVersionUID = 1L; 
 	private DBConnect log;
 	private JPanel contentPane;
 	private JPasswordField txtPassword;
@@ -202,12 +201,9 @@ public class Login extends JFrame implements ActionListener,Runnable{
 						JOptionPane.ERROR_MESSAGE);
 				txtUsername.requestFocus();
 				}/* Se l'utente viene trovato ed è l'admin, viene avviato il pannello di controllo dell'admin */
-				else if (user.equals("admin")){	
+				else {	
 					this.dispose();
-					new FinestraAdmin(user);
-					}else {
-						this.dispose();
-						new FinestraUser(user);
+					new Finestra (user);
 					}
 			} catch (SQLException e1) {
 			e1.printStackTrace();

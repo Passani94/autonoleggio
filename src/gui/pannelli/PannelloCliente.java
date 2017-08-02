@@ -15,7 +15,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import autonoleggio.Login;
-import gui.finestre.FinestraAdmin;
+import gui.finestre.Finestra;
 import gui.finestre.FinestraUser;
 import gui.moduli.ModuloCliente;
 
@@ -31,7 +31,7 @@ public class PannelloCliente extends JPanel implements ActionListener{
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
-	private FinestraAdmin frame;
+	private Finestra frame;
 	private FinestraUser frameU;
 	private String tipo;
 	private JLabel user;
@@ -66,7 +66,7 @@ public class PannelloCliente extends JPanel implements ActionListener{
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		if (tipo=="Pn"){
-			user = new JLabel(frame.Username);}
+			user = new JLabel(frame.username);}
 			else{
 			user = new JLabel(frameU.Username);
 		}
@@ -127,7 +127,7 @@ public class PannelloCliente extends JPanel implements ActionListener{
 	
 	/* Costruttore contentPane Cliente .*/
 	
-	public PannelloCliente(FinestraAdmin pn) {
+	public PannelloCliente(Finestra pn) {
 		frame = pn;
 		tipo="Pn";
 		pn.setTitle("Autonoleggio - Cliente");

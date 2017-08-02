@@ -13,21 +13,23 @@ import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import autonoleggio.Login;
-import gui.finestre.FinestraAdmin;
+import gui.finestre.Finestra;
 import gui.moduli.ModuloCalendario;
 import gui.moduli.ModuloMezziRitorno;
+import gui.moduli.ModuloMezziDisponibili;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class PannelloHomeAdmin extends JPanel implements ActionListener{
+public class PannelloHome extends JPanel implements ActionListener{
 	
 	private static final long serialVersionUID = 1L; 
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private JPanel pnlCalendar = new JPanel(null);
 	private ModuloMezziRitorno pnlModulo = new ModuloMezziRitorno();
-	private FinestraAdmin frame;
+	private ModuloMezziDisponibili pnlModulo2 = new ModuloMezziDisponibili();
+	private Finestra frame;
 	
 	/* Modifica il contentPane Home.*/
 	
@@ -42,7 +44,7 @@ public class PannelloHomeAdmin extends JPanel implements ActionListener{
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JLabel user = new JLabel(frame.Username);
+		JLabel user = new JLabel(frame.username);
 		user.setFont(new Font("Arial", Font.BOLD, 12));
 		user.setForeground(Color.RED);
 		
@@ -96,7 +98,7 @@ public class PannelloHomeAdmin extends JPanel implements ActionListener{
 	
 	/* Costruttore contentPane Home .*/
 	
-	public PannelloHomeAdmin(FinestraAdmin pn) {
+	public PannelloHome(Finestra pn) {
 		frame = pn;
 		pn.setTitle("Autonoleggio - Home");
 		pn.setContentPane(this.run(pn.contentPane));

@@ -14,7 +14,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import autonoleggio.Login;
-import gui.finestre.FinestraAdmin;
+import gui.finestre.Finestra;
 import gui.moduli.ModuloOperatore;
 
 
@@ -27,7 +27,7 @@ public class PannelloOperatore extends JPanel implements ActionListener{
 	private ModuloOperatore pnlModulo = new ModuloOperatore("Elenca");
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
-	private FinestraAdmin frame;
+	private Finestra frame;
 	
 	/* Modifica il contentPane Operatore.*/
 	
@@ -51,7 +51,7 @@ public class PannelloOperatore extends JPanel implements ActionListener{
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JLabel user = new JLabel(frame.Username);
+		JLabel user = new JLabel(frame.username);
 		user.setFont(new Font("Arial", Font.BOLD, 12));
 		user.setForeground(Color.RED);
 		
@@ -108,7 +108,7 @@ public class PannelloOperatore extends JPanel implements ActionListener{
 	
 	/* Costruttore contentPane Operatore .*/
 	
-	public PannelloOperatore(FinestraAdmin pn) {
+	public PannelloOperatore(Finestra pn) {
 		frame = pn;
 		pn.setTitle("Autonoleggio - Operatore");
 		pn.setContentPane(this.run(pn.contentPane));
