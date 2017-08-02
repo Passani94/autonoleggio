@@ -12,8 +12,11 @@ import gui.pannelli.PannelloHome;
 import gui.pannelli.PannelloOperatore;
 
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -45,6 +48,19 @@ public class Finestra extends JFrame implements ActionListener{
 			this.setMinimumSize(new Dimension(1000,(screenSize.height-100)));
 			this.setLocationRelativeTo(null);
 			this.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
+			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			addWindowListener(new WindowAdapter(){
+	        	public void windowClosing(WindowEvent we)
+	        	  { 
+	        		int scelta = JOptionPane.showConfirmDialog(
+						    null,
+						    "Si desidera uscire dall'applicazione?",
+						    "Conferma uscita",
+						    JOptionPane.YES_NO_OPTION);
+					if (scelta == JOptionPane.YES_OPTION){
+						System.exit(0);
+					}
+			}});
 			new PannelloHome(this);
 		} catch (Exception e) {
 			e.printStackTrace();
