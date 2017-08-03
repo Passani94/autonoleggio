@@ -533,6 +533,7 @@ public class Contratto {
 			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere composto da sole cifre!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
+			content.txtCodice.setText("");
 		}else {
 			codice=Integer.decode((content.txtCodice.getText().trim()));
 			esito = true;
@@ -553,6 +554,7 @@ public class Contratto {
 			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere composto da sole cifre!",
 				"Errore",
 				JOptionPane.ERROR_MESSAGE);
+			content.txtContrattoCerca.setText("");
 		}else {
 			codiceCerca = Integer.decode(content.txtContrattoCerca.getText().trim());
 			esito = true;
