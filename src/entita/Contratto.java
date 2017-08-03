@@ -132,14 +132,18 @@ public class Contratto {
 					content.txtNome.setText(noleggio.rs.getString(10));
 					content.txtPatente.setText(noleggio.rs.getString(11));
 					content.frmtdtxtfldValida.setText(noleggio.rs.getString(12));
-					content.txtRilasciatada.setText(noleggio.rs.getString(13));
+					if(!noleggio.rs.getString(13).equals("NULL")) {
+						content.txtRilasciatada.setText(noleggio.rs.getString(13));
+					}else {
+						content.txtRilasciatada.setText("");
+					}
 					content.frmtdtxtfldRilasciatail.setText(noleggio.rs.getString(14));
 					
-					content.comboBoxTipologia.setEditable(true);
-					content.txtVeicolo.setEditable(true);
-					content.frmtdtxtfldInizio.setEditable(true);
-					content.frmtdtxtfldFine.setEditable(true);
-					content.txtCosto.setEditable(true);
+					content.comboBoxTipologia.setEnabled(false);
+					content.txtVeicolo.setEditable(false);
+					content.frmtdtxtfldInizio.setEditable(false);
+					content.frmtdtxtfldFine.setEditable(false);
+					content.txtCosto.setEditable(false);
 					content.txtAcconto.setEditable(true);
 					content.txtCognome.setEditable(true);
 					content.txtNome.setEditable(true);
@@ -211,10 +215,9 @@ public class Contratto {
 										+ "Rilasciata_Il="+Rilasciatail+"";
 				noleggio.exequery("UPDATE noleggio SET "+valori+" WHERE Cod_Noleggio="+codiceModifica+"","update");
 				JOptionPane.showMessageDialog(null , "Contratto Modificato!");
-				content.txtContrattoCerca.setText("");
 				content.txtContrattoCerca.requestFocus();
 				content.txtContrattoCerca.setEditable(true);
-				content.comboBoxTipologia.setEditable(false);
+				content.comboBoxTipologia.setEnabled(false);
 				content.txtVeicolo.setEditable(false);
 				content.txtCliente.setEditable(false);
 				content.frmtdtxtfldInizio.setEditable(false);

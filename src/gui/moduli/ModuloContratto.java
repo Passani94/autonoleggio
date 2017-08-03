@@ -681,9 +681,10 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 				this.setLayout(gl_contentPane);
 				this.revalidate();
 		}
-		else if (str.equals("Modifica")){
+		else if (str.equals("Modifica")) {
 			
 			this.removeAll();
+			
 			this.setBorder(BorderFactory.createTitledBorder("Modifica Contratto di Noleggio"));
 			
 			btnCerca = new JButton("Cerca Contratto");
@@ -792,6 +793,9 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			frmtdtxtfldInizio.setEditable(false);
 			frmtdtxtfldFine.setEditable(false);
 			txtCosto.setEditable(false);
+			txtAcconto.setEditable(false);
+			txtCognome.setEditable(false);
+			txtNome.setEditable(false);
 			
 			
 			/* Crea il Layout per modificare un Cliente. */

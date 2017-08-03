@@ -123,7 +123,7 @@ public class Cliente{
 					content.txtNumero.setText(cliente.rs.getString(7));
 					content.txtCF_PIVA.setText(cliente.rs.getString(1));
 					content.txtTelefono.setText(cliente.rs.getString(8));
-					content.comboBoxTipologia.setEditable(true);
+					content.comboBoxTipologia.setEditable(false);
 					content.txtRS.setEditable(true);
 					content.txtCAP.setEditable(true);
 					content.txtCitta.setEditable(true);
@@ -139,7 +139,7 @@ public class Cliente{
 			            }
 			          }	
 				}else{
-					JOptionPane.showMessageDialog(null, "Errore! Non ï¿½ presente un cliente con tale CF/Partita IVA!",
+					JOptionPane.showMessageDialog(null, "Errore! Non è presente un cliente con tale CF/Partita IVA!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 					content.txtClienteCerca.setText("");
