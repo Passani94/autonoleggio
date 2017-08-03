@@ -171,17 +171,23 @@ public class Contratto {
 			try{
 				noleggio.exequery("SELECT * FROM noleggio where Cod_Noleggio="+codice+"","select");
 				/*Verifica se è presente un contratto con tale codice*/
-				if(noleggio.rs.next()){
-					noleggio.exequery("DELETE FROM noleggio WHERE Cod_Noleggio="+codice+"","delete");
-					JOptionPane.showMessageDialog(null , "Contratto Eliminato!");
-					content.txtCodice.setText("");
-					content.txtCodice.requestFocus();
-				} else{
+				if(!noleggio.rs.next()){
 					JOptionPane.showMessageDialog(null, "Errore! Non è presente un contratto con tale codice!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
+					content.txtCodice.requestFocus();
+				}else {
+					int scelta = JOptionPane.showConfirmDialog(
+							null,
+							"Si desidera eliminare il contratto con codice "+codice+" ?",
+							"Conferma eliminazione",
+							JOptionPane.YES_NO_OPTION);
+					if (scelta == JOptionPane.YES_OPTION){
+						noleggio.exequery("DELETE FROM noleggio WHERE Cod_Noleggio="+codice+"","delete");
+					JOptionPane.showMessageDialog(null , "Contratto Eliminato!");
 					content.txtCodice.setText("");
 					content.txtCodice.requestFocus();
+					}
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();

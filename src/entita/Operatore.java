@@ -60,17 +60,23 @@ public class Operatore {
 				try{ 
 					operatore.exequery("SELECT * FROM operatore where ID_Operatore='"+user+"'","select"); 
 					/* Verifica se è presente un operatore con tale username. */
-					if(operatore.rs.next()){
-						operatore.exequery("DELETE FROM operatore WHERE ID_Operatore='"+user+"'","delete");
-						JOptionPane.showMessageDialog(null , "Operatore eliminato!");
-						content.txtUsername.setText("");
-						content.txtUsername.requestFocus();
-					} else{
+					if(!operatore.rs.next()){
 						JOptionPane.showMessageDialog(null, "Errore! Non è presente un operatore con tale Username!",
 								"Errore ",
 								JOptionPane.ERROR_MESSAGE);
-						content.txtUsername.setText("");
 						content.txtUsername.requestFocus();
+					}else {
+						int scelta = JOptionPane.showConfirmDialog(
+								null,
+								"Si desidera eliminare l'operatore "+user+" ?",
+								"Conferma eliminazione",
+								JOptionPane.YES_NO_OPTION);
+						if (scelta == JOptionPane.YES_OPTION){
+							operatore.exequery("DELETE FROM operatore WHERE ID_Operatore='"+user+"'","delete");
+							JOptionPane.showMessageDialog(null , "Operatore eliminato!");
+							content.txtUsername.setText("");
+							content.txtUsername.requestFocus();
+						}
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();

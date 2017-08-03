@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import javax.swing.ScrollPaneConstants;
 
 import db.DBConnect;
@@ -269,7 +270,8 @@ public class ModuloCliente extends JPanel implements ActionListener{
 			txtCF_PIVA.setFont(new Font("Arial", Font.PLAIN, 12));
 			txtCF_PIVA.setColumns(10);
 			
-			JLabel lblid = new JLabel("CF o P.IVA*");
+			
+			JLabel lblid = new JLabel("CF o P.IVA *");
 			lblid.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			/* Crea il Layout per un eliminare un Cliente. */
@@ -295,7 +297,7 @@ public class ModuloCliente extends JPanel implements ActionListener{
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtCF_PIVA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(116)
+							.addGap(50)
 							.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(169, Short.MAX_VALUE))
 				);

@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import db.DBConnect;
 import gui.moduli.ModuloCliente;
 
-/* Classe per l'entità Cliente */
+/* Classe per l'entitï¿½ Cliente */
 
 public class Cliente{
 	
@@ -39,9 +39,9 @@ public class Cliente{
 			try{
 				/* Cerca nel DB un cliente con il CF (o la Partita IVA) inseriti.*/
 				cliente.exequery("SELECT * FROM cliente where CF_PIVA='"+CF_PIVA+"'","select");
-				/*Verifica se il cliente che si vuole aggiungere è già presente nel DB.*/
+				/*Verifica se il cliente che si vuole aggiungere ï¿½ giï¿½ presente nel DB.*/
 				if (cliente.rs.next()){
-					JOptionPane.showMessageDialog(null, "Errore! Esiste già un cliente con tale CF/Partita IVA!",
+					JOptionPane.showMessageDialog(null, "Errore! Esiste giï¿½ un cliente con tale CF/Partita IVA!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 					content.txtCF_PIVA.setText("");
@@ -77,18 +77,24 @@ public class Cliente{
 		if (checkelimina(content)){
 			try{
 				cliente.exequery("SELECT * FROM cliente where CF_PIVA='"+CF_PIVA+"'","select");
-				/*Verifica se è presente un cliente con tale CF/Partita IVA.*/
-				if(cliente.rs.next()){
-					cliente.exequery("DELETE FROM cliente WHERE CF_PIVA='"+CF_PIVA+"'","delete");
+				/*Verifica se ï¿½ presente un cliente con tale CF/Partita IVA.*/
+				if(!cliente.rs.next()){
+					JOptionPane.showMessageDialog(null, "Errore! Non ï¿½ presente un cliente con tale CF/Partita IVA!",
+							"Errore ",
+							JOptionPane.ERROR_MESSAGE);
+					content.txtCF_PIVA.requestFocus();
+				}else {
+					int scelta = JOptionPane.showConfirmDialog(
+							null,
+							"Si desidera eliminare l'utente "+CF_PIVA+" ?",
+							"Conferma eliminazione",
+							JOptionPane.YES_NO_OPTION);
+					if (scelta == JOptionPane.YES_OPTION){
+						cliente.exequery("DELETE FROM cliente WHERE CF_PIVA='"+CF_PIVA+"'","delete");
 					JOptionPane.showMessageDialog(null , "Cliente Eliminato!");
 					content.txtCF_PIVA.setText("");
 					content.txtCF_PIVA.requestFocus();
-				} else{
-					JOptionPane.showMessageDialog(null, "Errore! Non è presente un cliente con tale CF/Partita IVA!",
-							"Errore ",
-							JOptionPane.ERROR_MESSAGE);
-					content.txtCF_PIVA.setText("");
-					content.txtCF_PIVA.requestFocus();
+					}					
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -133,7 +139,7 @@ public class Cliente{
 			            }
 			          }	
 				}else{
-					JOptionPane.showMessageDialog(null, "Errore! Non è presente un cliente con tale CF/Partita IVA!",
+					JOptionPane.showMessageDialog(null, "Errore! Non ï¿½ presente un cliente con tale CF/Partita IVA!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 					content.txtClienteCerca.setText("");
@@ -192,14 +198,14 @@ public class Cliente{
 			content.txtCF_PIVA.setText("");
 			content.txtCF_PIVA.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale inserito non è valido!",
+			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale inserito non ï¿½ valido!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		} else if((CF_PIVA.length()==11 && !CF_PIVA.matches("\\d{11}"))){
 			content.txtCF_PIVA.setText("");
 			content.txtCF_PIVA.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La Partita IVA inserita non è valida!",
+			JOptionPane.showMessageDialog(null, "Errore! La Partita IVA inserita non ï¿½ valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		} else if(CF_PIVA.length()<11 || (CF_PIVA.length()>11 && CF_PIVA.length()<16) || CF_PIVA.length()>16){
@@ -227,7 +233,7 @@ public class Cliente{
 			content.txtCitta.setText("");
 			content.txtCitta.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo Città deve avere meno di 20 caratteri!",
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Cittï¿½ deve avere meno di 20 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (Via.length()>20){
@@ -248,7 +254,7 @@ public class Cliente{
 			content.txtEmail.setText("");
 			content.txtEmail.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! L'Email inserita non è valida o è troppo lunga!",
+			JOptionPane.showMessageDialog(null, "Errore! L'Email inserita non ï¿½ valida o ï¿½ troppo lunga!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if ((Telefono.length()>10 || Telefono.length()<10 || !isNumeric(Telefono)) && !Telefono.equals("")){
@@ -285,14 +291,14 @@ public class Cliente{
 			content.txtCF_PIVA.setText("");
 			content.txtCF_PIVA.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale inserito non è valido!",
+			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale inserito non ï¿½ valido!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		} else if((CF_PIVA.length()==11 && !CF_PIVA.matches("\\d{11}"))){
 			content.txtCF_PIVA.setText("");
 			content.txtCF_PIVA.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La Partita IVA inserita non è valida!",
+			JOptionPane.showMessageDialog(null, "Errore! La Partita IVA inserita non ï¿½ valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		} else if(CF_PIVA.length()<11 || (CF_PIVA.length()>11 && CF_PIVA.length()<16) || CF_PIVA.length()>16){
@@ -316,14 +322,14 @@ public class Cliente{
 			content.txtClienteCerca.setText("");
 			content.txtClienteCerca.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale inserito non è valido!",
+			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale inserito non ï¿½ valido!",
 				"Errore ",
 		    	JOptionPane.ERROR_MESSAGE);
 		} else if((ClienteCerca.length()==11 && !ClienteCerca.matches("\\d{11}"))){
 			content.txtClienteCerca.setText("");
 			content.txtClienteCerca.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La Partita IVA inserita non è valida!",
+			JOptionPane.showMessageDialog(null, "Errore! La Partita IVA inserita non ï¿½ valida!",
 				"Errore ",
 		    	JOptionPane.ERROR_MESSAGE);
 		} else if(ClienteCerca.length()<11 || (ClienteCerca.length()>11 && ClienteCerca.length()<16) || ClienteCerca.length()>16){
@@ -339,7 +345,7 @@ public class Cliente{
 		return test;
 	}
 	
-	/* Metodo. Verifica se una stringa è numerica. */
+	/* Metodo. Verifica se una stringa ï¿½ numerica. */
 	
 	private static boolean isNumeric(String string) {
 	    try {

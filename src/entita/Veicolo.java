@@ -100,17 +100,25 @@ public class Veicolo {
 		if (checkelimina(content)){
 			try{ /* Verifica se è presente un veicolo con tale targa. */
 				veicolo.exequery("SELECT * FROM veicolo where Targa='"+Targa+"'","select"); 
-				if(veicolo.rs.next()){
-					veicolo.exequery("DELETE FROM veicolo WHERE Targa='"+Targa+"'","delete");
-					JOptionPane.showMessageDialog(null , "Veicolo eliminato!");
-					content.txtTarga.setText("");
-					content.txtTarga.requestFocus();
-				} else{
+				if(!veicolo.rs.next()){
 					JOptionPane.showMessageDialog(null, "Errore! Non è presente un veicolo con tale targa!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
-					content.txtTarga.setText("");
 					content.txtTarga.requestFocus();
+				} else{
+					int scelta = JOptionPane.showConfirmDialog(
+							null,
+							"Si desidera eliminare il veicolo targato "+Targa+" ?",
+							"Conferma eliminazione",
+							JOptionPane.YES_NO_OPTION);
+					if (scelta == JOptionPane.YES_OPTION){
+						veicolo.exequery("DELETE FROM veicolo WHERE Targa='"+Targa+"'","delete");
+						JOptionPane.showMessageDialog(null , "Veicolo eliminato!");
+						content.txtTarga.setText("");
+						content.txtTarga.requestFocus();
+					}
+					
+					
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();

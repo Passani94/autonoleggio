@@ -343,7 +343,7 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblCod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtCodice, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(116)
+							.addGap(50)
 							.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(169, Short.MAX_VALUE))
 				);
@@ -753,17 +753,7 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			txtNome = new JTextField();
 			txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			comboBoxTipologia.setEditable(false);
-			txtCliente.setEditable(false);
-			frmtdtxtfldInizio.setEditable(false);
-			frmtdtxtfldFine.setEditable(false);
-			txtCosto.setEditable(false);
-			txtAcconto.setEditable(false);
-			txtCognome.setEditable(false);
-			txtNome.setEditable(false);
-			
 			txtVeicolo = new JTextField();
-			txtVeicolo.setToolTipText("Cognome Nome / Denominazione");
 			txtVeicolo.setFont(new Font("Arial", Font.PLAIN, 12));
 			txtVeicolo.setEditable(false);
 			
@@ -794,6 +784,14 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			
 			JLabel lblRilasciataIl = new JLabel("Rilasciata il");
 			lblRilasciataIl.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			comboBoxTipologia.setEditable(false);
+			txtVeicolo.setEditable(false);
+			txtCliente.setEditable(false);
+			frmtdtxtfldInizio.setEditable(false);
+			frmtdtxtfldFine.setEditable(false);
+			txtCosto.setEditable(false);
+			
 			
 			/* Crea il Layout per modificare un Cliente. */
 			
@@ -910,7 +908,8 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 				);
 			
 			this.setLayout(gl_contentPane);
-			this.revalidate();			
+			this.revalidate();
+			
 		}
 		else if (str.equals("Elenca")) {
 				this.removeAll();
