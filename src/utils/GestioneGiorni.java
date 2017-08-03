@@ -100,7 +100,7 @@ public class GestioneGiorni {
 		return date;	
 	}
 	
-	/* Metodo. Verifica che la DataFine sia "maggiore" della DataInizio. */
+	/* Metodo. Verifica che la DataInizio sia "maggiore" della DataFine. */
 	
 	public static boolean isMaggiore(String dataInizio, String dataFine) throws Exception {
 		
@@ -122,6 +122,27 @@ public class GestioneGiorni {
 		return maggiore;
 	}
 	
+/* Metodo. Verifica che la DataInizio sia "minore" della DataFine. */
+	
+	public static boolean isMinore(String dataInizio, String dataFine) throws Exception {
+		
+		boolean minore = false;
+		Date d1, d2;
+		
+		TimeZone zone = TimeZone.getTimeZone("GMT+1");
+		
+		DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		fmt.setTimeZone(zone);
+		fmt.setLenient(false);
+		
+		/* Esegue il parsing delle stringhe passate come argomenti. */
+		d1 = fmt.parse(dataInizio);
+		d2 = fmt.parse(dataFine);
+		
+		minore = d1.before(d2);
+		
+		return minore;
+	}
 	/* Metodo. Verifica se la data passata come argomento è antecedente alla data odierna. */
 	
 	public static boolean nonConsentito(String dataInizio) throws Exception {

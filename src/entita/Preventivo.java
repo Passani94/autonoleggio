@@ -6,6 +6,7 @@ import db.DBConnect;
 import gui.moduli.ModuloContratto;
 import utils.ArrotondaNumero;
 import utils.GestioneGiorni;
+import utils.Noleggiabilita;
 
 
 /* Classe per l'entità Preventivo */
@@ -462,6 +463,11 @@ public class Preventivo {
 			JOptionPane.showMessageDialog(null, "Errore! La data di fine noleggio deve essere maggiore della data di inizio!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
+		}else if (!Noleggiabilita.controlla(Veicolo,Inizio,Fine)) {
+			check=false;
+			JOptionPane.showMessageDialog(null, "Il veicolo non è noleggiabile per il periodo indicato!",
+				    "INFO ",
+				    JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (check==false) {
 			test=check; 
