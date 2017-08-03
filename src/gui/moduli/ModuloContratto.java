@@ -305,7 +305,8 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		}else if (str.equals("Elimina")){
+		}
+		else if (str.equals("Elimina")){
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elimina Contratto"));
 			
@@ -1022,8 +1023,9 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			}
 		}
 		else if(btnElimina == e.getSource()){
-			CT.setCodice(this);
-			CT.elimina(this);
+			if (CT.setCodice(this)) {
+				CT.elimina(this);
+				}
 		}		
 		else if (btnFiltra == e.getSource()) {
 			CT.setValoriFiltra(this);
@@ -1035,9 +1037,10 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			CT.modifica(this);
 		}
 		else if(btnCerca == e.getSource()){
-			CT.setCodiceCerca(this);
-			CT.cerca(this);
+			if (CT.setCodiceCerca(this)) {
+				CT.cerca(this);
 			}
+		}
 	}
 	
 	/* Definisce le azioni da eseguire quando si ha il focus sui campi da inserire. */

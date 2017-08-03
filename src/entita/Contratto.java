@@ -25,7 +25,7 @@ public class Contratto {
 	public String Rilasciatada;
 	public String Rilasciatail;
 	
-	public int codice,codiceCerca,codiceModifica;
+	public Integer codice,codiceCerca,codiceModifica;
 	
 	private boolean test;
 	private static final String CFPATTERN = "[a-zA-Z]{6}\\d\\d[a-zA-Z]\\d\\d[a-zA-Z]\\d\\d\\d[a-zA-Z]";
@@ -451,17 +451,22 @@ public class Contratto {
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}
+		
 		if (check==false) test=check; 
 		else test=true;
+		
 		return test;
 	}
 	
+	/* Verifica la correttezza del codice contratto nel modulo "Elimina Contratto". */
 	private boolean checkelimina(ModuloContratto content){
 		boolean check=true;
-		/* Verifica la correttezza del codice contratto */
 		
-		if (codice<=0) {
+		if (codice  <=0) {
 			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere maggiore o uguale ad 1!",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);
 		}
 		
 		if (check==false) test=check; 
@@ -470,13 +475,17 @@ public class Contratto {
 		return test;
 	}
 	
+	/* Verifica la correttezza del codice contratto nel modulo "ModificaContratto" */
 	private boolean checkcerca (ModuloContratto content){
 		boolean check=true;
-		/* Verifica la correttezza del codice contratto */
 		
-		if (codiceCerca<=0) {
+		if (codiceCerca <= 0) {
 			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere maggiore o uguale ad 1!",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);
 		}
+		
 		
 		if (check==false) test=check; 
 		else test=true;
@@ -512,18 +521,49 @@ public class Contratto {
 		Rilasciatail = content.frmtdtxtfldRilasciatail.getText().trim();
 	}
 	
-	public void setCodice (ModuloContratto content) {
+	public boolean setCodice (ModuloContratto content) {
 		
-		codice=Integer.decode((content.txtCodice.getText().trim()));		
+		boolean esito = false;
+		
+		if (content.txtCodice.getText().trim().toString().equals("")){		
+			JOptionPane.showMessageDialog(null, "Errore! Inserisci il codice di un contratto!",
+				"Errore ",
+				JOptionPane.ERROR_MESSAGE);
+		}else if (!content.txtCodice.getText().trim().toString().matches("\\d*")){
+			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere composto da sole cifre!",
+				"Errore ",
+				JOptionPane.ERROR_MESSAGE);
+		}else {
+			codice=Integer.decode((content.txtCodice.getText().trim()));
+			esito = true;
+		}
+		
+		return esito;
 	}
 	
-	public void setCodiceCerca(ModuloContratto content){
-		codiceCerca = Integer.decode(content.txtContrattoCerca.getText().trim());
+	public boolean setCodiceCerca(ModuloContratto content){
+		
+		boolean esito = false;
+		
+		if (content.txtContrattoCerca.getText().trim().toString().equals("")){		
+			JOptionPane.showMessageDialog(null, "Errore! Inserisci il codice di un contratto!",
+				"Errore",
+				JOptionPane.ERROR_MESSAGE);
+		}else if (!content.txtContrattoCerca.getText().trim().toString().matches("\\d*")){
+			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere composto da sole cifre!",
+				"Errore",
+				JOptionPane.ERROR_MESSAGE);
+		}else {
+			codiceCerca = Integer.decode(content.txtContrattoCerca.getText().trim());
+			esito = true;
+		}
+		
+		return esito;
 	}
 	
 	public void setCodiceModifica (ModuloContratto content){
 		
-		codiceModifica = Integer.decode(content.txtContrattoCerca.getText().trim());
+			codiceModifica = Integer.decode(content.txtContrattoCerca.getText().trim());
 	}
 	
 	/* Metodo. Assegna i valori al contratto da filtrare. */
