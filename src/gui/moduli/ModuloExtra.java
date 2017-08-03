@@ -3,7 +3,8 @@ package gui.moduli;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.SQLException;
 
 import java.text.DateFormat;
@@ -32,7 +33,7 @@ import db.DBConnect;
 import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
-public class ModuloExtra extends JPanel implements ActionListener{
+public class ModuloExtra extends JPanel implements ActionListener, FocusListener{
 
 	private static final long serialVersionUID = 1L; 
 	
@@ -161,6 +162,7 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			
 			btnProfitto = new JButton("Calcola Profitto");
 			btnProfitto.addActionListener(this);	/* Action Listener per il bottone Profitto.*/
+			btnProfitto.addFocusListener(this);
 			
 			lblProfitto = new JLabel("");
 			lblProfitto.setFont(new Font("Arial", Font.BOLD, 12));
@@ -173,6 +175,7 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			frmtdtxtfldMese.setFont(new Font("Arial", Font.PLAIN, 12));
 			frmtdtxtfldMese.setColumns(7);
 			frmtdtxtfldMese.setText("aaaa-mm");
+			frmtdtxtfldMese.addFocusListener(this);
 			
 			/* Crea il Layout per il profitto mensile. */
 			
@@ -228,6 +231,7 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			
 			btnProfittoA = new JButton("Calcola Profitto");
 			btnProfittoA.addActionListener(this);	/* Action Listener per il bottone Profitto Annuale.*/
+			btnProfittoA.addFocusListener(this);
 			
 			lblProfitto = new JLabel("");
 			lblProfitto.setFont(new Font("Arial", Font.BOLD, 12));
@@ -240,6 +244,7 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			frmtdtxtfldAnno.setFont(new Font("Arial", Font.PLAIN, 12));
 			frmtdtxtfldAnno.setColumns(4);
 			frmtdtxtfldAnno.setText("aaaa");
+			frmtdtxtfldAnno.addFocusListener(this);
 			
 			/* Crea il Layout per il profitto annuale. */
 			
@@ -564,5 +569,25 @@ public class ModuloExtra extends JPanel implements ActionListener{
 					    JOptionPane.ERROR_MESSAGE);
 			}
 		}
+	}
+	
+	public void focusGained(FocusEvent e) {
+		if (frmtdtxtfldMese == e.getSource() && frmtdtxtfldMese.getText().equals("aaaa-mm")) { 
+			frmtdtxtfldMese.setText("");
+		}
+		else if (frmtdtxtfldAnno == e.getSource() && frmtdtxtfldAnno.getText().equals("aaaa")) {
+			frmtdtxtfldAnno.setText("");
+		}
+		
+		if (!(frmtdtxtfldMese == e.getSource()) && frmtdtxtfldMese.getText().equals("")) { 
+			frmtdtxtfldMese.setText("aaaa-mm");
+		}
+		else if (!(frmtdtxtfldAnno == e.getSource()) && frmtdtxtfldAnno.getText().equals("")) {
+			frmtdtxtfldAnno.setText("aaaa");
+		}
+	}
+
+	public void focusLost(FocusEvent arg0) {
+		
 	}
 }
