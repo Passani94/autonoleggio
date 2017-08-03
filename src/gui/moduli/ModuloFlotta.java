@@ -244,7 +244,27 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Autobus_12_Posti", "Autobus_16_Posti", "Autocaravan_4_Posti",
 					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Barca_Motore", "Berlina", "Cabriolet", "Catamarano", "Coup\u00E8",
 					"Fuoristrada", "Gommone", "Limousine", "Motocicletta", "Multispazio", "Quad_BIke", "Scooter", "SUV", "Utilitaria"}));
-			comboBoxTipologia.addFocusListener(this);
+			comboBoxTipologia.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent event) {
+	                //
+	                // Get the source of the component, which is our combo
+	                // box.
+	                //
+	            
+					@SuppressWarnings("rawtypes")
+					JComboBox comboBox = (JComboBox) event.getSource();
+
+	                Object selected = comboBox.getSelectedItem();
+	                if(selected.toString().equals("Barca_Motore") || selected.toString().equals("Catamarano") || selected.toString().equals("Gommone") ) {
+	                	frmtdtxtfldOrmeggio.setEnabled(true);
+						frmtdtxtfldAlaggio.setEnabled(true);
+	                }else {
+	                	frmtdtxtfldOrmeggio.setEnabled(false);
+						frmtdtxtfldAlaggio.setEnabled(false);
+	                }
+
+	            }
+	        });
 			
 			comboBoxAlimentazione = new JComboBox<>();
 			comboBoxAlimentazione.setFont(new Font("Arial", Font.PLAIN, 12));

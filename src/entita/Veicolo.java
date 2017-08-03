@@ -172,16 +172,22 @@ public class Veicolo {
 					content.frmtdtxtfldAssicurazione.setText(veicolo.rs.getString(12));
 					content.frmtdtxtfldOrmeggio.setText(veicolo.rs.getString(13));
 					content.frmtdtxtfldAlaggio.setText(veicolo.rs.getString(14));
-					content.txtMarca.setEditable(true);
-					content.txtNome.setEditable(true);
+					content.comboBoxTipologia.setEnabled(false);
+					content.txtMarca.setEditable(false);
+					content.txtNome.setEditable(false);
 					content.txtKm.setEditable(true);
-					content.txtDimensioni.setEditable(true);
-					content.frmtdtxtfldImma.setEditable(true);
+					content.txtDimensioni.setEditable(false);
+					content.frmtdtxtfldImma.setEditable(false);
 					content.frmtdtxtfldBollo.setEditable(true);
 					content.frmtdtxtfldTagliando.setEditable(true);
 					content.frmtdtxtfldAssicurazione.setEditable(true);
-					content.frmtdtxtfldOrmeggio.setEditable(true);
-					content.frmtdtxtfldAlaggio.setEditable(true);
+					if (veicolo.rs.getString(2).equals("Barca_Motore") || veicolo.rs.getString(2).equals("Catamarano") || veicolo.rs.getString(2).equals("Gommone")) {
+						content.frmtdtxtfldOrmeggio.setEnabled(true);
+						content.frmtdtxtfldAlaggio.setEnabled(true);
+					}else {
+						content.frmtdtxtfldOrmeggio.setEnabled(false);
+						content.frmtdtxtfldAlaggio.setEnabled(false);	
+					}
 				}else{
 					JOptionPane.showMessageDialog(null, "Errore! Non è presente un veicolo con tale targa!",
 							"Errore ",
