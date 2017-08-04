@@ -16,7 +16,7 @@ import autonoleggio.Login;
 import gui.finestre.Finestra;
 import gui.moduli.ModuloCalendario;
 import gui.moduli.ModuloMezziRitorno;
-import gui.moduli.ModuloMezziDisponibili;
+import gui.moduli.ModuloMezziNoleggiabili;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,7 +28,7 @@ public class PannelloHome extends JPanel implements ActionListener{
 	private JButton btnLogout = new JButton("Logout");
 	private JPanel pnlCalendar = new JPanel(null);
 	private ModuloMezziRitorno pnlModulo = new ModuloMezziRitorno();
-	private ModuloMezziDisponibili pnlModulo2 = new ModuloMezziDisponibili();
+	private ModuloMezziNoleggiabili pnlModulo2 = new ModuloMezziNoleggiabili();
 	private Finestra frame;
 	
 	/* Modifica il contentPane Home.*/
@@ -68,7 +68,7 @@ public class PannelloHome extends JPanel implements ActionListener{
 							.addGroup(gl_contentPane.createSequentialGroup()
 								.addGap(16)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-									.addComponent(pnlModulo2, GroupLayout.PREFERRED_SIZE, 566, GroupLayout.PREFERRED_SIZE)
+									.addComponent(pnlModulo2, GroupLayout.PREFERRED_SIZE, 495, Short.MAX_VALUE)
 									.addGroup(gl_contentPane.createSequentialGroup()
 										.addComponent(pnlModulo, GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
 										.addGap(43)

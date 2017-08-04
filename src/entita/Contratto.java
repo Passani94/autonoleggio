@@ -75,8 +75,6 @@ public class Contratto {
 							+ "'"+Nome+"','"+Patente+"',"+Valida+",'"+Rilasciatada+"',"+Rilasciatail+")";
 					/* Aggiunge il contratto di noleggio. Inoltre resetta i campi della form per un nuovo inserimento. */
 					noleggio.exequery("INSERT INTO noleggio VALUES "+valori,"insert");
-					/* Rende il veicolo noleggiato non disponibile. */
-					noleggio.exequery("UPDATE veicolo SET Disponibilita='NO' WHERE Targa='"+Veicolo+"'","update"); 
 					JOptionPane.showMessageDialog(null , "Nuovo contratto di noleggio inserito!");
 					content.comboBoxTipologia.setSelectedIndex(0);
 					content.txtVeicolo.setText("");
