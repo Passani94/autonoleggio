@@ -34,7 +34,6 @@ public class Contratto {
 	private static final String TGPATTERN2 = "[a-zA-Z]{1}\\d\\d\\d[a-zA-Z]{2}"; //Pattern Targa Scooter
 	private static final String TGPATTERN3 = "[a-zA-Z]{2}\\d\\d\\d\\d\\d"; //Pattern Targa Motocicletta e Quad-Bike
 	private static final String TGPATTERN4 = "\\d[a-zA-Z]{2}\\d\\d\\d"; //Pattern Targa Mezzo Acquatico
-	private static final String DATEPATTERN = "^\\d{4}-\\d{2}-\\d{2}$";
 	private DBConnect noleggio;
 	
 	/* Costruttore Contratto */
@@ -306,20 +305,6 @@ public class Contratto {
 			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale deve avere 16 caratteri e la Partita IVA 11 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if(!Inizio.matches(DATEPATTERN)){
-			content.frmtdtxtfldInizio.setText("");
-			content.frmtdtxtfldInizio.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La data di inizio noleggio inserita non è valida!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}else if(!Fine.matches(DATEPATTERN)){
-			content.frmtdtxtfldFine.setText("");
-			content.frmtdtxtfldFine.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La data di fine noleggio inserita non è valida!",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
 		}else if (!isNumeric(Costo) || Costo.length()>10){
 			content.txtCosto.setText("");
 			content.txtCosto.requestFocus();
@@ -355,11 +340,11 @@ public class Contratto {
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Patente deve essere composta da 3 caratteri e 7 cifre (Es:TO1234567X)!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Valida.matches(DATEPATTERN) && !Valida.equals("") && !Valida.equals("aaaa-mm-gg")){
+		}else if (Valida.equals("Seleziona una data")){
 			content.frmtdtxtfldValida.setText("");
 			content.frmtdtxtfldValida.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La data di fine validità inserita non è valida!",
+			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}else if (Rilasciatada.length()>20){
@@ -369,11 +354,11 @@ public class Contratto {
 			JOptionPane.showMessageDialog(null, "Errore! Il campo 'Rilasciata Da' deve avere meno di 20 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Rilasciatail.matches(DATEPATTERN) && !Rilasciatail.equals("") && !Rilasciatail.equals("aaaa-mm-gg")){
+		}else if (Rilasciatail.equals("Seleziona una data")){
 			content.frmtdtxtfldRilasciatail.setText("");
 			content.frmtdtxtfldRilasciatail.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La data di rilascio inserita non è valida!",
+			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}
