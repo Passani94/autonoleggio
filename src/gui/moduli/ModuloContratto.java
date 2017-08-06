@@ -837,7 +837,7 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 				lblInizio.setFont(new Font("Arial", Font.BOLD, 14));
 			
 				frmtdtxtfldInizio = new JFormattedTextField(dateformat);
-				frmtdtxtfldInizio.setText("Seleziona una data");
+				frmtdtxtfldInizio.setText("aaaa-mm-gg");
 				frmtdtxtfldInizio.addFocusListener(this);
 				frmtdtxtfldInizio.setEditable(false);
 				
@@ -871,7 +871,7 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 				lblFine.setFont(new Font("Arial", Font.BOLD, 14));
 			
 				frmtdtxtfldFine = new JFormattedTextField(dateformat);
-				frmtdtxtfldFine.setText("Seleziona una data");
+				frmtdtxtfldFine.setText("aaaa-mm-gg");
 				frmtdtxtfldFine.addFocusListener(this);
 				frmtdtxtfldFine.setEditable(false);
 				
@@ -923,61 +923,64 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 									.addGroup(gl_contentPane.createSequentialGroup()
 										.addGap(30)
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-											.addComponent(lblVeicolo, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-											.addComponent(lblInizio, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-											.addComponent(lblFine, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
-										.addGap(51)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-											.addComponent(frmtdtxtfldInizio)
-											.addComponent(txtVeicolo, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-											.addComponent(frmtdtxtfldFine, Alignment.TRAILING))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-											.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-											.addComponent(dateChooserInizio, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
+											.addGroup(gl_contentPane.createSequentialGroup()
+												.addGap(25)
+												.addComponent(btnCalcola)
+												.addGap(57)
+												.addComponent(btnPassaAContratto))
+											.addGroup(gl_contentPane.createSequentialGroup()
+												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+													.addComponent(lblVeicolo, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+													.addComponent(lblInizio, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+													.addComponent(lblFine, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
+												.addGap(76)
+												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+													.addComponent(frmtdtxtfldFine)
+													.addComponent(frmtdtxtfldInizio)
+													.addComponent(txtVeicolo, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)))))
 									.addGroup(gl_contentPane.createSequentialGroup()
-										.addGap(89)
-										.addComponent(lblPreventivo, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE))
-									.addGroup(gl_contentPane.createSequentialGroup()
-										.addGap(55)
-										.addComponent(btnCalcola)
-										.addGap(57)
-										.addComponent(btnPassaAContratto)))
-								.addContainerGap(145, Short.MAX_VALUE))
+										.addGap(101)
+										.addComponent(lblPreventivo, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE)))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addComponent(dateChooserInizio, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+									.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+								.addGap(75))
 					);
 					gl_contentPane.setVerticalGroup(
-						gl_contentPane.createParallelGroup(Alignment.TRAILING)
-							.addGroup(gl_contentPane.createSequentialGroup()
+						gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 								.addGap(37)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 									.addComponent(lblVeicolo)
-									.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+									.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+								.addGap(18)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+									.addComponent(dateChooserInizio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+									.addGroup(Alignment.LEADING, gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+										.addComponent(frmtdtxtfldInizio, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)))
 								.addGap(18)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-									.addComponent(dateChooserInizio, GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+									.addComponent(dateChooserFine, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldInizio, GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)))
-								.addGap(24)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-									.addComponent(dateChooserFine, GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(frmtdtxtfldFine, GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-										.addComponent(lblFine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
-								.addGap(36)
+										.addComponent(lblFine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+										.addComponent(frmtdtxtfldFine, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
+								.addGap(32)
 								.addComponent(lblPreventivo, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-								.addGap(36)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-									.addComponent(btnCalcola, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-									.addComponent(btnPassaAContratto, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
-								.addGap(207))
+								.addGap(18)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(btnPassaAContratto, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnCalcola, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+								.addGap(180))
 					);
 				this.setLayout(gl_contentPane);
 				this.revalidate();
 		}
 		else if (str.equals("Modifica")) {
 			
-			this.removeAll();			
+			this.removeAll();
+			
 			this.setBorder(BorderFactory.createTitledBorder("Modifica Contratto di Noleggio"));
 			
 			btnCerca = new JButton("Cerca Contratto");
@@ -1017,61 +1020,12 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 		
 			frmtdtxtfldInizio = new JFormattedTextField();
 			frmtdtxtfldInizio.setFont(new Font("Arial", Font.PLAIN, 12));
-			frmtdtxtfldInizio.setEditable(false);
-			
-			LookAndFeel previus=UIManager.getLookAndFeel();
-			JDateChooser dateChooserInizio=null;
-					
-			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserInizio= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserInizio.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserInizio=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldInizio.setText(sdf.format(dateChooserInizio.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (InstantiationException e1) {
-					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
-					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
-					e1.printStackTrace();
-				}
 		
 			JLabel lblDataFine = new JLabel("Data Fine *\r\n");
 			lblDataFine.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			frmtdtxtfldFine = new JFormattedTextField();
 			frmtdtxtfldFine.setFont(new Font("Arial", Font.PLAIN, 12));
-			frmtdtxtfldFine.setEditable(false);
-			
-			JDateChooser dateChooserFine=null;
-			
-			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserFine= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserFine.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserFine=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldFine.setText(sdf.format(dateChooserFine.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (InstantiationException e1) {
-					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
-					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
-					e1.printStackTrace();
-				}
 		
 			JLabel lblCosto = new JLabel("Costo Totale *\r\n\r\n");
 			lblCosto.setFont(new Font("Arial", Font.BOLD, 14));
@@ -1111,31 +1065,8 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			frmtdtxtfldValida = new JFormattedTextField();
 			frmtdtxtfldValida.setFont(new Font("Arial", Font.PLAIN, 12));
 			frmtdtxtfldValida.setEditable(false);
-						
-			JDateChooser dateChooserValida=null;
 			
-			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserValida= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserValida.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserValida=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldValida.setText(sdf.format(dateChooserValida.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (InstantiationException e1) {
-					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
-					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
-					e1.printStackTrace();
-				}
-			
-			JLabel lblValida = new JLabel("Valida fino a *");
+			JLabel lblValida = new JLabel("Valida fino a");
 			lblValida.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			txtRilasciatada = new JTextField();
@@ -1149,29 +1080,7 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			frmtdtxtfldRilasciatail.setFont(new Font("Arial", Font.PLAIN, 12));
 			frmtdtxtfldRilasciatail.setEditable(false);
 			
-			JDateChooser dateChooserRilasciataIl=null;
-			
-			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserRilasciataIl= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserRilasciataIl.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserRilasciataIl=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldRilasciatail.setText(sdf.format(dateChooserRilasciataIl.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (InstantiationException e1) {
-					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
-					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
-					e1.printStackTrace();
-				}
-			JLabel lblRilasciataIl = new JLabel("Rilasciata il *");
+			JLabel lblRilasciataIl = new JLabel("Rilasciata il");
 			lblRilasciataIl.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			comboBoxTipologia.setEditable(false);
@@ -1209,111 +1118,94 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 										.addComponent(lblValida, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(lblNome, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(lblPatente, GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+									.addGap(22)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(txtContrattoCerca)
+										.addComponent(comboBoxTipologia, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(frmtdtxtfldRilasciatail)
-										.addComponent(txtRilasciatada, Alignment.LEADING)
-										.addComponent(txtContrattoCerca, Alignment.LEADING)
-										.addComponent(comboBoxTipologia, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(txtVeicolo, Alignment.LEADING)
-										.addComponent(frmtdtxtfldInizio, Alignment.LEADING)
-										.addComponent(txtCliente, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-										.addComponent(frmtdtxtfldFine)
-										.addComponent(txtCosto, Alignment.LEADING)
-										.addComponent(txtAcconto, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-										.addComponent(txtCognome, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-										.addComponent(txtNome, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-										.addComponent(txtPatente, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-										.addComponent(frmtdtxtfldValida, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(dateChooserValida, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-										.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-										.addComponent(dateChooserInizio, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-										.addComponent(dateChooserRilasciataIl, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
+										.addComponent(txtRilasciatada)
+										.addComponent(frmtdtxtfldValida, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+										.addComponent(txtPatente, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+										.addComponent(txtNome, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+										.addComponent(txtCognome, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+										.addComponent(txtAcconto, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+										.addComponent(txtCosto, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+										.addComponent(frmtdtxtfldFine, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+										.addComponent(frmtdtxtfldInizio, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+										.addComponent(txtCliente, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+										.addComponent(txtVeicolo)))
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGap(150)
 									.addComponent(btnCerca, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGap(150)
 									.addComponent(btnModificaC, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
-							.addContainerGap(183, Short.MAX_VALUE))
+							.addContainerGap(279, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(39)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblContrattoCerca)
-								.addComponent(txtContrattoCerca, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+								.addComponent(txtContrattoCerca, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblContrattoCerca))
 							.addGap(18)
 							.addComponent(btnCerca, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblTipologia)
-								.addComponent(comboBoxTipologia, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(comboBoxTipologia, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTipologia))
 							.addGap(15)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblVeicolo, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblVeicolo, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblCliente, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCliente, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(dateChooserInizio, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-								.addGroup(Alignment.TRAILING, gl_contentPane.createParallelGroup(Alignment.BASELINE)
-									.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-									.addComponent(frmtdtxtfldInizio, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblDataFine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldFine, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-									.addGap(18)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblCosto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtCosto, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtCliente, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCliente, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblAcconto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtAcconto, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(frmtdtxtfldInizio, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldFine, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDataFine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtCosto, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCosto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtAcconto, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblAcconto, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 							.addGap(20)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblCognome, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCognome, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtCognome, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCognome, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 							.addGap(20)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblPatente, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtPatente, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtPatente, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPatente, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblValida, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-										.addComponent(frmtdtxtfldValida, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-									.addGap(18)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(txtRilasciatada, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblRilasciatada, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(dateChooserValida, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldValida, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblValida, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(frmtdtxtfldRilasciatail, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblRilasciataIl, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
-									.addGap(18)
-									.addComponent(btnModificaC, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-								.addComponent(dateChooserRilasciataIl, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-							.addGap(13))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtRilasciatada, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRilasciatada, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(frmtdtxtfldRilasciatail, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRilasciataIl, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(btnModificaC, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(41, Short.MAX_VALUE))
 				);
 			
 			this.setLayout(gl_contentPane);
