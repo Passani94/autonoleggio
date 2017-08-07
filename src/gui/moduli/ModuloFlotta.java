@@ -946,7 +946,7 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 										.addComponent(dateChooserOrmeggio, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 										.addGroup(gl_contentPane.createSequentialGroup()
 											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(dateChooserTagliando, 0, 0, Short.MAX_VALUE)
+												.addComponent(dateChooserTagliando, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 													.addComponent(dateChooserBollo, 0, 0, Short.MAX_VALUE)
 													.addComponent(dateChooserImma, GroupLayout.PREFERRED_SIZE, 21, Short.MAX_VALUE)))
@@ -1122,22 +1122,22 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 		if (txtDimensioni == e.getSource() && txtDimensioni.getText().equals("lun/lar/alt")) {
 			txtDimensioni.setText("");
 		}
-		else if (frmtdtxtfldImma == e.getSource() && frmtdtxtfldImma.getText().equals("aaaa-mm-gg")) {
+		else if (frmtdtxtfldImma == e.getSource() && frmtdtxtfldImma.getText().equals("Seleziona una data")) {
 			frmtdtxtfldImma.setText("");
 		}
-		else if (frmtdtxtfldBollo == e.getSource() && frmtdtxtfldBollo.getText().equals("aaaa-mm-gg")) {
+		else if (frmtdtxtfldBollo == e.getSource() && frmtdtxtfldBollo.getText().equals("Seleziona una data")) {
 			frmtdtxtfldBollo.setText("");
 		}
-		else if (frmtdtxtfldTagliando == e.getSource() && frmtdtxtfldTagliando.getText().equals("aaaa-mm-gg")){
+		else if (frmtdtxtfldTagliando == e.getSource() && frmtdtxtfldTagliando.getText().equals("Seleziona una data")){
 			frmtdtxtfldTagliando.setText("");
 		}
-		else if (frmtdtxtfldAssicurazione == e.getSource() && frmtdtxtfldAssicurazione.getText().equals("aaaa-mm-gg")) {
+		else if (frmtdtxtfldAssicurazione == e.getSource() && frmtdtxtfldAssicurazione.getText().equals("Seleziona una data")) {
 			frmtdtxtfldAssicurazione.setText("");
 		}
-		else if (frmtdtxtfldOrmeggio == e.getSource() && frmtdtxtfldOrmeggio.getText().equals("aaaa-mm-gg")) {
+		else if (frmtdtxtfldOrmeggio == e.getSource() && frmtdtxtfldOrmeggio.getText().equals("Seleziona una data")) {
 			frmtdtxtfldOrmeggio.setText("");
 		}
-		else if (frmtdtxtfldAlaggio == e.getSource() && frmtdtxtfldAlaggio.getText().equals("aaaa-mm-gg")) {
+		else if (frmtdtxtfldAlaggio == e.getSource() && frmtdtxtfldAlaggio.getText().equals("Seleziona una data")) {
 			frmtdtxtfldAlaggio.setText("");
 		}
 		
@@ -1145,22 +1145,22 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			txtDimensioni.setText("lun/lar/alt");
 		}
 		else if (!(frmtdtxtfldImma == e.getSource()) && frmtdtxtfldImma.getText().equals("")) {
-			frmtdtxtfldImma.setText("aaaa-mm-gg");
+			frmtdtxtfldImma.setText("Seleziona una data");
 		}
 		else if (!(frmtdtxtfldBollo == e.getSource()) && frmtdtxtfldBollo.getText().equals("")) {
-			frmtdtxtfldBollo.setText("aaaa-mm-gg");
+			frmtdtxtfldBollo.setText("Seleziona una data");
 		}
 		else if (!(frmtdtxtfldTagliando == e.getSource()) && frmtdtxtfldTagliando.getText().equals("")){
-			frmtdtxtfldTagliando.setText("aaaa-mm-gg");
+			frmtdtxtfldTagliando.setText("Seleziona una data");
 		}
 		else if (!(frmtdtxtfldAssicurazione == e.getSource()) && frmtdtxtfldAssicurazione.getText().equals("")) {
-			frmtdtxtfldAssicurazione.setText("aaaa-mm-gg");
+			frmtdtxtfldAssicurazione.setText("Seleziona una data");
 		}
 		else if (!(frmtdtxtfldOrmeggio == e.getSource()) && frmtdtxtfldOrmeggio.getText().equals("")) {
-			frmtdtxtfldOrmeggio.setText("aaaa-mm-gg");
+			frmtdtxtfldOrmeggio.setText("Seleziona una data");
 		}
 		else if (!(frmtdtxtfldAlaggio == e.getSource()) && frmtdtxtfldAlaggio.getText().equals("")) {
-			frmtdtxtfldAlaggio.setText("aaaa-mm-gg");
+			frmtdtxtfldAlaggio.setText("Seleziona una data");
 		}
 		
     }

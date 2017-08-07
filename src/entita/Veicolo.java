@@ -74,12 +74,12 @@ public class Veicolo {
 					content.comboBoxAlimentazione.setSelectedIndex(0);
 					content.txtKm.setText("");
 					content.txtDimensioni.setText("lun/lar/alt");
-					content.frmtdtxtfldImma.setText("aaaa-mm-gg");
-					content.frmtdtxtfldBollo.setText("aaaa-mm-gg");
-					content.frmtdtxtfldTagliando.setText("aaaa-mm-gg");
-					content.frmtdtxtfldAssicurazione.setText("aaaa-mm-gg");
-					content.frmtdtxtfldOrmeggio.setText("aaaa-mm-gg");
-					content.frmtdtxtfldAlaggio.setText("aaaa-mm-gg");
+					content.frmtdtxtfldImma.setText("Seleziona una data");
+					content.frmtdtxtfldBollo.setText("Seleziona una data");
+					content.frmtdtxtfldTagliando.setText("Seleziona una data");
+					content.frmtdtxtfldAssicurazione.setText("Seleziona una data");
+					content.frmtdtxtfldOrmeggio.setText("Seleziona una data");
+					content.frmtdtxtfldAlaggio.setText("Seleziona una data");
 					content.comboBoxBreveTermine.setSelectedIndex(0);
 					content.comboBoxLungoTermine.setSelectedIndex(0);
 					content.txtTarga.requestFocus();
