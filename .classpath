@@ -5,6 +5,6 @@
 	<classpathentry kind="lib" path="External/mysql-connector-java-5.1.41-bin.jar"/>
 	<classpathentry kind="lib" path="External/seaglasslookandfeel-0.2.jar"/>
 	<classpathentry kind="lib" path="External/car.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Lorenzo/workspace/autonoleggio/External/jcalendar-1.4/lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="External/jcalendar-1.4/lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
