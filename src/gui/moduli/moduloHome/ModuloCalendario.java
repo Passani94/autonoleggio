@@ -1,4 +1,4 @@
-package gui.moduli;
+package gui.moduli.moduloHome;
 import javax.swing.*;
 //import javax.swing.event.*;
 import javax.swing.table.*;
@@ -68,7 +68,7 @@ public class ModuloCalendario extends JPanel{
         currentYear = realYear;
         
         //Agggiunge la prima riga del calendario
-        String[] headers = {"Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"}; 
+        String[] headers = {"Lun", "Mar", "Mer", "Gio", "Ven", "Sab","Dom"}; 
         for (int i=0; i<7; i++){
             mtblCalendar.addColumn(headers[i]);
         }
@@ -124,8 +124,8 @@ public class ModuloCalendario extends JPanel{
         
         //Disegna il calendario
         for (int i=1; i<=nod; i++){
-            int row = new Integer((i+som-2)/7);
-            int column  =  (i+som-2)%7;
+            int row = new Integer((i+som-3)/7);
+            int column  =  (i+som-3)%7;
             mtblCalendar.setValueAt(i, row, column);
         }
         
@@ -138,7 +138,7 @@ public class ModuloCalendario extends JPanel{
     	private static final long serialVersionUID = 7525572295622776147L; 
         public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused, int row, int column){
             super.getTableCellRendererComponent(table, value, selected, focused, row, column);
-            if (column == 0 || column == 6){ //Week-end
+            if (column == 5 || column == 6){ //Week-end
                 setBackground(new Color(255, 220, 220));
             }
             else{ //Week
