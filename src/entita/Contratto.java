@@ -78,16 +78,16 @@ public class Contratto {
 					content.comboBoxTipologia.setSelectedIndex(0);
 					content.txtVeicolo.setText("");
 					content.txtCliente.setText("");
-					content.frmtdtxtfldInizio.setText("aaaa-mm-gg");
-					content.frmtdtxtfldFine.setText("aaaa-mm-gg");
+					content.frmtdtxtfldInizio.setText("Seleziona una data");
+					content.frmtdtxtfldFine.setText("Seleziona una data");
 					content.txtCosto.setText("");
 					content.txtAcconto.setText("");
 					content.txtCognome.setText("");
 					content.txtNome.setText("");
 					content.txtPatente.setText("");
-					content.frmtdtxtfldValida.setText("aaaa-mm-gg");
+					content.frmtdtxtfldValida.setText("Seleziona una data");
 					content.txtRilasciatada.setText("");
-					content.frmtdtxtfldRilasciatail.setText("aaaa-mm-gg");
+					content.frmtdtxtfldRilasciatail.setText("Seleziona una data");
 				} else{
 					JOptionPane.showMessageDialog(null, "Errore! Il veicolo inserito non è disponibile per il noleggio!",
 						"Errore ",

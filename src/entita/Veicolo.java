@@ -34,7 +34,6 @@ public class Veicolo {
 	private static final String TGPATTERN2 = "[a-zA-Z]{1}\\d\\d\\d[a-zA-Z]{2}"; //Pattern Targa Scooter
 	private static final String TGPATTERN3 = "[a-zA-Z]{2}\\d\\d\\d\\d\\d"; //Pattern Targa Motocicletta e Quad-Bike
 	private static final String TGPATTERN4 = "\\d[a-zA-Z]{2}\\d\\d\\d"; //Pattern Targa Mezzo Acquatico
-	private static final String DATEPATTERN = "^\\d{4}-\\d{2}-\\d{2}$";
 	
 	/* Costruttore Veicolo */
 	
@@ -296,42 +295,44 @@ public class Veicolo {
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Dimensione deve essere composto da meno di 20 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Imma.matches(DATEPATTERN) && !Imma.equals("") && !Imma.equals("aaaa-mm-gg")){
+		}else if (Imma.equals("Seleziona una data")){
 			content.frmtdtxtfldImma.setText("");
 			content.frmtdtxtfldImma.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La data di immatricolazione inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Bollo.matches(DATEPATTERN) && !Bollo.equals("") && !Bollo.equals("aaaa-mm-gg")){
+		}else if (Bollo.equals("Seleziona una data") ){
 			content.frmtdtxtfldBollo.setText("");
 			content.frmtdtxtfldBollo.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La data di scadenza bollo inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Tagliando.matches(DATEPATTERN) && !Tagliando.equals("") && !Tagliando.equals("aaaa-mm-gg")){
+		}else if (Tagliando.equals("Seleziona una data")){
 			content.frmtdtxtfldTagliando.setText("");
 			content.frmtdtxtfldTagliando.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La data di scadenza tagliando inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Assicurazione.matches(DATEPATTERN) && !Assicurazione.equals("") && !Assicurazione.equals("aaaa-mm-gg")){
+		}else if (Assicurazione.equals("Seleziona una data")){
 			content.frmtdtxtfldAssicurazione.setText("");
 			content.frmtdtxtfldAssicurazione.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La data di scadenza assicurazione inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Ormeggio.matches(DATEPATTERN) && !Ormeggio.equals("") && !Ormeggio.equals("aaaa-mm-gg")){
+		}else if (Ormeggio.equals("Seleziona una data") && ((content.comboBoxTipologia.getSelectedIndex()== 7)|| 
+				((content.comboBoxTipologia.getSelectedIndex()== 10) || (content.comboBoxTipologia.getSelectedIndex()== 13)))){
 			content.frmtdtxtfldOrmeggio.setText("");
 			content.frmtdtxtfldOrmeggio.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La data di scadenza ormeggio inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Alaggio.matches(DATEPATTERN) && !Alaggio.equals("") && !Alaggio.equals("aaaa-mm-gg")){
+		}else if (Alaggio.equals("Seleziona una data") && ((content.comboBoxTipologia.getSelectedIndex()== 7)|| 
+				((content.comboBoxTipologia.getSelectedIndex()== 10) || (content.comboBoxTipologia.getSelectedIndex()== 13)))){
 			content.frmtdtxtfldAlaggio.setText("");
 			content.frmtdtxtfldAlaggio.requestFocus();
 			check=false;
@@ -347,12 +348,12 @@ public class Veicolo {
 		}
 		if (check==false) test=check; 
 			else {
-				if(Imma.equals("") || Imma.equals("aaaa-mm-gg")) Imma="DEFAULT"; else Imma="'"+Imma+"'";
-				if(Bollo.equals("") || Bollo.equals("aaaa-mm-gg")) Bollo="DEFAULT"; else Bollo="'"+Bollo+"'";;
-				if(Tagliando.equals("") || Tagliando.equals("aaaa-mm-gg")) Tagliando="DEFAULT"; else Tagliando="'"+Tagliando+"'";
-				if(Assicurazione.equals("") || Assicurazione.equals("aaaa-mm-gg")) Assicurazione="DEFAULT"; else Assicurazione="'"+Assicurazione+"'";
-				if(Ormeggio.equals("") || Ormeggio.equals("aaaa-mm-gg")) Ormeggio="DEFAULT"; else Ormeggio="'"+Ormeggio+"'";
-				if(Alaggio.equals("") || Alaggio.equals("aaaa-mm-gg")) Alaggio="DEFAULT"; else Alaggio="'"+Alaggio+"'";
+				if(Imma.equals("") || Imma.equals("Seleziona una data")) Imma="DEFAULT"; else Imma="'"+Imma+"'";
+				if(Bollo.equals("") || Bollo.equals("Seleziona una data")) Bollo="DEFAULT"; else Bollo="'"+Bollo+"'";;
+				if(Tagliando.equals("") || Tagliando.equals("Seleziona una data")) Tagliando="DEFAULT"; else Tagliando="'"+Tagliando+"'";
+				if(Assicurazione.equals("") || Assicurazione.equals("Seleziona una data")) Assicurazione="DEFAULT"; else Assicurazione="'"+Assicurazione+"'";
+				if(Ormeggio.equals("") || Ormeggio.equals("Seleziona una data")) Ormeggio="DEFAULT"; else Ormeggio="'"+Ormeggio+"'";
+				if(Alaggio.equals("") || Alaggio.equals("Seleziona una data")) Alaggio="DEFAULT"; else Alaggio="'"+Alaggio+"'";
 				if (!Lungo.equals("")) Lungo=Lungo.substring(11);
 				test=true;}
 		return test;
