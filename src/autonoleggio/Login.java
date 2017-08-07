@@ -28,7 +28,9 @@ import java.awt.event.KeyEvent;
 public class Login extends JFrame implements ActionListener, Runnable{
 
 	private static final long serialVersionUID = 1L; 
+	
 	private DBConnect log;
+	
 	private JPanel contentPane;
 	private JPasswordField txtPassword;
 	private JTextField txtUsername;

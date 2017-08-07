@@ -498,7 +498,7 @@ public class ModuloCliente extends JPanel implements ActionListener{
 			CL.elimina(this);
 		}
 		else if(btnCerca == e.getSource()){
-			CL.setIDcerca(this);
+			CL.setIDCerca(this);
 			CL.cerca(this);
 			}
 		else if(btnModificaC == e.getSource()){
