@@ -3,8 +3,7 @@ package gui.moduli;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+
 import java.sql.SQLException;
 
 import java.text.DateFormat;
@@ -13,9 +12,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -33,15 +33,12 @@ import db.DBConnect;
 import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
-public class ModuloExtra extends JPanel implements ActionListener, FocusListener{
+public class ModuloExtra extends JPanel implements ActionListener{
 
 	private static final long serialVersionUID = 1L; 
 	
 	private JButton btnProfitto;
 	private JButton btnProfittoA;
-	private JFormattedTextField frmtdtxtfldMese;
-	private JFormattedTextField frmtdtxtfldAnno;
-	
 	private JTable tblAlaggio;
 	private JTable tblAssicurazione;
 	private JTable tblBollo;
@@ -55,9 +52,9 @@ public class ModuloExtra extends JPanel implements ActionListener, FocusListener
 	private JScrollPane scrollBollo = new JScrollPane(tblBollo);
 	private JScrollPane scrollOrmeggio = new JScrollPane(tblOrmeggio);
 	private JScrollPane scrollTagliando = new JScrollPane(tblTagliando);
-	
-	private static final String MONTHPATTERN = "^\\d{4}-\\d{2}$";
-	private static final String YEARPATTERN = "^\\d{4}$";
+	private JComboBox <String> comboBoxAnnuale;
+	private JComboBox <String> comboBoxMeseMensile;
+	private JComboBox <String> comboBoxAnnoMensile;
 	
 	private DBConnect Extra = new DBConnect();
 	private DBConnect Profitto = new DBConnect();
@@ -156,64 +153,66 @@ public class ModuloExtra extends JPanel implements ActionListener, FocusListener
 			lblMensile.setHorizontalAlignment(SwingConstants.CENTER);
 			lblMensile.setFont(new Font("Arial", Font.BOLD, 13));
 			
-			JLabel lblMese = new JLabel("Seleziona Anno-Mese");
+			JLabel lblMese = new JLabel("Seleziona Mese-Anno");
 			lblMese.setHorizontalAlignment(SwingConstants.CENTER);
 			lblMese.setFont(new Font("Arial", Font.BOLD, 12));
 			
 			btnProfitto = new JButton("Calcola Profitto");
 			btnProfitto.addActionListener(this);	/* Action Listener per il bottone Profitto.*/
-			btnProfitto.addFocusListener(this);
-			
+						
 			lblProfitto = new JLabel("");
 			lblProfitto.setFont(new Font("Arial", Font.BOLD, 12));
 			lblProfitto.setHorizontalAlignment(SwingConstants.CENTER);
 			
 			DateFormat dateformat = new SimpleDateFormat("yyyy-MM");
 			dateformat.setLenient(false);
-			
-			frmtdtxtfldMese = new JFormattedTextField(dateformat);
-			frmtdtxtfldMese.setFont(new Font("Arial", Font.PLAIN, 12));
-			frmtdtxtfldMese.setColumns(7);
-			frmtdtxtfldMese.setText("aaaa-mm");
-			frmtdtxtfldMese.addFocusListener(this);
-			
+					
 			/* Crea il Layout per il profitto mensile. */
+			
+			comboBoxMeseMensile = new JComboBox <>();
+			comboBoxMeseMensile.setModel(new DefaultComboBoxModel<>(new String[] {"", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
+			
+			comboBoxAnnoMensile = new JComboBox <> ();
+			comboBoxAnnoMensile.setModel(new DefaultComboBoxModel<>(new String[] {"", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"}));
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
-					gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(114)
-									.addComponent(lblMensile, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(120)
-									.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)))
-							.addContainerGap(121, Short.MAX_VALUE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(34)
-							.addComponent(lblMese, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
-							.addGap(42)
-							.addComponent(frmtdtxtfldMese, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createSequentialGroup()
+						.addGap(34)
+						.addComponent(lblMese, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+						.addGap(40)
+						.addComponent(comboBoxMeseMensile, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(comboBoxAnnoMensile, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+						.addComponent(btnProfitto)
+						.addGap(78))
+					.addGroup(gl_contentPane.createSequentialGroup()
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGap(114)
+								.addComponent(lblMensile, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGap(120)
+								.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)))
+						.addContainerGap(239, Short.MAX_VALUE))
+			);
+			gl_contentPane.setVerticalGroup(
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createSequentialGroup()
+						.addGap(26)
+						.addComponent(lblMensile, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+						.addGap(18)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblMese, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+							.addComponent(comboBoxMeseMensile, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnProfitto)
-							.addGap(46))
-				);
-				gl_contentPane.setVerticalGroup(
-					gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(26)
-							.addComponent(lblMensile, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldMese, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblMese, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnProfitto))
-							.addGap(30)
-							.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(162, Short.MAX_VALUE))
-				);
+							.addComponent(comboBoxAnnoMensile, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(30)
+						.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(560, Short.MAX_VALUE))
+			);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		}
@@ -231,22 +230,18 @@ public class ModuloExtra extends JPanel implements ActionListener, FocusListener
 			
 			btnProfittoA = new JButton("Calcola Profitto");
 			btnProfittoA.addActionListener(this);	/* Action Listener per il bottone Profitto Annuale.*/
-			btnProfittoA.addFocusListener(this);
-			
+						
 			lblProfitto = new JLabel("");
 			lblProfitto.setFont(new Font("Arial", Font.BOLD, 12));
 			lblProfitto.setHorizontalAlignment(SwingConstants.CENTER);
 			
 			DateFormat dateformat = new SimpleDateFormat("yyyy");
 			dateformat.setLenient(false);
-			
-			frmtdtxtfldAnno = new JFormattedTextField(dateformat);
-			frmtdtxtfldAnno.setFont(new Font("Arial", Font.PLAIN, 12));
-			frmtdtxtfldAnno.setColumns(4);
-			frmtdtxtfldAnno.setText("aaaa");
-			frmtdtxtfldAnno.addFocusListener(this);
-			
+				
 			/* Crea il Layout per il profitto annuale. */
+			
+			comboBoxAnnuale = new JComboBox <>();
+			comboBoxAnnuale.setModel(new DefaultComboBoxModel<>(new String[] {"", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"}));
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
@@ -258,16 +253,15 @@ public class ModuloExtra extends JPanel implements ActionListener, FocusListener
 									.addComponent(lblAnnuale, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGap(120)
-									.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)))
-							.addContainerGap(121, Short.MAX_VALUE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(34)
-							.addComponent(lblAnno, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
-							.addGap(42)
-							.addComponent(frmtdtxtfldAnno, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-							.addComponent(btnProfittoA)
-							.addGap(46))
+									.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(34)
+									.addComponent(lblAnno, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+									.addGap(29)
+									.addComponent(comboBoxAnnuale, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+									.addGap(80)
+									.addComponent(btnProfittoA)))
+							.addContainerGap(136, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -276,12 +270,12 @@ public class ModuloExtra extends JPanel implements ActionListener, FocusListener
 							.addComponent(lblAnnuale, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldAnno, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblAnno, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBoxAnnuale, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnProfittoA))
 							.addGap(30)
 							.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(162, Short.MAX_VALUE))
+							.addContainerGap(560, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
@@ -519,23 +513,19 @@ public class ModuloExtra extends JPanel implements ActionListener, FocusListener
 		if (btnProfitto == e.getSource()) {
 			try {
 				lblProfitto.setText("");
-				String mese = frmtdtxtfldMese.getText();
-				if (mese.matches(MONTHPATTERN)) {
+				String mese=comboBoxAnnoMensile.getSelectedItem()+"-"+comboBoxMeseMensile.getSelectedItem();
 					Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +mese+"-%'","select");
 					if (Profitto.rs.next()) {
-						if (Profitto.rs.getString(1) == null) {
+						if(comboBoxAnnoMensile.getSelectedIndex() == 0 || comboBoxMeseMensile.getSelectedIndex() == 0) {
+							JOptionPane.showMessageDialog(null, "Errore! La data inserita non è valida!",
+								    "Errore ",
+								    JOptionPane.ERROR_MESSAGE);
+						}else if (Profitto.rs.getString(1) == null) {
 							lblProfitto.setText("Profitto del " + mese + ": 0 €");
 						}else {
 						lblProfitto.setText("Profitto del " + mese + ":  " + Profitto.rs.getString(1) + " €");
 						}
-					}else {
-					frmtdtxtfldMese.requestFocus();
-					frmtdtxtfldMese.setText("aaaa-mm");
-					JOptionPane.showMessageDialog(null, "Errore! La data inserita non è valida!",
-					    "Errore ",
-					    JOptionPane.ERROR_MESSAGE);
 					}
-				}
 			}catch (Exception ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore! Profitto non calcolato!",
@@ -545,24 +535,20 @@ public class ModuloExtra extends JPanel implements ActionListener, FocusListener
 		}else if (btnProfittoA == e.getSource()) {
 			try {
 				lblProfitto.setText("");
-				String anno = frmtdtxtfldAnno.getText().trim();
-				if (anno.matches(YEARPATTERN)) {
-					Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +anno+"-%-%'","select");
+				String anno=comboBoxAnnuale.getSelectedItem().toString();
+				Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +anno+"-%-%'","select");
 					if (Profitto.rs.next()) {
-						if (Profitto.rs.getString(1) == null) {
+						if(comboBoxAnnuale.getSelectedIndex() == 0) {
+							JOptionPane.showMessageDialog(null, "Errore! La data inserita non è valida!",
+								    "Errore ",
+								    JOptionPane.ERROR_MESSAGE);
+						}else if (Profitto.rs.getString(1) == null) {
 							lblProfitto.setText("Profitto del " + anno + ": 0 €");
 						}else {
 						lblProfitto.setText("Profitto del " + anno + ":  " + Profitto.rs.getString(1) + " €");
 						}
-					}else {
-						frmtdtxtfldAnno.requestFocus();
-						frmtdtxtfldAnno.setText("aaaa");
-						JOptionPane.showMessageDialog(null, "Errore! La data inserita non valida!",
-							"Errore ",
-							JOptionPane.ERROR_MESSAGE);
 					}
-				}
-			}catch (Exception ex) {
+				}catch (Exception ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore! Profitto non calcolato!",
 					    "Errore ",
@@ -571,23 +557,4 @@ public class ModuloExtra extends JPanel implements ActionListener, FocusListener
 		}
 	}
 	
-	public void focusGained(FocusEvent e) {
-		if (frmtdtxtfldMese == e.getSource() && frmtdtxtfldMese.getText().equals("aaaa-mm")) { 
-			frmtdtxtfldMese.setText("");
-		}
-		else if (frmtdtxtfldAnno == e.getSource() && frmtdtxtfldAnno.getText().equals("aaaa")) {
-			frmtdtxtfldAnno.setText("");
-		}
-		
-		if (!(frmtdtxtfldMese == e.getSource()) && frmtdtxtfldMese.getText().equals("")) { 
-			frmtdtxtfldMese.setText("aaaa-mm");
-		}
-		else if (!(frmtdtxtfldAnno == e.getSource()) && frmtdtxtfldAnno.getText().equals("")) {
-			frmtdtxtfldAnno.setText("aaaa");
-		}
-	}
-
-	public void focusLost(FocusEvent arg0) {
-		
-	}
 }
