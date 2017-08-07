@@ -1,4 +1,4 @@
-package gui.moduli;
+package gui.moduli.moduloHome;
 
 import java.sql.SQLException;
 import java.text.DateFormat;

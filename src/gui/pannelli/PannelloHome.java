@@ -14,9 +14,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import autonoleggio.Login;
 import gui.finestre.Finestra;
-import gui.moduli.ModuloCalendario;
-import gui.moduli.ModuloMezziRitorno;
-import gui.moduli.ModuloMezziNoleggiabili;
+import gui.moduli.moduloHome.ModuloCalendario;
+import gui.moduli.moduloHome.ModuloMezziNoleggiabili;
+import gui.moduli.moduloHome.ModuloMezziRitorno;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
