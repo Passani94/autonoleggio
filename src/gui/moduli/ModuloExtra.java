@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -55,6 +56,8 @@ public class ModuloExtra extends JPanel implements ActionListener{
 	private JComboBox <String> comboBoxAnnuale;
 	private JComboBox <String> comboBoxMeseMensile;
 	private JComboBox <String> comboBoxAnnoMensile;
+	private int annoCorrente;
+	
 	
 	private DBConnect Extra = new DBConnect();
 	private DBConnect Profitto = new DBConnect();
@@ -173,7 +176,13 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			comboBoxMeseMensile.setModel(new DefaultComboBoxModel<>(new String[] {"", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
 			
 			comboBoxAnnoMensile = new JComboBox <> ();
-			comboBoxAnnoMensile.setModel(new DefaultComboBoxModel<>(new String[] {"", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"}));
+			GregorianCalendar cal=new GregorianCalendar();
+			annoCorrente=cal.get(GregorianCalendar.YEAR); 
+			
+			comboBoxAnnoMensile.addItem("");
+			for (int i=annoCorrente; i>=annoCorrente-10; i--){				
+				comboBoxAnnoMensile.addItem(String.valueOf(i));
+		        }
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
@@ -238,10 +247,17 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			DateFormat dateformat = new SimpleDateFormat("yyyy");
 			dateformat.setLenient(false);
 				
-			/* Crea il Layout per il profitto annuale. */
+			GregorianCalendar cal=new GregorianCalendar();
+			annoCorrente=cal.get(GregorianCalendar.YEAR); 
 			
+					
 			comboBoxAnnuale = new JComboBox <>();
-			comboBoxAnnuale.setModel(new DefaultComboBoxModel<>(new String[] {"", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"}));
+			comboBoxAnnuale.addItem("");
+			for (int i=annoCorrente; i>=annoCorrente-10; i--){
+				comboBoxAnnuale.addItem(String.valueOf(i));
+		        }
+			
+			/* Crea il Layout per il profitto annuale. */
 			
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
