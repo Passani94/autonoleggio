@@ -20,11 +20,11 @@ public class Veicolo {
 	private String tipologia;
 	private String marca;
 	private String nome;
-	private String disp;
+	private String disponibilita;
 	private String alimentazione;
 	private String km;
 	private String dimensioni;
-	private String imma;
+	private String immatricolazione;
 	private String bollo;
 	private String tagliando;
 	private String assicurazione;
@@ -62,12 +62,12 @@ public class Veicolo {
 					content.txtTarga.requestFocus();
 				} /* Aggiunge il nuovo veicolo. Inoltre resetta i campi della form per un nuovo inserimento. */
 				else {	
-					disp = "SI";
+					disponibilita = "SI";
 					if (dimensioni.equals("lun/lar/alt")) {
 						dimensioni = "";						
 					}
-					String valori="('"+targa+"','"+tipologia+"','"+marca+"','"+nome+"','"+disp+"','"+alimentazione+"',"+km+",'"+dimensioni+"',"
-							+ ""+imma+","+bollo+","+tagliando+","+assicurazione+","+ormeggio+","+alaggio+",'"+breve+"','"+lungo+"')";
+					String valori="('"+targa+"','"+tipologia+"','"+marca+"','"+nome+"','"+disponibilita+"','"+alimentazione+"',"+km+",'"+dimensioni+"',"
+							+ ""+immatricolazione+","+bollo+","+tagliando+","+assicurazione+","+ormeggio+","+alaggio+",'"+breve+"','"+lungo+"')";
 					veicolo.exequery("INSERT INTO veicolo VALUES "+valori,"insert");
 					JOptionPane.showMessageDialog(null , "Nuovo Veicolo Aggiunto!");
 					content.txtTarga.setText("");
@@ -215,8 +215,8 @@ public class Veicolo {
 	public void modifica(ModuloFlotta content){
 		if (check(content,"modifica")){
 			try{
-				String valori = "Tipologia='"+tipologia+"',Marca='"+marca+"',Nome='"+nome+"',Disponibilita='"+disp+"',Marca='"+marca+"',"
-						+ "Alimentazione='"+alimentazione+"',Km_Effettuati="+km+",Dimensioni='"+dimensioni+"',Data_Immatricolazione="+imma+","
+				String valori = "Tipologia='"+tipologia+"',Marca='"+marca+"',Nome='"+nome+"',Disponibilita='"+disponibilita+"',Marca='"+marca+"',"
+						+ "Alimentazione='"+alimentazione+"',Km_Effettuati="+km+",Dimensioni='"+dimensioni+"',Data_Immatricolazione="+immatricolazione+","
 								+ "Data_Scadenza_Bollo="+bollo+",Data_Scadenza_Tagliando="+tagliando+",Data_Scadenza_Assicurazione="+assicurazione+","
 										+ "Data_Scadenza_Ormeggio="+ormeggio+",Data_Scadenza_Costo_Alaggio="+alaggio;
 				veicolo.exequery("UPDATE veicolo SET "+valori+" WHERE Targa='"+targa+"'","update");
@@ -304,7 +304,7 @@ public class Veicolo {
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Dimensione deve essere composto da meno di 20 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (imma.equals("Seleziona una data")){
+		}else if (immatricolazione.equals("Seleziona una data")){
 			content.frmtdtxtfldImma.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La data di immatricolazione inserita non è valida!",
@@ -351,7 +351,7 @@ public class Veicolo {
 		}
 		if (check==false) test=check; 
 			else {
-				if(imma.equals("Seleziona una data")) imma="DEFAULT"; else imma="'"+imma+"'";
+				if(immatricolazione.equals("Seleziona una data")) immatricolazione="DEFAULT"; else immatricolazione="'"+immatricolazione+"'";
 				if(bollo.equals("Seleziona una data")) bollo="DEFAULT"; else bollo="'"+bollo+"'";;
 				if(tagliando.equals("Seleziona una data")) tagliando="DEFAULT"; else tagliando="'"+tagliando+"'";
 				if(assicurazione.equals("Seleziona una data")) assicurazione="DEFAULT"; else assicurazione="'"+assicurazione+"'";
@@ -412,7 +412,7 @@ public class Veicolo {
 	}
 	
 	
-/***** METODI USATI DALLA GUI PER LA GESTIONE DEI VEICOLI (--> vedi classe ModuloFl <--) *****/
+/* METODI USATI DALLA GUI PER LA GESTIONE DEI VEICOLI (--> vedi classe ModuloFl <--) */
 
 /* Metodo. Assegna i valori al veicolo. */
 
@@ -424,7 +424,7 @@ public void setValori(ModuloFlotta content, String tipo){
 	alimentazione = content.comboBoxAlimentazione.getSelectedItem().toString();
 	km = content.txtKm.getText().trim();
 	dimensioni = content.txtDimensioni.getText().trim();
-	imma = content.frmtdtxtfldImma.getText().trim();
+	immatricolazione = content.frmtdtxtfldImma.getText().trim();
 	bollo = content.frmtdtxtfldBollo.getText().trim();
 	tagliando = content.frmtdtxtfldTagliando.getText().trim();
 	assicurazione = content.frmtdtxtfldAssicurazione.getText().trim();
@@ -434,7 +434,7 @@ public void setValori(ModuloFlotta content, String tipo){
 		breve = content.comboBoxBreveTermine.getSelectedItem().toString();
 		if (content.comboBoxLungoTermine.getSelectedIndex() != 0) lungo = content.comboBoxLungoTermine.getSelectedItem().toString();
 	}else {
-		disp = content.comboBoxDisponibilita.getSelectedItem().toString();
+		disponibilita = content.comboBoxDisponibilita.getSelectedItem().toString();
 	}
 }
 

@@ -3,6 +3,8 @@ package entita;
 import javax.swing.JOptionPane;
 
 import db.DBConnect;
+import java.sql.SQLException;
+
 import gui.moduli.ModuloOperatore;
 
 /* Classe per l'entità Operatore */
@@ -42,8 +44,9 @@ public class Operatore {
 					content.txtPassword.setText("");
 					content.txtUsername.requestFocus();
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
+				operatore.con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore! Operatore non aggiunto!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
@@ -78,8 +81,9 @@ public class Operatore {
 							content.txtUsername.requestFocus();
 						}
 					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
+					operatore.con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Errore! Operatore non eliminato!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
@@ -123,7 +127,7 @@ public class Operatore {
 		return test;
 	}
 	
-	/***** METODI USATI DALLA GUI PER LA GESTIONE DEGLI OPERATORI (--> vedi classe ModuloOp <--) *****/
+	/* METODI USATI DALLA GUI PER LA GESTIONE DEGLI OPERATORI (--> vedi classe ModuloOp <--) */
 	
 	/* Metodo. Assegna i valori all'operatore. */
 	

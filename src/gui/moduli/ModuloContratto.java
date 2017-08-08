@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
@@ -44,7 +42,7 @@ import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
 
-public class ModuloContratto extends JPanel implements ActionListener, FocusListener {
+public class ModuloContratto extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -100,21 +98,18 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			comboBoxTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Breve", "Lungo"}));
 			comboBoxTipologia.setToolTipText("(Breve/Lungo)");
-			comboBoxTipologia.addFocusListener(this);
 						
 			JLabel lblVeicolo = new JLabel("Veicolo *");
 			lblVeicolo.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			txtVeicolo = new JTextField();
 			txtVeicolo.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtVeicolo.addFocusListener(this);
 			
 			JLabel lblCliente = new JLabel("Cliente *");
 			lblCliente.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtCliente = new JTextField();
 			txtCliente.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtCliente.addFocusListener(this);
 			
 			DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 			
@@ -123,7 +118,6 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			
 			frmtdtxtfldInizio = new JFormattedTextField(dateformat);
 			frmtdtxtfldInizio.setText("Seleziona una data");
-			frmtdtxtfldInizio.addFocusListener(this);
 			frmtdtxtfldInizio.setEditable(false);
 			
 			LookAndFeel previus=UIManager.getLookAndFeel();
@@ -155,7 +149,6 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			
 			frmtdtxtfldFine = new JFormattedTextField(dateformat);
 			frmtdtxtfldFine.setText("Seleziona una data");
-			frmtdtxtfldFine.addFocusListener(this);
 			frmtdtxtfldFine.setEditable(false);
 			
 			JDateChooser dateChooserFine = new JDateChooser();
@@ -187,42 +180,36 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 		
 			txtCosto = new JTextField();
 			txtCosto.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtCosto.addFocusListener(this);
 		
 			JLabel lblAcconto = new JLabel("Acconto");
 			lblAcconto.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtAcconto = new JTextField();
 			txtAcconto.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtAcconto.addFocusListener(this);
 			
 			JLabel lblCognome = new JLabel("Cognome *");
 			lblCognome.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			txtCognome = new JTextField();
 			txtCognome.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtCognome.addFocusListener(this);
 		
 			JLabel lblNome = new JLabel("Nome *");
 			lblNome.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtNome = new JTextField();
 			txtNome.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtNome.addFocusListener(this);
 			
 			JLabel lblPatente = new JLabel("Numero Patente *");
 			lblPatente.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			txtPatente = new JTextField();
 			txtPatente.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtPatente.addFocusListener(this);
 			
 			JLabel lblValida = new JLabel("Valida fino a *");
 			lblValida.setFont(new Font("Arial", Font.BOLD, 14));
 			
 			frmtdtxtfldValida = new JFormattedTextField(dateformat);
 			frmtdtxtfldValida.setText("Seleziona una data");
-			frmtdtxtfldValida.addFocusListener(this);
 			frmtdtxtfldValida.setEditable(false);
 			
 			JDateChooser dateChooserValida = new JDateChooser();
@@ -253,14 +240,12 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 		
 			txtRilasciatada = new JTextField();
 			txtRilasciatada.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtRilasciatada.addFocusListener(this);
 			
 			JLabel lblRilasciataIl = new JLabel("Rilasciata il *");
 			lblRilasciataIl.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			frmtdtxtfldRilasciatail = new JFormattedTextField(dateformat);
 			frmtdtxtfldRilasciatail.setText("Seleziona una data");
-			frmtdtxtfldRilasciatail.addFocusListener(this);
 			frmtdtxtfldRilasciatail.setEditable(false);
 			
 			JDateChooser dateChooserRilasciataIl = new JDateChooser();
@@ -293,7 +278,6 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			btnAggiungi = new JButton("Aggiungi");
 			btnAggiungi.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnAggiungi.addActionListener(this);
-			btnAggiungi.addFocusListener(this);
 			
 			/* Crea il Layout per un nuovo Contratto. */
 				
@@ -492,7 +476,6 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 				comboBoxTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
 				comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Breve", "Lungo"}));
 				comboBoxTipologia.setToolTipText("(Breve/Lungo)");
-				comboBoxTipologia.addFocusListener(this);
 				if( Preventivo.getGiorniNoleggio() <=181 ) {
 					comboBoxTipologia.setSelectedIndex(1);
 				}else {
@@ -521,7 +504,6 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 				
 				frmtdtxtfldInizio = new JFormattedTextField(dateformat);
 				frmtdtxtfldInizio.setText(Preventivo.getDataInizio());
-				frmtdtxtfldInizio.addFocusListener(this);
 				frmtdtxtfldInizio.setEditable(false);
 				
 				LookAndFeel previus=UIManager.getLookAndFeel();
@@ -553,7 +535,6 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 				
 				frmtdtxtfldFine = new JFormattedTextField(dateformat);
 				frmtdtxtfldFine.setText(Preventivo.getDataFine());
-				frmtdtxtfldFine.addFocusListener(this);
 				frmtdtxtfldFine.setEditable(false);
 				
 				JDateChooser dateChooserFine=null;
@@ -618,7 +599,6 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 				
 				frmtdtxtfldValida = new JFormattedTextField(dateformat);
 				frmtdtxtfldValida.setText("Seleziona una data");
-				frmtdtxtfldValida.addFocusListener(this);
 				frmtdtxtfldValida.setEditable(false);
 				
 				JDateChooser dateChooserValida=null;
@@ -655,7 +635,6 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			
 				frmtdtxtfldRilasciatail = new JFormattedTextField(dateformat);
 				frmtdtxtfldRilasciatail.setText("Seleziona una data");
-				frmtdtxtfldRilasciatail.addFocusListener(this);
 				frmtdtxtfldRilasciatail.setEditable(false);
 				
 				JDateChooser dateChooserRilasciataIl=null;
@@ -829,7 +808,6 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			txtVeicolo = new JTextField();
 			txtVeicolo.setFont(new Font("Arial", Font.PLAIN, 12));
 			txtVeicolo.setColumns(10);
-			txtVeicolo.addFocusListener(this);
 		
 			DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -838,7 +816,6 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 		
 			frmtdtxtfldInizio = new JFormattedTextField(dateformat);
 			frmtdtxtfldInizio.setText("Seleziona una data");
-			frmtdtxtfldInizio.addFocusListener(this);
 			frmtdtxtfldInizio.setEditable(false);
 			
 			JDateChooser dateChooserInizio=null;
@@ -872,7 +849,6 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 		
 			frmtdtxtfldFine = new JFormattedTextField(dateformat);
 			frmtdtxtfldFine.setText("Seleziona una data");
-			frmtdtxtfldFine.addFocusListener(this);
 			frmtdtxtfldFine.setEditable(false);
 			
 			JDateChooser dateChooserFine=null;
@@ -906,12 +882,10 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			btnCalcola = new JButton("Calcola Preventivo");
 			btnCalcola.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnCalcola.addActionListener(this);
-			btnCalcola.addFocusListener(this);
 		
 			btnPassaAContratto = new JButton("Passa a contratto");
 			btnPassaAContratto.setFont(new Font("Arial", Font.PLAIN, 12));
 			btnPassaAContratto.addActionListener(this);
-			btnPassaAContratto.addFocusListener(this);
 		
 			/* Crea il Layout per calcolare un Preventivo. */
 		
@@ -1467,41 +1441,5 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 				contratto.cerca(this);
 			}
 		}
-	}
-	
-	/* Definisce le azioni da eseguire quando si ha il focus sui campi da inserire. */
-	
-	public void focusGained(FocusEvent e) {
-		if (frmtdtxtfldInizio == e.getSource() && frmtdtxtfldInizio.getText().equals("Seleziona una data")) { 
-			frmtdtxtfldInizio.setText("");
-		}
-		else if (frmtdtxtfldFine == e.getSource() && frmtdtxtfldFine.getText().equals("Seleziona una data")) {
-			frmtdtxtfldFine.setText("");
-		}
-		else if (frmtdtxtfldValida == e.getSource() && frmtdtxtfldValida.getText().equals("Seleziona una data")) {
-			frmtdtxtfldValida.setText("");
-		}
-		else if (frmtdtxtfldRilasciatail == e.getSource() && frmtdtxtfldRilasciatail.getText().equals("Seleziona una data")) {
-			frmtdtxtfldRilasciatail.setText("");
-		}
-		
-		if (!(frmtdtxtfldInizio == e.getSource()) && frmtdtxtfldInizio.getText().equals("")) { 
-			frmtdtxtfldInizio.setText("Seleziona una data");
-		}
-		else if (!(frmtdtxtfldFine == e.getSource()) && frmtdtxtfldFine.getText().equals("")) {
-			frmtdtxtfldFine.setText("Seleziona una data");
-		}
-		else if (!(frmtdtxtfldValida == e.getSource()) && frmtdtxtfldValida.getText().equals("")) {
-			frmtdtxtfldValida.setText("Seleziona una data");
-		}
-		else if (!(frmtdtxtfldRilasciatail == e.getSource()) && frmtdtxtfldRilasciatail.getText().equals("")) {
-			frmtdtxtfldRilasciatail.setText("Seleziona una data");
-		}
-    }
-	
-	/*Definisce le azioni da eseguire quando si perde il focus sui campi per inserire le date.*/
-	
-	public void focusLost(FocusEvent e) {
-		
 	}
 }

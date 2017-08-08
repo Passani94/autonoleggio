@@ -35,8 +35,9 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 	private JButton btnAggiungi;
 	private JButton btnElimina;
 	private JScrollPane scroll = new JScrollPane(tblOperatori);
-	private Operatore OP = new Operatore();
-	private DBConnect Operatori = new DBConnect();
+	
+	private Operatore operatore;
+	private DBConnect elencoOperatori;
 	
 	/* Costruttore ModuloOp */
 	
@@ -46,22 +47,29 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 
 	public void set(String str){
 		if (str == "Elenca"){
+			elencoOperatori = new DBConnect();
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Operatori"));
 			
-			try{Operatori.exequery("SELECT * FROM operatore","select");}
+			try{
+				elencoOperatori.exequery("SELECT * FROM operatore","select");
+				
+				tblOperatori = new JTable();
+				tblOperatori.setModel(new CostruisciTabella(elencoOperatori.rs).model);
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblOperatori);
+				tca.adjustColumns();
+				
+				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scroll.setViewportView(tblOperatori);
+				
+				elencoOperatori.con.close();
+			}
 			catch (SQLException e) {  
 				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco degli operatori!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);}
 			
-			tblOperatori = new JTable();
-			tblOperatori.setModel(new CostruisciTabella(Operatori.rs).model);
-			TableColumnAdjuster tca = new TableColumnAdjuster(tblOperatori);
-			tca.adjustColumns();
 			
-			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scroll.setViewportView(tblOperatori);
 			
 			/* Crea il Layout per l'elenco degli Operatori. */
 			
@@ -191,12 +199,14 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		if (btnAggiungi == e.getSource()){
-			OP.setValori(this);
-			OP.aggiungi(this);
+			operatore = new Operatore();
+			operatore.setValori(this);
+			operatore.aggiungi(this);
 		}
 		else if(btnElimina == e.getSource()){
-			OP.setUsername(this);
-			OP.elimina(this);
+			operatore = new Operatore();
+			operatore.setUsername(this);
+			operatore.elimina(this);
 		}
 	}
 }

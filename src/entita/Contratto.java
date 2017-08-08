@@ -498,7 +498,7 @@ public class Contratto {
 	}
 	
 	
-	/***** METODI USATI DALLA GUI PER LA GESTIONE DEI CONTRATTI (--> vedi classe ModuloCt <--) *****/
+	/* METODI USATI DALLA GUI PER LA GESTIONE DEI CONTRATTI (--> vedi classe ModuloCt <--) */
 	
 	/* Metodo. Assegna i valori al contratto. */
 	

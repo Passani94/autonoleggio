@@ -59,8 +59,8 @@ public class ModuloExtra extends JPanel implements ActionListener{
 	private int annoCorrente;
 	
 	
-	private DBConnect Extra = new DBConnect();
-	private DBConnect Profitto = new DBConnect();
+	private DBConnect extra;
+	private DBConnect profitto;
 	
 	private String dataQuery, dataQuery2;
 	
@@ -99,34 +99,37 @@ public class ModuloExtra extends JPanel implements ActionListener{
 	
 	public void set(String str) {
 		if (str.equals("Statistica")) {
+			extra = new DBConnect();
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco veicoli più noleggiati"));
 			
 			try {
-				Extra.exequery("SELECT COUNT(*) as Numero_Noleggi, b.Targa, b.Tipologia, b.Marca, b.Nome, b.Disponibilita "
+				extra.exequery("SELECT COUNT(*) as Numero_Noleggi, b.Targa, b.Tipologia, b.Marca, b.Nome, b.Disponibilita "
 						+ "FROM noleggio a INNER JOIN veicolo b ON a.Veicolo = b.Targa GROUP BY b.Targa ORDER BY Numero_Noleggi DESC","select");
+				
+				tblVeicoli = new JTable();
+				tblVeicoli.setModel(new CostruisciTabella(extra.rs).model);
+				tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				
+				JTableHeader header= tblVeicoli.getTableHeader();
+				TableColumnModel colMod = header.getColumnModel();
+				TableColumn tabCol = colMod.getColumn(0);
+				tabCol.setHeaderValue("Noleggi");
+				
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblVeicoli);
+				tca.adjustColumns();
+				
+				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+				scroll.setViewportView(tblVeicoli);
+				
+				extra.con.close();
 			}
 			catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli più noleggiati!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 			}
-			
-			tblVeicoli = new JTable();
-			tblVeicoli.setModel(new CostruisciTabella(Extra.rs).model);
-			tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			
-			JTableHeader header= tblVeicoli.getTableHeader();
-			TableColumnModel colMod = header.getColumnModel();
-			TableColumn tabCol = colMod.getColumn(0);
-			tabCol.setHeaderValue("Noleggi");
-			
-			TableColumnAdjuster tca = new TableColumnAdjuster(tblVeicoli);
-			tca.adjustColumns();
-			
-			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			scroll.setViewportView(tblVeicoli);
 			
 			/* Crea il Layout per l'elenco dei veicoli più noleggiati. */
 			
@@ -174,7 +177,7 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			
 			comboBoxMeseMensile = new JComboBox <>();
 			comboBoxMeseMensile.setModel(new DefaultComboBoxModel<>(new String[] {"", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
-			
+			comboBoxMeseMensile.setMaximumRowCount(13);
 			comboBoxAnnoMensile = new JComboBox <> ();
 			GregorianCalendar cal=new GregorianCalendar();
 			annoCorrente=cal.get(GregorianCalendar.YEAR); 
@@ -297,6 +300,7 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			this.revalidate();
 		}
 		else if (str.equals("Scadenze")){
+			extra = new DBConnect();
 			DateFormat fmt = new SimpleDateFormat("yyyy-MM");
 			Calendar c = Calendar.getInstance();
 			dataQuery = fmt.format(c.getTime());
@@ -328,9 +332,24 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			lblAlaggio.setFont(new Font("Arial", Font.BOLD, 13));
 			
 			try{
-				Extra.exequery("SELECT Data_Scadenza_Bollo, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati  "
+				extra.exequery("SELECT Data_Scadenza_Bollo, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati  "
 					+ "FROM veicolo WHERE (Data_Scadenza_Bollo LIKE '"+dataQuery+"-%' OR Data_Scadenza_Bollo LIKE '"+dataQuery2+"-%') "
 					+ "ORDER BY Data_Scadenza_Bollo ASC","select");
+				
+				tblBollo = new JTable();
+				tblBollo.setModel(new CostruisciTabella(extra.rs).model);
+				tblBollo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				
+				JTableHeader header= tblBollo.getTableHeader();
+				TableColumnModel colMod = header.getColumnModel();
+				TableColumn tabCol = colMod.getColumn(0);
+				tabCol.setHeaderValue("Data_Scadenza");
+				
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblBollo);
+				tca.adjustColumns();
+				
+				scrollBollo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scrollBollo.setViewportView(tblBollo);
 			}
 			catch (SQLException e) {
 							JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con bollo in scadenza!",
@@ -338,25 +357,26 @@ public class ModuloExtra extends JPanel implements ActionListener{
 					JOptionPane.ERROR_MESSAGE);
 			}
 			
-			tblBollo = new JTable();
-			tblBollo.setModel(new CostruisciTabella(Extra.rs).model);
-			tblBollo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			
-			JTableHeader header= tblBollo.getTableHeader();
-			TableColumnModel colMod = header.getColumnModel();
-			TableColumn tabCol = colMod.getColumn(0);
-			tabCol.setHeaderValue("Data_Scadenza");
-			
-			TableColumnAdjuster tca = new TableColumnAdjuster(tblBollo);
-			tca.adjustColumns();
-			
-			scrollBollo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scrollBollo.setViewportView(tblBollo);
 			
 			try {
-				Extra.exequery("SELECT Data_Scadenza_Tagliando, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
+				extra.exequery("SELECT Data_Scadenza_Tagliando, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
 					+ "FROM veicolo WHERE (Data_Scadenza_Tagliando LIKE '"+dataQuery+"-%' OR Data_Scadenza_Tagliando LIKE '"+dataQuery2+"-%') "
 					+ "ORDER BY Data_Scadenza_Tagliando ASC","select");
+				
+				tblTagliando = new JTable();
+				tblTagliando.setModel(new CostruisciTabella(extra.rs).model);
+				tblTagliando.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				
+				JTableHeader header= tblTagliando.getTableHeader();
+				TableColumnModel colMod = header.getColumnModel();
+				TableColumn tabCol = colMod.getColumn(0);
+				tabCol.setHeaderValue("Data_Scadenza");
+				
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblTagliando);
+				tca.adjustColumns();
+				
+				scrollTagliando.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scrollTagliando.setViewportView(tblTagliando);
 			}
 			catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con tagliando in scadenza!",
@@ -364,51 +384,51 @@ public class ModuloExtra extends JPanel implements ActionListener{
 						JOptionPane.ERROR_MESSAGE);
 			}
 			
-			tblTagliando = new JTable();
-			tblTagliando.setModel(new CostruisciTabella(Extra.rs).model);
-			tblTagliando.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			
-			header= tblTagliando.getTableHeader();
-			colMod = header.getColumnModel();
-			tabCol = colMod.getColumn(0);
-			tabCol.setHeaderValue("Data_Scadenza");
-			
-			tca = new TableColumnAdjuster(tblTagliando);
-			tca.adjustColumns();
-			
-			scrollTagliando.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scrollTagliando.setViewportView(tblTagliando);
-			
 			try {
-				Extra.exequery("SELECT Data_Scadenza_Assicurazione, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
+				extra.exequery("SELECT Data_Scadenza_Assicurazione, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
 						+ "FROM veicolo WHERE (Data_Scadenza_Assicurazione LIKE '"+dataQuery+"-%' OR Data_Scadenza_Assicurazione LIKE '"+dataQuery2+"-%') "
 						+ "ORDER BY Data_Scadenza_Assicurazione ASC","select");
+				
+				tblAssicurazione = new JTable();
+				tblAssicurazione.setModel(new CostruisciTabella(extra.rs).model);
+				tblAssicurazione.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				
+				JTableHeader header= tblAssicurazione.getTableHeader();
+				TableColumnModel colMod = header.getColumnModel();
+				TableColumn tabCol = colMod.getColumn(0);
+				tabCol.setHeaderValue("Data_Scadenza");
+				
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblAssicurazione);
+				tca.adjustColumns();
+				
+				scrollAssicurazione.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scrollAssicurazione.setViewportView(tblAssicurazione);
 			}
 			catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con assicurazione in scadenza!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 			}
-			
-			tblAssicurazione = new JTable();
-			tblAssicurazione.setModel(new CostruisciTabella(Extra.rs).model);
-			tblAssicurazione.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			
-			header= tblAssicurazione.getTableHeader();
-			colMod = header.getColumnModel();
-			tabCol = colMod.getColumn(0);
-			tabCol.setHeaderValue("Data_Scadenza");
-			
-			tca= new TableColumnAdjuster(tblAssicurazione);
-			tca.adjustColumns();
-			
-			scrollAssicurazione.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scrollAssicurazione.setViewportView(tblAssicurazione);
-			
+		
 			try {
-				Extra.exequery("SELECT Data_Scadenza_Ormeggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
+				extra.exequery("SELECT Data_Scadenza_Ormeggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
 						+ "FROM veicolo WHERE (Data_Scadenza_Ormeggio LIKE '"+dataQuery+"-%' OR Data_Scadenza_Ormeggio LIKE '"+dataQuery2+"-%') "
 						+ "ORDER BY Data_Scadenza_Ormeggio ASC","select");
+				
+				tblOrmeggio = new JTable();
+				tblOrmeggio.setModel(new CostruisciTabella(extra.rs).model);
+				tblOrmeggio.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				
+				JTableHeader header= tblOrmeggio.getTableHeader();
+				TableColumnModel colMod = header.getColumnModel();
+				TableColumn tabCol = colMod.getColumn(0);
+				tabCol.setHeaderValue("Data_Scadenza");
+				
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblOrmeggio);
+				tca.adjustColumns();
+				
+				scrollOrmeggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scrollOrmeggio.setViewportView(tblOrmeggio);
 			}
 			catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con ormeggio in scadenza!",
@@ -416,46 +436,31 @@ public class ModuloExtra extends JPanel implements ActionListener{
 						JOptionPane.ERROR_MESSAGE);
 			}
 			
-			tblOrmeggio = new JTable();
-			tblOrmeggio.setModel(new CostruisciTabella(Extra.rs).model);
-			tblOrmeggio.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			
-			header= tblOrmeggio.getTableHeader();
-			colMod = header.getColumnModel();
-			tabCol = colMod.getColumn(0);
-			tabCol.setHeaderValue("Data_Scadenza");
-			
-			tca= new TableColumnAdjuster(tblOrmeggio);
-			tca.adjustColumns();
-			
-			scrollOrmeggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scrollOrmeggio.setViewportView(tblOrmeggio);
-			
 			try {
-				Extra.exequery("SELECT Data_Scadenza_Costo_Alaggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
+				extra.exequery("SELECT Data_Scadenza_Costo_Alaggio, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
 						+ "FROM veicolo WHERE (Data_Scadenza_Costo_Alaggio LIKE '"+dataQuery+"-%' OR Data_Scadenza_Costo_Alaggio LIKE '"+dataQuery2+"-%') "
 						+ "ORDER BY Data_Scadenza_Costo_Alaggio ASC","select");
+				
+				tblAlaggio = new JTable();
+				tblAlaggio.setModel(new CostruisciTabella(extra.rs).model);
+				tblAlaggio.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				
+				JTableHeader header= tblAlaggio.getTableHeader();
+				TableColumnModel colMod = header.getColumnModel();
+				TableColumn tabCol = colMod.getColumn(0);
+				tabCol.setHeaderValue("Data_Scadenza");
+				
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblAlaggio);
+				tca.adjustColumns();
+				
+				scrollAlaggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scrollAlaggio.setViewportView(tblAlaggio);
 			}
 			catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con alaggio in scadenza!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 			}
-			
-			tblAlaggio = new JTable();
-			tblAlaggio.setModel(new CostruisciTabella(Extra.rs).model);
-			tblAlaggio.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			
-			header= tblAlaggio.getTableHeader();
-			colMod = header.getColumnModel();
-			tabCol = colMod.getColumn(0);
-			tabCol.setHeaderValue("Data_Scadenza");
-			
-			tca=new TableColumnAdjuster(tblAlaggio);
-			tca.adjustColumns();
-			
-			scrollAlaggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scrollAlaggio.setViewportView(tblAlaggio);
 			
 			/* Crea il Layout per la lista delle scadenze. */
 			
@@ -528,21 +533,23 @@ public class ModuloExtra extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (btnProfitto == e.getSource()) {
 			try {
+				profitto = new DBConnect();
 				lblProfitto.setText("");
 				String mese=comboBoxAnnoMensile.getSelectedItem()+"-"+comboBoxMeseMensile.getSelectedItem();
-					Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +mese+"-%'","select");
-					if (Profitto.rs.next()) {
+					profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +mese+"-%'","select");
+					if (profitto.rs.next()) {
 						if(comboBoxAnnoMensile.getSelectedIndex() == 0 || comboBoxMeseMensile.getSelectedIndex() == 0) {
 							JOptionPane.showMessageDialog(null, "Errore! La data inserita non è valida!",
 								    "Errore ",
 								    JOptionPane.ERROR_MESSAGE);
-						}else if (Profitto.rs.getString(1) == null) {
+						}else if (profitto.rs.getString(1) == null) {
 							lblProfitto.setText("Profitto del " + mese + ": 0 €");
 						}else {
-						lblProfitto.setText("Profitto del " + mese + ":  " + Profitto.rs.getString(1) + " €");
+						lblProfitto.setText("Profitto del " + mese + ":  " + profitto.rs.getString(1) + " €");
 						}
 					}
-			}catch (Exception ex) {
+					profitto.con.close();
+			}catch (SQLException ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore! Profitto non calcolato!",
 					    "Errore ",
@@ -550,21 +557,23 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			}
 		}else if (btnProfittoA == e.getSource()) {
 			try {
+				profitto = new DBConnect();
 				lblProfitto.setText("");
 				String anno=comboBoxAnnuale.getSelectedItem().toString();
-				Profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +anno+"-%-%'","select");
-					if (Profitto.rs.next()) {
+				profitto.exequery("SELECT SUM(Costo_Totale) as Profitto_Totale FROM noleggio WHERE Data_Inizio LIKE '" +anno+"-%-%'","select");
+					if (profitto.rs.next()) {
 						if(comboBoxAnnuale.getSelectedIndex() == 0) {
 							JOptionPane.showMessageDialog(null, "Errore! La data inserita non è valida!",
 								    "Errore ",
 								    JOptionPane.ERROR_MESSAGE);
-						}else if (Profitto.rs.getString(1) == null) {
+						}else if (profitto.rs.getString(1) == null) {
 							lblProfitto.setText("Profitto del " + anno + ": 0 €");
 						}else {
-						lblProfitto.setText("Profitto del " + anno + ":  " + Profitto.rs.getString(1) + " €");
+						lblProfitto.setText("Profitto del " + anno + ":  " + profitto.rs.getString(1) + " €");
 						}
 					}
-				}catch (Exception ex) {
+					profitto.con.close();
+				}catch (SQLException ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore! Profitto non calcolato!",
 					    "Errore ",
