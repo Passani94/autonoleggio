@@ -207,6 +207,7 @@ public class Login extends JFrame implements ActionListener, Runnable {
 					this.dispose();
 					new Finestra (user);
 					}
+				log.con.close();
 			} catch (SQLException e1) {
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Errore! Impossibile connettersi al DB per effettuare l'accesso!",
