@@ -27,7 +27,7 @@ public class ModuloMezziRitorno extends JPanel{
 		this.setBorder(BorderFactory.createTitledBorder("Mezzi in Ritorno Oggi"));
 		
 		java.sql.Date DataOggi = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-		try{InRitorno.exequery("SELECT * FROM noleggio WHERE Data_Fine='"+DataOggi+"'","select");} /*scrivere query mezzi in ritorno*/
+		try{InRitorno.exequery("SELECT n.Cod_Noleggio, n.Tipologia, n.Veicolo, v.Marca, v.Nome, n.Cliente, n.Costo_Totale FROM noleggio n,veicolo v WHERE n.Data_Fine='"+DataOggi+"' AND n.Veicolo=v.Targa","select");} 
 		catch (SQLException e) {  
 		JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli in rientro oggi!",
 				"Errore ",
