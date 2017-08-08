@@ -21,7 +21,7 @@ import gui.moduli.ModuloContratto;
 
 public class PannelloContratto extends JPanel implements ActionListener{
 	
-	private static final long serialVersionUID = 7526472295622701147L; 
+	private static final long serialVersionUID = 1L; 
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
 	private JButton btnNuovo = new JButton("Nuovo Contratto");
 	private JButton btnElimina = new JButton("Elimina Contratto");
@@ -173,7 +173,7 @@ public class PannelloContratto extends JPanel implements ActionListener{
 			pnlModulo.set("Nuovo");
 		}
 		else if(btnElimina == e.getSource()){
-			btnElimina.setText("Elenco Contratti");
+			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Elimina");
 		}
 		else if(btnPreventivo == e.getSource()){

@@ -76,6 +76,11 @@ public class ModuloCliente extends JPanel implements ActionListener {
 				TableColumnAdjuster tca = new TableColumnAdjuster(tblClienti);
 				tca.adjustColumns();
 				
+				scroll = new JScrollPane(tblClienti);
+				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+				scroll.setViewportView(tblClienti);
+				
 				elencoClienti.con.close();
 			} catch(SQLException e) {
 				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei clienti!",
@@ -83,10 +88,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 					JOptionPane.ERROR_MESSAGE);
 			}
 			
-			scroll = new JScrollPane(tblClienti);
-			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			scroll.setViewportView(tblClienti);
+			
 			
 			/* Crea il Layout per l'elenco dei Clienti. */
 			

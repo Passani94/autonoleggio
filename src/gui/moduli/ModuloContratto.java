@@ -74,9 +74,9 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 	public JFormattedTextField frmtdtxtfldValida;
 	public JFormattedTextField frmtdtxtfldRilasciatail;
 	
-	private Contratto CT = new Contratto();
-	private Preventivo PV = new Preventivo();
-	private DBConnect Contratti = new DBConnect();
+	private Contratto contratto;
+	private Preventivo preventivo;
+	private DBConnect elencoContratti;
 
 	
 	/* Costruttore ModuloCt */
@@ -1327,11 +1327,25 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			
 		}
 		else if (str.equals("Elenca")) {
+			
+				elencoContratti = new DBConnect();			
 				this.removeAll();
 				this.setBorder(BorderFactory.createTitledBorder("Elenco Contratti"));
 
 				try {
-					Contratti.exequery("SELECT * FROM noleggio","select");
+					elencoContratti.exequery("SELECT * FROM noleggio","select");
+					
+					tblNoleggi = new JTable();
+					tblNoleggi.setModel(new CostruisciTabella(elencoContratti.rs).model);
+					tblNoleggi.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+					TableColumnAdjuster tca = new TableColumnAdjuster(tblNoleggi);
+					tca.adjustColumns();
+					
+					scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+					scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+					scroll.setViewportView(tblNoleggi);
+					
+					elencoContratti.con.close();
 				}
 				catch (SQLException e) {
 					JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco noleggi!",
@@ -1339,15 +1353,7 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 						JOptionPane.ERROR_MESSAGE);
 				}
 				
-				tblNoleggi = new JTable();
-				tblNoleggi.setModel(new CostruisciTabella(Contratti.rs).model);
-				tblNoleggi.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-				TableColumnAdjuster tca = new TableColumnAdjuster(tblNoleggi);
-				tca.adjustColumns();
 				
-				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-				scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-				scroll.setViewportView(tblNoleggi);
 				
 				JLabel lblCliente = new JLabel("Cliente da filtrare");
 				lblCliente.setFont(new Font("Arial", Font.BOLD, 13));
@@ -1411,13 +1417,15 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 	
 	public void actionPerformed(ActionEvent e) {
 		if (btnAggiungi == e.getSource()) {
-			CT.setValori(this);
-			CT.aggiungi(this);
+			contratto = new Contratto();
+			contratto.setValori(this);
+			contratto.aggiungi(this);
 		}
 		else if (btnCalcola == e.getSource()) {
-			PV.setValori(this);
+			preventivo = new Preventivo();
+			preventivo.setValori(this);
 			try {
-				PV.calcola(this);
+				preventivo.calcola(this);
 			}catch (Exception e1) {
 				e1.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Impossibile calcolare il preventivo!",
@@ -1437,22 +1445,26 @@ public class ModuloContratto extends JPanel implements ActionListener, FocusList
 			}
 		}
 		else if(btnElimina == e.getSource()){
-			if (CT.setCodice(this)) {
-				CT.elimina(this);
+			contratto = new Contratto();
+			if (contratto.setCodice(this)) {
+				contratto.elimina(this);
 				}
 		}		
 		else if (btnFiltra == e.getSource()) {
-			CT.setValoriFiltra(this);
-			CT.filtra(this);
+			contratto = new Contratto();
+			contratto.setValoriFiltra(this);
+			contratto.filtra(this);
 		}
 		else if(btnModificaC == e.getSource()){
-			CT.setCodiceModifica(this);
-			CT.setValori(this);
-			CT.modifica(this);
+			contratto = new Contratto();
+			contratto.setCodiceModifica(this);
+			contratto.setValori(this);
+			contratto.modifica(this);
 		}
 		else if(btnCerca == e.getSource()){
-			if (CT.setCodiceCerca(this)) {
-				CT.cerca(this);
+			contratto = new Contratto();
+			if (contratto.setCodiceCerca(this)) {
+				contratto.cerca(this);
 			}
 		}
 	}
