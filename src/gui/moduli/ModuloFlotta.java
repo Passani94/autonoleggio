@@ -44,8 +44,8 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 
 	private static final long serialVersionUID = 1L; 
 	
-	private Veicolo VL = new Veicolo();
-	private DBConnect Veicoli = new DBConnect();
+	private Veicolo veicolo;
+	private DBConnect elencoVeicoli;
 	
 	
 	private JButton btnAggiungi;
@@ -81,11 +81,24 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 
 	public void set(String str) {
 		if (str.equals("Elenca")){
+			elencoVeicoli = new DBConnect();
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli"));
 			
 			try{
-				Veicoli.exequery("SELECT * FROM veicolo","select");
+				elencoVeicoli.exequery("SELECT * FROM veicolo","select");
+				
+				tblVeicoli = new JTable();
+				tblVeicoli.setModel(new CostruisciTabella(elencoVeicoli.rs).model);
+				tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblVeicoli);
+				tca.adjustColumns();
+				
+				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+				scroll.setViewportView(tblVeicoli);
+				
+				elencoVeicoli.con.close();
 			}
 			catch (SQLException e) {  
 			JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli! ",
@@ -93,15 +106,7 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 					JOptionPane.ERROR_MESSAGE);
 			}
 			
-			tblVeicoli = new JTable();
-			tblVeicoli.setModel(new CostruisciTabella(Veicoli.rs).model);
-			tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			TableColumnAdjuster tca = new TableColumnAdjuster(tblVeicoli);
-			tca.adjustColumns();
 			
-			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			scroll.setViewportView(tblVeicoli);
 			
 			/* Crea il Layout per l'elenco dei Veicoli. */
 			
@@ -1098,20 +1103,24 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 	public void actionPerformed(ActionEvent e){
 		
 		if (btnAggiungi == e.getSource()){
-			VL.setValori(this,"aggiungi");
-			VL.aggiungi(this);
+			veicolo = new Veicolo();
+			veicolo.setValori(this,"aggiungi");
+			veicolo.aggiungi(this);
 		}
 		else if(btnElimina == e.getSource()){
-			VL.setTarga(this);
-			VL.elimina(this);
+			veicolo = new Veicolo();
+			veicolo.setTarga(this);
+			veicolo.elimina(this);
 		}
 		else if(btnCerca == e.getSource()){
-			VL.setTargaCerca(this);
-			VL.cerca(this);
+			veicolo = new Veicolo();
+			veicolo.setTargaCerca(this);
+			veicolo.cerca(this);
 		}
 		else if(btnModificaV == e.getSource()){
-			VL.setValori(this,"modifica");
-			VL.modifica(this);
+			veicolo = new Veicolo();
+			veicolo.setValori(this,"modifica");
+			veicolo.modifica(this);
 		}
 	}
 	
