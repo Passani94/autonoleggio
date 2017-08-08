@@ -29,18 +29,19 @@ import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
 
-public class ModuloCliente extends JPanel implements ActionListener{
+public class ModuloCliente extends JPanel implements ActionListener {
 	
-	private static final long serialVersionUID = 1L; 	
-	private Cliente CL = new Cliente();
-	private DBConnect Clienti = new DBConnect();
-	private JTable tblClienti;
+	private static final long serialVersionUID = 1L; 
+	
+	private Cliente cliente;
+	private DBConnect elencoClienti;
+	
 	private JButton btnAggiungi;
 	private JButton btnElimina;
 	private JButton btnModificaC;
 	private JButton btnCerca;
-	private JScrollPane scroll = new JScrollPane(tblClienti);
-	public JComboBox <String> comboBoxTipologia;
+	private JScrollPane scroll;
+	private JTable tblClienti;
 	public JTextField txtRS;
 	public JTextField txtCAP;
 	public JTextField txtCitta;
@@ -50,34 +51,39 @@ public class ModuloCliente extends JPanel implements ActionListener{
 	public JTextField txtEmail;
 	public JTextField txtTelefono;
 	public JTextField txtClienteCerca;
+	public JComboBox <String> comboBoxTipologia;
+	
 	
 	
 	/* Costruttore ModuloCl */
 	
-	public ModuloCliente(String str){
+	public ModuloCliente(String str) {
 		set(str);
 	}
 
 	public void set(String str) {
 		if (str.equals("Elenca")) {
+			elencoClienti = new DBConnect();
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Clienti"));
 			
-			try{
-				Clienti.exequery("SELECT * FROM cliente","select");
-			}
-			catch(SQLException e) {
+			try {
+				elencoClienti.exequery("SELECT * FROM cliente","select");
+				
+				tblClienti = new JTable();
+				tblClienti.setModel(new CostruisciTabella(elencoClienti.rs).model);
+				tblClienti.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblClienti);
+				tca.adjustColumns();
+				
+				elencoClienti.con.close();
+			} catch(SQLException e) {
 				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei clienti!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 			}
 			
-			tblClienti = new JTable();
-			tblClienti.setModel(new CostruisciTabella(Clienti.rs).model);
-			tblClienti.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			TableColumnAdjuster tca = new TableColumnAdjuster(tblClienti);
-			tca.adjustColumns();
-			
+			scroll = new JScrollPane(tblClienti);
 			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 			scroll.setViewportView(tblClienti);
@@ -489,21 +495,25 @@ public class ModuloCliente extends JPanel implements ActionListener{
 	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
 	
 	public void actionPerformed(ActionEvent e){
-		if (btnAggiungi == e.getSource()){
-			CL.setValori(this);
-			CL.aggiungi(this);
+		if (btnAggiungi == e.getSource()) {
+			cliente = new Cliente();
+			cliente.setValori(this);
+			cliente.aggiungi(this);
 		}
 		else if(btnElimina == e.getSource()){
-			CL.setID(this);
-			CL.elimina(this);
+			cliente = new Cliente();
+			cliente.setID(this);
+			cliente.elimina(this);
 		}
 		else if(btnCerca == e.getSource()){
-			CL.setIDCerca(this);
-			CL.cerca(this);
+			cliente = new Cliente();
+			cliente.setIDCerca(this);
+			cliente.cerca(this);
 			}
 		else if(btnModificaC == e.getSource()){
-			CL.setValori(this);
-			CL.modifica(this);
+			cliente = new Cliente();
+			cliente.setValori(this);
+			cliente.modifica(this);
 		}
 	}
 }

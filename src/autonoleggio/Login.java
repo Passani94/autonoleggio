@@ -25,7 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Login extends JFrame implements ActionListener, Runnable{
+public class Login extends JFrame implements ActionListener, Runnable {
 
 	private static final long serialVersionUID = 1L; 
 	

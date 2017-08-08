@@ -19,17 +19,20 @@ import gui.finestre.Finestra;
 import gui.moduli.ModuloCliente;
 
 
-public class PannelloCliente extends JPanel implements ActionListener{
+public class PannelloCliente extends JPanel implements ActionListener {
 
-	private static final long serialVersionUID = 7526472295772776147L; 
+	private static final long serialVersionUID = 1L; 
+	
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
 	private JButton btnNuovo = new JButton("Nuovo Cliente");
 	private JButton btnElimina = new JButton("Elimina Cliente");
 	private JButton btnModifica = new JButton("Modifica Cliente");
-	private ModuloCliente pnlModulo = new ModuloCliente("Elenca");
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
+	
+	private ModuloCliente pnlModulo = new ModuloCliente("Elenca");
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
+	
 	private Finestra frame;
 	private JLabel user;
 	

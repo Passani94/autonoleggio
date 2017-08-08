@@ -4,8 +4,8 @@ import javax.swing.JOptionPane;
 
 public class Autonoleggio {
 
-	public static void main(String[] args){
-		try{
+	public static void main(String[] args) {
+		try {
 			(new Thread(new Login())).start();
 		} catch (Exception ex) {
 			ex.printStackTrace();
