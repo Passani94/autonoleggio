@@ -1442,4 +1442,169 @@ public class ModuloContratto extends JPanel implements ActionListener {
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "ModuloContratto [lblPreventivo=" + lblPreventivo + ", tblNoleggi=" + tblNoleggi + ", txtVeicolo="
+				+ txtVeicolo + ", txtCliente=" + txtCliente + ", txtCosto=" + txtCosto + ", txtAcconto=" + txtAcconto
+				+ ", txtCognome=" + txtCognome + ", txtNome=" + txtNome + ", txtPatente=" + txtPatente
+				+ ", txtContrattoCerca=" + txtContrattoCerca + ", comboBoxTipologia=" + comboBoxTipologia
+				+ ", txtRilasciatada=" + txtRilasciatada + ", txtCodice=" + txtCodice + ", frmtdtxtfldInizio="
+				+ frmtdtxtfldInizio + ", frmtdtxtfldFine=" + frmtdtxtfldFine + ", frmtdtxtfldValida="
+				+ frmtdtxtfldValida + ", frmtdtxtfldRilasciatail=" + frmtdtxtfldRilasciatail + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ModuloContratto other = (ModuloContratto) obj;
+		if (btnAggiungi == null) {
+			if (other.btnAggiungi != null)
+				return false;
+		} else if (!btnAggiungi.equals(other.btnAggiungi))
+			return false;
+		if (btnCalcola == null) {
+			if (other.btnCalcola != null)
+				return false;
+		} else if (!btnCalcola.equals(other.btnCalcola))
+			return false;
+		if (btnCerca == null) {
+			if (other.btnCerca != null)
+				return false;
+		} else if (!btnCerca.equals(other.btnCerca))
+			return false;
+		if (btnElimina == null) {
+			if (other.btnElimina != null)
+				return false;
+		} else if (!btnElimina.equals(other.btnElimina))
+			return false;
+		if (btnFiltra == null) {
+			if (other.btnFiltra != null)
+				return false;
+		} else if (!btnFiltra.equals(other.btnFiltra))
+			return false;
+		if (btnModificaC == null) {
+			if (other.btnModificaC != null)
+				return false;
+		} else if (!btnModificaC.equals(other.btnModificaC))
+			return false;
+		if (btnPassaAContratto == null) {
+			if (other.btnPassaAContratto != null)
+				return false;
+		} else if (!btnPassaAContratto.equals(other.btnPassaAContratto))
+			return false;
+		if (comboBoxTipologia == null) {
+			if (other.comboBoxTipologia != null)
+				return false;
+		} else if (!comboBoxTipologia.equals(other.comboBoxTipologia))
+			return false;
+		if (contratto == null) {
+			if (other.contratto != null)
+				return false;
+		} else if (!contratto.equals(other.contratto))
+			return false;
+		if (elencoContratti == null) {
+			if (other.elencoContratti != null)
+				return false;
+		} else if (!elencoContratti.equals(other.elencoContratti))
+			return false;
+		if (frmtdtxtfldFine == null) {
+			if (other.frmtdtxtfldFine != null)
+				return false;
+		} else if (!frmtdtxtfldFine.equals(other.frmtdtxtfldFine))
+			return false;
+		if (frmtdtxtfldInizio == null) {
+			if (other.frmtdtxtfldInizio != null)
+				return false;
+		} else if (!frmtdtxtfldInizio.equals(other.frmtdtxtfldInizio))
+			return false;
+		if (frmtdtxtfldRilasciatail == null) {
+			if (other.frmtdtxtfldRilasciatail != null)
+				return false;
+		} else if (!frmtdtxtfldRilasciatail.equals(other.frmtdtxtfldRilasciatail))
+			return false;
+		if (frmtdtxtfldValida == null) {
+			if (other.frmtdtxtfldValida != null)
+				return false;
+		} else if (!frmtdtxtfldValida.equals(other.frmtdtxtfldValida))
+			return false;
+		if (lblPreventivo == null) {
+			if (other.lblPreventivo != null)
+				return false;
+		} else if (!lblPreventivo.equals(other.lblPreventivo))
+			return false;
+		if (preventivo == null) {
+			if (other.preventivo != null)
+				return false;
+		} else if (!preventivo.equals(other.preventivo))
+			return false;
+		if (scroll == null) {
+			if (other.scroll != null)
+				return false;
+		} else if (!scroll.equals(other.scroll))
+			return false;
+		if (tblNoleggi == null) {
+			if (other.tblNoleggi != null)
+				return false;
+		} else if (!tblNoleggi.equals(other.tblNoleggi))
+			return false;
+		if (txtAcconto == null) {
+			if (other.txtAcconto != null)
+				return false;
+		} else if (!txtAcconto.equals(other.txtAcconto))
+			return false;
+		if (txtCliente == null) {
+			if (other.txtCliente != null)
+				return false;
+		} else if (!txtCliente.equals(other.txtCliente))
+			return false;
+		if (txtCodice == null) {
+			if (other.txtCodice != null)
+				return false;
+		} else if (!txtCodice.equals(other.txtCodice))
+			return false;
+		if (txtCognome == null) {
+			if (other.txtCognome != null)
+				return false;
+		} else if (!txtCognome.equals(other.txtCognome))
+			return false;
+		if (txtContrattoCerca == null) {
+			if (other.txtContrattoCerca != null)
+				return false;
+		} else if (!txtContrattoCerca.equals(other.txtContrattoCerca))
+			return false;
+		if (txtCosto == null) {
+			if (other.txtCosto != null)
+				return false;
+		} else if (!txtCosto.equals(other.txtCosto))
+			return false;
+		if (txtNome == null) {
+			if (other.txtNome != null)
+				return false;
+		} else if (!txtNome.equals(other.txtNome))
+			return false;
+		if (txtPatente == null) {
+			if (other.txtPatente != null)
+				return false;
+		} else if (!txtPatente.equals(other.txtPatente))
+			return false;
+		if (txtRilasciatada == null) {
+			if (other.txtRilasciatada != null)
+				return false;
+		} else if (!txtRilasciatada.equals(other.txtRilasciatada))
+			return false;
+		if (txtVeicolo == null) {
+			if (other.txtVeicolo != null)
+				return false;
+		} else if (!txtVeicolo.equals(other.txtVeicolo))
+			return false;
+		return true;
+	}
+	
+	
 }

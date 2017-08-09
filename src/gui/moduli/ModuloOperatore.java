@@ -209,4 +209,63 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 			operatore.elimina(this);
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "ModuloOperatore [txtPassword=" + txtPassword + ", txtUsername=" + txtUsername + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ModuloOperatore other = (ModuloOperatore) obj;
+		if (btnAggiungi == null) {
+			if (other.btnAggiungi != null)
+				return false;
+		} else if (!btnAggiungi.equals(other.btnAggiungi))
+			return false;
+		if (btnElimina == null) {
+			if (other.btnElimina != null)
+				return false;
+		} else if (!btnElimina.equals(other.btnElimina))
+			return false;
+		if (elencoOperatori == null) {
+			if (other.elencoOperatori != null)
+				return false;
+		} else if (!elencoOperatori.equals(other.elencoOperatori))
+			return false;
+		if (operatore == null) {
+			if (other.operatore != null)
+				return false;
+		} else if (!operatore.equals(other.operatore))
+			return false;
+		if (scroll == null) {
+			if (other.scroll != null)
+				return false;
+		} else if (!scroll.equals(other.scroll))
+			return false;
+		if (tblOperatori == null) {
+			if (other.tblOperatori != null)
+				return false;
+		} else if (!tblOperatori.equals(other.tblOperatori))
+			return false;
+		if (txtPassword == null) {
+			if (other.txtPassword != null)
+				return false;
+		} else if (!txtPassword.equals(other.txtPassword))
+			return false;
+		if (txtUsername == null) {
+			if (other.txtUsername != null)
+				return false;
+		} else if (!txtUsername.equals(other.txtUsername))
+			return false;
+		return true;
+	}
+	
+	
 }

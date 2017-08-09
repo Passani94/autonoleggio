@@ -13,5 +13,11 @@ public class Autonoleggio {
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 		}	
-	}		
+	}
+
+	public String toString() {
+		return "Autonoleggio [Questa è la classe che avvia l'applicazione (contiene il main)]";
+	}	
+		
+	
 }

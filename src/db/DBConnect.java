@@ -56,4 +56,38 @@ public class DBConnect{
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "DBConnect [con=" + con + ", st=" + st + ", rs=" + rs + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DBConnect other = (DBConnect) obj;
+		if (con == null) {
+			if (other.con != null)
+				return false;
+		} else if (!con.equals(other.con))
+			return false;
+		if (rs == null) {
+			if (other.rs != null)
+				return false;
+		} else if (!rs.equals(other.rs))
+			return false;
+		if (st == null) {
+			if (other.st != null)
+				return false;
+		} else if (!st.equals(other.st))
+			return false;
+		return true;
+	}
+	
+	
 }

@@ -572,5 +572,114 @@ public class Contratto {
 		cliente = content.txtCliente.getText().trim();
 		veicolo = content.txtVeicolo.getText().trim();
 	}
+
+
+	@Override
+	public String toString() {
+		return "Contratto [tipologia=" + tipologia + ", veicolo=" + veicolo + ", cliente=" + cliente + ", inizio="
+				+ inizio + ", fine=" + fine + ", costo=" + costo + ", acconto=" + acconto + ", cognome=" + cognome
+				+ ", nome=" + nome + ", patente=" + patente + ", valida=" + valida + ", rilasciataDa=" + rilasciataDa
+				+ ", rilasciataIl=" + rilasciataIl + ", codice=" + codice + ", codiceCerca=" + codiceCerca
+				+ ", codiceModifica=" + codiceModifica + ", test=" + test + ", noleggio=" + noleggio + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contratto other = (Contratto) obj;
+		if (acconto == null) {
+			if (other.acconto != null)
+				return false;
+		} else if (!acconto.equals(other.acconto))
+			return false;
+		if (cliente == null) {
+			if (other.cliente != null)
+				return false;
+		} else if (!cliente.equals(other.cliente))
+			return false;
+		if (codice == null) {
+			if (other.codice != null)
+				return false;
+		} else if (!codice.equals(other.codice))
+			return false;
+		if (codiceCerca == null) {
+			if (other.codiceCerca != null)
+				return false;
+		} else if (!codiceCerca.equals(other.codiceCerca))
+			return false;
+		if (codiceModifica == null) {
+			if (other.codiceModifica != null)
+				return false;
+		} else if (!codiceModifica.equals(other.codiceModifica))
+			return false;
+		if (cognome == null) {
+			if (other.cognome != null)
+				return false;
+		} else if (!cognome.equals(other.cognome))
+			return false;
+		if (costo == null) {
+			if (other.costo != null)
+				return false;
+		} else if (!costo.equals(other.costo))
+			return false;
+		if (fine == null) {
+			if (other.fine != null)
+				return false;
+		} else if (!fine.equals(other.fine))
+			return false;
+		if (inizio == null) {
+			if (other.inizio != null)
+				return false;
+		} else if (!inizio.equals(other.inizio))
+			return false;
+		if (noleggio == null) {
+			if (other.noleggio != null)
+				return false;
+		} else if (!noleggio.equals(other.noleggio))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (patente == null) {
+			if (other.patente != null)
+				return false;
+		} else if (!patente.equals(other.patente))
+			return false;
+		if (rilasciataDa == null) {
+			if (other.rilasciataDa != null)
+				return false;
+		} else if (!rilasciataDa.equals(other.rilasciataDa))
+			return false;
+		if (rilasciataIl == null) {
+			if (other.rilasciataIl != null)
+				return false;
+		} else if (!rilasciataIl.equals(other.rilasciataIl))
+			return false;
+		if (test != other.test)
+			return false;
+		if (tipologia == null) {
+			if (other.tipologia != null)
+				return false;
+		} else if (!tipologia.equals(other.tipologia))
+			return false;
+		if (valida == null) {
+			if (other.valida != null)
+				return false;
+		} else if (!valida.equals(other.valida))
+			return false;
+		if (veicolo == null) {
+			if (other.veicolo != null)
+				return false;
+		} else if (!veicolo.equals(other.veicolo))
+			return false;
+		return true;
+	}
 	
 }

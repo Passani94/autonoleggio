@@ -1180,4 +1180,155 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 		
 	}
 
+	@Override
+	public String toString() {
+		return "ModuloFlotta [comboBoxTipologia=" + comboBoxTipologia + ", comboBoxDisponibilita="
+				+ comboBoxDisponibilita + ", comboBoxAlimentazione=" + comboBoxAlimentazione + ", comboBoxBreveTermine="
+				+ comboBoxBreveTermine + ", comboBoxLungoTermine=" + comboBoxLungoTermine + ", frmtdtxtfldImma="
+				+ frmtdtxtfldImma + ", frmtdtxtfldBollo=" + frmtdtxtfldBollo + ", frmtdtxtfldTagliando="
+				+ frmtdtxtfldTagliando + ", frmtdtxtfldAssicurazione=" + frmtdtxtfldAssicurazione
+				+ ", frmtdtxtfldOrmeggio=" + frmtdtxtfldOrmeggio + ", frmtdtxtfldAlaggio=" + frmtdtxtfldAlaggio
+				+ ", txtNome=" + txtNome + ", txtMarca=" + txtMarca + ", txtKm=" + txtKm + ", txtTarga=" + txtTarga
+				+ ", txtDimensioni=" + txtDimensioni + ", txtTargaCerca=" + txtTargaCerca + ", tblVeicoli=" + tblVeicoli
+				+ ", scroll=" + scroll + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ModuloFlotta other = (ModuloFlotta) obj;
+		if (btnAggiungi == null) {
+			if (other.btnAggiungi != null)
+				return false;
+		} else if (!btnAggiungi.equals(other.btnAggiungi))
+			return false;
+		if (btnCerca == null) {
+			if (other.btnCerca != null)
+				return false;
+		} else if (!btnCerca.equals(other.btnCerca))
+			return false;
+		if (btnElimina == null) {
+			if (other.btnElimina != null)
+				return false;
+		} else if (!btnElimina.equals(other.btnElimina))
+			return false;
+		if (btnModificaV == null) {
+			if (other.btnModificaV != null)
+				return false;
+		} else if (!btnModificaV.equals(other.btnModificaV))
+			return false;
+		if (comboBoxAlimentazione == null) {
+			if (other.comboBoxAlimentazione != null)
+				return false;
+		} else if (!comboBoxAlimentazione.equals(other.comboBoxAlimentazione))
+			return false;
+		if (comboBoxBreveTermine == null) {
+			if (other.comboBoxBreveTermine != null)
+				return false;
+		} else if (!comboBoxBreveTermine.equals(other.comboBoxBreveTermine))
+			return false;
+		if (comboBoxDisponibilita == null) {
+			if (other.comboBoxDisponibilita != null)
+				return false;
+		} else if (!comboBoxDisponibilita.equals(other.comboBoxDisponibilita))
+			return false;
+		if (comboBoxLungoTermine == null) {
+			if (other.comboBoxLungoTermine != null)
+				return false;
+		} else if (!comboBoxLungoTermine.equals(other.comboBoxLungoTermine))
+			return false;
+		if (comboBoxTipologia == null) {
+			if (other.comboBoxTipologia != null)
+				return false;
+		} else if (!comboBoxTipologia.equals(other.comboBoxTipologia))
+			return false;
+		if (elencoVeicoli == null) {
+			if (other.elencoVeicoli != null)
+				return false;
+		} else if (!elencoVeicoli.equals(other.elencoVeicoli))
+			return false;
+		if (frmtdtxtfldAlaggio == null) {
+			if (other.frmtdtxtfldAlaggio != null)
+				return false;
+		} else if (!frmtdtxtfldAlaggio.equals(other.frmtdtxtfldAlaggio))
+			return false;
+		if (frmtdtxtfldAssicurazione == null) {
+			if (other.frmtdtxtfldAssicurazione != null)
+				return false;
+		} else if (!frmtdtxtfldAssicurazione.equals(other.frmtdtxtfldAssicurazione))
+			return false;
+		if (frmtdtxtfldBollo == null) {
+			if (other.frmtdtxtfldBollo != null)
+				return false;
+		} else if (!frmtdtxtfldBollo.equals(other.frmtdtxtfldBollo))
+			return false;
+		if (frmtdtxtfldImma == null) {
+			if (other.frmtdtxtfldImma != null)
+				return false;
+		} else if (!frmtdtxtfldImma.equals(other.frmtdtxtfldImma))
+			return false;
+		if (frmtdtxtfldOrmeggio == null) {
+			if (other.frmtdtxtfldOrmeggio != null)
+				return false;
+		} else if (!frmtdtxtfldOrmeggio.equals(other.frmtdtxtfldOrmeggio))
+			return false;
+		if (frmtdtxtfldTagliando == null) {
+			if (other.frmtdtxtfldTagliando != null)
+				return false;
+		} else if (!frmtdtxtfldTagliando.equals(other.frmtdtxtfldTagliando))
+			return false;
+		if (scroll == null) {
+			if (other.scroll != null)
+				return false;
+		} else if (!scroll.equals(other.scroll))
+			return false;
+		if (tblVeicoli == null) {
+			if (other.tblVeicoli != null)
+				return false;
+		} else if (!tblVeicoli.equals(other.tblVeicoli))
+			return false;
+		if (txtDimensioni == null) {
+			if (other.txtDimensioni != null)
+				return false;
+		} else if (!txtDimensioni.equals(other.txtDimensioni))
+			return false;
+		if (txtKm == null) {
+			if (other.txtKm != null)
+				return false;
+		} else if (!txtKm.equals(other.txtKm))
+			return false;
+		if (txtMarca == null) {
+			if (other.txtMarca != null)
+				return false;
+		} else if (!txtMarca.equals(other.txtMarca))
+			return false;
+		if (txtNome == null) {
+			if (other.txtNome != null)
+				return false;
+		} else if (!txtNome.equals(other.txtNome))
+			return false;
+		if (txtTarga == null) {
+			if (other.txtTarga != null)
+				return false;
+		} else if (!txtTarga.equals(other.txtTarga))
+			return false;
+		if (txtTargaCerca == null) {
+			if (other.txtTargaCerca != null)
+				return false;
+		} else if (!txtTargaCerca.equals(other.txtTargaCerca))
+			return false;
+		if (veicolo == null) {
+			if (other.veicolo != null)
+				return false;
+		} else if (!veicolo.equals(other.veicolo))
+			return false;
+		return true;
+	}
+
+	
 }

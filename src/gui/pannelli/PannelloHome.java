@@ -135,4 +135,53 @@ public class PannelloHome extends JPanel implements ActionListener{
 				}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "PannelloHome [Questa classe genera il pannello home.]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PannelloHome other = (PannelloHome) obj;
+		if (btnEsci == null) {
+			if (other.btnEsci != null)
+				return false;
+		} else if (!btnEsci.equals(other.btnEsci))
+			return false;
+		if (btnLogout == null) {
+			if (other.btnLogout != null)
+				return false;
+		} else if (!btnLogout.equals(other.btnLogout))
+			return false;
+		if (frame == null) {
+			if (other.frame != null)
+				return false;
+		} else if (!frame.equals(other.frame))
+			return false;
+		if (pnlCalendar == null) {
+			if (other.pnlCalendar != null)
+				return false;
+		} else if (!pnlCalendar.equals(other.pnlCalendar))
+			return false;
+		if (pnlModulo == null) {
+			if (other.pnlModulo != null)
+				return false;
+		} else if (!pnlModulo.equals(other.pnlModulo))
+			return false;
+		if (pnlModulo2 == null) {
+			if (other.pnlModulo2 != null)
+				return false;
+		} else if (!pnlModulo2.equals(other.pnlModulo2))
+			return false;
+		return true;
+	}
+	
+	
 }

@@ -135,5 +135,69 @@ public class Finestra extends JFrame implements ActionListener{
 			new PannelloContratto(this);
 			getContentPane().revalidate();
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Finestra [username=" + username + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Finestra other = (Finestra) obj;
+		if (btnCliente == null) {
+			if (other.btnCliente != null)
+				return false;
+		} else if (!btnCliente.equals(other.btnCliente))
+			return false;
+		if (btnContratto == null) {
+			if (other.btnContratto != null)
+				return false;
+		} else if (!btnContratto.equals(other.btnContratto))
+			return false;
+		if (btnExtra == null) {
+			if (other.btnExtra != null)
+				return false;
+		} else if (!btnExtra.equals(other.btnExtra))
+			return false;
+		if (btnFlotta == null) {
+			if (other.btnFlotta != null)
+				return false;
+		} else if (!btnFlotta.equals(other.btnFlotta))
+			return false;
+		if (btnHome == null) {
+			if (other.btnHome != null)
+				return false;
+		} else if (!btnHome.equals(other.btnHome))
+			return false;
+		if (btnOperatore == null) {
+			if (other.btnOperatore != null)
+				return false;
+		} else if (!btnOperatore.equals(other.btnOperatore))
+			return false;
+		if (contentPane == null) {
+			if (other.contentPane != null)
+				return false;
+		} else if (!contentPane.equals(other.contentPane))
+			return false;
+		if (menuBar == null) {
+			if (other.menuBar != null)
+				return false;
+		} else if (!menuBar.equals(other.menuBar))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
 	}	
+	
+	
 }

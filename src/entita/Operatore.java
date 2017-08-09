@@ -141,4 +141,40 @@ public class Operatore {
 	public void setUsername(ModuloOperatore content){
 		user = content.txtUsername.getText().trim();
 	}
+
+	@Override
+	public String toString() {
+		return "Operatore [user=" + user + ", pass=" + pass + ", test=" + test + ", operatore=" + operatore + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Operatore other = (Operatore) obj;
+		if (operatore == null) {
+			if (other.operatore != null)
+				return false;
+		} else if (!operatore.equals(other.operatore))
+			return false;
+		if (pass == null) {
+			if (other.pass != null)
+				return false;
+		} else if (!pass.equals(other.pass))
+			return false;
+		if (test != other.test)
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+	
+	
 }

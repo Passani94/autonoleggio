@@ -174,4 +174,73 @@ public class PannelloCliente extends JPanel implements ActionListener {
 			pnlModulo.set("Modifica");
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "PannelloCliente [Questa classe genera il pannello cliente.]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PannelloCliente other = (PannelloCliente) obj;
+		if (btnAggiorna == null) {
+			if (other.btnAggiorna != null)
+				return false;
+		} else if (!btnAggiorna.equals(other.btnAggiorna))
+			return false;
+		if (btnElimina == null) {
+			if (other.btnElimina != null)
+				return false;
+		} else if (!btnElimina.equals(other.btnElimina))
+			return false;
+		if (btnEsci == null) {
+			if (other.btnEsci != null)
+				return false;
+		} else if (!btnEsci.equals(other.btnEsci))
+			return false;
+		if (btnLogout == null) {
+			if (other.btnLogout != null)
+				return false;
+		} else if (!btnLogout.equals(other.btnLogout))
+			return false;
+		if (btnModifica == null) {
+			if (other.btnModifica != null)
+				return false;
+		} else if (!btnModifica.equals(other.btnModifica))
+			return false;
+		if (btnNuovo == null) {
+			if (other.btnNuovo != null)
+				return false;
+		} else if (!btnNuovo.equals(other.btnNuovo))
+			return false;
+		if (frame == null) {
+			if (other.frame != null)
+				return false;
+		} else if (!frame.equals(other.frame))
+			return false;
+		if (pnlModulo == null) {
+			if (other.pnlModulo != null)
+				return false;
+		} else if (!pnlModulo.equals(other.pnlModulo))
+			return false;
+		if (scrollPane == null) {
+			if (other.scrollPane != null)
+				return false;
+		} else if (!scrollPane.equals(other.scrollPane))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+	
+	
 }

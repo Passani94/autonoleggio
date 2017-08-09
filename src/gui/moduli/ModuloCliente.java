@@ -518,4 +518,116 @@ public class ModuloCliente extends JPanel implements ActionListener {
 			cliente.modifica(this);
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "ModuloCliente [txtRS=" + txtRS + ", txtCAP=" + txtCAP + ", txtCitta=" + txtCitta + ", txtVia=" + txtVia
+				+ ", txtNumero=" + txtNumero + ", txtCF_PIVA=" + txtCF_PIVA + ", txtEmail=" + txtEmail
+				+ ", txtTelefono=" + txtTelefono + ", txtClienteCerca=" + txtClienteCerca + ", comboBoxTipologia="
+				+ comboBoxTipologia + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ModuloCliente other = (ModuloCliente) obj;
+		if (btnAggiungi == null) {
+			if (other.btnAggiungi != null)
+				return false;
+		} else if (!btnAggiungi.equals(other.btnAggiungi))
+			return false;
+		if (btnCerca == null) {
+			if (other.btnCerca != null)
+				return false;
+		} else if (!btnCerca.equals(other.btnCerca))
+			return false;
+		if (btnElimina == null) {
+			if (other.btnElimina != null)
+				return false;
+		} else if (!btnElimina.equals(other.btnElimina))
+			return false;
+		if (btnModificaC == null) {
+			if (other.btnModificaC != null)
+				return false;
+		} else if (!btnModificaC.equals(other.btnModificaC))
+			return false;
+		if (cliente == null) {
+			if (other.cliente != null)
+				return false;
+		} else if (!cliente.equals(other.cliente))
+			return false;
+		if (comboBoxTipologia == null) {
+			if (other.comboBoxTipologia != null)
+				return false;
+		} else if (!comboBoxTipologia.equals(other.comboBoxTipologia))
+			return false;
+		if (elencoClienti == null) {
+			if (other.elencoClienti != null)
+				return false;
+		} else if (!elencoClienti.equals(other.elencoClienti))
+			return false;
+		if (scroll == null) {
+			if (other.scroll != null)
+				return false;
+		} else if (!scroll.equals(other.scroll))
+			return false;
+		if (tblClienti == null) {
+			if (other.tblClienti != null)
+				return false;
+		} else if (!tblClienti.equals(other.tblClienti))
+			return false;
+		if (txtCAP == null) {
+			if (other.txtCAP != null)
+				return false;
+		} else if (!txtCAP.equals(other.txtCAP))
+			return false;
+		if (txtCF_PIVA == null) {
+			if (other.txtCF_PIVA != null)
+				return false;
+		} else if (!txtCF_PIVA.equals(other.txtCF_PIVA))
+			return false;
+		if (txtCitta == null) {
+			if (other.txtCitta != null)
+				return false;
+		} else if (!txtCitta.equals(other.txtCitta))
+			return false;
+		if (txtClienteCerca == null) {
+			if (other.txtClienteCerca != null)
+				return false;
+		} else if (!txtClienteCerca.equals(other.txtClienteCerca))
+			return false;
+		if (txtEmail == null) {
+			if (other.txtEmail != null)
+				return false;
+		} else if (!txtEmail.equals(other.txtEmail))
+			return false;
+		if (txtNumero == null) {
+			if (other.txtNumero != null)
+				return false;
+		} else if (!txtNumero.equals(other.txtNumero))
+			return false;
+		if (txtRS == null) {
+			if (other.txtRS != null)
+				return false;
+		} else if (!txtRS.equals(other.txtRS))
+			return false;
+		if (txtTelefono == null) {
+			if (other.txtTelefono != null)
+				return false;
+		} else if (!txtTelefono.equals(other.txtTelefono))
+			return false;
+		if (txtVia == null) {
+			if (other.txtVia != null)
+				return false;
+		} else if (!txtVia.equals(other.txtVia))
+			return false;
+		return true;
+	}
+	
+	
 }

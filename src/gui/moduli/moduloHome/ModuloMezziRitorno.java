@@ -67,4 +67,38 @@ public class ModuloMezziRitorno extends JPanel{
 	public ModuloMezziRitorno() {
 		set();
 	}
+
+	@Override
+	public String toString() {
+		return "ModuloMezziRitorno [Questa classe crea il modulo dei mezzi in ritorno.]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ModuloMezziRitorno other = (ModuloMezziRitorno) obj;
+		if (InRitorno == null) {
+			if (other.InRitorno != null)
+				return false;
+		} else if (!InRitorno.equals(other.InRitorno))
+			return false;
+		if (scroll == null) {
+			if (other.scroll != null)
+				return false;
+		} else if (!scroll.equals(other.scroll))
+			return false;
+		if (tblRitorno == null) {
+			if (other.tblRitorno != null)
+				return false;
+		} else if (!tblRitorno.equals(other.tblRitorno))
+			return false;
+		return true;
+	}
+	
+	
 }	

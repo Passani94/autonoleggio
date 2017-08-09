@@ -227,4 +227,51 @@ public class Login extends JFrame implements ActionListener, Runnable {
 			System.exit(0); 
 		}
 	}
+
+	public String toString() {
+		return "Login [txtPassword=" + txtPassword + ", txtUsername=" + txtUsername + "]";
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Login other = (Login) obj;
+		if (btnAccedi == null) {
+			if (other.btnAccedi != null)
+				return false;
+		} else if (!btnAccedi.equals(other.btnAccedi))
+			return false;
+		if (btnEsci == null) {
+			if (other.btnEsci != null)
+				return false;
+		} else if (!btnEsci.equals(other.btnEsci))
+			return false;
+		if (contentPane == null) {
+			if (other.contentPane != null)
+				return false;
+		} else if (!contentPane.equals(other.contentPane))
+			return false;
+		if (log == null) {
+			if (other.log != null)
+				return false;
+		} else if (!log.equals(other.log))
+			return false;
+		if (txtPassword == null) {
+			if (other.txtPassword != null)
+				return false;
+		} else if (!txtPassword.equals(other.txtPassword))
+			return false;
+		if (txtUsername == null) {
+			if (other.txtUsername != null)
+				return false;
+		} else if (!txtUsername.equals(other.txtUsername))
+			return false;
+		return true;
+	}
+	
+	
 }

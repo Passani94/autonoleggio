@@ -152,4 +152,58 @@ public class PannelloOperatore extends JPanel implements ActionListener{
 			pnlModulo.set("Elimina");
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "PannelloOperatore [Questa classe genera il pannello operatore.]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PannelloOperatore other = (PannelloOperatore) obj;
+		if (btnAggiorna == null) {
+			if (other.btnAggiorna != null)
+				return false;
+		} else if (!btnAggiorna.equals(other.btnAggiorna))
+			return false;
+		if (btnElimina == null) {
+			if (other.btnElimina != null)
+				return false;
+		} else if (!btnElimina.equals(other.btnElimina))
+			return false;
+		if (btnEsci == null) {
+			if (other.btnEsci != null)
+				return false;
+		} else if (!btnEsci.equals(other.btnEsci))
+			return false;
+		if (btnLogout == null) {
+			if (other.btnLogout != null)
+				return false;
+		} else if (!btnLogout.equals(other.btnLogout))
+			return false;
+		if (btnNuovo == null) {
+			if (other.btnNuovo != null)
+				return false;
+		} else if (!btnNuovo.equals(other.btnNuovo))
+			return false;
+		if (frame == null) {
+			if (other.frame != null)
+				return false;
+		} else if (!frame.equals(other.frame))
+			return false;
+		if (pnlModulo == null) {
+			if (other.pnlModulo != null)
+				return false;
+		} else if (!pnlModulo.equals(other.pnlModulo))
+			return false;
+		return true;
+	}
+	
+	
 }

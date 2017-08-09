@@ -1,6 +1,7 @@
 package entita;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
@@ -479,5 +480,71 @@ public class Preventivo {
 			test=true;
 		}
 		return test;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Preventivo [preventivo=" + preventivo + ", test=" + test + ", Date=" + Arrays.toString(Date)
+				+ ", disponibilita=" + disponibilita + ", tipologia=" + tipologia + ", giorni=" + giorni + ", anni="
+				+ anni + ", anticipo=" + anticipo + ", alGiorno=" + alGiorno + ", alMese=" + alMese + ", giornoExtra="
+				+ giornoExtra + ", meseScontato=" + meseScontato + ", sconto=" + sconto + "]";
+	}
+
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Preventivo other = (Preventivo) obj;
+		if (!Arrays.equals(Date, other.Date))
+			return false;
+		if (Double.doubleToLongBits(alGiorno) != Double.doubleToLongBits(other.alGiorno))
+			return false;
+		if (Double.doubleToLongBits(alMese) != Double.doubleToLongBits(other.alMese))
+			return false;
+		if (anni == null) {
+			if (other.anni != null)
+				return false;
+		} else if (!anni.equals(other.anni))
+			return false;
+		if (anticipo == null) {
+			if (other.anticipo != null)
+				return false;
+		} else if (!anticipo.equals(other.anticipo))
+			return false;
+		if (disponibilita == null) {
+			if (other.disponibilita != null)
+				return false;
+		} else if (!disponibilita.equals(other.disponibilita))
+			return false;
+		if (giorni == null) {
+			if (other.giorni != null)
+				return false;
+		} else if (!giorni.equals(other.giorni))
+			return false;
+		if (Double.doubleToLongBits(giornoExtra) != Double.doubleToLongBits(other.giornoExtra))
+			return false;
+		if (Double.doubleToLongBits(meseScontato) != Double.doubleToLongBits(other.meseScontato))
+			return false;
+		if (preventivo == null) {
+			if (other.preventivo != null)
+				return false;
+		} else if (!preventivo.equals(other.preventivo))
+			return false;
+		if (Double.doubleToLongBits(sconto) != Double.doubleToLongBits(other.sconto))
+			return false;
+		if (test != other.test)
+			return false;
+		if (tipologia == null) {
+			if (other.tipologia != null)
+				return false;
+		} else if (!tipologia.equals(other.tipologia))
+			return false;
+		return true;
+	}		
+	
 }

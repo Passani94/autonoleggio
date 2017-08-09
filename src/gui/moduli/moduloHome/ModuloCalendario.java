@@ -188,4 +188,10 @@ public class ModuloCalendario extends JPanel{
             }
         }
     }
+	@Override
+	public String toString() {
+	return "ModuloCalendario [Questa classe crea un calendario.]";
+	}
+    
+    
 }

@@ -132,4 +132,73 @@ public class ModuloMezziNoleggiabili extends JPanel{
 	public ModuloMezziNoleggiabili() {
 		set();
 	}
+
+	@Override
+	public String toString() {
+		return "ModuloMezziNoleggiabili [dataOggi=" + dataOggi + ", day=" + day + ", targhe=" + targhe + ", disp="
+				+ disp + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dataOggi == null) ? 0 : dataOggi.hashCode());
+		result = prime * result + ((day == null) ? 0 : day.hashCode());
+		result = prime * result + ((disp == null) ? 0 : disp.hashCode());
+		result = prime * result + ((noleggiabili == null) ? 0 : noleggiabili.hashCode());
+		result = prime * result + ((scroll == null) ? 0 : scroll.hashCode());
+		result = prime * result + ((targhe == null) ? 0 : targhe.hashCode());
+		result = prime * result + ((tblDisponibili == null) ? 0 : tblDisponibili.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ModuloMezziNoleggiabili other = (ModuloMezziNoleggiabili) obj;
+		if (dataOggi == null) {
+			if (other.dataOggi != null)
+				return false;
+		} else if (!dataOggi.equals(other.dataOggi))
+			return false;
+		if (day == null) {
+			if (other.day != null)
+				return false;
+		} else if (!day.equals(other.day))
+			return false;
+		if (disp == null) {
+			if (other.disp != null)
+				return false;
+		} else if (!disp.equals(other.disp))
+			return false;
+		if (noleggiabili == null) {
+			if (other.noleggiabili != null)
+				return false;
+		} else if (!noleggiabili.equals(other.noleggiabili))
+			return false;
+		if (scroll == null) {
+			if (other.scroll != null)
+				return false;
+		} else if (!scroll.equals(other.scroll))
+			return false;
+		if (targhe == null) {
+			if (other.targhe != null)
+				return false;
+		} else if (!targhe.equals(other.targhe))
+			return false;
+		if (tblDisponibili == null) {
+			if (other.tblDisponibili != null)
+				return false;
+		} else if (!tblDisponibili.equals(other.tblDisponibili))
+			return false;
+		return true;
+	}
+	
+	
 }	

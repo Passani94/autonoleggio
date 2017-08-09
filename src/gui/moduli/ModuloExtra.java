@@ -581,5 +581,135 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "ModuloExtra [Questa classe crea il modulo extra.]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ModuloExtra other = (ModuloExtra) obj;
+		if (annoCorrente != other.annoCorrente)
+			return false;
+		if (btnProfitto == null) {
+			if (other.btnProfitto != null)
+				return false;
+		} else if (!btnProfitto.equals(other.btnProfitto))
+			return false;
+		if (btnProfittoA == null) {
+			if (other.btnProfittoA != null)
+				return false;
+		} else if (!btnProfittoA.equals(other.btnProfittoA))
+			return false;
+		if (comboBoxAnnoMensile == null) {
+			if (other.comboBoxAnnoMensile != null)
+				return false;
+		} else if (!comboBoxAnnoMensile.equals(other.comboBoxAnnoMensile))
+			return false;
+		if (comboBoxAnnuale == null) {
+			if (other.comboBoxAnnuale != null)
+				return false;
+		} else if (!comboBoxAnnuale.equals(other.comboBoxAnnuale))
+			return false;
+		if (comboBoxMeseMensile == null) {
+			if (other.comboBoxMeseMensile != null)
+				return false;
+		} else if (!comboBoxMeseMensile.equals(other.comboBoxMeseMensile))
+			return false;
+		if (dataQuery == null) {
+			if (other.dataQuery != null)
+				return false;
+		} else if (!dataQuery.equals(other.dataQuery))
+			return false;
+		if (dataQuery2 == null) {
+			if (other.dataQuery2 != null)
+				return false;
+		} else if (!dataQuery2.equals(other.dataQuery2))
+			return false;
+		if (extra == null) {
+			if (other.extra != null)
+				return false;
+		} else if (!extra.equals(other.extra))
+			return false;
+		if (lblProfitto == null) {
+			if (other.lblProfitto != null)
+				return false;
+		} else if (!lblProfitto.equals(other.lblProfitto))
+			return false;
+		if (profitto == null) {
+			if (other.profitto != null)
+				return false;
+		} else if (!profitto.equals(other.profitto))
+			return false;
+		if (scroll == null) {
+			if (other.scroll != null)
+				return false;
+		} else if (!scroll.equals(other.scroll))
+			return false;
+		if (scrollAlaggio == null) {
+			if (other.scrollAlaggio != null)
+				return false;
+		} else if (!scrollAlaggio.equals(other.scrollAlaggio))
+			return false;
+		if (scrollAssicurazione == null) {
+			if (other.scrollAssicurazione != null)
+				return false;
+		} else if (!scrollAssicurazione.equals(other.scrollAssicurazione))
+			return false;
+		if (scrollBollo == null) {
+			if (other.scrollBollo != null)
+				return false;
+		} else if (!scrollBollo.equals(other.scrollBollo))
+			return false;
+		if (scrollOrmeggio == null) {
+			if (other.scrollOrmeggio != null)
+				return false;
+		} else if (!scrollOrmeggio.equals(other.scrollOrmeggio))
+			return false;
+		if (scrollTagliando == null) {
+			if (other.scrollTagliando != null)
+				return false;
+		} else if (!scrollTagliando.equals(other.scrollTagliando))
+			return false;
+		if (tblAlaggio == null) {
+			if (other.tblAlaggio != null)
+				return false;
+		} else if (!tblAlaggio.equals(other.tblAlaggio))
+			return false;
+		if (tblAssicurazione == null) {
+			if (other.tblAssicurazione != null)
+				return false;
+		} else if (!tblAssicurazione.equals(other.tblAssicurazione))
+			return false;
+		if (tblBollo == null) {
+			if (other.tblBollo != null)
+				return false;
+		} else if (!tblBollo.equals(other.tblBollo))
+			return false;
+		if (tblOrmeggio == null) {
+			if (other.tblOrmeggio != null)
+				return false;
+		} else if (!tblOrmeggio.equals(other.tblOrmeggio))
+			return false;
+		if (tblTagliando == null) {
+			if (other.tblTagliando != null)
+				return false;
+		} else if (!tblTagliando.equals(other.tblTagliando))
+			return false;
+		if (tblVeicoli == null) {
+			if (other.tblVeicoli != null)
+				return false;
+		} else if (!tblVeicoli.equals(other.tblVeicoli))
+			return false;
+		return true;
+	}
+	
 	
 }

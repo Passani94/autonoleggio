@@ -416,39 +416,153 @@ public class Veicolo {
 
 /* Metodo. Assegna i valori al veicolo. */
 
-public void setValori(ModuloFlotta content, String tipo){
-	targa = content.txtTarga.getText().trim();
-	tipologia = content.comboBoxTipologia.getSelectedItem().toString();
-	marca = content.txtMarca.getText().trim();
-	nome = content.txtNome.getText().trim();
-	alimentazione = content.comboBoxAlimentazione.getSelectedItem().toString();
-	km = content.txtKm.getText().trim();
-	dimensioni = content.txtDimensioni.getText().trim();
-	immatricolazione = content.frmtdtxtfldImma.getText().trim();
-	bollo = content.frmtdtxtfldBollo.getText().trim();
-	tagliando = content.frmtdtxtfldTagliando.getText().trim();
-	assicurazione = content.frmtdtxtfldAssicurazione.getText().trim();
-	ormeggio = content.frmtdtxtfldOrmeggio.getText().trim();
-	alaggio = content.frmtdtxtfldAlaggio.getText().trim();
-	if (tipo.equals("aggiungi")) {
-		breve = content.comboBoxBreveTermine.getSelectedItem().toString();
-		if (content.comboBoxLungoTermine.getSelectedIndex() != 0) lungo = content.comboBoxLungoTermine.getSelectedItem().toString();
-	}else {
-		disponibilita = content.comboBoxDisponibilita.getSelectedItem().toString();
+	public void setValori(ModuloFlotta content, String tipo){
+		targa = content.txtTarga.getText().trim();
+		tipologia = content.comboBoxTipologia.getSelectedItem().toString();
+		marca = content.txtMarca.getText().trim();
+		nome = content.txtNome.getText().trim();
+		alimentazione = content.comboBoxAlimentazione.getSelectedItem().toString();
+		km = content.txtKm.getText().trim();
+		dimensioni = content.txtDimensioni.getText().trim();
+		immatricolazione = content.frmtdtxtfldImma.getText().trim();
+		bollo = content.frmtdtxtfldBollo.getText().trim();
+		tagliando = content.frmtdtxtfldTagliando.getText().trim();
+		assicurazione = content.frmtdtxtfldAssicurazione.getText().trim();
+		ormeggio = content.frmtdtxtfldOrmeggio.getText().trim();
+		alaggio = content.frmtdtxtfldAlaggio.getText().trim();
+		if (tipo.equals("aggiungi")) {
+			breve = content.comboBoxBreveTermine.getSelectedItem().toString();
+				if (content.comboBoxLungoTermine.getSelectedIndex() != 0) lungo = content.comboBoxLungoTermine.getSelectedItem().toString();
+					}else {
+					disponibilita = content.comboBoxDisponibilita.getSelectedItem().toString();
+					}
 	}
-}
 
 /* Metodo. Assegna solo la chiave (Targa) al veicolo. */
 
-public void setTarga(ModuloFlotta content){
-	targa = content.txtTarga.getText().trim();
-}
+	public void setTarga(ModuloFlotta content){
+		targa = content.txtTarga.getText().trim();
+	}
 
 /* Metodo. Assegna solo la chiave (Targa) al veicolo da cercare. */
 
-public void setTargaCerca(ModuloFlotta content){
-	targaCerca = content.txtTargaCerca.getText().trim();
-}
+	public void setTargaCerca(ModuloFlotta content){
+		targaCerca = content.txtTargaCerca.getText().trim();
+	}
+
+	@Override
+	public String toString() {
+		return "Veicolo [test=" + test + ", veicolo=" + veicolo + ", targa=" + targa + ", targaCerca=" + targaCerca
+				+ ", tipologia=" + tipologia + ", marca=" + marca + ", nome=" + nome + ", disponibilita="
+				+ disponibilita + ", alimentazione=" + alimentazione + ", km=" + km + ", dimensioni=" + dimensioni
+				+ ", immatricolazione=" + immatricolazione + ", bollo=" + bollo + ", tagliando=" + tagliando
+				+ ", assicurazione=" + assicurazione + ", ormeggio=" + ormeggio + ", alaggio=" + alaggio + ", breve="
+				+ breve + ", lungo=" + lungo + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Veicolo other = (Veicolo) obj;
+		if (alaggio == null) {
+			if (other.alaggio != null)
+				return false;
+		} else if (!alaggio.equals(other.alaggio))
+			return false;
+		if (alimentazione == null) {
+			if (other.alimentazione != null)
+				return false;
+		} else if (!alimentazione.equals(other.alimentazione))
+			return false;
+		if (assicurazione == null) {
+			if (other.assicurazione != null)
+				return false;
+		} else if (!assicurazione.equals(other.assicurazione))
+			return false;
+		if (bollo == null) {
+			if (other.bollo != null)
+				return false;
+		} else if (!bollo.equals(other.bollo))
+			return false;
+		if (breve == null) {
+			if (other.breve != null)
+				return false;
+		} else if (!breve.equals(other.breve))
+			return false;
+		if (dimensioni == null) {
+			if (other.dimensioni != null)
+				return false;
+		} else if (!dimensioni.equals(other.dimensioni))
+			return false;
+		if (disponibilita == null) {
+			if (other.disponibilita != null)
+				return false;
+		} else if (!disponibilita.equals(other.disponibilita))
+			return false;
+		if (immatricolazione == null) {
+			if (other.immatricolazione != null)
+				return false;
+		} else if (!immatricolazione.equals(other.immatricolazione))
+			return false;
+		if (km == null) {
+			if (other.km != null)
+				return false;
+		} else if (!km.equals(other.km))
+			return false;
+		if (lungo == null) {
+			if (other.lungo != null)
+				return false;
+		} else if (!lungo.equals(other.lungo))
+			return false;
+		if (marca == null) {
+			if (other.marca != null)
+				return false;
+		} else if (!marca.equals(other.marca))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (ormeggio == null) {
+			if (other.ormeggio != null)
+				return false;
+		} else if (!ormeggio.equals(other.ormeggio))
+			return false;
+		if (tagliando == null) {
+			if (other.tagliando != null)
+				return false;
+		} else if (!tagliando.equals(other.tagliando))
+			return false;
+		if (targa == null) {
+			if (other.targa != null)
+				return false;
+		} else if (!targa.equals(other.targa))
+			return false;
+		if (targaCerca == null) {
+			if (other.targaCerca != null)
+				return false;
+		} else if (!targaCerca.equals(other.targaCerca))
+			return false;
+		if (test != other.test)
+			return false;
+		if (tipologia == null) {
+			if (other.tipologia != null)
+				return false;
+		} else if (!tipologia.equals(other.tipologia))
+			return false;
+		if (veicolo == null) {
+			if (other.veicolo != null)
+				return false;
+		} else if (!veicolo.equals(other.veicolo))
+			return false;
+		return true;
+	}
 
 }
 

@@ -36,68 +36,6 @@ public class Cliente {
 		cliente = new DBConnect();
 	}
 
-	
-	public String toString() {
-		return "Cliente [tipologia=" + tipologia + ", rs=" + rs + ", cap=" + cap + ", citta=" + citta + ", via=" + via
-				+ ", numero=" + numero + ", CF_PIVA=" + CF_PIVA + ", email=" + email + ", telefono=" + telefono + "]";
-	}
-
-	
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cliente other = (Cliente) obj;
-		if (CF_PIVA == null) {
-			if (other.CF_PIVA != null)
-				return false;
-		} else if (!CF_PIVA.equals(other.CF_PIVA))
-			return false;
-		if (cap == null) {
-			if (other.cap != null)
-				return false;
-		} else if (!cap.equals(other.cap))
-			return false;
-		if (citta == null) {
-			if (other.citta != null)
-				return false;
-		} else if (!citta.equals(other.citta))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (numero == null) {
-			if (other.numero != null)
-				return false;
-		} else if (!numero.equals(other.numero))
-			return false;
-		if (rs == null) {
-			if (other.rs != null)
-				return false;
-		} else if (!rs.equals(other.rs))
-			return false;
-		if (telefono == null) {
-			if (other.telefono != null)
-				return false;
-		} else if (!telefono.equals(other.telefono))
-			return false;
-		if (tipologia == null) {
-			if (other.tipologia != null)
-				return false;
-		} else if (!tipologia.equals(other.tipologia))
-			return false;
-		if (via == null) {
-			if (other.via != null)
-				return false;
-		} else if (!via.equals(other.via))
-			return false;
-		return true;
-	}
 
 	/* Metodo. Aggiunge un nuovo cliente al DB. */
 	
@@ -461,4 +399,83 @@ public class Cliente {
 	public void setIDCerca(ModuloCliente content) {
 		clienteCerca = content.txtClienteCerca.getText().trim();
 	}
+
+
+	@Override
+	public String toString() {
+		return "Cliente [cliente=" + cliente + ", test=" + test + ", tipologia=" + tipologia + ", rs=" + rs + ", cap="
+				+ cap + ", citta=" + citta + ", via=" + via + ", numero=" + numero + ", CF_PIVA=" + CF_PIVA + ", email="
+				+ email + ", telefono=" + telefono + ", clienteCerca=" + clienteCerca + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (CF_PIVA == null) {
+			if (other.CF_PIVA != null)
+				return false;
+		} else if (!CF_PIVA.equals(other.CF_PIVA))
+			return false;
+		if (cap == null) {
+			if (other.cap != null)
+				return false;
+		} else if (!cap.equals(other.cap))
+			return false;
+		if (citta == null) {
+			if (other.citta != null)
+				return false;
+		} else if (!citta.equals(other.citta))
+			return false;
+		if (cliente == null) {
+			if (other.cliente != null)
+				return false;
+		} else if (!cliente.equals(other.cliente))
+			return false;
+		if (clienteCerca == null) {
+			if (other.clienteCerca != null)
+				return false;
+		} else if (!clienteCerca.equals(other.clienteCerca))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (numero == null) {
+			if (other.numero != null)
+				return false;
+		} else if (!numero.equals(other.numero))
+			return false;
+		if (rs == null) {
+			if (other.rs != null)
+				return false;
+		} else if (!rs.equals(other.rs))
+			return false;
+		if (telefono == null) {
+			if (other.telefono != null)
+				return false;
+		} else if (!telefono.equals(other.telefono))
+			return false;
+		if (test != other.test)
+			return false;
+		if (tipologia == null) {
+			if (other.tipologia != null)
+				return false;
+		} else if (!tipologia.equals(other.tipologia))
+			return false;
+		if (via == null) {
+			if (other.via != null)
+				return false;
+		} else if (!via.equals(other.via))
+			return false;
+		return true;
+	}
+	
+	
 }

@@ -167,4 +167,68 @@ public class PannelloExtra extends JPanel implements ActionListener{
 			pnlModulo.set("Scadenze");
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "PannelloExtra [Questa classe genera il pannello extra.]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PannelloExtra other = (PannelloExtra) obj;
+		if (btnAnnuale == null) {
+			if (other.btnAnnuale != null)
+				return false;
+		} else if (!btnAnnuale.equals(other.btnAnnuale))
+			return false;
+		if (btnEsci == null) {
+			if (other.btnEsci != null)
+				return false;
+		} else if (!btnEsci.equals(other.btnEsci))
+			return false;
+		if (btnLogout == null) {
+			if (other.btnLogout != null)
+				return false;
+		} else if (!btnLogout.equals(other.btnLogout))
+			return false;
+		if (btnMensile == null) {
+			if (other.btnMensile != null)
+				return false;
+		} else if (!btnMensile.equals(other.btnMensile))
+			return false;
+		if (btnScadenze == null) {
+			if (other.btnScadenze != null)
+				return false;
+		} else if (!btnScadenze.equals(other.btnScadenze))
+			return false;
+		if (btnStatistica == null) {
+			if (other.btnStatistica != null)
+				return false;
+		} else if (!btnStatistica.equals(other.btnStatistica))
+			return false;
+		if (frame == null) {
+			if (other.frame != null)
+				return false;
+		} else if (!frame.equals(other.frame))
+			return false;
+		if (pnlModulo == null) {
+			if (other.pnlModulo != null)
+				return false;
+		} else if (!pnlModulo.equals(other.pnlModulo))
+			return false;
+		if (scrollPane == null) {
+			if (other.scrollPane != null)
+				return false;
+		} else if (!scrollPane.equals(other.scrollPane))
+			return false;
+		return true;
+	}
+	
+	
 }
