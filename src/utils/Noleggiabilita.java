@@ -34,4 +34,11 @@ public class Noleggiabilita {
 		
 		return noleggiabile;
 	}
+
+	public String toString() {
+		return "Noleggiabilita [La classe controlla se un veicolo è noleggiabile]";
+	}
+	
+	
+	
 }
