@@ -1,16 +1,34 @@
 package utils;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+/**
+ * La classe GestioneGiorni contiene metodi per gestire date.
+ */
 public class GestioneGiorni {
 	
-	/* Metodo. Calcola i giorni di noleggio. */
+	/**
+	 *  Inizializza un nuovo oggetto GestioneGiorni.
+	 */
+	public GestioneGiorni() {
+		
+	}
 	
-	public static long calcolaGiorni(String dataInizio, String dataFine) throws Exception{
+	/**
+	 * Calcola i giorni di noleggio.
+	 * 
+	 * @param dataInizio la data di inizio del noleggio.
+	 * @param dataFine la data di fine del noleggio.
+	 * @return il numero di giorni del noleggio.
+	 * 
+	 * @throws ParseException se avviene un errore durante il parsing delle stringhe passate come argomenti.
+	 */
+	public static long calcolaGiorni(String dataInizio, String dataFine) throws ParseException{
 	
 			TimeZone zone = TimeZone.getTimeZone("GMT+1");
 		
@@ -32,11 +50,21 @@ public class GestioneGiorni {
 			return giorni+1;
 	}
 	
-	/* Metodo. Calcola due possibili date di fine noleggio per un periodo
-	 * corrispondente a 30, 60, 90, 120, 150, 180 giorni. 
+	/**
+	 * Calcola due possibili date di fine noleggio per un periodo corrispondente a 30, 60, 90, 120, 150, 180, 365, 730, 1095 giorni. <br><br>
+	 * 
+	 * es. dataFine("2017-08-10", 65); <br><br>
+	 * 		
+	 * 	   data1 = "2017-10-09" corrispondente ad un periodo di noleggio di 60 giorni <br>
+	 * 	   data2 = "2017-11-08" corrispondente ad un periodo di noleggio di 90 giorni 
+	 * 	
+	 * @param dataInizio la data di inizio del noleggio.
+	 * @param giorniNoleggio il numero di giorni del noleggio.
+	 * @return due possibili date di fine noleggio in relazione al valore del parametro giorniNoleggio.
+	 * 
+	 * @throws ParseException se avviene un errore durante il parsing delle stringhe passate come argomenti.
 	 */
-	
-	public static String[] dataFine(String dataInizio, long giorniNoleggio) throws Exception {
+	public static String[] dataFine(String dataInizio, long giorniNoleggio) throws ParseException {
 		
 		Date d1, d2, d3;
 		String dataFine1, dataFine2;
@@ -100,9 +128,16 @@ public class GestioneGiorni {
 		return date;	
 	}
 	
-	/* Metodo. Verifica che la DataInizio sia "maggiore" della DataFine. */
-	
-	public static boolean isMaggiore(String dataInizio, String dataFine) throws Exception {
+	/**
+	 * Verifica se la data di inizio noleggio viene dopo la data di fine noleggio.
+	 * 
+	 * @param dataInizio la data di inizio noleggio.
+	 * @param dataFine la data di fine noleggio.
+	 * @return true se dataInizio viene dopo dataFine; false altrimenti.
+	 * 
+	 * @throws ParseException se avviene un errore durante il parsing delle stringhe passate come argomenti.
+	 */
+	public static boolean isMaggiore(String dataInizio, String dataFine) throws ParseException {
 		
 		boolean maggiore = false;
 		Date d1, d2;
@@ -122,9 +157,16 @@ public class GestioneGiorni {
 		return maggiore;
 	}
 	
-/* Metodo. Verifica che la DataInizio sia "minore" della DataFine. */
-	
-	public static boolean isMinore(String dataInizio, String dataFine) throws Exception {
+	/**
+	 * Verifica se la data di inizio noleggio viene prima della data di fine noleggio.
+	 * 
+	 * @param dataInizio la data di inizio noleggio.
+	 * @param dataFine la data di fine noleggio.
+	 * @return true se dataInizio viene prima di dataFine; false altrimenti.
+	 * 
+	 * @throws ParseException se avviene un errore durante il parsing delle stringhe passate come argomenti.
+	 */
+	public static boolean isMinore(String dataInizio, String dataFine) throws ParseException {
 		
 		boolean minore = false;
 		Date d1, d2;
@@ -143,9 +185,16 @@ public class GestioneGiorni {
 		
 		return minore;
 	}
-	/* Metodo. Verifica se la data passata come argomento è antecedente alla data odierna. */
 	
-	public static boolean nonConsentito(String dataInizio) throws Exception {
+	/**
+	 * Verifica se la data di inizio noleggio è antecedente alla data odierna.
+	 * 
+	 * @param dataInizio la data di inizio noleggio.
+	 * @return true se dataInizio è antecedente alla data odierna; false altrimenti.
+	 * 
+	 * @throws ParseException se avviene un errore durante il parsing delle stringhe passate come argomenti.
+	 */
+	public static boolean nonConsentito(String dataInizio) throws ParseException {
 		
 		boolean nonConsentito = false;
 		Date d1, d2;
@@ -169,4 +218,13 @@ public class GestioneGiorni {
 		return nonConsentito;
 	
 	}
+
+	/**
+	 * Restituisce una rappresentazione in stringa dell'oggetto.
+	 */
+	public String toString() {
+		return "GestioneGiorni [La classe GestioneGiorni contiene metodi per gestire date.]";
+	}
+	
+	
 }
