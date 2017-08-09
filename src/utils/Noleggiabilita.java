@@ -1,14 +1,39 @@
 package utils;
 
 
+import java.sql.SQLException;
+import java.text.ParseException;
+
 import db.DBConnect;
 import utils.GestioneGiorni;
+
+/**
+ * La classe Noleggiabilità permette di controllare se un veicolo è noleggiabile o meno.
+ */
 
 public class Noleggiabilita {
 	
 	private static DBConnect connessione;
 	
-	public static boolean controlla(String targa, String inizio, String fine) throws Exception {
+	/**
+	 * Inizializza un nuovo oggetto Noleggiabilita.
+	 */
+	public Noleggiabilita() {
+		
+	}
+	
+	/**
+	 * Verifica se un determinato veicolo è noleggiabile o meno.
+	 * 
+	 * @param targa lo specifico veicolo che si intende noleggiare
+	 * @param inizio la data di inizio noleggio
+	 * @param fine la data di fine noleggio
+	 * @return true se il veicolo è noleggiabile; false altrimenti
+	 * 
+	 * @throws SQLException se avviene un errore che coinvolge il database
+	 * @throws ParseException se avviene un errore durante il parsing delle stringhe passate come argomenti.
+	 */
+	public static boolean controlla(String targa, String inizio, String fine) throws SQLException, ParseException {
 		
 		boolean noleggiabile=true;
 		String dataInizio, dataFine;
@@ -32,11 +57,15 @@ public class Noleggiabilita {
 			} while (noleggiabile && connessione.rs.next());
 		}
 		
+		connessione.con.close();
 		return noleggiabile;
 	}
 
+	/**
+	 * Restituisce una rappresentazione in stringa dell'oggetto.
+	 */
 	public String toString() {
-		return "Noleggiabilita [La classe controlla se un veicolo è noleggiabile]";
+		return "Noleggiabilita [La classe Noleggiabilità permette di controllare se un veicolo è noleggiabile o meno.]";
 	}
 	
 	

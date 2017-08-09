@@ -9,19 +9,27 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
+/**
+ * La classe CostruisciTabella permette di costruire una tabella a partire dal ResultSet di una query SQL.
+ */
 public class CostruisciTabella {
 	
+	/**
+	 * Contiene una tabella in forma matriciale (i.e. sotto forma di {@code Vector} di {@code Vectors}).
+	 */
 	public DefaultTableModel model;
 	
-	/* Costruttore della classe */
-	
+	/**
+	 * 	Inizializza un nuovo oggetto CostruisciTabella e costruisce una tabella a partire dal ResultSet passato come argomento.
+	 * 
+	 * @param rs il ResultSet ottenuto da una query SQL.
+	 */
 	public CostruisciTabella(ResultSet rs){
 		Costruisci(rs);
 	}
 	
-	/* Metodo. Costruisce una tabella (JTable) a partire dal ResultSet ottenuto da una query SQL. */
 	
+	/*Costruisce una tabella a partire dal ResultSet di una query SQL. */
 	private void Costruisci(ResultSet result){
 	
 		try{
@@ -52,4 +60,13 @@ public class CostruisciTabella {
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
+
+	/**
+	 * Restituisce una rappresentazione in stringa dell'oggetto.
+	 */
+	public String toString() {
+		return "CostruisciTabella [La classe CostruisciTabella permette di costruire una tabella a partire dal ResultSet di una query SQL.]";
+	}
+	
+	
 }
