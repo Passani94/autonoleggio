@@ -504,7 +504,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 		}
 		else if(btnElimina == e.getSource()){
 			cliente = new Cliente();
-			cliente.setID(this);
+			cliente.setIDElimina(this);
 			cliente.elimina(this);
 		}
 		else if(btnCerca == e.getSource()){

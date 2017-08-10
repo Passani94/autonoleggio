@@ -7,44 +7,79 @@ import gui.moduli.ModuloCliente;
 
 import javax.swing.JOptionPane;
 
-/* Classe per l'entita Cliente. */
-
+/**
+ * La classe Cliente rappresenta i clienti dell'autonoleggio.
+ */
 public class Cliente {
 	
-	private DBConnect cliente;
+	/**
+	 * La tipologia di cliente. Può essere di tre tipi: <br><br> - Associazione <br> - Azienda <br> - Privato
+	 */
+	public String tipologia;
+	/**
+	 * La ragione sociale del cliente. <br><br> - La {@code Denominazione} nel caso di Associazione ed Azienda. <br>
+	 * La coppia {@code Cognome Nome} nel caso di Privato.
+	 */
+	public String rs;
+	/**
+	 * Il Codice di Avviamento Postale (CAP) della città in cui risiede il cliente.
+	 */
+	public String cap;
+	/**
+	 * La città in cui risiede il cliente.
+	 */
+	public String citta;
+	/**
+	 * La via associata alla residenza del cliente. 
+	 */
+	public String via;
+	/**
+	 * Il numero civico associato alla residenza del cliente.
+	 */
+	public String numero;
+	/**
+	 * Il {@code Codice Fiscale} o la {@code Partita Iva} del cliente.
+	 */
+	public String CF_PIVA;
+	/**
+	 * L'email del cliente.
+	 */
+	public String email;
+	/**
+	 * Il recapito telefonico del cliente.
+	 */
+	public String telefono;
+	
 	
 	private boolean test;
 	
-	public String tipologia;
-	public String rs;
-	public String cap;
-	public String citta;
-	public String via;
-	public String numero;
-	public String CF_PIVA;
-	public String email;
-	public String telefono;
-	public String clienteCerca;
+	private DBConnect cliente;
+	
+	private String clienteCerca;
 	
 	private static final String EMAILPATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	private static final String CFPATTERN = "[a-zA-Z]{6}\\d\\d[a-zA-Z]\\d\\d[a-zA-Z]\\d\\d\\d[a-zA-Z]";
 	
-	/* Costruttore Cliente */
-	
+	/**
+	 * Inizializza un nuovo oggetto Cliente e stabilisce una connessione con il database.
+	 */
 	public Cliente() {
 		test = true;
 		cliente = new DBConnect();
 	}
 
 
-	/* Metodo. Aggiunge un nuovo cliente al DB. */
-	
+	/**
+	 * Aggiunge un nuovo cliente al database.
+	 * 
+	 * @param content il form {@code "Nuovo Cliente"} ed i relativi dati inseriti.
+	 */
 	public void aggiungi(ModuloCliente content) {
 		if (check(content)) {
 			try {
 				/* Verifica se nel DB esiste gia' un cliente con il CF (o la Partita IVA) inseriti.*/
 				cliente.exequery("SELECT * FROM cliente where CF_PIVA='"+CF_PIVA+"'","select");
-				if (cliente.rs.next()){
+				if (cliente.rs.next()) {
 					JOptionPane.showMessageDialog(null, "Errore! Esiste gi\u00E0 un cliente con tale CF/Partita IVA!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
@@ -76,7 +111,11 @@ public class Cliente {
 		}
 	}
 	
-	/* Metodo. Elimina un cliente dal DB. */
+	/**
+	 * Elimina un cliente dal database.
+	 * 
+	 * @param content il form {@code "Elimina Cliente"} ed i relativi dati inseriti.
+	 */
 	
 	public void elimina(ModuloCliente content) {
 		if (checkElimina(content)) {
@@ -111,7 +150,11 @@ public class Cliente {
 		}
 	}
 	
-	/* Metodo. Cerca un cliente nel DB. */
+	/**
+	 * Cerca un cliente nel database.
+	 * 
+	 * @param content il form {@code "Modifica Cliente"} ed i relativi campi inseriti.
+	 */
 	
 	public void cerca(ModuloCliente content) {
 		
@@ -163,7 +206,11 @@ public class Cliente {
 		}
 	}
 	
-	/* Metodo. Modifica un cliente nel DB. */
+	/**
+	 * Modifica un cliente presente nel database.
+	 * 
+	 * @param content il form {@code "Modifica Cliente"} ed i relativi dati inseriti.
+	 */
 	
 	public void modifica(ModuloCliente content) {
 	
@@ -195,8 +242,12 @@ public class Cliente {
 		}
 	}
 	
-	/* Metodo. Verifica che i dati inseriti siano corretti. */
-	
+	/**
+	 * Verifica che i dati del cliente da aggiungere/modificare siano corretti.
+	 * 
+	 * @param content il form {@code "Nuovo Cliente"/"Modifica Cliente"} ed i relativi dati inseriti.
+	 * @return true se i dati inseriti sono validi; false altrimenti.
+	 */
 	private boolean check(ModuloCliente content) {
 		boolean check = true;
 		/* Verifica se sono stati inseriti tutti i campi necessari.*/
@@ -290,8 +341,12 @@ public class Cliente {
 		return test;
 	}
 	
-/* Metodo. Verifica la correttezza del CF (o della Partita IVA) del cliente da eliminare. */
-	
+	/**
+	 * Verifica la correttezza del {@code Codice Fiscale} (o della {@code Partita IVA}) del cliente da eliminare.
+	 * 
+	 * @param content il form {@code "Elimina Cliente"} ed i relativi dati inseriti.
+	 * @return true se i dati inseriti sono validi; false altrimenti.
+	 */
 	private boolean checkElimina(ModuloCliente content) {
 		boolean check=true;
 		/* Verifica se sono stati inseriti tutti i campi necessari */
@@ -329,8 +384,11 @@ public class Cliente {
 		return test;
 	}
 	
-	/* Metodo. Verifica la correttezza del CF (o della Partita IVA) del cliente da cercare. */
-	
+	/**
+	 *  Verifica la correttezza del {@code Codice Fiscale} (o della {@code Partita IVA}) del cliente da cercare.
+	 *  
+	 *  @param content il form {@code "Modifica Cliente"} ed i relativi dati inseriti.
+	 */
 	private boolean checkCerca(ModuloCliente content) {
 		boolean check=true;
 		if (clienteCerca.length() == 16 && !clienteCerca.matches(CFPATTERN)) {
@@ -361,8 +419,12 @@ public class Cliente {
 		return test;
 	}
 	
-	/* Metodo. Verifica se una stringa e' numerica. */
-	
+	/**
+	 * Verifica se la stringa passata come argomento è numerica.
+	 * 
+	 * @param string la stringa da controllare.
+	 * @return true se la stringa è numerica; false altrimenti.
+	 */
 	private static boolean isNumeric(String string) {
 	    try {
 	        Long.parseLong(string);
@@ -374,8 +436,11 @@ public class Cliente {
 
 /* METODI USATI DALLA GUI PER LA GESTIONE DEI CLIENTI ( --> vedi classe ModuloCl <-- ) */
 
-/* Metodo. Assegna i valori al cliente. */
-
+	/**
+	 * Assegna i valori inseriti nella form alle variabili dell'oggetto {@code Cliente}.
+	 * 
+	 * @param content il form {@code "Nuovo Cliente"/"Modifica Cliente"} ed i relativi dati inseriti.
+	 */
 	public void setValori(ModuloCliente content) {
 		CF_PIVA = content.txtCF_PIVA.getText().trim();
 		tipologia = content.comboBoxTipologia.getSelectedItem().toString();
@@ -388,27 +453,42 @@ public class Cliente {
 		telefono = content.txtTelefono.getText().trim();
 	}
 	
-/* Metodo. Assegna solo la chiave (CF/Partita_IVA) del cliente. */
-
-	public void setID(ModuloCliente content) {
+	/**
+	 * Assegna il {@code Codice Fiscale} (o la {@code Partita IVA}) del cliente da eliminare.
+	 * 
+	 * @param content il form {@code "Elimina Cliente"} ed i relativi dati inseriti.
+	 */
+	public void setIDElimina(ModuloCliente content) {
 		CF_PIVA = content.txtCF_PIVA.getText().trim();
 	}
 
-/* Metodo. Assegna solo la chiave (CF/Partita_IVA) del cliente da cercare. */
-
+	/**
+	 * Assegna il {@code Codice Fiscale} (o la {@code Partita IVA}) del cliente da cercare.
+	 * 
+	 * @param content il form {@code "Modifica Cliente"} ed i relativi dati inseriti.
+	 */
 	public void setIDCerca(ModuloCliente content) {
 		clienteCerca = content.txtClienteCerca.getText().trim();
 	}
 
 
-	@Override
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
 		return "Cliente [cliente=" + cliente + ", test=" + test + ", tipologia=" + tipologia + ", rs=" + rs + ", cap="
 				+ cap + ", citta=" + citta + ", via=" + via + ", numero=" + numero + ", CF_PIVA=" + CF_PIVA + ", email="
 				+ email + ", telefono=" + telefono + ", clienteCerca=" + clienteCerca + "]";
 	}
 
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -476,6 +556,4 @@ public class Cliente {
 			return false;
 		return true;
 	}
-	
-	
 }

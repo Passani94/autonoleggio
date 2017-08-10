@@ -93,7 +93,7 @@ public class DBConnect {
 	 * Confronta questo oggetto con quello passato come argomento.
 	 * 
 	 * @param obj l'oggetto da confrontare.
-	 * @return true se i due oggetti sono uguali; false altrimenti
+	 * @return true se i due oggetti sono uguali; false altrimenti.
 	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
