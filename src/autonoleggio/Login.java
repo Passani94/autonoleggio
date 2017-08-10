@@ -25,21 +25,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * La classe Login implementa il controllo delle credenziali di accesso.
+ */
 public class Login extends JFrame implements ActionListener, Runnable {
 
-	private static final long serialVersionUID = 1L; 
-	
-	private DBConnect log;
-	
+	private static final long serialVersionUID = 1L; 	
+	private DBConnect log;	
 	private JPanel contentPane;
 	private JPasswordField txtPassword;
 	private JTextField txtUsername;
 	private JButton btnAccedi = new JButton("Accedi");
 	private JButton btnEsci = new JButton("Esci");
 	
-	
-	/* Crea il frame Login.*/
-	
+	/**
+	 *
+	 * Manda in esecuzione il thread richiamato dalla classe Autonoleggio creando un oggetto Login.
+	 * 
+	 */	
 	public void run() {
 		try {
 			Login frame = new Login();
@@ -53,8 +56,11 @@ public class Login extends JFrame implements ActionListener, Runnable {
 		}
 	}
 	 
-	/* Definisce il frame Login.*/
-	
+	/**
+	 * Inizializza un nuovo oggetto Login definendo il frame che permette l'inserimento delle credenziali 
+	 * di accesso.
+	 * 
+	 */	
 	public Login() {
     	try {
     		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -172,8 +178,11 @@ public class Login extends JFrame implements ActionListener, Runnable {
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	/* Metodo. Verifica che i dati inseriti per l'accesso siano validi.*/
-	
+	/**
+	 * 
+	 * Verifica che le credenziali di accesso siano valide.
+	 * 
+	 */	
 	private void check(){
 		int size=0;
 			try {
@@ -216,8 +225,11 @@ public class Login extends JFrame implements ActionListener, Runnable {
 			}
 	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante cliccato.*/
-	
+	/**
+	 * 
+	 * Definisce le azioni da eseguire in base al pulsante cliccato.
+	 * 
+	 */	
 	public void actionPerformed(ActionEvent e){
 		if (btnAccedi == e.getSource()){
 			log = new DBConnect();
@@ -227,11 +239,15 @@ public class Login extends JFrame implements ActionListener, Runnable {
 			System.exit(0); 
 		}
 	}
-
-	public String toString() {
-		return "Login [txtPassword=" + txtPassword + ", txtUsername=" + txtUsername + "]";
-	}
-
+	
+	/**
+	 * 
+	 * Verifica che un oggetto Login e obj sono istanze della stessa classe e hanno uguale
+	 * contenuto.
+	 * 
+	 * @param obj oggetto da confrontare con una istanza di Login.
+	 * @return true se obj è istanza di Login; false altrimenti.
+	 */		   
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

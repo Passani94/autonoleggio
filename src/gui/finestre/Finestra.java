@@ -22,11 +22,20 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 
+/**
+ * La classe Finestra rappresenta il frame dell'applicazione.
+ */
 public class Finestra extends JFrame implements ActionListener{
 	
 	private static final long serialVersionUID = 1L; 
+	/**
+	 * L'username dell'utente.
+	 */
 	public String username;
 	public JPanel contentPane = new JPanel();
+	/**
+	 * Il pannello del frame Finestra.
+	 */
 	private final JMenuBar menuBar = new JMenuBar();
 	private final JButton btnExtra = new JButton("Extra");
 	private final JButton btnOperatore = new JButton("Operatore");
@@ -35,8 +44,11 @@ public class Finestra extends JFrame implements ActionListener{
 	private final JButton btnCliente = new JButton("Cliente");
 	private final JButton btnHome = new JButton("Home");
 	
-	/* Crea il frame Pannello.*/
-	
+	/**
+	 * Inizializza un oggetto Finestra e memorizza l'username passato come argomento.
+	 * 
+	 * @param user l'username dell'utente che utilizza l'applicazione.
+	 */
 	public Finestra(String user) {
 		username = user;
 		try {
@@ -67,8 +79,11 @@ public class Finestra extends JFrame implements ActionListener{
 		}
 	}
 	
-	/* Crea il menù */
-	
+	/**
+	 * 
+	 *  Crea il menù del frame.
+	 *  
+	 */
 	public void menu(){
 		setJMenuBar(menuBar);
 		
@@ -102,7 +117,11 @@ public class Finestra extends JFrame implements ActionListener{
 		}
 	}
 	
-	/* Definisce le azioni da eseguire in base al bottone cliccato.*/
+	/**
+	 * 
+	 * Definisce le azioni da eseguire in base al pulsante cliccato.
+	 * 
+	 */	
 	
 	public void actionPerformed(ActionEvent e){
 		if(btnHome == e.getSource()){			
@@ -137,12 +156,14 @@ public class Finestra extends JFrame implements ActionListener{
 		}
 	}
 
-	@Override
-	public String toString() {
-		return "Finestra [username=" + username + "]";
-	}
-
-	@Override
+	/**
+	 * 
+	 * Verifica che un oggetto Finestra e obj sono istanze della stessa classe e hanno uguale
+	 * contenuto.
+	 * 
+	 * @param obj oggetto da confrontare con una istanza di Finestra.
+	 * @return true se obj è istanza di Finestra; false altrimenti.
+	 */		
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
