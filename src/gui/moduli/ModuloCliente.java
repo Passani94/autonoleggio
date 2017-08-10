@@ -117,7 +117,6 @@ public class ModuloCliente extends JPanel implements ActionListener {
 	public void set(String str) {
 		
 		if (str.equals("Elenca")) {
-			
 			/* Viene generato l'elenco dei clienti contenuti nel database. */
 			elencoClienti = new DBConnect();
 			this.removeAll();
@@ -165,7 +164,6 @@ public class ModuloCliente extends JPanel implements ActionListener {
 			this.revalidate();
 		
 		} else if (str.equals("Nuovo")) {
-			
 			/* Viene creato il form per aggiungere un nuovo cliente. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Nuovo Cliente"));
@@ -322,7 +320,6 @@ public class ModuloCliente extends JPanel implements ActionListener {
 			this.revalidate();
 		
 		} else if (str == "Elimina") {
-			
 			/* Viene creato il form per eliminare un cliente. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elimina Cliente"));
@@ -369,7 +366,6 @@ public class ModuloCliente extends JPanel implements ActionListener {
 			this.revalidate();
 		
 		} else if (str.equals("Modifica")) {
-			
 			/* Viene creato il form per modificare un cliente. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Modifica Cliente"));
@@ -577,6 +573,9 @@ public class ModuloCliente extends JPanel implements ActionListener {
 		}
 	}
 
+	
+/* OVERRIDING METODI toString() ED equals() */
+	
 	/**
 	 * Restituisce una rappresentazione testuale dell'oggetto.
 	 * 

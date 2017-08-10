@@ -11,72 +11,132 @@ import gui.moduli.ModuloContratto;
 import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
-/* Classe per l'entità Contratto */
+/**
+ * La classe Contratto rappresenta i contratti dell'autonoleggio.
+ */
 
 public class Contratto {
-	
+	/**
+	 * La tipologia di noleggio. Può essere di due tipi: <br><br> - Breve <br> - Lungo
+	 */
 	public String tipologia;
+	
+	/**
+	 * La targa del veicolo noleggiato.
+	 */
 	public String veicolo;
+	
+	/**
+	 * Il Codice Fiscale (o la Partita IVA) del cliente.
+	 */
 	public String cliente;
+	
+	/**
+	 * La data di inizio noleggio.
+	 */
 	public String inizio;
+	
+	/**
+	 * La data di fine noleggio.
+	 */
 	public String fine;
+	
+	/**
+	 * Il costo del noleggio.
+	 */
 	public String costo;
+	
+	/**
+	 * L'acconto lasciato dal cliente.
+	 */
 	public String acconto;
+	
+	/**
+	 * Il cognome riportato sulla patente del conducente.
+	 */
 	public String cognome;
+	
+	/**
+	 * Il nome riportato sulla patente del conducente.
+	 */
 	public String nome;
+	
+	/**
+	 * Il numero di patente.
+	 */
 	public String patente;
+	
+	/**
+	 * La data di fine validità della patente.
+	 */
 	public String valida;
+	
+	/**
+	 * L'ente che ha rilasciato la patente.
+	 */
 	public String rilasciataDa;
+	
+	/**
+	 * La data in cui è stata rilasciata la patente.
+	 */
 	public String rilasciataIl;
 	
-	public Integer codice,codiceCerca,codiceModifica;
 	
 	private boolean test;
 	
 	private DBConnect noleggio;
 	
+	private Integer codice,codiceCerca,codiceModifica;
+	
 	private static final String CFPATTERN = "[a-zA-Z]{6}\\d\\d[a-zA-Z]\\d\\d[a-zA-Z]\\d\\d\\d[a-zA-Z]";
-	private static final String PTPATTERN = "^[a-zA-Z]{2}\\d{7}[a-zA-Z]{1}";
+	private static final String PTPATTERN = "^[a-zA-Z]{2}\\d{7}[a-zA-Z]{1}";	//Pattern Patente
 	private static final String TGPATTERN1 = "[a-zA-Z]{2}\\d\\d\\d[a-zA-Z]{2}"; //Pattern Targa Autoveicolo
 	private static final String TGPATTERN2 = "[a-zA-Z]{1}\\d\\d\\d[a-zA-Z]{2}"; //Pattern Targa Scooter
-	private static final String TGPATTERN3 = "[a-zA-Z]{2}\\d\\d\\d\\d\\d"; //Pattern Targa Motocicletta e Quad-Bike
-	private static final String TGPATTERN4 = "\\d[a-zA-Z]{2}\\d\\d\\d"; //Pattern Targa Mezzo Acquatico
+	private static final String TGPATTERN3 = "[a-zA-Z]{2}\\d\\d\\d\\d\\d"; 		//Pattern Targa Motocicletta e Quad-Bike
+	private static final String TGPATTERN4 = "\\d[a-zA-Z]{2}\\d\\d\\d"; 		//Pattern Targa Mezzo Acquatico
 	
 	
-	/* Costruttore Contratto */
-	
+	/**
+	 * Inizializza un nuovo oggetto Contratto e stabilisce una connessione con il database.
+	 */
 	public Contratto() {
+		
 		test=true;
 		noleggio = new DBConnect();
 	}
 	
 	
-	/* Metodo. Aggiunge un nuovo contratto al DB. */
-	
+	/**
+	 * Aggiunge un nuovo contratto al database.
+	 * @param content il form {@code "Nuovo Contratto"} ed i relativi dati inseriti.
+	 */
 	public void aggiungi(ModuloContratto content) {
-		if (check(content)){
+		
+		if (check(content)) {
 			try { 
 				/* Cerca nel DB un cliente con il CF (o la Partita IVA) inseriti. */
 				noleggio.exequery("SELECT * FROM cliente where CF_PIVA='"+cliente+"'","select"); 
 				/* Verifica se il cliente inserito è presente nel DB. */
-				if (!noleggio.rs.next()){	
+				if (!noleggio.rs.next()) {	
 					JOptionPane.showMessageDialog(null, "Errore! Il cliente inserito non è presente!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 					content.txtCliente.setText("");
 					content.txtCliente.requestFocus();
 					test=false;
-				} /* Cerca nel DB un veicolo con la Targa inserita. */
+				} 
+				/* Cerca nel DB un veicolo con la Targa inserita. */
 				noleggio.exequery("SELECT * FROM veicolo where Targa='"+veicolo+"'","select"); 
 				/* Verifica se il veicolo inserito è presente nel DB. */
-				if (!noleggio.rs.next()){	
+				if (!noleggio.rs.next()) {	
 					JOptionPane.showMessageDialog(null, "Errore! Il veicolo inserito non è presente!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 					content.txtVeicolo.setText("");
 					content.txtVeicolo.requestFocus();
 					test=false;
-				} /* Verifica se il veicolo desiderato è disponibile. */
+				} 
+				/* Verifica se il veicolo desiderato è disponibile. */
 				if (test==true && noleggio.rs.getString("Disponibilita").equals("SI")) {	
 					String valori="(DEFAULT,'"+tipologia+"','"+veicolo+"','"+cliente+"',"+inizio+","+fine+","+costo+","+acconto+",'"+cognome+"',"
 							+ "'"+nome+"','"+patente+"',"+valida+",'"+rilasciataDa+"',"+rilasciataIl+")";
@@ -113,12 +173,18 @@ public class Contratto {
 		}
 	}
 	
+	/**
+	 * Cerca un contratto nel database.
+	 * 
+	 * @param content il form {@code "Modifica Contratto"} ed i relativi campi inseriti.
+	 */
 	public void cerca(ModuloContratto content){
+		
 		String item;
-			if (checkcerca(content)){
-				try{
+			if (checkcerca(content)) {
+				try {
 				noleggio.exequery("SELECT * FROM noleggio where Cod_Noleggio="+codiceCerca+"","select");
-				if (noleggio.rs.next()){
+				if (noleggio.rs.next()) {
 					content.txtContrattoCerca.setEditable(false);
 					
 					for (int i=1; i<3; i++) {						 
@@ -138,9 +204,9 @@ public class Contratto {
 					content.txtNome.setText(noleggio.rs.getString(10));
 					content.txtPatente.setText(noleggio.rs.getString(11));
 					content.frmtdtxtfldValida.setText(noleggio.rs.getString(12));
-					if(!noleggio.rs.getString(13).equals("NULL")) {
+					if (!noleggio.rs.getString(13).equals("NULL")) {
 						content.txtRilasciatada.setText(noleggio.rs.getString(13));
-					}else {
+					} else {
 						content.txtRilasciatada.setText("");
 					}
 					content.frmtdtxtfldRilasciatail.setText(noleggio.rs.getString(14));
@@ -158,7 +224,7 @@ public class Contratto {
 					content.txtRilasciatada.setEditable(true);
 					content.frmtdtxtfldRilasciatail.setEditable(true);
 					
-				}else{
+				} else {
 					JOptionPane.showMessageDialog(null, "Errore! Non è presente un contratto con tale codice!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
@@ -175,25 +241,29 @@ public class Contratto {
 		}
 	}
 	
-	/* Metodo. Elimina un contratto. */
-	
+	/**
+	 * Elimina un contratto dal database.
+	 * 
+	 * @param content il form {@code "Elimina Contratto"} ed i relativi dati inseriti.
+	 */
 	public void elimina(ModuloContratto content) {
-		if (checkelimina(content)){
-			try{
+		
+		if (checkelimina(content)) {
+			try {
 				noleggio.exequery("SELECT * FROM noleggio where Cod_Noleggio="+codice+"","select");
 				/*Verifica se è presente un contratto con tale codice*/
-				if(!noleggio.rs.next()){
+				if (!noleggio.rs.next()) {
 					JOptionPane.showMessageDialog(null, "Errore! Non è presente un contratto con tale codice!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
 					content.txtCodice.requestFocus();
-				}else {
+				} else {
 					int scelta = JOptionPane.showConfirmDialog(
 							null,
 							"Si desidera eliminare il contratto con codice "+codice+" ?",
 							"Conferma eliminazione",
 							JOptionPane.YES_NO_OPTION);
-					if (scelta == JOptionPane.YES_OPTION){
+					if (scelta == JOptionPane.YES_OPTION) {
 						noleggio.exequery("DELETE FROM noleggio WHERE Cod_Noleggio="+codice+"","delete");
 					JOptionPane.showMessageDialog(null , "Contratto Eliminato!");
 					content.txtCodice.setText("");
@@ -210,12 +280,15 @@ public class Contratto {
 		}
 	}
 	
-/* Metodo. Modifica un contratto nel DB. */
-	
+	/**
+	 * Modifica un contratto presente nel database.
+	 * 
+	 * @param content il form {@code "Modifica Contratto"} ed i relativi dati inseriti.
+	 */
 	public void modifica(ModuloContratto content){
 	
-		if (check(content)){
-			try{
+		if (check(content)) {
+			try {
 				String valori = "Cod_Noleggio="+codiceModifica+",Tipologia='"+tipologia+"',Veicolo='"+veicolo+"',Cliente='"+cliente+"',"
 						+ "Data_Inizio="+inizio+",Data_Fine="+fine+",Costo_Totale="+costo+",Acconto="+
 						acconto+",Cognome='"+cognome+"',Nome='"+nome+"',Num_Patente='"+patente+"',"
@@ -249,17 +322,20 @@ public class Contratto {
 		}
 	}
 	/* Metodo. Filtra la tabella dei contratti. */
-	
-	public void filtra(ModuloContratto content){
-		if (checkfiltra(content)){
-			try{
-				if (cliente.equals("")){
+	/**
+	 * Filtra un contratto presente nell'elenco contratti.
+	 * 
+	 * @param content il form {@code "Elenco Contratti"} ed i relativi dati inseriti.
+	 */
+	public void filtra(ModuloContratto content) {
+		
+		if (checkfiltra(content)) {
+			try {
+				if (cliente.equals("")) {
 					noleggio.exequery("SELECT * FROM noleggio WHERE Veicolo='"+veicolo+"'","select");
-				}
-				else if(veicolo.equals("")){
+				} else if (veicolo.equals("")) {
 					noleggio.exequery("SELECT * FROM noleggio WHERE Cliente='"+cliente+"'","select");
-				}
-				else{
+				} else {
 					noleggio.exequery("SELECT * FROM noleggio WHERE Veicolo='"+veicolo+"' AND Cliente='"+cliente+"'","select");
 				}
 				content.tblNoleggi.setModel(new CostruisciTabella(noleggio.rs).model);
@@ -278,18 +354,23 @@ public class Contratto {
 		}
 	}
 	
-	/* Metodo. Verifica che i dati inseriti siano corretti. */
-	
+	/**
+	 * Verifica che i dati del contratto da aggiungere/modificare siano corretti.
+	 * 
+	 * @param content il form {@code "Nuovo Contratto"/"Modifica Contratto"} ed i relativi dati inseriti.
+	 * @return true se i dati inseriti sono validi; false altrimenti.
+	 */
 	private boolean check(ModuloContratto content){
+		
 		boolean check=true;
 		/* Verifica se sono stati inseriti tutt i campi necessari. */
 		if (content.comboBoxTipologia.getSelectedIndex()==0 || veicolo.equals("") || cliente.equals("") || inizio.equals("Seleziona una data") 
-				|| fine.equals("Seleziona una data") || costo.equals("") || cognome.equals("") || nome.equals("") || patente.equals("")){		
+				|| fine.equals("Seleziona una data") || costo.equals("") || cognome.equals("") || nome.equals("") || patente.equals("")) {		
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
-		}else if (!veicolo.matches(TGPATTERN1) && !veicolo.matches(TGPATTERN2) && !veicolo.matches(TGPATTERN3) && !veicolo.matches(TGPATTERN4)){
+		} else if (!veicolo.matches(TGPATTERN1) && !veicolo.matches(TGPATTERN2) && !veicolo.matches(TGPATTERN3) && !veicolo.matches(TGPATTERN4)) {
 			content.txtVeicolo.setText("");
 			content.txtVeicolo.requestFocus();
 			check=false;
@@ -298,109 +379,109 @@ public class Contratto {
 					+ "\n - Mezzo Acquatico: 2 caratteri e 4 cifre (es. 8PC567).",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (cliente.length()==16 && !cliente.matches(CFPATTERN)){
-			content.txtCliente.setText("");
+		} else if (cliente.length()==16 && !cliente.matches(CFPATTERN)) {
+			content.txtCliente.setText(""); 
 			content.txtCliente.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! il Codice Fiscale inserito non è valido!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if((cliente.length()==11 && !cliente.matches("\\d{11}"))){
+		} else if ((cliente.length()==11 && !cliente.matches("\\d{11}"))) {
 			content.txtCliente.setText("");
 			content.txtCliente.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La Partita IVA inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if(cliente.length()<11 || (cliente.length()>11 && cliente.length()<16) || cliente.length()>16){
+		} else if (cliente.length()<11 || (cliente.length()>11 && cliente.length()<16) || cliente.length()>16) {
 			content.txtCliente.setText("");
 			content.txtCliente.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale deve avere 16 caratteri e la Partita IVA 11 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!isNumeric(costo) || costo.length()>10){
+		} else if (!isNumeric(costo) || costo.length()>10) {
 			content.txtCosto.setText("");
 			content.txtCosto.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Costo Totale deve essere composto da meno di 10 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if ((!isNumeric(costo) || (acconto.length()>10)) && !acconto.equals("")){
+		} else if ((!isNumeric(costo) || (acconto.length()>10)) && !acconto.equals("")) {
 			content.txtAcconto.setText("");
 			content.txtAcconto.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Acconto deve essere composto da meno di 10 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (cognome.length()>15){
+		} else if (cognome.length()>15) {
 			content.txtCognome.setText("");
 			content.txtCognome.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Cognome deve avere meno di 15 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (nome.length()>15){
+		} else if (nome.length()>15) {
 			content.txtNome.setText("");
 			content.txtNome.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Nome deve avere meno di 15 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (patente.length()>10 ||patente.length()<10 || !patente.matches(PTPATTERN)){
+		} else if (patente.length()>10 ||patente.length()<10 || !patente.matches(PTPATTERN)) {
 			content.txtPatente.setText("");
 			content.txtPatente.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Patente deve essere composta da 3 caratteri e 7 cifre (Es:TO1234567X)!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (valida.equals("Seleziona una data")){
+		} else if (valida.equals("Seleziona una data")) {
 			content.frmtdtxtfldValida.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (rilasciataDa.length()>20){
+		} else if (rilasciataDa.length()>20) {
 			content.txtRilasciatada.setText("");
 			content.txtRilasciatada.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il campo 'Rilasciata Da' deve avere meno di 20 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (rilasciataIl.equals("Seleziona una data")){
+		} else if (rilasciataIl.equals("Seleziona una data")) {
 			content.frmtdtxtfldRilasciatail.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i campi indicati da un asterisco!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		}
-		if (check==false){
+		if (check==false) {
 			test=check; 
-		}
-		else {
-			if(inizio.equals("Seleziona una data")){ 
+		} else {
+			if (inizio.equals("Seleziona una data")) { 
 				inizio="DEFAULT";
-			}else{
+			} else {
 				inizio="'"+inizio+"'";
 			}
-			if(fine.equals("Seleziona una data")){ 
+			if (fine.equals("Seleziona una data")) { 
 				fine="DEFAULT";
-			}else{ 
+			} else { 
 				fine="'"+fine+"'";
 			}
-			if(acconto.equals("")){
+			if (acconto.equals("")) {
 				acconto="NULL";
 			}
-			if(valida.equals("Seleziona una data")){
+			if (valida.equals("Seleziona una data")) {
 				valida="DEFAULT";
-			}else{ valida="'"+valida+"'";
+			} else { 
+				valida="'"+valida+"'";
 			}
-			if(rilasciataDa.equals("")){
+			if (rilasciataDa.equals("")) {
 				rilasciataDa="";
 			}
-			if(rilasciataIl.equals("Seleziona una data")){
+			if (rilasciataIl.equals("Seleziona una data")) {
 				rilasciataIl="DEFAULT";
-			}else{
+			} else {
 				rilasciataIl="'"+rilasciataIl+"'";
 			}
 			test=true;
@@ -408,38 +489,43 @@ public class Contratto {
 		return test;
 	}
 	
-	/* Metodo. Verifica che il Cliente e/o il Veicolo da filtrare siano corretti. */
-	
-	private boolean checkfiltra(ModuloContratto content){
+	/**
+	 * Verifica che i dati (cliente e/o veicolo) del contratto  da filtrare sianno corretti.
+	 * 
+	 * @param content il form {@code "Elenco Contratti"} ed i relativi dati inseriti.
+	 * @return true se i dati sono validi; false altrimenti.
+	 */
+	private boolean checkfiltra(ModuloContratto content) {
+		
 		boolean check=true;
 		/* Verifica se è stato inserito almeno un campo. */
-		if (cliente.equals("") && veicolo.equals("")){		
+		if (cliente.equals("") && veicolo.equals("")) {		
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci un cliente e/o un veicolo da filtrare!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
-		}else if (cliente.length()==16 && !cliente.matches(CFPATTERN)){
+		} else if (cliente.length()==16 && !cliente.matches(CFPATTERN)) {
 			content.txtCliente.setText("");
 			content.txtCliente.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale del cliente da filtrare non è valido!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if((cliente.length()==11 && !cliente.matches("\\d{11}"))){
+		} else if ((cliente.length()==11 && !cliente.matches("\\d{11}"))) {
 			content.txtCliente.setText("");
 			content.txtCliente.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! la Partita IVA del cliente da filtrare non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if(((cliente.length()<11 || (cliente.length()>11 && cliente.length()<16) || cliente.length()>16)) && !cliente.equals("")){
+		} else if (((cliente.length()<11 || (cliente.length()>11 && cliente.length()<16) || cliente.length()>16)) && !cliente.equals("")) {
 			content.txtCliente.setText("");
 			content.txtCliente.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale deve avere 16 caratteri e la Partita IVA 11 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if((!veicolo.matches(TGPATTERN1) && !veicolo.matches(TGPATTERN2) && !veicolo.matches(TGPATTERN3) && !veicolo.matches(TGPATTERN4)) && !veicolo.equals("")){
+		} else if ((!veicolo.matches(TGPATTERN1) && !veicolo.matches(TGPATTERN2) && !veicolo.matches(TGPATTERN3) && !veicolo.matches(TGPATTERN4)) && !veicolo.equals("")) {
 			content.txtVeicolo.setText("");
 			content.txtVeicolo.requestFocus();
 			check=false;
@@ -456,8 +542,14 @@ public class Contratto {
 		return test;
 	}
 	
-	/* Verifica la correttezza del codice contratto nel modulo "Elimina Contratto". */
-	private boolean checkelimina(ModuloContratto content){
+	/**
+	 * Verifica che il codice del contratto da eliminare sia corretto.
+	 * 
+	 * @param content il form {@code "Elimina Contratto"} ed i relativi dati inseriti.
+	 * @return true se i dati sono validi; false altrimenti.
+	 */
+	private boolean checkelimina(ModuloContratto content) {
+		
 		boolean check=true;
 		
 		if (codice  <=0) {
@@ -473,7 +565,12 @@ public class Contratto {
 		return test;
 	}
 	
-	/* Verifica la correttezza del codice contratto nel modulo "ModificaContratto" */
+	/**
+	 * Verifica che il codice del contratto da modificare sia corretto.
+	 * 
+	 * @param content il form {@code "Modifica Contratto"} ed i relativi dati inseriti.
+	 * @return true se i dati sono validi; false altrimenti.
+	 */
 	private boolean checkcerca (ModuloContratto content){
 		boolean check=true;
 		
@@ -490,8 +587,13 @@ public class Contratto {
 		
 		return test;
 	}
-	/* Metodo. Verifica se una stringa è numerica. */
 	
+	/**
+	 * Verifica se la stringa passata come argomento è numerica.
+	 * 
+	 * @param string la stringa da controllare.
+	 * @return true se la stringa è numerica; false altrimenti.
+	 */
 	private static boolean isNumeric(String string) {
 	    
 		return string!= null && string.matches("[-+]?\\d*\\.?\\d*");
@@ -500,9 +602,12 @@ public class Contratto {
 	
 	/* METODI USATI DALLA GUI PER LA GESTIONE DEI CONTRATTI (--> vedi classe ModuloCt <--) */
 	
-	/* Metodo. Assegna i valori al contratto. */
-	
-	public void setValori(ModuloContratto content){
+	/**
+	 * Assegna i valori inseriti nella form alle variabili dell'oggetto {@code Contratto}.
+	 * 
+	 * @param content il form {@code "Nuovo Contratto"/"Modifica Contratto"} ed i relativi dati inseriti.
+	 */
+	public void setValori(ModuloContratto content) {
 		
 		tipologia = content.comboBoxTipologia.getSelectedItem().toString();
 		veicolo = content.txtVeicolo.getText().trim();
@@ -519,20 +624,26 @@ public class Contratto {
 		rilasciataIl = content.frmtdtxtfldRilasciatail.getText().trim();
 	}
 	
-	public boolean setCodice (ModuloContratto content) {
+	/**
+	 * Assegna il codice del contratto da eliminare.
+	 * 
+	 * @param content il form {@code "Elimina Cliente"} ed i relativi dati inseriti.
+	 * @return true l'operazione di set è andata a buon fine; false altrimenti.
+	 */
+	public boolean setCodiceElimina (ModuloContratto content) {
 		
 		boolean esito = false;
 		
-		if (content.txtCodice.getText().trim().toString().equals("")){		
+		if (content.txtCodice.getText().trim().toString().equals("")) {		
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci il codice di un contratto!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
-		}else if (!content.txtCodice.getText().trim().toString().matches("\\d*")){
+		} else if (!content.txtCodice.getText().trim().toString().matches("\\d*")) {
 			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere composto da sole cifre!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
 			content.txtCodice.setText("");
-		}else {
+		} else {
 			codice=Integer.decode((content.txtCodice.getText().trim()));
 			esito = true;
 		}
@@ -540,20 +651,26 @@ public class Contratto {
 		return esito;
 	}
 	
-	public boolean setCodiceCerca(ModuloContratto content){
+	/**
+	 * Assegna il codice del contratto da cercare.
+	 * 
+	 * @param content il form {@code "Modifica Cliente"} ed i relativi dati inseriti.
+	 * @return true se l'operazione di set è andata a buon fine; false altrimenti.
+	 */
+	public boolean setCodiceCerca(ModuloContratto content) {
 		
 		boolean esito = false;
 		
-		if (content.txtContrattoCerca.getText().trim().toString().equals("")){		
+		if (content.txtContrattoCerca.getText().trim().toString().equals("")) {		
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci il codice di un contratto!",
 				"Errore",
 				JOptionPane.ERROR_MESSAGE);
-		}else if (!content.txtContrattoCerca.getText().trim().toString().matches("\\d*")){
+		} else if (!content.txtContrattoCerca.getText().trim().toString().matches("\\d*")) {
 			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere composto da sole cifre!",
 				"Errore",
 				JOptionPane.ERROR_MESSAGE);
 			content.txtContrattoCerca.setText("");
-		}else {
+		} else {
 			codiceCerca = Integer.decode(content.txtContrattoCerca.getText().trim());
 			esito = true;
 		}
@@ -561,29 +678,43 @@ public class Contratto {
 		return esito;
 	}
 	
-	public void setCodiceModifica (ModuloContratto content){
+	/**
+	 * Assegna il codice del contratto da modificare.
+	 * 
+	 * @param content il form {@code "Modifica Cliente"} ed i relativi dati inseriti.
+	 */
+	public void setCodiceModifica (ModuloContratto content) {
 		
 			codiceModifica = Integer.decode(content.txtContrattoCerca.getText().trim());
 	}
 	
-	/* Metodo. Assegna i valori al contratto da filtrare. */
-	
+	/**
+	 * Assegna i valori inseriti nella form alle variabili dell'oggetto {@code Contratto}.
+	 * 
+	 * @param content il form {@code "Elenco Contratti"} ed i relativi dati inseriti.
+	 */
 	public void setValoriFiltra(ModuloContratto content){
 		cliente = content.txtCliente.getText().trim();
 		veicolo = content.txtVeicolo.getText().trim();
 	}
 
-
-	@Override
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
-		return "Contratto [tipologia=" + tipologia + ", veicolo=" + veicolo + ", cliente=" + cliente + ", inizio="
-				+ inizio + ", fine=" + fine + ", costo=" + costo + ", acconto=" + acconto + ", cognome=" + cognome
-				+ ", nome=" + nome + ", patente=" + patente + ", valida=" + valida + ", rilasciataDa=" + rilasciataDa
-				+ ", rilasciataIl=" + rilasciataIl + ", codice=" + codice + ", codiceCerca=" + codiceCerca
-				+ ", codiceModifica=" + codiceModifica + ", test=" + test + ", noleggio=" + noleggio + "]";
+		return "Contratto [La classe Contratto rappresenta i contratti dell'autonoleggio.]";
 	}
 
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

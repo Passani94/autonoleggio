@@ -1420,7 +1420,7 @@ public class ModuloContratto extends JPanel implements ActionListener {
 		}
 		else if(btnElimina == e.getSource()){
 			contratto = new Contratto();
-			if (contratto.setCodice(this)) {
+			if (contratto.setCodiceElimina(this)) {
 				contratto.elimina(this);
 				}
 		}		
