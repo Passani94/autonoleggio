@@ -16,35 +16,44 @@ public class Cliente {
 	 * La tipologia di cliente. Può essere di tre tipi: <br><br> - Associazione <br> - Azienda <br> - Privato
 	 */
 	public String tipologia;
+	
 	/**
-	 * La ragione sociale del cliente. <br><br> - La {@code Denominazione} nel caso di Associazione ed Azienda. <br>
-	 * La coppia {@code Cognome Nome} nel caso di Privato.
+	 * La ragione sociale del cliente. <br><br> 
+	 * - La Denominazione nel caso di Associazione ed Azienda. <br>
+	 * - La coppia Cognome Nome nel caso di Privato.
 	 */
 	public String rs;
+	
 	/**
 	 * Il Codice di Avviamento Postale (CAP) della città in cui risiede il cliente.
 	 */
 	public String cap;
+	
 	/**
 	 * La città in cui risiede il cliente.
 	 */
 	public String citta;
+	
 	/**
 	 * La via associata alla residenza del cliente. 
 	 */
 	public String via;
+	
 	/**
 	 * Il numero civico associato alla residenza del cliente.
 	 */
 	public String numero;
+	
 	/**
-	 * Il {@code Codice Fiscale} o la {@code Partita Iva} del cliente.
+	 * Il code Codice Fiscale o la code Partita Iva del cliente.
 	 */
 	public String CF_PIVA;
+	
 	/**
 	 * L'email del cliente.
 	 */
 	public String email;
+	
 	/**
 	 * Il recapito telefonico del cliente.
 	 */

@@ -28,7 +28,13 @@ import entita.Cliente;
 import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
-
+/**
+ * La classe ModuloCliente si comporta in maniera differente a seconda dell'oggetto String che viene passato al costruttore. <br><br>
+ * - Se viene passata la stringa "Elenca", viene generato l'elenco dei cliente contenuti nel database. <br>
+ * - Se viene passato "Aggiungi", viene creato il form per aggiungere un cliente. <br>
+ * - Se viene passato "Modifica", viene creato il form per modificare un cliente. <br>
+ * - Se viene passato "Elimina", viene creato il form per eliminare un cliente.
+ */
 public class ModuloCliente extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 1L; 
@@ -42,27 +48,76 @@ public class ModuloCliente extends JPanel implements ActionListener {
 	private JButton btnCerca;
 	private JScrollPane scroll;
 	private JTable tblClienti;
+	
+	/**
+	 * La casella di testo in cui inserire la ragione sociale del cliente.
+	 */
 	public JTextField txtRS;
+	
+	/**
+	 * La casella di testo in cui inserire il Codice di Avviamento Postale (CAP) della città in cui risiede il cliente.
+	 */
 	public JTextField txtCAP;
+	
+	/**
+	 * La casella di testo in cui inserire la città in cui risiede il cliente.
+	 */
 	public JTextField txtCitta;
+	
+	/**
+	 * La casella di testo in cui inserire la via associata alla residenza del cliente.
+	 */
 	public JTextField txtVia;
+	
+	/**
+	 * La casella di testo in cui inserire il numero civico associato alla residenza del cliente.
+	 */
 	public JTextField txtNumero;
+	
+	/**
+	 * La casella di testo in cui inserire il Codice Fiscale (o la Partita IVA) del cliente.
+	 */
 	public JTextField txtCF_PIVA;
+	
+	/**
+	 * La casella di testo in cui inserire l'email del cliente.
+	 */
 	public JTextField txtEmail;
+	
+	/**
+	 * La casella di testo in cui inserire il recapito telefonico del cliente.
+	 */
 	public JTextField txtTelefono;
+	
+	/**
+	 * La casella di testo in cui inserire il Codice Fiscale (o la Partita IVA) del cliente da cercare.
+	 */
 	public JTextField txtClienteCerca;
+	
+	/**
+	 * Il combo box dal quale selezionare la tipologia di cliente.
+	 */
 	public JComboBox <String> comboBoxTipologia;
 	
 	
-	
-	/* Costruttore ModuloCl */
-	
+	/**
+	 * Inizializza un nuovo oggetto ModuloCliente e, a seconda che l'oggetto String passato come argomento sia: <br><br>
+	 * - "Elenca", genera l'elenco dei cliente contenuti nel database. <br>
+	 * - "Aggiungi", crea il form per aggiungere un cliente. <br>
+	 * - "Modifica", crea il form per modificare un cliente. <br>
+	 * - "Elimina", crea il form per eliminare un cliente.
+	 * 
+	 * @param str una stringa che determina cosa verra mostrato a schermo.
+	 */
 	public ModuloCliente(String str) {
 		set(str);
 	}
 
 	public void set(String str) {
+		
 		if (str.equals("Elenca")) {
+			
+			/* Viene generato l'elenco dei clienti contenuti nel database. */
 			elencoClienti = new DBConnect();
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Clienti"));
@@ -89,9 +144,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 			}
 			
 			
-			
-			/* Crea il Layout per l'elenco dei Clienti. */
-			
+			/* Crea il layout per l'elenco dei clienti. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.CENTER)
@@ -109,14 +162,16 @@ public class ModuloCliente extends JPanel implements ActionListener {
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		}
-		else if (str.equals("Nuovo")) {
+		
+		} else if (str.equals("Nuovo")) {
+			
+			/* Viene creato il form per aggiungere un nuovo cliente. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Nuovo Cliente"));
 			
 			btnAggiungi = new JButton("Aggiungi");
 			btnAggiungi.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnAggiungi.addActionListener(this);	/* Action Listener per il bottone Aggiungi.*/
+			btnAggiungi.addActionListener(this);	// Action Listener per il bottone Aggiungi.
 			
 			txtCF_PIVA = new JTextField();
 			txtCF_PIVA.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -135,7 +190,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 		
 			txtRS = new JTextField();
 			txtRS.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtRS.setToolTipText("Cognome Nome / Denominazione");
+			txtRS.setToolTipText("Denominazione / Cognome Nome");
 		
 			JLabel lblRS = new JLabel("Ragione Sociale *");
 			lblRS.setFont(new Font("Arial", Font.BOLD, 14));
@@ -180,8 +235,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 			lblMex.setForeground(Color.RED);
 			lblMex.setFont(new Font("Arial", Font.PLAIN, 14));
 			
-			/* Crea il Layout per un nuovo Cliente. */
-			
+			/* Crea il layout del form usato per aggiungere un nuovo cliente. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -265,14 +319,16 @@ public class ModuloCliente extends JPanel implements ActionListener {
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		}
-		else if (str == "Elimina"){
+		
+		} else if (str == "Elimina") {
+			
+			/* Viene creato il form per eliminare un cliente. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elimina Cliente"));
 			
 			btnElimina = new JButton("Elimina Cliente");
 			btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnElimina.addActionListener(this);	/* Action Listener per il bottone Elimina.*/
+			btnElimina.addActionListener(this);	// Action Listener per il bottone Elimina.
 			
 			txtCF_PIVA = new JTextField();
 			txtCF_PIVA.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -282,8 +338,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 			JLabel lblid = new JLabel("CF o P.IVA *");
 			lblid.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			/* Crea il Layout per un eliminare un Cliente. */
-			
+			/* Crea il layout del form usato per un eliminare un cliente. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -311,14 +366,16 @@ public class ModuloCliente extends JPanel implements ActionListener {
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		}
-		else if (str.equals("Modifica")){
+		
+		} else if (str.equals("Modifica")) {
+			
+			/* Viene creato il form per modificare un cliente. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Modifica Cliente"));
 			
 			btnCerca = new JButton("Cerca Cliente");
 			btnCerca.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnCerca.addActionListener(this);	/* Action Listener per il bottone Cerca.*/
+			btnCerca.addActionListener(this);	// Action Listener per il bottone Cerca.
 			
 			txtClienteCerca = new JTextField();
 			txtClienteCerca.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -328,7 +385,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 		
 			btnModificaC = new JButton("Modifica Cliente");
 			btnModificaC.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnModificaC.addActionListener(this);	/* Action Listener per il bottone Modifica.*/
+			btnModificaC.addActionListener(this);	// Action Listener per il bottone Modifica.
 			
 			txtCF_PIVA = new JTextField();
 			txtCF_PIVA.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -397,8 +454,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 			txtEmail.setEditable(false);
 			txtTelefono.setEditable(false);
 			
-			/* Crea il Layout per modificare un Cliente. */
-			
+			/* Crea il layout del form usato per modificare un cliente. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -494,8 +550,9 @@ public class ModuloCliente extends JPanel implements ActionListener {
 		}
 	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
-	
+	/**
+	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
+	 */
 	public void actionPerformed(ActionEvent e){
 		if (btnAggiungi == e.getSource()) {
 			cliente = new Cliente();
@@ -519,15 +576,25 @@ public class ModuloCliente extends JPanel implements ActionListener {
 		}
 	}
 
-	@Override
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
-		return "ModuloCliente [txtRS=" + txtRS + ", txtCAP=" + txtCAP + ", txtCitta=" + txtCitta + ", txtVia=" + txtVia
-				+ ", txtNumero=" + txtNumero + ", txtCF_PIVA=" + txtCF_PIVA + ", txtEmail=" + txtEmail
-				+ ", txtTelefono=" + txtTelefono + ", txtClienteCerca=" + txtClienteCerca + ", comboBoxTipologia="
-				+ comboBoxTipologia + "]";
+		return "ModuloCliente [La classe ModuloCliente si comporta in maniera differente a seconda dell'oggetto String che viene passato al costruttore. \n\n" + 
+				" - Se viene passata la stringa \"Elenca\", viene generato l'elenco dei cliente contenuti nel database. \n" + 
+				" - Se viene passato \"Aggiungi\", viene creato il form per aggiungere un cliente. \n" + 
+				" - Se viene passato \"Modifica\", viene creato il form per modificare un cliente. \n" + 
+				" - Se viene passato \"Elimina\", viene creato il form per eliminare un cliente.]";
 	}
 
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
