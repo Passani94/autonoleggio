@@ -29,11 +29,7 @@ import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
 /**
- * La classe ModuloCliente si comporta in maniera differente a seconda dell'oggetto String che viene passato al costruttore. <br><br>
- * - Se viene passata la stringa "Elenca", viene generato l'elenco dei cliente contenuti nel database. <br>
- * - Se viene passato "Aggiungi", viene creato il form per aggiungere un cliente. <br>
- * - Se viene passato "Modifica", viene creato il form per modificare un cliente. <br>
- * - Se viene passato "Elimina", viene creato il form per eliminare un cliente.
+ * La classe ModuloCliente si comporta in maniera differente a seconda dell'oggetto String che viene passato al costruttore.
  */
 public class ModuloCliente extends JPanel implements ActionListener {
 	
@@ -101,18 +97,23 @@ public class ModuloCliente extends JPanel implements ActionListener {
 	
 	
 	/**
-	 * Inizializza un nuovo oggetto ModuloCliente e, a seconda che l'oggetto String passato come argomento sia: <br><br>
-	 * - "Elenca", genera l'elenco dei cliente contenuti nel database. <br>
-	 * - "Aggiungi", crea il form per aggiungere un cliente. <br>
-	 * - "Modifica", crea il form per modificare un cliente. <br>
-	 * - "Elimina", crea il form per eliminare un cliente.
+	 * Inizializza un nuovo oggetto ModuloCliente e richiama il metodo {@code set} passando come argomento l'oggetto String {@code str}.
 	 * 
-	 * @param str una stringa che determina cosa verra mostrato a schermo.
+	 * @param str una stringa che determina il diverso comportamento del metodo {@code set}.
 	 */
 	public ModuloCliente(String str) {
 		set(str);
 	}
 
+	/**
+	 * Si comporta in maniera differente a seconda dell'oggetto String che viene passato come argomento. <br><br>
+	 * - Se viene passato "Elenca", viene generato l'elenco dei clienti contenuti nel database. <br>
+	 * - Se viene passato "Aggiungi", viene creato il form per aggiungere un cliente. <br>
+	 * - Se viene passato "Modifica", viene creato il form per modificare un cliente. <br>
+	 * - Se viene passato "Elimina", viene creato il form per eliminare un cliente.
+	 * 
+	 * @param str una stringa che determina cosa verrà mostrato a schermo.
+	 */
 	public void set(String str) {
 		
 		if (str.equals("Elenca")) {
@@ -582,11 +583,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 	 * @return una stringa rappresentante l'oggetto.
 	 */
 	public String toString() {
-		return "ModuloCliente [La classe ModuloCliente si comporta in maniera differente a seconda dell'oggetto String che viene passato al costruttore. \n\n" + 
-				" - Se viene passata la stringa \"Elenca\", viene generato l'elenco dei cliente contenuti nel database. \n" + 
-				" - Se viene passato \"Aggiungi\", viene creato il form per aggiungere un cliente. \n" + 
-				" - Se viene passato \"Modifica\", viene creato il form per modificare un cliente. \n" + 
-				" - Se viene passato \"Elimina\", viene creato il form per eliminare un cliente.]";
+		return "ModuloCliente [La classe ModuloCliente si comporta in maniera differente a seconda dell'oggetto String che viene passato al costruttore.]";
 	}
 
 	/**
