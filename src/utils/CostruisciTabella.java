@@ -62,7 +62,9 @@ public class CostruisciTabella {
 	}
 
 	/**
-	 * Restituisce una rappresentazione in stringa dell'oggetto.
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
 	 */
 	public String toString() {
 		return "CostruisciTabella [La classe CostruisciTabella permette di costruire una tabella a partire dal ResultSet di una query SQL.]";

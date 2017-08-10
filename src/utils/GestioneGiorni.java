@@ -220,7 +220,9 @@ public class GestioneGiorni {
 	}
 
 	/**
-	 * Restituisce una rappresentazione in stringa dell'oggetto.
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
 	 */
 	public String toString() {
 		return "GestioneGiorni [La classe GestioneGiorni contiene metodi per gestire date.]";

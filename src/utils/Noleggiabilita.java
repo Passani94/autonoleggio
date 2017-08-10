@@ -62,7 +62,9 @@ public class Noleggiabilita {
 	}
 
 	/**
-	 * Restituisce una rappresentazione in stringa dell'oggetto.
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
 	 */
 	public String toString() {
 		return "Noleggiabilita [La classe Noleggiabilità permette di controllare se un veicolo è noleggiabile o meno.]";

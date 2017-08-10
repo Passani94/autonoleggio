@@ -30,7 +30,9 @@ public class ArrotondaNumero {
 	}
 
 	/**
-	 * Restituisce una rappresentazione in stringa dell'oggetto.
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
 	 */
 	public String toString() {
 		return "ArrotondaNumero [La classe ArrotondaNumero contiene metodi per gestire operazioni di arrotondamento di numeri.]";
