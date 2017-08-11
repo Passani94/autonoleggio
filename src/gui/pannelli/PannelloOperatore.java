@@ -17,46 +17,65 @@ import autonoleggio.Login;
 import gui.finestre.Finestra;
 import gui.moduli.ModuloOperatore;
 
-
-public class PannelloOperatore extends JPanel implements ActionListener{
+/**
+ * La classe PannelloOperatore implementa un pannello contenuto all'interno del frame Finestra.
+ */
+public class PannelloOperatore extends JPanel implements ActionListener {
 	
-	private static final long serialVersionUID = 7526472295882776147L; 
+	private static final long serialVersionUID = 1L; 
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
 	private JButton btnNuovo = new JButton("Nuovo Operatore");
 	private JButton btnElimina = new JButton("Elimina Operatore");
-	private ModuloOperatore pnlModulo = new ModuloOperatore("Elenca");
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
+	
+	private ModuloOperatore pnlModulo = new ModuloOperatore("Elenca");
+	
 	private Finestra frame;
+	private JLabel user;
 	
-	/* Modifica il contentPane Operatore.*/
+	/**
+	 * Inizializza un nuovo oggetto PannelloOperatore.
+	 * 
+	 * @param window un frame Finestra.
+	 */
+	public PannelloOperatore(Finestra window) {
+		frame = window;
+		window.setTitle("Autonoleggio - Operatore");
+		window.setContentPane(this.run(window.contentPane));
+	}
 	
+	/**
+	 * Modifica il pannello PannelloOperatore.
+	 * 
+	 * @param contentPane un pannello "vuoto".
+	 * @return il pannello modificato.
+	 */
 	public JPanel run(JPanel contentPane){
 		
 		btnAggiorna.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAggiorna.addActionListener(this); /* Action Listener per il bottone Aggiorna.*/
+		btnAggiorna.addActionListener(this); // Action Listener per il bottone Aggiorna.
 		
 		btnNuovo.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnNuovo.addActionListener(this); /* Action Listener per il bottone Nuovo.*/
+		btnNuovo.addActionListener(this); // Action Listener per il bottone Nuovo.
 		
 		btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnElimina.addActionListener(this); /* Action Listener per il bottone Elimina.*/
+		btnElimina.addActionListener(this); // Action Listener per il bottone Elimina.
 		
 		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEsci.addActionListener(this); /* Action Listener per il bottone Esci.*/
+		btnEsci.addActionListener(this); // Action Listener per il bottone Esci.
 		
 		btnLogout.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnLogout.addActionListener(this); /* Action Listener per il bottone Logout.*/
+		btnLogout.addActionListener(this); // Action Listener per il bottone Logout.
 		
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JLabel user = new JLabel(frame.username);
+		user = new JLabel(frame.username);
 		user.setFont(new Font("Arial", Font.BOLD, 12));
 		user.setForeground(Color.RED);
 		
-		/* Crea il Layout.*/
-		
+		/* Crea il layout del PannelloOperatore.*/
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -106,59 +125,64 @@ public class PannelloOperatore extends JPanel implements ActionListener{
 		return contentPane;
 	}
 	
-	/* Costruttore contentPane Operatore .*/
-	
-	public PannelloOperatore(Finestra pn) {
-		frame = pn;
-		pn.setTitle("Autonoleggio - Operatore");
-		pn.setContentPane(this.run(pn.contentPane));
-	}
-	
-	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
-	
-	public void actionPerformed(ActionEvent e){
-		if (btnEsci == e.getSource()){ 
+	/**
+	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
+	 */
+	public void actionPerformed(ActionEvent e) {
+		
+		if (btnEsci == e.getSource()) { 
 			int scelta = JOptionPane.showConfirmDialog(
 				    null,
 				    "Si desidera uscire dall'applicazione?",
 				    "Conferma uscita",
 				    JOptionPane.YES_NO_OPTION);
-			if (scelta == JOptionPane.YES_OPTION){
+			if (scelta == JOptionPane.YES_OPTION) {
 				System.exit(0);
 			}
-		}
-		else if(btnLogout == e.getSource()){
+		
+		} else if(btnLogout == e.getSource()) {
 			int scelta = JOptionPane.showConfirmDialog(
 					null,
 					"Si desidera effettuare il logout?",
 					"Conferma logout",
 					JOptionPane.YES_NO_OPTION);
-			if (scelta == JOptionPane.YES_OPTION){
+			if (scelta == JOptionPane.YES_OPTION) {
 				frame.dispose();
 				Login log = new Login();
 				log.run();
 			}
-		}
-		else if(btnAggiorna == e.getSource()){
+		
+		} else if(btnAggiorna == e.getSource()) {
 			btnAggiorna.setText("Aggiorna Elenco");
 			pnlModulo.set("Elenca");
-		}
-		else if(btnNuovo == e.getSource()){
+		
+		} else if(btnNuovo == e.getSource()) {
 			btnAggiorna.setText("Elenco Operatori");
 			pnlModulo.set("Nuovo");
-		}
-		else if(btnElimina == e.getSource()){
+		
+		} else if(btnElimina == e.getSource()) {
 			btnAggiorna.setText("Elenco Operatori");
 			pnlModulo.set("Elimina");
 		}
 	}
 
-	@Override
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
-		return "PannelloOperatore [Questa classe genera il pannello operatore.]";
+		return "PannelloOperatore [La classe PannelloOperatore implementa un pannello contenuto all'interno del frame Finestra.]";
 	}
 
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

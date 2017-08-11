@@ -16,19 +16,36 @@ import db.DBConnect;
 import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
-public class ModuloMezziRitorno extends JPanel{
+/**
+ * La classe ModuloMezziRitorno genera l'elenco dei mezzi in ritorno nella data odierna.
+ */
+public class ModuloMezziRitorno extends JPanel {
 	
 	private static final long serialVersionUID = 1L; 
+	
 	private JTable tblRitorno;
 	private JScrollPane scroll = new JScrollPane(tblRitorno);
 	private DBConnect InRitorno = new DBConnect();
 	
-	public void set(){
+	/**
+	 * Inizializza un nuovo oggetto ModuloMezziRitorno e richiama il metodo {@code set}.
+	 */
+	public ModuloMezziRitorno() {
+		set();
+	}
+	
+	/**
+	 * Costruisce l'elenco dei mezzi in ritorno nella data odierna.
+	 */
+	public void set() {
+		
 		this.setBorder(BorderFactory.createTitledBorder("Mezzi in Ritorno Oggi"));
 		
 		java.sql.Date DataOggi = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-		try{InRitorno.exequery("SELECT n.Cod_Noleggio, n.Tipologia, n.Veicolo, v.Marca, v.Nome, n.Cliente, n.Costo_Totale FROM noleggio n,veicolo v WHERE n.Data_Fine='"+DataOggi+"' AND n.Veicolo=v.Targa","select");} 
-		catch (SQLException e) {  
+		try {
+			InRitorno.exequery("SELECT n.Cod_Noleggio, n.Tipologia, n.Veicolo, v.Marca, v.Nome, n.Cliente, n.Costo_Totale "
+					+ "FROM noleggio n,veicolo v WHERE n.Data_Fine='"+DataOggi+"' AND n.Veicolo=v.Targa","select");
+		} catch (SQLException e) {  
 		JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli in rientro oggi!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);}
@@ -42,8 +59,7 @@ public class ModuloMezziRitorno extends JPanel{
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setViewportView(tblRitorno);
 		
-		/* Crea il Layout per l'elenco dei mezzi in ritorno. */
-		
+		/* Crea il layout per l'elenco dei mezzi in ritorno nella data odierna. */
 		GroupLayout gl_contentPane = new GroupLayout(this);
 		gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -60,20 +76,25 @@ public class ModuloMezziRitorno extends JPanel{
 						.addContainerGap())
 			);
 		this.setLayout(gl_contentPane);
-		}
-	
-	/* Costruttore ModuloHm */
-	
-	public ModuloMezziRitorno() {
-		set();
 	}
 
-	@Override
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
-		return "ModuloMezziRitorno [Questa classe crea il modulo dei mezzi in ritorno.]";
+		return "ModuloMezziRitorno [La classe ModuloMezziRitorno genera l'elenco dei mezzi in ritorno nella data odierna.]";
 	}
 
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -98,7 +119,5 @@ public class ModuloMezziRitorno extends JPanel{
 		} else if (!tblRitorno.equals(other.tblRitorno))
 			return false;
 		return true;
-	}
-	
-	
+	}	
 }	

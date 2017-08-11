@@ -16,35 +16,44 @@ public class Cliente {
 	 * La tipologia di cliente. Può essere di tre tipi: <br><br> - Associazione <br> - Azienda <br> - Privato
 	 */
 	public String tipologia;
+	
 	/**
-	 * La ragione sociale del cliente. <br><br> - La {@code Denominazione} nel caso di Associazione ed Azienda. <br>
-	 * La coppia {@code Cognome Nome} nel caso di Privato.
+	 * La ragione sociale del cliente. <br><br> 
+	 * - La Denominazione nel caso di Associazione ed Azienda. <br>
+	 * - La coppia Cognome Nome nel caso di Privato.
 	 */
 	public String rs;
+	
 	/**
 	 * Il Codice di Avviamento Postale (CAP) della città in cui risiede il cliente.
 	 */
 	public String cap;
+	
 	/**
 	 * La città in cui risiede il cliente.
 	 */
 	public String citta;
+	
 	/**
 	 * La via associata alla residenza del cliente. 
 	 */
 	public String via;
+	
 	/**
 	 * Il numero civico associato alla residenza del cliente.
 	 */
 	public String numero;
+	
 	/**
-	 * Il {@code Codice Fiscale} o la {@code Partita Iva} del cliente.
+	 * Il code Codice Fiscale o la code Partita Iva del cliente.
 	 */
 	public String CF_PIVA;
+	
 	/**
 	 * L'email del cliente.
 	 */
 	public String email;
+	
 	/**
 	 * Il recapito telefonico del cliente.
 	 */
@@ -64,6 +73,7 @@ public class Cliente {
 	 * Inizializza un nuovo oggetto Cliente e stabilisce una connessione con il database.
 	 */
 	public Cliente() {
+		
 		test = true;
 		cliente = new DBConnect();
 	}
@@ -75,6 +85,7 @@ public class Cliente {
 	 * @param content il form {@code "Nuovo Cliente"} ed i relativi dati inseriti.
 	 */
 	public void aggiungi(ModuloCliente content) {
+		
 		if (check(content)) {
 			try {
 				/* Verifica se nel DB esiste gia' un cliente con il CF (o la Partita IVA) inseriti.*/
@@ -116,8 +127,8 @@ public class Cliente {
 	 * 
 	 * @param content il form {@code "Elimina Cliente"} ed i relativi dati inseriti.
 	 */
-	
 	public void elimina(ModuloCliente content) {
+		
 		if (checkElimina(content)) {
 			try {
 				/* Verifica se nel DB esiste un cliente con il CF (o la Partita IVA) inseriti.*/
@@ -155,7 +166,6 @@ public class Cliente {
 	 * 
 	 * @param content il form {@code "Modifica Cliente"} ed i relativi campi inseriti.
 	 */
-	
 	public void cerca(ModuloCliente content) {
 		
 		String item;
@@ -211,7 +221,6 @@ public class Cliente {
 	 * 
 	 * @param content il form {@code "Modifica Cliente"} ed i relativi dati inseriti.
 	 */
-	
 	public void modifica(ModuloCliente content) {
 	
 		if (check(content)) {
@@ -249,6 +258,7 @@ public class Cliente {
 	 * @return true se i dati inseriti sono validi; false altrimenti.
 	 */
 	private boolean check(ModuloCliente content) {
+		
 		boolean check = true;
 		/* Verifica se sono stati inseriti tutti i campi necessari.*/
 		if (CF_PIVA.equals("") || content.comboBoxTipologia.getSelectedIndex() == 0 || rs.equals("")) {	
@@ -348,6 +358,7 @@ public class Cliente {
 	 * @return true se i dati inseriti sono validi; false altrimenti.
 	 */
 	private boolean checkElimina(ModuloCliente content) {
+		
 		boolean check=true;
 		/* Verifica se sono stati inseriti tutti i campi necessari */
 		if (CF_PIVA.equals("")) {		
@@ -390,6 +401,7 @@ public class Cliente {
 	 *  @param content il form {@code "Modifica Cliente"} ed i relativi dati inseriti.
 	 */
 	private boolean checkCerca(ModuloCliente content) {
+		
 		boolean check=true;
 		if (clienteCerca.length() == 16 && !clienteCerca.matches(CFPATTERN)) {
 			content.txtClienteCerca.setText("");
@@ -426,6 +438,7 @@ public class Cliente {
 	 * @return true se la stringa è numerica; false altrimenti.
 	 */
 	private static boolean isNumeric(String string) {
+		
 	    try {
 	        Long.parseLong(string);
 	    } catch (Exception e) {
@@ -442,6 +455,7 @@ public class Cliente {
 	 * @param content il form {@code "Nuovo Cliente"/"Modifica Cliente"} ed i relativi dati inseriti.
 	 */
 	public void setValori(ModuloCliente content) {
+		
 		CF_PIVA = content.txtCF_PIVA.getText().trim();
 		tipologia = content.comboBoxTipologia.getSelectedItem().toString();
 		rs = content.txtRS.getText().trim();
@@ -459,6 +473,7 @@ public class Cliente {
 	 * @param content il form {@code "Elimina Cliente"} ed i relativi dati inseriti.
 	 */
 	public void setIDElimina(ModuloCliente content) {
+		
 		CF_PIVA = content.txtCF_PIVA.getText().trim();
 	}
 
@@ -468,16 +483,20 @@ public class Cliente {
 	 * @param content il form {@code "Modifica Cliente"} ed i relativi dati inseriti.
 	 */
 	public void setIDCerca(ModuloCliente content) {
+		
 		clienteCerca = content.txtClienteCerca.getText().trim();
 	}
 
 
+/* OVERRIDING METODI toString() ED equals() */
+	
 	/**
 	 * Restituisce una rappresentazione testuale dell'oggetto.
 	 * 
 	 * @return una stringa rappresentante l'oggetto.
 	 */
 	public String toString() {
+		
 		return "Cliente [cliente=" + cliente + ", test=" + test + ", tipologia=" + tipologia + ", rs=" + rs + ", cap="
 				+ cap + ", citta=" + citta + ", via=" + via + ", numero=" + numero + ", CF_PIVA=" + CF_PIVA + ", email="
 				+ email + ", telefono=" + telefono + ", clienteCerca=" + clienteCerca + "]";
@@ -490,6 +509,7 @@ public class Cliente {
 	 * @return true se i due oggetti sono uguali; false altrimenti.
 	 */
 	public boolean equals(Object obj) {
+		
 		if (this == obj)
 			return true;
 		if (obj == null)

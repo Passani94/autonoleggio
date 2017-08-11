@@ -22,6 +22,9 @@ import utils.CostruisciTabella;
 import utils.Noleggiabilita;
 import utils.TableColumnAdjuster;
 
+/**
+ * La classe ModuloMezziNoleggiabili genera l'elenco dei mezzi noleggiabili.
+ */
 public class ModuloMezziNoleggiabili extends JPanel{
 	
 	private static final long serialVersionUID = 1L; 
@@ -31,9 +34,19 @@ public class ModuloMezziNoleggiabili extends JPanel{
 	private String dataOggi;
 	private Date day;
 	private Vector <String> targhe,disp;
-	//private String[] targhe,disp;
 	
-	public void set(){
+	/**
+	 * Inizializza un nuovo oggetto ModuloMezziNoleggiabili e richiama il metodo {@code set}.
+	 */
+	public ModuloMezziNoleggiabili() {
+		set();
+	}
+	
+	/**
+	 * Costruisce l'elenco dei mezzi noleggiabili.
+	 */
+	public void set() {
+		
 		int i,numero=0;
 		this.setBorder(BorderFactory.createTitledBorder("Mezzi noleggiabili in giornata"));
 		
@@ -65,50 +78,45 @@ public class ModuloMezziNoleggiabili extends JPanel{
 			}
 			
 			numero=targhe.size();
-		}
-		catch (SQLException e) {  
+		} catch (SQLException e) {  
 			JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 		}
+		
 		for (i=0;i<numero;i++) {
 				try {
-					if ((!Noleggiabilita.controlla(targhe.get(i),dataOggi,dataOggi)) || (disp.get(i).equals("NO")))
-					{
+					if ((!Noleggiabilita.controlla(targhe.get(i),dataOggi,dataOggi)) || (disp.get(i).equals("NO"))) {
 						noleggiabili.exequery("DELETE FROM mezzinoleggiabili WHERE Targa='"+targhe.get(i)+"'", "delete");
 					}
 				} catch (Exception e) {
-				
 					e.printStackTrace();
 				}
-			}
+		}
 				
 		try {
 			noleggiabili.exequery("SELECT Targa, Tipologia, Marca, Nome, Alimentazione , "
 					+ "Km_Effettuati, Dimensioni FROM mezzinoleggiabili", "select");
+			
+			tblDisponibili = new JTable();
+			tblDisponibili.setModel(new CostruisciTabella(noleggiabili.rs).model);
+			tblDisponibili.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			TableColumnAdjuster tca = new TableColumnAdjuster(tblDisponibili);
+			tca.adjustColumns();
+			
+			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scroll.setViewportView(tblDisponibili);
 		} catch (SQLException e) {
-	     
 			e.printStackTrace();
 		}
-		
-		tblDisponibili = new JTable();
-		tblDisponibili.setModel(new CostruisciTabella(noleggiabili.rs).model);
-		tblDisponibili.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		TableColumnAdjuster tca = new TableColumnAdjuster(tblDisponibili);
-		tca.adjustColumns();
-		
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setViewportView(tblDisponibili);
 		
 		try {
 			noleggiabili.exequery("DROP TABLE mezzinoleggiabili", "delete");
 		} catch (SQLException e) {
-	     
 			e.printStackTrace();
 		}
 		
-		/* Crea il Layout per l'elenco dei mezzi Disponibili. */
-		
+		/* Crea il layout per l'elenco dei mezzi noleggiabili. */
 		GroupLayout gl_contentPane = new GroupLayout(this);
 		gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -126,34 +134,25 @@ public class ModuloMezziNoleggiabili extends JPanel{
 			);
 		this.setLayout(gl_contentPane);
 		}
-	
-	/* Costruttore ModuloHmU */
-	
-	public ModuloMezziNoleggiabili() {
-		set();
-	}
 
-	@Override
+	
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
-		return "ModuloMezziNoleggiabili [dataOggi=" + dataOggi + ", day=" + day + ", targhe=" + targhe + ", disp="
-				+ disp + "]";
+		return "ModuloMezziNoleggiabili [La classe ModuloMezziNoleggiabili genera l'elenco dei mezzi noleggiabili.]";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((dataOggi == null) ? 0 : dataOggi.hashCode());
-		result = prime * result + ((day == null) ? 0 : day.hashCode());
-		result = prime * result + ((disp == null) ? 0 : disp.hashCode());
-		result = prime * result + ((noleggiabili == null) ? 0 : noleggiabili.hashCode());
-		result = prime * result + ((scroll == null) ? 0 : scroll.hashCode());
-		result = prime * result + ((targhe == null) ? 0 : targhe.hashCode());
-		result = prime * result + ((tblDisponibili == null) ? 0 : tblDisponibili.hashCode());
-		return result;
-	}
-
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

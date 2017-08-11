@@ -22,11 +22,23 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 
-public class Finestra extends JFrame implements ActionListener{
+/**
+ * La classe Finestra implementa il frame dell'applicazione.
+ */
+public class Finestra extends JFrame implements ActionListener {
 	
 	private static final long serialVersionUID = 1L; 
+	
+	/**
+	 * L'username dell'utente.
+	 */
 	public String username;
+	
+	/**
+	 * Il pannello del frame Finestra.
+	 */
 	public JPanel contentPane = new JPanel();
+	
 	private final JMenuBar menuBar = new JMenuBar();
 	private final JButton btnExtra = new JButton("Extra");
 	private final JButton btnOperatore = new JButton("Operatore");
@@ -35,9 +47,14 @@ public class Finestra extends JFrame implements ActionListener{
 	private final JButton btnCliente = new JButton("Cliente");
 	private final JButton btnHome = new JButton("Home");
 	
-	/* Crea il frame Pannello.*/
 	
+	/**
+	 * Inizializza un nuovo oggetto Finestra e memorizza l'oggetto String {@code user} passato come argomento nella variabile {@code username}.
+	 * 
+	 * @param user l'username dell'utente che utilizza l'applicazione.
+	 */
 	public Finestra(String user) {
+		
 		username = user;
 		try {
 			this.setVisible(true);
@@ -49,46 +66,47 @@ public class Finestra extends JFrame implements ActionListener{
 			this.setLocationRelativeTo(null);
 			this.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
 			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-			addWindowListener(new WindowAdapter(){
-	        	public void windowClosing(WindowEvent we)
-	        	  { 
+			addWindowListener(new WindowAdapter() {
+	        	public void windowClosing(WindowEvent we) { 
 	        		int scelta = JOptionPane.showConfirmDialog(
 						    null,
 						    "Si desidera uscire dall'applicazione?",
 						    "Conferma uscita",
 						    JOptionPane.YES_NO_OPTION);
-					if (scelta == JOptionPane.YES_OPTION){
+					if (scelta == JOptionPane.YES_OPTION) {
 						System.exit(0);
 					}
-			}});
+	        	}
+	        });
 			new PannelloHome(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	/* Crea il menù */
-	
+	/**
+	 * Crea i bottoni che costituiscono il menù dell'applicazione.
+	 */
 	public void menu(){
 		setJMenuBar(menuBar);
 		
 		menuBar.add(btnHome);
-		btnHome.addActionListener(this); /* ActionListener per il bottone Home. */
+		btnHome.addActionListener(this); // ActionListener per il bottone Home. 
 		
 		menuBar.add(btnCliente);
-		btnCliente.addActionListener(this); /* ActionListener per il bottone Cliente. */
+		btnCliente.addActionListener(this); // ActionListener per il bottone Cliente. 
 		
 		menuBar.add(btnContratto);
-		btnContratto.addActionListener(this); /* ActionListener per il bottone Contratto. */
+		btnContratto.addActionListener(this); // ActionListener per il bottone Contratto. 
 		
 		menuBar.add(btnFlotta);
-		btnFlotta.addActionListener(this); /* ActionListener per il bottone Flotta. */
+		btnFlotta.addActionListener(this); // ActionListener per il bottone Flotta. 
 		
 		menuBar.add(btnOperatore);
-		btnOperatore.addActionListener(this); /* ActionListener per il bottone Operatore. */
+		btnOperatore.addActionListener(this); // ActionListener per il bottone Operatore. 
 		
 		menuBar.add(btnExtra);
-		btnExtra.addActionListener(this); /* ActionListener per il bottone Extra. */
+		btnExtra.addActionListener(this); // ActionListener per il bottone Extra. 
 		
 		if (!username.equals("admin")) {
 			btnFlotta.setEnabled(false);
@@ -102,47 +120,60 @@ public class Finestra extends JFrame implements ActionListener{
 		}
 	}
 	
-	/* Definisce le azioni da eseguire in base al bottone cliccato.*/
-	
-	public void actionPerformed(ActionEvent e){
-		if(btnHome == e.getSource()){			
+	/**
+	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
+	 */
+	public void actionPerformed(ActionEvent e) {
+		
+		if(btnHome == e.getSource()) {			
 			getContentPane().removeAll();
 			new PannelloHome(this);
 			getContentPane().revalidate();
-		}
-		else if(btnOperatore == e.getSource()){
+		
+		} else if(btnOperatore == e.getSource()) {
 			getContentPane().removeAll();
 			new PannelloOperatore(this);
 			getContentPane().revalidate();
-		}
-		else if(btnFlotta == e.getSource()){
+		
+		} else if(btnFlotta == e.getSource()) {
 			getContentPane().removeAll();
 			new PannelloFlotta(this);
 			getContentPane().revalidate();
-		}
-		else if(btnCliente == e.getSource()){
+		
+		} else if(btnCliente == e.getSource()) {
 			getContentPane().removeAll();
 			new PannelloCliente(this);
 			getContentPane().revalidate();
-		}
-		else if(btnExtra == e.getSource()){
+		
+		} else if(btnExtra == e.getSource()) {
 			getContentPane().removeAll();
 			new PannelloExtra(this);
 			getContentPane().revalidate();
-		}
-		else if(btnContratto == e.getSource()){
+		
+		} else if(btnContratto == e.getSource()) {
 			getContentPane().removeAll();
 			new PannelloContratto(this);
 			getContentPane().revalidate();
 		}
 	}
 
-	@Override
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
 		return "Finestra [username=" + username + "]";
 	}
 
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -197,7 +228,5 @@ public class Finestra extends JFrame implements ActionListener{
 		} else if (!username.equals(other.username))
 			return false;
 		return true;
-	}	
-	
-	
+	}		
 }

@@ -34,7 +34,10 @@ import db.DBConnect;
 import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
-public class ModuloExtra extends JPanel implements ActionListener{
+/**
+ * La classe ModuloExtra permette di gestire profitti, scadenze e statiche dell'autonoleggio.
+ */
+public class ModuloExtra extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L; 
 	
@@ -56,29 +59,26 @@ public class ModuloExtra extends JPanel implements ActionListener{
 	private JComboBox <String> comboBoxAnnuale;
 	private JComboBox <String> comboBoxMeseMensile;
 	private JComboBox <String> comboBoxAnnoMensile;
-	private int annoCorrente;
-	
 	
 	private DBConnect extra;
 	private DBConnect profitto;
 	
+	private Integer annoCorrente;
+	
 	private String dataQuery, dataQuery2;
 	
-	/* Costruttori ModuloEx */
-	
-	public ModuloExtra (String str) {
-		set(str);	
-	}
-
+	/**
+	 * Inizializza un nuovo oggetto ModuloExtra e genera il layout iniziale del pannello "Funzionalità Aggiuntive".
+	 */
 	public ModuloExtra() {
+		
 		this.setBorder(BorderFactory.createTitledBorder("Funzionalità Aggiuntive"));
 		
 		JLabel lblFunz = new JLabel("Seleziona la funzionalità desiderata");
 		lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		/* Crea il Layout iniziale per il pannello funzionalità aggiuntive. */
-		
+		/* Crea il layout iniziale del pannello "Funzionalità Aggiuntive". */
 		GroupLayout gl_contentPane = new GroupLayout(this);
 		gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -97,8 +97,30 @@ public class ModuloExtra extends JPanel implements ActionListener{
 		this.setLayout(gl_contentPane);
 	}
 	
+	/**
+	 * Inizializza un nuovo oggetto ModuloExtra e richiama il metodo {@code set} passando come argomento l'oggetto String {@code str}.
+	 * 
+	 * @param str una stringa che determina il diverso comportamento del metodo {@code set}.
+	 */
+	public ModuloExtra (String str) {
+		set(str);	
+	}
+	
+	/**
+	 * Si comporta in maniera differente a seconda dell'oggetto String che viene passato come argomento. <br><br>
+	 * 
+	 * - Se viene passato "Statistica", viene creato l'elenco dei veicoli più noleggiati. <br>
+	 * - Se viene passato "Mensile", viene creato il form per calcolare il profitto mensile. <br>
+	 * - Se viene passato "Annuale", viene creato il form per calcolare il profitto annuale. <br>
+	 * - Se viene passato "Scadenze", viene creata la vista delle scadenze.
+	 * 
+	 * @param str una stringa che determina cosa verrà mostrato a schermo.
+	 */
 	public void set(String str) {
+		
 		if (str.equals("Statistica")) {
+			
+			/* Viene creato l'elenco dei veicoli più noleggiati. */
 			extra = new DBConnect();
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco veicoli più noleggiati"));
@@ -124,15 +146,13 @@ public class ModuloExtra extends JPanel implements ActionListener{
 				scroll.setViewportView(tblVeicoli);
 				
 				extra.con.close();
-			}
-			catch (SQLException e) {
+			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli più noleggiati!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 			}
 			
-			/* Crea il Layout per l'elenco dei veicoli più noleggiati. */
-			
+			/* Crea il layout per l'elenco dei veicoli più noleggiati. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -150,8 +170,10 @@ public class ModuloExtra extends JPanel implements ActionListener{
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		} 
-		else if (str.equals("Mensile")) {
+		
+		} else if (str.equals("Mensile")) {
+			
+			/* Viene creato il form per calcolare il profitto mensile. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Profitto Mensile"));
 			
@@ -164,7 +186,7 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			lblMese.setFont(new Font("Arial", Font.BOLD, 12));
 			
 			btnProfitto = new JButton("Calcola Profitto");
-			btnProfitto.addActionListener(this);	/* Action Listener per il bottone Profitto.*/
+			btnProfitto.addActionListener(this); // Action Listener per il bottone Profitto.
 						
 			lblProfitto = new JLabel("");
 			lblProfitto.setFont(new Font("Arial", Font.BOLD, 12));
@@ -173,8 +195,6 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			DateFormat dateformat = new SimpleDateFormat("yyyy-MM");
 			dateformat.setLenient(false);
 					
-			/* Crea il Layout per il profitto mensile. */
-			
 			comboBoxMeseMensile = new JComboBox <>();
 			comboBoxMeseMensile.setModel(new DefaultComboBoxModel<>(new String[] {"", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
 			comboBoxMeseMensile.setMaximumRowCount(13);
@@ -187,6 +207,7 @@ public class ModuloExtra extends JPanel implements ActionListener{
 				comboBoxAnnoMensile.addItem(String.valueOf(i));
 		        }
 			
+			/* Crea il layout del form per il calcolo del profitto mensile. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -227,8 +248,10 @@ public class ModuloExtra extends JPanel implements ActionListener{
 			);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		}
-		else if (str.equals("Annuale")) {
+		
+		} else if (str.equals("Annuale")) {
+			
+			/* Viene creato il form per calcolare il profitto annuale. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Profitto Annuale"));
 			
@@ -260,8 +283,7 @@ public class ModuloExtra extends JPanel implements ActionListener{
 				comboBoxAnnuale.addItem(String.valueOf(i));
 		        }
 			
-			/* Crea il Layout per il profitto annuale. */
-			
+			/* Crea il layout del form per il calcolo del profitto annuale. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -298,8 +320,10 @@ public class ModuloExtra extends JPanel implements ActionListener{
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		}
-		else if (str.equals("Scadenze")){
+		
+		} else if (str.equals("Scadenze")) {
+			
+			/* Viene creata la vista delle scadenze. */
 			extra = new DBConnect();
 			DateFormat fmt = new SimpleDateFormat("yyyy-MM");
 			Calendar c = Calendar.getInstance();
@@ -350,13 +374,11 @@ public class ModuloExtra extends JPanel implements ActionListener{
 				
 				scrollBollo.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 				scrollBollo.setViewportView(tblBollo);
-			}
-			catch (SQLException e) {
+			} catch (SQLException e) {
 							JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con bollo in scadenza!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 			}
-			
 			
 			try {
 				extra.exequery("SELECT Data_Scadenza_Tagliando, Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati "
@@ -377,8 +399,7 @@ public class ModuloExtra extends JPanel implements ActionListener{
 				
 				scrollTagliando.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 				scrollTagliando.setViewportView(tblTagliando);
-			}
-			catch (SQLException e) {
+			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con tagliando in scadenza!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
@@ -403,8 +424,7 @@ public class ModuloExtra extends JPanel implements ActionListener{
 				
 				scrollAssicurazione.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 				scrollAssicurazione.setViewportView(tblAssicurazione);
-			}
-			catch (SQLException e) {
+			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con assicurazione in scadenza!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
@@ -429,8 +449,7 @@ public class ModuloExtra extends JPanel implements ActionListener{
 				
 				scrollOrmeggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 				scrollOrmeggio.setViewportView(tblOrmeggio);
-			}
-			catch (SQLException e) {
+			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con ormeggio in scadenza!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
@@ -455,15 +474,13 @@ public class ModuloExtra extends JPanel implements ActionListener{
 				
 				scrollAlaggio.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 				scrollAlaggio.setViewportView(tblAlaggio);
-			}
-			catch (SQLException e) {
+			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei veicoli con alaggio in scadenza!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 			}
 			
-			/* Crea il Layout per la lista delle scadenze. */
-			
+			/* Crea il layout per la vista delle scadenze. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -528,9 +545,11 @@ public class ModuloExtra extends JPanel implements ActionListener{
 		}
 	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante cliccato.*/
-	
+	/**
+	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
+	 */
 	public void actionPerformed(ActionEvent e) {
+		
 		if (btnProfitto == e.getSource()) {
 			try {
 				profitto = new DBConnect();
@@ -542,20 +561,21 @@ public class ModuloExtra extends JPanel implements ActionListener{
 							JOptionPane.showMessageDialog(null, "Errore! La data inserita non è valida!",
 								    "Errore ",
 								    JOptionPane.ERROR_MESSAGE);
-						}else if (profitto.rs.getString(1) == null) {
+						} else if (profitto.rs.getString(1) == null) {
 							lblProfitto.setText("Profitto del " + mese + ": 0 €");
-						}else {
+						} else {
 						lblProfitto.setText("Profitto del " + mese + ":  " + profitto.rs.getString(1) + " €");
 						}
 					}
 					profitto.con.close();
-			}catch (SQLException ex) {
+			} catch (SQLException ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore! Profitto non calcolato!",
 					    "Errore ",
 					    JOptionPane.ERROR_MESSAGE);
 			}
-		}else if (btnProfittoA == e.getSource()) {
+			
+		} else if (btnProfittoA == e.getSource()) {
 			try {
 				profitto = new DBConnect();
 				lblProfitto.setText("");
@@ -566,14 +586,14 @@ public class ModuloExtra extends JPanel implements ActionListener{
 							JOptionPane.showMessageDialog(null, "Errore! La data inserita non è valida!",
 								    "Errore ",
 								    JOptionPane.ERROR_MESSAGE);
-						}else if (profitto.rs.getString(1) == null) {
+						} else if (profitto.rs.getString(1) == null) {
 							lblProfitto.setText("Profitto del " + anno + ": 0 €");
-						}else {
+						} else {
 						lblProfitto.setText("Profitto del " + anno + ":  " + profitto.rs.getString(1) + " €");
 						}
 					}
 					profitto.con.close();
-				}catch (SQLException ex) {
+				} catch (SQLException ex) {
 				ex.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore! Profitto non calcolato!",
 					    "Errore ",
@@ -582,12 +602,23 @@ public class ModuloExtra extends JPanel implements ActionListener{
 		}
 	}
 
-	@Override
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
-		return "ModuloExtra [Questa classe crea il modulo extra.]";
+		return "ModuloExtra [La classe ModuloExtra permette di gestire profitti, scadenze e statiche dell'autonoleggio.]";
 	}
 
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

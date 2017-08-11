@@ -25,6 +25,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * La classe Login implementa il controllo delle credenziali di accesso.
+ */
 public class Login extends JFrame implements ActionListener, Runnable {
 
 	private static final long serialVersionUID = 1L; 
@@ -38,24 +41,11 @@ public class Login extends JFrame implements ActionListener, Runnable {
 	private JButton btnEsci = new JButton("Esci");
 	
 	
-	/* Crea il frame Login.*/
-	
-	public void run() {
-		try {
-			Login frame = new Login();
-			frame.setLocationRelativeTo(null);
-			frame.setVisible(true);
-			frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Errore! Impossibile avviare il pannello di login!",
-						"Errore ",
-						JOptionPane.ERROR_MESSAGE);
-		}
-	}
-	 
-	/* Definisce il frame Login.*/
-	
+	/**
+	 * Inizializza un nuovo oggetto Login e definisce il frame contenente il form per l'inserimento delle credenziali d'accesso.
+	 */
 	public Login() {
+		
     	try {
     		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
     	        if ("Nimbus".equals(info.getName())) {
@@ -66,10 +56,13 @@ public class Login extends JFrame implements ActionListener, Runnable {
     	    }
 		} catch (Exception e) {
 		    e.printStackTrace();
-		    try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-	        catch (Exception ex) {JOptionPane.showMessageDialog(null, "Errore! Impossibile avviare l'interfaccia!",
+		    try {
+		    	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		    } catch (Exception ex) {
+		    	JOptionPane.showMessageDialog(null, "Errore! Impossibile avviare l'interfaccia!",
 					"Errore ",
-					JOptionPane.ERROR_MESSAGE);}
+					JOptionPane.ERROR_MESSAGE);
+		    }
 		}
 		setResizable(false);
 		setTitle("Autonoleggio - Login");
@@ -79,27 +72,16 @@ public class Login extends JFrame implements ActionListener, Runnable {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		btnAccedi.setFont(new Font("Arial", Font.PLAIN, 12));
-		/* ActionListener per il bottone Accedi.*/
+		btnAccedi.setFont(new Font("Arial", Font.PLAIN, 12)); // ActionListener per il bottone Accedi.
 		btnAccedi.addActionListener(this);	
 	    
-		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12));
-		/* ActionListener per il bottone Esci.*/
+		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12)); // ActionListener per il bottone Esci.
 		btnEsci.addActionListener(this);	
 		
-		/** Tra parentesi viene definita una Classe ANONIMA, cioè una classe "locale" senza 
-		 * 	un nome assegnato. Si tratta di una classe definita un'unica volta attraverso una
-		 *  singola espressione caratterizzata da una versione estesa della sintassi
-		 *  dell'operatore new. 
-		 *  In particolare viene implementata una classe ASTRATTA (KeyAdapter) e quindi devono
-		 *  essere implementati tutti i suoi metodi (--> Infatti si può notare la presenza di 
-		 *  due metodi "vuoti". 
-		 **/
-		txtPassword = new JPasswordField();
-		/* KeyListener per il tasto Enter.*/
+		txtPassword = new JPasswordField(); // KeyListener per il tasto Enter.
 		txtPassword.addKeyListener(new KeyAdapter() {
 				public void keyPressed(KeyEvent evt) {
-					if(evt.getKeyCode()==KeyEvent.VK_ENTER) {
+					if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
 						log = new DBConnect();
 						check();
 					}
@@ -120,8 +102,7 @@ public class Login extends JFrame implements ActionListener, Runnable {
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		/*Crea il Layout per il Login.*/
-		
+		/*Crea il layout del frame contenente il form per l'inserimento delle credenziali d'accesso. */
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -172,9 +153,28 @@ public class Login extends JFrame implements ActionListener, Runnable {
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	/* Metodo. Verifica che i dati inseriti per l'accesso siano validi.*/
+	/**
+	 * Metodo richiamato quando si manda in esecuzione un thread che fa riferimento ad un oggetto Login.
+	 */
+	public void run() {
+		
+		try {
+			Login frame = new Login();
+			frame.setLocationRelativeTo(null);
+			frame.setVisible(true);
+			frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Errore! Impossibile avviare il pannello di login!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+		}
+	}
 	
+	/**
+	 * Verifica che le credenziali di accesso siano valide.
+	 */
 	private void check(){
+		
 		int size=0;
 			try {
 			String user = txtUsername.getText().trim(); //Il metodo trim() prende una stringa e rimuove eventuali whitespaces in testa ed in coda
@@ -185,13 +185,13 @@ public class Login extends JFrame implements ActionListener, Runnable {
 			/* Se la ricerca ha esito positivo, aggiorna il valore size ad 1*/
 			if (log.rs.next()) size=1;	
 			/* Se non viene inserito l'username o la password, viene restituito un errore.*/
-			if (user.equals("") || pwd.equals("")){	
+			if (user.equals("") || pwd.equals("")) {	
 				JOptionPane.showMessageDialog(null, "Errore! Inserisci l'username e/o la password!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 				txtUsername.requestFocus();
-			} /* Se non esiste l'utente o se la password è errata, viene restituito un errore.*/
-			else if (size==0){	
+			} else if (size==0) {	
+				/* Se non esiste l'utente o se la password è errata, viene restituito un errore.*/
 				log.rs.beforeFirst();
 				txtUsername.setText("");
 				txtPassword.setText("");
@@ -202,8 +202,8 @@ public class Login extends JFrame implements ActionListener, Runnable {
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 				txtUsername.requestFocus();
-				}/* Se l'utente viene trovato ed è l'admin, viene avviato il pannello di controllo dell'admin */
-				else {	
+				} else {	
+					/* Se l'utente viene trovato ed è l'admin, viene avviato il pannello di controllo dell'admin */
 					this.dispose();
 					new Finestra (user);
 					}
@@ -216,22 +216,37 @@ public class Login extends JFrame implements ActionListener, Runnable {
 			}
 	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante cliccato.*/
-	
-	public void actionPerformed(ActionEvent e){
-		if (btnAccedi == e.getSource()){
-			log = new DBConnect();
+	/**
+	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
+	 */
+	public void actionPerformed(ActionEvent e) {
+		
+		if (btnAccedi == e.getSource()) {
+			log = new DBConnect(); // Stabilisce una connessione con il database.
 			check();
-		}
-		else if (btnEsci == e.getSource()){
+			
+		}else if (btnEsci == e.getSource()) {
 			System.exit(0); 
 		}
 	}
 
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
 		return "Login [txtPassword=" + txtPassword + ", txtUsername=" + txtUsername + "]";
 	}
 
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -272,6 +287,4 @@ public class Login extends JFrame implements ActionListener, Runnable {
 			return false;
 		return true;
 	}
-	
-	
 }
