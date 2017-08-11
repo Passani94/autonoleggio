@@ -11,9 +11,9 @@ import utils.ArrotondaNumero;
 import utils.GestioneGiorni;
 import utils.Noleggiabilita;
 
-
-/* Classe per l'entità Preventivo */
-
+/**
+ * La classe Preventivo rappresenta i preventivi dell'autonoleggio.
+ */
 public class Preventivo {
 	
 	private DBConnect preventivo;
@@ -44,39 +44,24 @@ public class Preventivo {
 	private static final String TGPATTERN4 = "\\d[a-zA-Z]{2}\\d\\d\\d"; //Pattern Targa Mezzo Acquatico
 	private static final String DATEPATTERN = "^\\d{4}-\\d{2}-\\d{2}$";
 	
-	/* Costruttore Preventivo */
 	
+	/**
+	 * Inizializza un nuovo oggetto Preventivo e stabilisce una connessione con il database.
+	 */
 	public Preventivo() {
 		test = true;
 		preventivo = new DBConnect();
 	}
 	
-	public static double getVarTotale (){
-		return totale;
-	}
-	
-	public static String getVarVeicolo (){
-		return veicolo;
-	}
-	
-	public static String getDataInizio () {
-		
-		return inizio;
-	}
-	
-	public static String getDataFine () {
-		
-		return fine;
-	}
-	
-	public static long getGiorniNoleggio () {
-		
-		return giorniNoleggio;
-	}
-	
-/* Metodo. Calcola un nuovo preventivo. */
-	
+	/**
+	 * Calcola un nuovo preventivo.
+	 * 
+	 * @param content il form {@code "Calcola Preventivo"} ed i relativi dati inseriti.
+	 * 
+	 * @throws Exception se avviene qualche errore che coinvolge chiamate alle funzioni da noi definite.
+	 */
 	public void calcola(ModuloContratto content) throws Exception {
+		
 		if (check(content)) {
 			giorniNoleggio = GestioneGiorni.calcolaGiorni(inizio, fine);
 			try {
@@ -93,14 +78,13 @@ public class Preventivo {
 						JOptionPane.showMessageDialog(null, "Info! Il veicolo non è disponibile.",
 								"INFO",
 								JOptionPane.INFORMATION_MESSAGE);
-				    }
-					else if(((giorniNoleggio==366 || giorniNoleggio==367) && !tipologia.matches(LUNGO)) ||
+				    } else if(((giorniNoleggio==366 || giorniNoleggio==367) && !tipologia.matches(LUNGO)) ||
 			    				((giorniNoleggio==731 || giorniNoleggio==732) && !tipologia.matches(LUNGO)) || 
 			    					((giorniNoleggio==1096 || giorniNoleggio==1097) && !tipologia.matches(LUNGO))) {
 				    	JOptionPane.showMessageDialog(null, "Veicolo non noleggiabile a lungo termine.",
 								"Errore ",
 								JOptionPane.ERROR_MESSAGE);
-					}else if ((giorniNoleggio>31 && giorniNoleggio<59) || (giorniNoleggio>61 && giorniNoleggio<89) || (giorniNoleggio>91 && giorniNoleggio<119) 
+					} else if ((giorniNoleggio>31 && giorniNoleggio<59) || (giorniNoleggio>61 && giorniNoleggio<89) || (giorniNoleggio>91 && giorniNoleggio<119) 
 								|| (giorniNoleggio>121 && giorniNoleggio<149) || (giorniNoleggio>151 && giorniNoleggio<179) 
 									|| (giorniNoleggio>181 && giorniNoleggio<366) || (giorniNoleggio>367 && giorniNoleggio<731) 
 										|| (giorniNoleggio>732 && giorniNoleggio<1096) || (giorniNoleggio>1097)) {
@@ -110,66 +94,66 @@ public class Preventivo {
 									+ "Data Fine 1 Mese di Noleggio: "+ Date[0] +"\n"
 									+ "Data Fine 2 Mesi di Noleggio: "+ Date[1],
 				    				"INFO", JOptionPane.INFORMATION_MESSAGE);
-						}else if (giorniNoleggio>61 && giorniNoleggio<89) {
+						} else if (giorniNoleggio>61 && giorniNoleggio<89) {
 							Date = GestioneGiorni.dataFine(inizio, giorniNoleggio);
 							JOptionPane.showMessageDialog(null, "Periodo di noleggio non consentito! \n \n"
 									+ "Data Fine 2 Mesi di Noleggio: "+ Date[0] +"\n"
 									+ "Data Fine 3 Mesi di Noleggio: "+ Date[1],
 				    				"INFO", JOptionPane.INFORMATION_MESSAGE);
-						}else if (giorniNoleggio>91 && giorniNoleggio<119) {
+						} else if (giorniNoleggio>91 && giorniNoleggio<119) {
 							Date = GestioneGiorni.dataFine(inizio, giorniNoleggio);
 							JOptionPane.showMessageDialog(null, "Periodo di noleggio non consentito! \n \n"
 									+ "Data Fine 3 Mesi di Noleggio: "+ Date[0] +"\n"
 									+ "Data Fine 4 Mesi di Noleggio: "+ Date[1],
 				    				"INFO", JOptionPane.INFORMATION_MESSAGE);
-						}else if (giorniNoleggio>121 && giorniNoleggio<149) {
+						} else if (giorniNoleggio>121 && giorniNoleggio<149) {
 							Date = GestioneGiorni.dataFine(inizio, giorniNoleggio);
 							JOptionPane.showMessageDialog(null, "Periodo di noleggio non consentito! \n \n"
 									+ "Data Fine 4 Mesi di Noleggio: "+ Date[0] +"\n"
 									+ "Data Fine 5 Mesi di Noleggio: "+ Date[1],
 				    				"INFO", JOptionPane.INFORMATION_MESSAGE);
-						}else if (giorniNoleggio>151 && giorniNoleggio<179) {
+						} else if (giorniNoleggio>151 && giorniNoleggio<179) {
 							Date = GestioneGiorni.dataFine(inizio, giorniNoleggio);
 							JOptionPane.showMessageDialog(null, "Periodo di noleggio non consentito! \n \n"
 									+ "Data Fine 5 Mesi di Noleggio: "+ Date[0] +"\n"
 									+ "Data Fine 6 Mesi di Noleggio: "+ Date[1],
 				    				"INFO", JOptionPane.INFORMATION_MESSAGE);
-						}else if (giorniNoleggio>181 && giorniNoleggio<366) {
+						} else if (giorniNoleggio>181 && giorniNoleggio<366) {
 							Date = GestioneGiorni.dataFine(inizio, giorniNoleggio);
 							JOptionPane.showMessageDialog(null, "Periodo di noleggio non consentito! \n \n"
 									+ "Data Fine 6 Mesi di Noleggio: "+ Date[0] +"\n"
 									+ "Data Fine 1 Anno di Noleggio: "+ Date[1],
 				    				"INFO", JOptionPane.INFORMATION_MESSAGE);
-						}else if (giorniNoleggio>366 && giorniNoleggio<731) {
+						} else if (giorniNoleggio>366 && giorniNoleggio<731) {
 							Date = GestioneGiorni.dataFine(inizio, giorniNoleggio);
 							JOptionPane.showMessageDialog(null, "Periodo di noleggio non consentito! \n \n"
 									+ "Data Fine 1 Anno di Noleggio: "+ Date[0] +"\n"
 									+ "Data Fine 2 Anni di Noleggio: "+ Date[1],
 				    				"INFO", JOptionPane.INFORMATION_MESSAGE);
-						}else if (giorniNoleggio>732 && giorniNoleggio<1096) {
+						} else if (giorniNoleggio>732 && giorniNoleggio<1096) {
 							Date = GestioneGiorni.dataFine(inizio, giorniNoleggio);
 							JOptionPane.showMessageDialog(null, "Periodo di noleggio non consentito! \n \n"
 									+ "Data Fine 2 Anni di Noleggio: "+ Date[0] +"\n"
 									+ "Data Fine 3 Anni di Noleggio: "+ Date[1],
 				    				"INFO", JOptionPane.INFORMATION_MESSAGE);
-						}else {
+						} else {
 							Date = GestioneGiorni.dataFine(inizio, giorniNoleggio);
 							JOptionPane.showMessageDialog(null, "Periodo di noleggio non consentito! \n \n"
 									+ "Data Fine 3 Anni di Noleggio: "+ Date[0],
 				    				"INFO", JOptionPane.INFORMATION_MESSAGE);
 						}
-					}else {
+					} else {
 				    	if (giorniNoleggio>0 && giorniNoleggio<=7) {
 				    		/* Caso 1. Noleggio da 1 a 7 giorni. */
 				    		if (giorniNoleggio==1) {
 				    			giorni = "1_Giorno";
-				    		}else if (giorniNoleggio==2) {
+				    		} else if (giorniNoleggio==2) {
 				    			giorni = "2_Giorni";
-				    		}else if (giorniNoleggio==3 || giorniNoleggio==4) {
+				    		} else if (giorniNoleggio==3 || giorniNoleggio==4) {
 				    			giorni = "3_4_Giorni";
-				    		}else if (giorniNoleggio==5) {
+				    		} else if (giorniNoleggio==5) {
 				    			giorni = "5_Giorni";
-				    		}else if (giorniNoleggio==6 || giorniNoleggio==7) {
+				    		} else if (giorniNoleggio==6 || giorniNoleggio==7) {
 				    			giorni = "6_7_Giorni";
 				    		}
 				    		preventivo.exequery("SELECT * FROM breve_termine where Cod_BT='"+tipologia+"'","select"); 
@@ -177,21 +161,21 @@ public class Preventivo {
 				    		if (preventivo.rs.next()) {
 				    			alGiorno = preventivo.rs.getBigDecimal(giorni).floatValue();
 				    		}
-				    		if (giorniNoleggio>=6){
+				    		if (giorniNoleggio>=6) {
 				    			totale = alGiorno;
-				    		}else {
+				    		} else {
 							totale = alGiorno * giorniNoleggio;
 				    		}
-				    	}else if (giorniNoleggio>7 && giorniNoleggio<14){ 
+				    	} else if (giorniNoleggio>7 && giorniNoleggio<14) { 
 				    		/* Caso 2. Noleggio da 8 a 13 giorni. */
 				    		preventivo.exequery("SELECT * FROM breve_termine where Cod_BT='"+tipologia+"'","select"); 
 				    		/* Prende il prezzo per 6-7 giorni. */
-				    		if (preventivo.rs.next()){
+				    		if (preventivo.rs.next()) {
 				    			alGiorno = preventivo.rs.getBigDecimal(giorni).floatValue();
 				    			giornoExtra = preventivo.rs.getBigDecimal("Giorno_Extra").floatValue();
 				    		}
 				    		totale = alGiorno + ((giorniNoleggio - 7) * giornoExtra);
-				    	}else if (giorniNoleggio==14) {
+				    	} else if (giorniNoleggio==14) {
 				    		/* Caso 3. Noleggio di 2 settimane. */
 				    		sconto = 0.1;
 				    		preventivo.exequery("SELECT * FROM breve_termine where Cod_BT='"+tipologia+"'","select"); 
@@ -202,10 +186,10 @@ public class Preventivo {
 				    		if (tipologia.matches(BREVE)) {
 				    			sconto = alGiorno * 2 * sconto;
 				    			totale = (alGiorno * 2) - sconto;
-				    		}else {
+				    		} else {
 				    			totale = (alGiorno * 2);
 				    		}
-				    	}else if (giorniNoleggio>14 && giorniNoleggio<21) {
+				    	} else if (giorniNoleggio>14 && giorniNoleggio<21) {
 				    		/* Caso 4. Noleggio da 15 a 20 giorni. */
 				    		sconto = 0.1;
 				    		preventivo.exequery("SELECT * FROM breve_termine where Cod_BT='"+tipologia+"'","select"); 
@@ -217,10 +201,10 @@ public class Preventivo {
 				    		if (tipologia.matches(BREVE)) {
 				    			sconto = alGiorno * 2 * sconto;
 				    			totale = ((alGiorno * 2) - sconto) + ((giorniNoleggio - 14) * giornoExtra);
-				    		}else {
+				    		} else {
 				    			totale = (alGiorno * 2) + ((giorniNoleggio - 14) * giornoExtra);
 				    		}
-				    	}else if (giorniNoleggio==21) { 
+				    	} else if (giorniNoleggio==21) { 
 				    		/* Caso 4. Noleggio di 3 settimane. */
 				    		sconto = 0.15;
 				    		preventivo.exequery("SELECT * FROM breve_termine where Cod_BT='"+tipologia+"'","select"); 
@@ -231,10 +215,10 @@ public class Preventivo {
 				    		if (tipologia.matches(BREVE)) {
 				    			sconto = alGiorno * 3 * sconto;
 				    			totale = (alGiorno * 3) - sconto;
-				    		}else {
+				    		} else {
 				    			totale = alGiorno * 3;
 				    		}
-				    	}else if (giorniNoleggio>21 && giorniNoleggio<29) {
+				    	} else if (giorniNoleggio>21 && giorniNoleggio<29) {
 				    		/* Caso 6. Noleggio da 22 a 30 giorni. */
 				    		sconto = 0.15;
 				    		preventivo.exequery("SELECT * FROM breve_termine where Cod_BT='"+tipologia+"'","select"); 
@@ -246,10 +230,10 @@ public class Preventivo {
 				    		if (tipologia.matches(BREVE)) {
 				    			sconto = alGiorno * 3 * sconto;
 				    			totale = ((alGiorno * 3) - sconto) + ((giorniNoleggio - 21) * giornoExtra);
-				    		}else {
+				    		} else {
 				    			totale = (alGiorno * 3) + ((giorniNoleggio - 21) * giornoExtra);
 				    		}
-				    	}else if (giorniNoleggio>=29 && giorniNoleggio<=31) {
+				    	} else if (giorniNoleggio>=29 && giorniNoleggio<=31) {
 				    		/* Caso 7. Noleggio di 1 mese. */
 				    		sconto = 0.2;
 				    		preventivo.exequery("SELECT * FROM breve_termine where Cod_BT='"+tipologia+"'","select"); 
@@ -260,10 +244,10 @@ public class Preventivo {
 				    		if (tipologia.matches(BREVE)) {
 				    			sconto = alGiorno * 4 * sconto;
 				    			totale = (alGiorno * 4) - sconto;
-				    		}else {
+				    		} else {
 				    			totale = alGiorno * 4;
 				    		}
-				    	}else if (giorniNoleggio>=59 && giorniNoleggio<=61) {
+				    	} else if (giorniNoleggio>=59 && giorniNoleggio<=61) {
 				    		/* Caso 7. Noleggio di 2 mesi. */
 				    		sconto = 0.2;
 				    		preventivo.exequery("SELECT * FROM breve_termine where Cod_BT='"+tipologia+"'","select"); 
@@ -275,10 +259,10 @@ public class Preventivo {
 				    			meseScontato = (alGiorno * 4) - (alGiorno * 4 * 0.2);
 				    			sconto = (meseScontato * 2) * sconto;
 				    			totale = (meseScontato * 2) - sconto;
-				    		}else {
+				    		} else {
 				    			totale = (alGiorno * 4) * 2;
 				    		}
-				    	}else if (giorniNoleggio>=89 && giorniNoleggio<=91) { 
+				    	} else if (giorniNoleggio>=89 && giorniNoleggio<=91) { 
 				    		/* Caso 8. Noleggio di 3 mesi. */
 				    		sconto = 0.3;
 				    		preventivo.exequery("SELECT * FROM breve_termine where Cod_BT='"+tipologia+"'","select"); 
@@ -290,11 +274,11 @@ public class Preventivo {
 				    			meseScontato = (alGiorno * 4) - (alGiorno * 4 * 0.2);
 				    			sconto = (meseScontato * 3) * sconto;
 				    			totale = (meseScontato * 3) - sconto;
-				    		}else {
+				    		} else {
 				    			totale = (alGiorno * 4) * 3;
 				    		}
-				    	}else if (giorniNoleggio>=119 && giorniNoleggio<=121) {
-				    		/* Caso 9. Noleggio di 4 mesi. */
+				    	} else if (giorniNoleggio>=119 && giorniNoleggio<=121) {
+				    	 	/* Caso 9. Noleggio di 4 mesi. */
 				    		sconto = 0.35;
 				    		preventivo.exequery("SELECT * FROM breve_termine where Cod_BT='"+tipologia+"'","select"); 
 				    		/* Prende il prezzo per 6-7 giorni. */
@@ -305,10 +289,10 @@ public class Preventivo {
 				    			meseScontato = (alGiorno * 4) - (alGiorno * 4 * 0.2);
 				    			sconto = (meseScontato * 4) * sconto;
 				    			totale = (meseScontato * 4) - sconto;
-				    		}else {
+				    		} else {
 				    			totale = (alGiorno * 4) * 4;
 				    		}
-				    	}else if (giorniNoleggio>=149 && giorniNoleggio<=151) {  
+				    	} else if (giorniNoleggio>=149 && giorniNoleggio<=151) {  
 				    		/* Caso 10. Noleggio di 5 mesi. */
 				    		sconto = 0.5;
 				    		preventivo.exequery("SELECT * FROM breve_termine where Cod_BT='"+tipologia+"'","select"); 
@@ -320,10 +304,10 @@ public class Preventivo {
 				    			meseScontato = (alGiorno * 4) - (alGiorno * 4 * 0.2);
 				    			sconto = (meseScontato * 5) * sconto;
 				    			totale = (meseScontato * 5) - sconto;
-				    		}else {
+				    		} else {
 				    			totale = (alGiorno * 4) * 5;
 				    		}
-				    	}else if (giorniNoleggio>=179 && giorniNoleggio<=181) {  
+				    	} else if (giorniNoleggio>=179 && giorniNoleggio<=181) {  
 				    		/* Caso 11. Noleggio di 6 mesi. */
 				    		sconto = 0.6;
 				    		preventivo.exequery("SELECT * FROM breve_termine where Cod_BT='"+tipologia+"'","select"); 
@@ -335,10 +319,10 @@ public class Preventivo {
 				    			meseScontato = (alGiorno * 4) - (alGiorno * 4 * 0.2);
 				    			sconto = (meseScontato * 6) * sconto;
 				    			totale = (meseScontato * 6) - sconto;
-				    		}else {
+				    		} else {
 				    			totale = (alGiorno * 4) * 6;
 				    		}
-				    	} else if ((giorniNoleggio==366 || giorniNoleggio==367) && tipologia.matches(LUNGO)){
+				    	} else if ((giorniNoleggio==366 || giorniNoleggio==367) && tipologia.matches(LUNGO)) {
 				    		/* Caso 12. Noleggio di 1 anno. */
 				    		anni="1_Anno";
 				    		preventivo.exequery("SELECT * FROM lungo_termine where Cod_LT='"+tipologia+"'","select"); 
@@ -348,7 +332,7 @@ public class Preventivo {
 				    			anticipo = preventivo.rs.getBigDecimal("Anticipo").toString();
 				    		}
 				    		totale = alMese * 12;
-				    	}else if ((giorniNoleggio==731 || giorniNoleggio==732) && tipologia.matches(LUNGO)) {
+				    	} else if ((giorniNoleggio==731 || giorniNoleggio==732) && tipologia.matches(LUNGO)) {
 				    		/* Caso 13. Noleggio di 2 anni. */
 				    		anni="2_Anni";
 				    		preventivo.exequery("SELECT * FROM lungo_termine where Cod_LT='"+tipologia+"'","select"); 
@@ -358,7 +342,7 @@ public class Preventivo {
 				    			anticipo = preventivo.rs.getBigDecimal("Anticipo").toString();
 				    		}
 				    		totale = alMese * 24;	
-				    	}else if ((giorniNoleggio==1096 || giorniNoleggio==1097) && tipologia.matches(LUNGO)) { 
+				    	} else if ((giorniNoleggio==1096 || giorniNoleggio==1097) && tipologia.matches(LUNGO)) { 
 				    		/* Caso 14. Noleggio di 3 anni. */
 				    		anni="3_Anni";
 				    		preventivo.exequery("SELECT * FROM lungo_termine where Cod_LT='"+tipologia+"'","select"); 
@@ -401,13 +385,13 @@ public class Preventivo {
 				    				"Anticipo", JOptionPane.INFORMATION_MESSAGE);
 				    	}
 				    }
-				}else { 
+				} else { 
 				    JOptionPane.showMessageDialog(null, "Errore! La targa digitata non è associata ad alcun veicolo.",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 				}
 				preventivo.con.close();
-			}catch (SQLException e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Errore! Preventivo non calcolato!",
 						"Errore ",
@@ -415,25 +399,24 @@ public class Preventivo {
 			}	
 		}
 	}
-			
-	/* Metodo. Assegna i valori al Preventivo. */
 	
-	public void setValori(ModuloContratto content) {
-		veicolo = content.txtVeicolo.getText().trim();
-		inizio = content.frmtdtxtfldInizio.getText().trim();
-		fine = content.frmtdtxtfldFine.getText().trim();
-	}
 	
-	/* Metodo. Verifica la correttezza dei dati inseriti. */
 	
+	/**
+	 * Verifica che i dati del preventivo da calcolare siano corretti.
+	 * 
+	 * @param content il form {@code "Calcola Preventivo"} ed i relativi dati inseriti.
+	 * @return true se i dati inseriti sono validi; false altrimenti.
+	 */
 	private boolean check(ModuloContratto content) throws Exception {
+		
 		boolean check=true;
 		if (inizio.equals("Seleziona una data") || fine.equals("Seleziona una data")) {
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i Campi!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
-		}else if (!veicolo.matches(TGPATTERN1) && !veicolo.matches(TGPATTERN2) && !veicolo.matches(TGPATTERN3) && !veicolo.matches(TGPATTERN4)) {
+		} else if (!veicolo.matches(TGPATTERN1) && !veicolo.matches(TGPATTERN2) && !veicolo.matches(TGPATTERN3) && !veicolo.matches(TGPATTERN4)) {
 			content.txtVeicolo.setText("");
 			content.txtVeicolo.requestFocus();
 			check=false;
@@ -442,33 +425,33 @@ public class Preventivo {
 					+ "\n - Mezzo Acquatico: 2 caratteri e 4 cifre (es. 8PC567).",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!inizio.matches(DATEPATTERN) && !inizio.equals("Seleziona una data")) {
+		} else if (!inizio.matches(DATEPATTERN) && !inizio.equals("Seleziona una data")) {
 			content.frmtdtxtfldInizio.setText("");
 			content.frmtdtxtfldInizio.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La data di inizio noleggio inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (GestioneGiorni.nonConsentito(inizio)) {
+		} else if (GestioneGiorni.nonConsentito(inizio)) {
 			content.frmtdtxtfldInizio.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La data di inizio noleggio deve essere almeno uguale alla data odierna!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!fine.matches(DATEPATTERN) && !fine.matches("Seleziona una data")) {
+		} else if (!fine.matches(DATEPATTERN) && !fine.matches("Seleziona una data")) {
 			content.frmtdtxtfldFine.setText("");
 			content.frmtdtxtfldFine.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La data di fine noleggio inserita non è valida!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (GestioneGiorni.isMaggiore(inizio, fine)) {
+		} else if (GestioneGiorni.isMaggiore(inizio, fine)) {
 			content.frmtdtxtfldFine.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La data di fine noleggio deve essere maggiore della data di inizio!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		}else if (!Noleggiabilita.controlla(veicolo,inizio,fine)) {
+		} else if (!Noleggiabilita.controlla(veicolo,inizio,fine)) {
 			check=false;
 			JOptionPane.showMessageDialog(null, "Il veicolo non è noleggiabile per il periodo indicato!",
 				    "INFO ",
@@ -476,22 +459,91 @@ public class Preventivo {
 		}
 		if (check==false) {
 			test=check; 
-		}else {
+		} else {
 			test=true;
 		}
 		return test;
 	}
 
-	@Override
+	/**
+	 * Metodo usato quando si sceglie "Passa a Contratto" nel form {@code "Calcola Preventivo"}.
+	 * 
+	 * @return il costo totale del noleggio
+	 */
+	public static double getVarTotale() {
+		
+		return totale;
+	}
+	
+	/**
+	 * Metodo usato quando si sceglie "Passa a Contratto" nel form {@code "Calcola Preventivo"}.
+	 * 
+	 * @return la targa del veicolo noleggiato
+	 */
+	public static String getVarVeicolo() {
+		
+		return veicolo;
+	}
+	
+	/**
+	 * Metodo usato quando si sceglie "Passa a Contratto" nel form {@code "Calcola Preventivo"}.
+	 * 
+	 * @return la data di inizio noleggio
+	 */
+	public static String getDataInizio() {
+		
+		return inizio;
+	}
+	
+	/**
+	 * Metodo usato quando si sceglie "Passa a Contratto" nel form {@code "Calcola Preventivo"}.
+	 * 
+	 * @return la data di fine noleggio
+	 */
+	public static String getDataFine() {
+		
+		return fine;
+	}
+	/**
+	 * Metodo usato quando si sceglie "Passa a Contratto" nel form {@code "Calcola Preventivo"}.
+	 * 
+	 * @return la durata del noleggio espressa in giorni
+	 */
+	public static long getGiorniNoleggio () {
+		
+		return giorniNoleggio;
+	}
+	
+	
+	/**
+	 * Assegna i valori inseriti nella form alle variabili dell'oggetto {@code Preventivo}.
+	 * 
+	 * @param content il form {@code "Calcola Preventivo"} ed i relativi dati inseriti.
+	 */
+	public void setValori(ModuloContratto content) {
+		
+		veicolo = content.txtVeicolo.getText().trim();
+		inizio = content.frmtdtxtfldInizio.getText().trim();
+		fine = content.frmtdtxtfldFine.getText().trim();
+	}
+	
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
-		return "Preventivo [preventivo=" + preventivo + ", test=" + test + ", Date=" + Arrays.toString(Date)
-				+ ", disponibilita=" + disponibilita + ", tipologia=" + tipologia + ", giorni=" + giorni + ", anni="
-				+ anni + ", anticipo=" + anticipo + ", alGiorno=" + alGiorno + ", alMese=" + alMese + ", giornoExtra="
-				+ giornoExtra + ", meseScontato=" + meseScontato + ", sconto=" + sconto + "]";
+		return "Preventivo [La classe Preventivo rappresenta i preventivi dell'autonoleggio.]";
 	}
 
-	
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -546,5 +598,4 @@ public class Preventivo {
 			return false;
 		return true;
 	}		
-	
 }

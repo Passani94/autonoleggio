@@ -6,9 +6,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class ModuloCalendario extends JPanel{
+/**
+ * La classe ModuloCalendario genera il calendario presente nella "Home" del programma.
+ */
+public class ModuloCalendario extends JPanel {
 	
-	private static final long serialVersionUID = 7526472295622776147L; 
+	private static final long serialVersionUID = 1L; 
     static JLabel lblMonth, lblYear;
     static JButton btnPrev, btnNext;
     static JTable tblCalendar;

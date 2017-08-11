@@ -108,7 +108,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 	/**
 	 * Si comporta in maniera differente a seconda dell'oggetto String che viene passato come argomento. <br><br>
 	 * - Se viene passato "Elenca", viene generato l'elenco dei clienti contenuti nel database. <br>
-	 * - Se viene passato "Aggiungi", viene creato il form per aggiungere un cliente. <br>
+	 * - Se viene passato "Nuovo", viene creato il form per aggiungere un cliente. <br>
 	 * - Se viene passato "Modifica", viene creato il form per modificare un cliente. <br>
 	 * - Se viene passato "Elimina", viene creato il form per eliminare un cliente.
 	 * 
@@ -117,6 +117,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 	public void set(String str) {
 		
 		if (str.equals("Elenca")) {
+			
 			/* Viene generato l'elenco dei clienti contenuti nel database. */
 			elencoClienti = new DBConnect();
 			this.removeAll();
@@ -164,6 +165,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 			this.revalidate();
 		
 		} else if (str.equals("Nuovo")) {
+			
 			/* Viene creato il form per aggiungere un nuovo cliente. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Nuovo Cliente"));
@@ -319,7 +321,8 @@ public class ModuloCliente extends JPanel implements ActionListener {
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		
-		} else if (str == "Elimina") {
+		} else if (str.equals("Elimina")) {
+			
 			/* Viene creato il form per eliminare un cliente. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elimina Cliente"));
@@ -366,6 +369,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 			this.revalidate();
 		
 		} else if (str.equals("Modifica")) {
+			
 			/* Viene creato il form per modificare un cliente. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Modifica Cliente"));
@@ -550,23 +554,23 @@ public class ModuloCliente extends JPanel implements ActionListener {
 	/**
 	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
 	 */
-	public void actionPerformed(ActionEvent e){
+	public void actionPerformed(ActionEvent e) {
 		if (btnAggiungi == e.getSource()) {
 			cliente = new Cliente();
 			cliente.setValori(this);
 			cliente.aggiungi(this);
-		}
-		else if(btnElimina == e.getSource()){
+		
+		} else if(btnElimina == e.getSource()) {
 			cliente = new Cliente();
 			cliente.setIDElimina(this);
 			cliente.elimina(this);
-		}
-		else if(btnCerca == e.getSource()){
+		
+		} else if(btnCerca == e.getSource()) {
 			cliente = new Cliente();
 			cliente.setIDCerca(this);
 			cliente.cerca(this);
-			}
-		else if(btnModificaC == e.getSource()){
+		
+		} else if(btnModificaC == e.getSource()) {
 			cliente = new Cliente();
 			cliente.setValori(this);
 			cliente.modifica(this);

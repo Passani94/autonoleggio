@@ -14,8 +14,8 @@ import utils.TableColumnAdjuster;
 /**
  * La classe Contratto rappresenta i contratti dell'autonoleggio.
  */
-
 public class Contratto {
+	
 	/**
 	 * La tipologia di noleggio. Può essere di due tipi: <br><br> - Breve <br> - Lungo
 	 */
@@ -105,9 +105,9 @@ public class Contratto {
 		noleggio = new DBConnect();
 	}
 	
-	
 	/**
 	 * Aggiunge un nuovo contratto al database.
+	 * 
 	 * @param content il form {@code "Nuovo Contratto"} ed i relativi dati inseriti.
 	 */
 	public void aggiungi(ModuloContratto content) {
@@ -256,7 +256,7 @@ public class Contratto {
 					JOptionPane.showMessageDialog(null, "Errore! Non è presente un contratto con tale codice!",
 							"Errore ",
 							JOptionPane.ERROR_MESSAGE);
-					content.txtCodice.requestFocus();
+					content.txtCodiceElimina.requestFocus();
 				} else {
 					int scelta = JOptionPane.showConfirmDialog(
 							null,
@@ -266,8 +266,8 @@ public class Contratto {
 					if (scelta == JOptionPane.YES_OPTION) {
 						noleggio.exequery("DELETE FROM noleggio WHERE Cod_Noleggio="+codice+"","delete");
 					JOptionPane.showMessageDialog(null , "Contratto Eliminato!");
-					content.txtCodice.setText("");
-					content.txtCodice.requestFocus();
+					content.txtCodiceElimina.setText("");
+					content.txtCodiceElimina.requestFocus();
 					}
 				}
 				noleggio.con.close();
@@ -634,17 +634,17 @@ public class Contratto {
 		
 		boolean esito = false;
 		
-		if (content.txtCodice.getText().trim().toString().equals("")) {		
+		if (content.txtCodiceElimina.getText().trim().toString().equals("")) {		
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci il codice di un contratto!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
-		} else if (!content.txtCodice.getText().trim().toString().matches("\\d*")) {
+		} else if (!content.txtCodiceElimina.getText().trim().toString().matches("\\d*")) {
 			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere composto da sole cifre!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);
-			content.txtCodice.setText("");
+			content.txtCodiceElimina.setText("");
 		} else {
-			codice=Integer.decode((content.txtCodice.getText().trim()));
+			codice=Integer.decode((content.txtCodiceElimina.getText().trim()));
 			esito = true;
 		}
 		

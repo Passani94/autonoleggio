@@ -39,53 +39,137 @@ import entita.Veicolo;
 import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
-
+/**
+ * La classe ModuloFlotta si comporta in maniera differente a seconda dell'oggetto String che viene passato al costruttore.
+ */
 public class ModuloFlotta extends JPanel implements ActionListener, FocusListener{
 
 	private static final long serialVersionUID = 1L; 
 	
-	private Veicolo veicolo;
-	private DBConnect elencoVeicoli;
+	/**
+	 * Il combo box dal quale selezionare la tipologia di veicolo.
+	 */
+	public JComboBox <String> comboBoxTipologia;
 	
+	/**
+	 * Il combo box dal quale selezionare la disponibilità di un veicolo.
+	 */
+	public JComboBox <String> comboBoxDisponibilita;
+	
+	/**
+	 * Il combo box dal quale seleziona l'alimentazione di un veicolo.
+	 */
+	public JComboBox <String> comboBoxAlimentazione;
+	
+	/**
+	 * Il combo box dal quale selezionare il codice del prezzo per il noleggio a breve termine.
+	 */
+	public JComboBox <String> comboBoxBreveTermine;
+	
+	/**
+	 * Il combo box dal quale selezionare il codice del prezzo per il noleggio a lungo termine.
+	 */
+	public JComboBox <String> comboBoxLungoTermine;
+	
+	/**
+	 * La casella di testo in cui inserire la data di immatricolazione del veicolo.
+	 */
+	public JFormattedTextField frmtdtxtfldImma;
+	
+	/**
+	 * La casella di testo in cui inserire la data di scadenza del bollo.
+	 */
+	public JFormattedTextField frmtdtxtfldBollo;
+	
+	/**
+	 * La casella di testo in cui inserire la data di scadenza del tagliando.
+	 */
+	public JFormattedTextField frmtdtxtfldTagliando;
+	
+	/**
+	 * La casella di testo in cui inserire la data di scadenza dell'assicurazione.
+	 */
+	public JFormattedTextField frmtdtxtfldAssicurazione;
+	
+	/**
+	 * La casella di testo in cui inserire la data di scadenza dell'ormeggio.
+	 */
+	public JFormattedTextField frmtdtxtfldOrmeggio;
+	
+	/**
+	 * La casella di testo in cui inserire la data di scadenza dell'alaggio.
+	 */
+	public JFormattedTextField frmtdtxtfldAlaggio;
+	
+	/**
+	 * La casella di testo in cui inserire il nome del veicolo.
+	 */
+	public JTextField txtNome;
+	
+	/**
+	 * La casella di testo in cui inserire la marca del veicolo.
+	 */
+	public JTextField txtMarca;
+	
+	/**
+	 * La casella di testo in cui inserire i kilometri effettuati dal veicolo.
+	 */
+	public JTextField txtKm;
+	
+	/**
+	 * La casella di testo in cui inserire la targa del veicolo.
+	 */
+	public JTextField txtTarga;
+	
+	/**
+	 * La casella di testo in cui inserire le dimensioni del veicolo.
+	 */
+	public JTextField txtDimensioni;
+	
+	/**
+	 * La casella di testo in cui inserire la targa del veicolo da cercare.
+	 */
+	public JTextField txtTargaCerca;
 	
 	private JButton btnAggiungi;
 	private JButton btnElimina;
-	private JButton btnModificaV;
+	private JButton btnModifica;
 	private JButton btnCerca;
-	public JComboBox <String> comboBoxTipologia;
-	public JComboBox <String> comboBoxDisponibilita;
-	public JComboBox <String> comboBoxAlimentazione;
-	public JComboBox <String> comboBoxBreveTermine;
-	public JComboBox <String> comboBoxLungoTermine;
-	public JFormattedTextField frmtdtxtfldImma;
-	public JFormattedTextField frmtdtxtfldBollo;
-	public JFormattedTextField frmtdtxtfldTagliando;
-	public JFormattedTextField frmtdtxtfldAssicurazione;
-	public JFormattedTextField frmtdtxtfldOrmeggio;
-	public JFormattedTextField frmtdtxtfldAlaggio;
-	public JTextField txtNome;
-	public JTextField txtMarca;
-	public JTextField txtKm;
-	public JTextField txtTarga;
-	public JTextField txtDimensioni;
-	public JTextField txtTargaCerca;
-	
 	private JTable tblVeicoli;
 	private JScrollPane scroll = new JScrollPane(tblVeicoli);
 	
-	/* Costruttore ModuloFl */
+	private Veicolo veicolo;
+	private DBConnect elencoVeicoli;
 	
+	/**
+	 * Inizializza un nuovo oggetto ModuloFlotta e richiama il metodo {@code set} passando come argomento l'oggetto String {@code str}.
+	 * 
+	 * @param str una stringa che determina il diverso comportamento del metodo {@code set}.
+	 */
 	public ModuloFlotta(String str) {
 		set(str);
 	}
 
+	/**
+	 * Si comporta in maniera differente a seconda dell'oggetto String che viene passato come argomento. <br><br>
+	 * 
+	 * - Se viene passato "Nuovo", viene creato il form per aggiungere un nuovo veicolo. <br>
+	 * - Se viene passato "Modifica", viene creato il form per modificare un veicolo. <br>
+	 * - Se viene passato "Elimina", viene creato il form per eliminare un veicolo. <br>
+	 * - Se viene passato "Elenca", viene generato l'elenco dei veicoli contenuti nel database.
+	 * 
+	 * @param str una stringa che determina cosa verrà mostrato a schermo.
+	 */
 	public void set(String str) {
+		
 		if (str.equals("Elenca")){
+			
+			/* Viene generato l'elenco dei veicoli contenuti nel database. */
 			elencoVeicoli = new DBConnect();
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli"));
 			
-			try{
+			try {
 				elencoVeicoli.exequery("SELECT * FROM veicolo","select");
 				
 				tblVeicoli = new JTable();
@@ -99,17 +183,13 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 				scroll.setViewportView(tblVeicoli);
 				
 				elencoVeicoli.con.close();
-			}
-			catch (SQLException e) {  
+			} catch (SQLException e) {  
 			JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli! ",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
 			}
 			
-			
-			
-			/* Crea il Layout per l'elenco dei Veicoli. */
-			
+			/* Crea il layout per l'elenco dei veicoli. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -127,9 +207,10 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		}
-		else if (str.equals("Nuovo")){
+		
+		} else if (str.equals("Nuovo")) {
 			
+			/* Viene creato il form per aggiungere un veicolo. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Nuovo Veicolo"));
 			
@@ -215,29 +296,29 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			frmtdtxtfldImma.addFocusListener(this);
 			frmtdtxtfldImma.setEditable(false);
 			
-			LookAndFeel previus=UIManager.getLookAndFeel();
+			LookAndFeel previous=UIManager.getLookAndFeel();
 			JDateChooser dateChooserImma=null;
 					
 			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserImma= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserImma.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserImma=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldImma.setText(sdf.format(dateChooserImma.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+				dateChooserImma= new JDateChooser();
+				UIManager.setLookAndFeel(previous);
+				dateChooserImma.addPropertyChangeListener("date", new PropertyChangeListener (){
+					public void propertyChange (PropertyChangeEvent e) {
+						JDateChooser dateChooserImma=(JDateChooser) e.getSource();
+						SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
+						frmtdtxtfldImma.setText(sdf.format(dateChooserImma.getDate()));				
+					}
+				});	
+			} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
-				} catch (InstantiationException e1) {
+			} catch (InstantiationException e1) {
 					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
+			} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
+			} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
-				}	
+			}	
 			
 			frmtdtxtfldBollo = new JFormattedTextField(dateformat);
 			frmtdtxtfldBollo.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -249,25 +330,25 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			JDateChooser dateChooserBollo=null;
 					
 			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserBollo= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserBollo.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserBollo=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldBollo.setText(sdf.format(dateChooserBollo.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+				dateChooserBollo= new JDateChooser();
+				UIManager.setLookAndFeel(previous);
+				dateChooserBollo.addPropertyChangeListener("date", new PropertyChangeListener (){
+					public void propertyChange (PropertyChangeEvent e) {
+						JDateChooser dateChooserBollo=(JDateChooser) e.getSource();
+						SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
+						frmtdtxtfldBollo.setText(sdf.format(dateChooserBollo.getDate()));				
+					}
+				});	
+			} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
-				} catch (InstantiationException e1) {
+			} catch (InstantiationException e1) {
 					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
+			} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
+			} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
-				}	
+			}	
 			
 			frmtdtxtfldTagliando = new JFormattedTextField(dateformat);
 			frmtdtxtfldTagliando.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -280,25 +361,25 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			JDateChooser dateChooserTagliando=null;
 					
 			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserTagliando= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserTagliando.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserTagliando=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldTagliando.setText(sdf.format(dateChooserTagliando.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+				dateChooserTagliando= new JDateChooser();
+				UIManager.setLookAndFeel(previous);
+				dateChooserTagliando.addPropertyChangeListener("date", new PropertyChangeListener (){
+					public void propertyChange (PropertyChangeEvent e) {
+						JDateChooser dateChooserTagliando=(JDateChooser) e.getSource();
+						SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
+						frmtdtxtfldTagliando.setText(sdf.format(dateChooserTagliando.getDate()));				
+					}
+				});	
+			} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
-				} catch (InstantiationException e1) {
+			} catch (InstantiationException e1) {
 					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
+			} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
+			} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
-				}	
+			}	
 			
 			frmtdtxtfldAssicurazione = new JFormattedTextField(dateformat);
 			frmtdtxtfldAssicurazione.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -310,25 +391,25 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			JDateChooser dateChooserAssicurazione=null;
 					
 			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserAssicurazione= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserAssicurazione.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserAssicurazione=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldAssicurazione.setText(sdf.format(dateChooserAssicurazione.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+				dateChooserAssicurazione= new JDateChooser();
+				UIManager.setLookAndFeel(previous);
+				dateChooserAssicurazione.addPropertyChangeListener("date", new PropertyChangeListener (){
+					public void propertyChange (PropertyChangeEvent e) {
+						JDateChooser dateChooserAssicurazione=(JDateChooser) e.getSource();
+						SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
+						frmtdtxtfldAssicurazione.setText(sdf.format(dateChooserAssicurazione.getDate()));				
+					}
+				});	
+			} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
-				} catch (InstantiationException e1) {
+			} catch (InstantiationException e1) {
 					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
+			} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
+			} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
-				}	
+			}	
 			
 			frmtdtxtfldOrmeggio = new JFormattedTextField(dateformat);
 			frmtdtxtfldOrmeggio.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -340,25 +421,25 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			JDateChooser dateChooserOrmeggio=null;
 					
 			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserOrmeggio= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserOrmeggio.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserOrmeggio=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldOrmeggio.setText(sdf.format(dateChooserOrmeggio.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+				dateChooserOrmeggio= new JDateChooser();
+				UIManager.setLookAndFeel(previous);
+				dateChooserOrmeggio.addPropertyChangeListener("date", new PropertyChangeListener (){
+					public void propertyChange (PropertyChangeEvent e) {
+						JDateChooser dateChooserOrmeggio=(JDateChooser) e.getSource();
+						SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
+						frmtdtxtfldOrmeggio.setText(sdf.format(dateChooserOrmeggio.getDate()));				
+					}
+				});	
+			} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
-				} catch (InstantiationException e1) {
+			} catch (InstantiationException e1) {
 					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
+			} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
+			} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
-				}	
+			}	
 			
 			frmtdtxtfldAlaggio = new JFormattedTextField(dateformat);
 			frmtdtxtfldAlaggio.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -370,25 +451,25 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			JDateChooser dateChooserAlaggio=null;
 					
 			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserAlaggio= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserAlaggio.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserAlaggio=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldAlaggio.setText(sdf.format(dateChooserAlaggio.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+				dateChooserAlaggio= new JDateChooser();
+				UIManager.setLookAndFeel(previous);
+				dateChooserAlaggio.addPropertyChangeListener("date", new PropertyChangeListener (){
+					public void propertyChange (PropertyChangeEvent e) {
+						JDateChooser dateChooserAlaggio=(JDateChooser) e.getSource();
+						SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
+						frmtdtxtfldAlaggio.setText(sdf.format(dateChooserAlaggio.getDate()));								
+					}
+				});	
+			} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
-				} catch (InstantiationException e1) {
+			} catch (InstantiationException e1) {
 					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
+			} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
+			} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
-				}	
+			}	
 			
 			JLabel lblBreve = new JLabel("Costo Breve Termine *");
 			lblBreve.setFont(new Font("Arial", Font.BOLD, 14));
@@ -404,11 +485,9 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Barca_Motore", "Berlina", "Cabriolet", "Catamarano", "Coup\u00E8",
 					"Fuoristrada", "Gommone", "Limousine", "Motocicletta", "Multispazio", "Quad_BIke", "Scooter", "SUV", "Utilitaria"}));
 			comboBoxTipologia.addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent event) {
-	                //
-	                // Get the source of the component, which is our combo
-	                // box.
-	                //
+	            
+				/* Disabilita le textBox relative ai mezzi acquatici nel caso venga selezionato un veicolo su ruote. */
+				public void actionPerformed(ActionEvent event) {
 	            
 					@SuppressWarnings("rawtypes")
 					JComboBox comboBox = (JComboBox) event.getSource();
@@ -421,7 +500,6 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 	                	frmtdtxtfldOrmeggio.setEnabled(false);
 						frmtdtxtfldAlaggio.setEnabled(false);
 	                }
-
 	            }
 	        });
 			
@@ -450,9 +528,7 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			comboBoxLungoTermine.setBackground(Color.WHITE);
 			comboBoxLungoTermine.addFocusListener(this);
 			
-			/* Crea il Layout per un nuovo Veicolo. */
-		
-			
+			/* Crea il layout del form per aggiungere un nuovo veicolo. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -594,8 +670,10 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			);
 				this.setLayout(gl_contentPane);
 				this.revalidate();
-		}
-		else if (str.equals("Modifica")){
+		
+		} else if (str.equals("Modifica")) {
+			
+			/* Viene creato il form per modificare un veicolo. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Modifica Veicolo"));
 			
@@ -611,10 +689,10 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			JLabel lblTargaCerca = new JLabel("Targa Veicolo da Modificare");
 			lblTargaCerca.setFont(new Font("Arial", Font.BOLD, 14));
 		
-			btnModificaV = new JButton("Modifica Veicolo");
-			btnModificaV.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnModificaV.addActionListener(this);
-			btnModificaV.addFocusListener(this);
+			btnModifica = new JButton("Modifica Veicolo");
+			btnModifica.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnModifica.addActionListener(this);
+			btnModifica.addFocusListener(this);
 			
 			txtTarga = new JTextField();
 			txtTarga.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -710,29 +788,29 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			frmtdtxtfldImma.addFocusListener(this);		
 			frmtdtxtfldImma.setEditable(false);
 			
-			LookAndFeel previus=UIManager.getLookAndFeel();
+			LookAndFeel previous=UIManager.getLookAndFeel();
 			JDateChooser dateChooserImma=null;
 					
 			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserImma= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserImma.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserImma=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldImma.setText(sdf.format(dateChooserImma.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+				dateChooserImma= new JDateChooser();
+				UIManager.setLookAndFeel(previous);
+				dateChooserImma.addPropertyChangeListener("date", new PropertyChangeListener (){
+					public void propertyChange (PropertyChangeEvent e) {
+						JDateChooser dateChooserImma=(JDateChooser) e.getSource();
+						SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
+						frmtdtxtfldImma.setText(sdf.format(dateChooserImma.getDate()));				
+					}
+				});	
+			} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
-				} catch (InstantiationException e1) {
+			} catch (InstantiationException e1) {
 					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
+			} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
+			} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
-				}	
+			}	
 			
 			frmtdtxtfldBollo = new JFormattedTextField(dateformat);
 			frmtdtxtfldBollo.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -744,25 +822,25 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			JDateChooser dateChooserBollo=null;
 					
 			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserBollo= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserBollo.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserBollo=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldBollo.setText(sdf.format(dateChooserBollo.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+				dateChooserBollo= new JDateChooser();
+				UIManager.setLookAndFeel(previous);
+				dateChooserBollo.addPropertyChangeListener("date", new PropertyChangeListener (){
+					public void propertyChange (PropertyChangeEvent e) {
+						JDateChooser dateChooserBollo=(JDateChooser) e.getSource();
+						SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
+						frmtdtxtfldBollo.setText(sdf.format(dateChooserBollo.getDate()));				
+					}
+				});	
+			} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
-				} catch (InstantiationException e1) {
+			} catch (InstantiationException e1) {
 					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
+			} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
+			} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
-				}	
+			}	
 			
 			frmtdtxtfldTagliando = new JFormattedTextField(dateformat);
 			frmtdtxtfldTagliando.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -774,25 +852,25 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			JDateChooser dateChooserTagliando=null;
 					
 			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserTagliando= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserTagliando.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserTagliando=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldTagliando.setText(sdf.format(dateChooserTagliando.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+				dateChooserTagliando= new JDateChooser();
+				UIManager.setLookAndFeel(previous);
+				dateChooserTagliando.addPropertyChangeListener("date", new PropertyChangeListener (){
+					public void propertyChange (PropertyChangeEvent e) {
+						JDateChooser dateChooserTagliando=(JDateChooser) e.getSource();
+						SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
+						frmtdtxtfldTagliando.setText(sdf.format(dateChooserTagliando.getDate()));				
+					}
+				});	
+			} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
-				} catch (InstantiationException e1) {
+			} catch (InstantiationException e1) {
 					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
+			} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
+			} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
-				}	
+			}	
 			
 			frmtdtxtfldAssicurazione = new JFormattedTextField(dateformat);
 			frmtdtxtfldAssicurazione.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -804,26 +882,25 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			JDateChooser dateChooserAssicurazione=null;
 					
 			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserAssicurazione= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserAssicurazione.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserAssicurazione=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldAssicurazione.setText(sdf.format(dateChooserAssicurazione.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+				dateChooserAssicurazione= new JDateChooser();
+				UIManager.setLookAndFeel(previous);
+				dateChooserAssicurazione.addPropertyChangeListener("date", new PropertyChangeListener (){
+					public void propertyChange (PropertyChangeEvent e) {
+						JDateChooser dateChooserAssicurazione=(JDateChooser) e.getSource();
+						SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
+						frmtdtxtfldAssicurazione.setText(sdf.format(dateChooserAssicurazione.getDate()));									
+					}
+				});	
+			} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
-				} catch (InstantiationException e1) {
+			} catch (InstantiationException e1) {
 					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
+			} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
+			} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
-				}	
-			
+			}	
 			
 			frmtdtxtfldOrmeggio = new JFormattedTextField(dateformat);
 			frmtdtxtfldOrmeggio.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -835,26 +912,25 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			JDateChooser dateChooserOrmeggio=null;
 					
 			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserOrmeggio= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserOrmeggio.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserOrmeggio=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldOrmeggio.setText(sdf.format(dateChooserOrmeggio.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+				dateChooserOrmeggio= new JDateChooser();
+				UIManager.setLookAndFeel(previous);
+				dateChooserOrmeggio.addPropertyChangeListener("date", new PropertyChangeListener (){
+					public void propertyChange (PropertyChangeEvent e) {
+						JDateChooser dateChooserOrmeggio=(JDateChooser) e.getSource();
+						SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
+						frmtdtxtfldOrmeggio.setText(sdf.format(dateChooserOrmeggio.getDate()));				
+					}
+				});	
+			} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
-				} catch (InstantiationException e1) {
+			} catch (InstantiationException e1) {
 					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
+			} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
+			} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
-				}	
-			
+			}	
 			
 			frmtdtxtfldAlaggio = new JFormattedTextField(dateformat);
 			frmtdtxtfldAlaggio.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -866,25 +942,25 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			JDateChooser dateChooserAlaggio=null;
 					
 			try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
-					dateChooserAlaggio= new JDateChooser();
-					UIManager.setLookAndFeel(previus);
-					dateChooserAlaggio.addPropertyChangeListener("date", new PropertyChangeListener (){
-						public void propertyChange (PropertyChangeEvent e) {
-							JDateChooser dateChooserAlaggio=(JDateChooser) e.getSource();
-							SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
-							frmtdtxtfldAlaggio.setText(sdf.format(dateChooserAlaggio.getDate()));				
-						}
-					});	
-				} catch (ClassNotFoundException e1) {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
+				dateChooserAlaggio= new JDateChooser();
+				UIManager.setLookAndFeel(previous);
+				dateChooserAlaggio.addPropertyChangeListener("date", new PropertyChangeListener (){
+					public void propertyChange (PropertyChangeEvent e) {
+						JDateChooser dateChooserAlaggio=(JDateChooser) e.getSource();
+						SimpleDateFormat sdf=new SimpleDateFormat ("yyyy-MM-dd");
+						frmtdtxtfldAlaggio.setText(sdf.format(dateChooserAlaggio.getDate()));				
+					}
+				});	
+			} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
-				} catch (InstantiationException e1) {
+			} catch (InstantiationException e1) {
 					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
+			} catch (IllegalAccessException e1) {
 					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
+			} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
-				}	
+			}	
 			
 			txtNome.setEditable(false);
 			comboBoxDisponibilita.setEditable(false);
@@ -899,8 +975,7 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			frmtdtxtfldOrmeggio.setEditable(false);
 			frmtdtxtfldAlaggio.setEditable(false);
 			
-			/* Crea il Layout per modificare un Veicolo. */
-						
+			/* Crea il layout del form per modificare un veicolo. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -963,7 +1038,7 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 									.addContainerGap())))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(185)
-							.addComponent(btnModificaV)
+							.addComponent(btnModifica)
 							.addContainerGap(309, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
@@ -1045,19 +1120,21 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 									.addComponent(frmtdtxtfldAlaggio, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
 									.addComponent(lblAlaggio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
 							.addGap(28)
-							.addComponent(btnModificaV, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnModifica, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addGap(40))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		}
-		else if (str.equals("Elimina")){
+		
+		} else if (str.equals("Elimina")) {
+			
+			/* Viene creato il form per eliminare un veicolo. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elimina Veicolo"));
 			
 			btnElimina = new JButton("Elimina Veicolo");
 			btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnElimina.addActionListener(this);	/* Action Listener per il bottone Elimina.*/
+			btnElimina.addActionListener(this);	// Action Listener per il bottone Elimina.
 			
 			txtTarga = new JTextField();
 			txtTarga.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -1066,8 +1143,7 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			JLabel lblTarga = new JLabel("Targa Veicolo");
 			lblTarga.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			/* Crea il Layout per un eliminare un Veicolo. */
-			
+			/* Crea il layout del form per un eliminare un veicolo. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -1098,102 +1174,107 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 		}
 	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante cliccato.*/
-
-	public void actionPerformed(ActionEvent e){
+	/**
+	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
+	 */
+	public void actionPerformed(ActionEvent e) {
 		
-		if (btnAggiungi == e.getSource()){
+		if (btnAggiungi == e.getSource()) {
 			veicolo = new Veicolo();
 			veicolo.setValori(this,"aggiungi");
 			veicolo.aggiungi(this);
-		}
-		else if(btnElimina == e.getSource()){
+		
+		} else if(btnElimina == e.getSource()) {
 			veicolo = new Veicolo();
-			veicolo.setTarga(this);
+			veicolo.setTargaElimina(this);
 			veicolo.elimina(this);
-		}
-		else if(btnCerca == e.getSource()){
+		
+		} else if(btnCerca == e.getSource()) {
 			veicolo = new Veicolo();
 			veicolo.setTargaCerca(this);
 			veicolo.cerca(this);
-		}
-		else if(btnModificaV == e.getSource()){
+		
+		} else if(btnModifica == e.getSource()) {
 			veicolo = new Veicolo();
 			veicolo.setValori(this,"modifica");
 			veicolo.modifica(this);
 		}
 	}
 	
-	/* Definisce le azioni da eseguire quando si ha il focus sui campi per inserire le date. */
-	
+	/**
+	 * Definisce le azioni da eseguire quando viene acquisito il focus. 
+	 */
 	public void focusGained(FocusEvent e){
 		
 		if (txtDimensioni == e.getSource() && txtDimensioni.getText().equals("lun/lar/alt")) {
 			txtDimensioni.setText("");
-		}
-		else if (frmtdtxtfldImma == e.getSource() && frmtdtxtfldImma.getText().equals("Seleziona una data")) {
+		
+		} else if (frmtdtxtfldImma == e.getSource() && frmtdtxtfldImma.getText().equals("Seleziona una data")) {
 			frmtdtxtfldImma.setText("");
-		}
-		else if (frmtdtxtfldBollo == e.getSource() && frmtdtxtfldBollo.getText().equals("Seleziona una data")) {
+		
+		} else if (frmtdtxtfldBollo == e.getSource() && frmtdtxtfldBollo.getText().equals("Seleziona una data")) {
 			frmtdtxtfldBollo.setText("");
-		}
-		else if (frmtdtxtfldTagliando == e.getSource() && frmtdtxtfldTagliando.getText().equals("Seleziona una data")){
+		
+		} else if (frmtdtxtfldTagliando == e.getSource() && frmtdtxtfldTagliando.getText().equals("Seleziona una data")){
 			frmtdtxtfldTagliando.setText("");
-		}
-		else if (frmtdtxtfldAssicurazione == e.getSource() && frmtdtxtfldAssicurazione.getText().equals("Seleziona una data")) {
+		
+		} else if (frmtdtxtfldAssicurazione == e.getSource() && frmtdtxtfldAssicurazione.getText().equals("Seleziona una data")) {
 			frmtdtxtfldAssicurazione.setText("");
-		}
-		else if (frmtdtxtfldOrmeggio == e.getSource() && frmtdtxtfldOrmeggio.getText().equals("Seleziona una data")) {
+		
+		} else if (frmtdtxtfldOrmeggio == e.getSource() && frmtdtxtfldOrmeggio.getText().equals("Seleziona una data")) {
 			frmtdtxtfldOrmeggio.setText("");
-		}
-		else if (frmtdtxtfldAlaggio == e.getSource() && frmtdtxtfldAlaggio.getText().equals("Seleziona una data")) {
+		
+		} else if (frmtdtxtfldAlaggio == e.getSource() && frmtdtxtfldAlaggio.getText().equals("Seleziona una data")) {
 			frmtdtxtfldAlaggio.setText("");
 		}
 		
 		if (!(txtDimensioni == e.getSource()) && txtDimensioni.getText().equals("")) {
 			txtDimensioni.setText("lun/lar/alt");
-		}
-		else if (!(frmtdtxtfldImma == e.getSource()) && frmtdtxtfldImma.getText().equals("")) {
+		
+		} else if (!(frmtdtxtfldImma == e.getSource()) && frmtdtxtfldImma.getText().equals("")) {
 			frmtdtxtfldImma.setText("Seleziona una data");
-		}
-		else if (!(frmtdtxtfldBollo == e.getSource()) && frmtdtxtfldBollo.getText().equals("")) {
+		
+		} else if (!(frmtdtxtfldBollo == e.getSource()) && frmtdtxtfldBollo.getText().equals("")) {
 			frmtdtxtfldBollo.setText("Seleziona una data");
-		}
-		else if (!(frmtdtxtfldTagliando == e.getSource()) && frmtdtxtfldTagliando.getText().equals("")){
+		
+		} else if (!(frmtdtxtfldTagliando == e.getSource()) && frmtdtxtfldTagliando.getText().equals("")){
 			frmtdtxtfldTagliando.setText("Seleziona una data");
-		}
-		else if (!(frmtdtxtfldAssicurazione == e.getSource()) && frmtdtxtfldAssicurazione.getText().equals("")) {
+		
+		} else if (!(frmtdtxtfldAssicurazione == e.getSource()) && frmtdtxtfldAssicurazione.getText().equals("")) {
 			frmtdtxtfldAssicurazione.setText("Seleziona una data");
-		}
-		else if (!(frmtdtxtfldOrmeggio == e.getSource()) && frmtdtxtfldOrmeggio.getText().equals("")) {
+		
+		} else if (!(frmtdtxtfldOrmeggio == e.getSource()) && frmtdtxtfldOrmeggio.getText().equals("")) {
 			frmtdtxtfldOrmeggio.setText("Seleziona una data");
-		}
-		else if (!(frmtdtxtfldAlaggio == e.getSource()) && frmtdtxtfldAlaggio.getText().equals("")) {
+		
+		} else if (!(frmtdtxtfldAlaggio == e.getSource()) && frmtdtxtfldAlaggio.getText().equals("")) {
 			frmtdtxtfldAlaggio.setText("Seleziona una data");
 		}
-		
     }
 	
-	/* Definisce le azioni da eseguire quando si perde il focus sui campi per inserire le date. */
-	
+	/**
+	 * Definisce le azioni da eseguire quando viene perso il focus. 
+	 */
 	public void focusLost(FocusEvent e) {
 		
 	}
 
-	@Override
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
-		return "ModuloFlotta [comboBoxTipologia=" + comboBoxTipologia + ", comboBoxDisponibilita="
-				+ comboBoxDisponibilita + ", comboBoxAlimentazione=" + comboBoxAlimentazione + ", comboBoxBreveTermine="
-				+ comboBoxBreveTermine + ", comboBoxLungoTermine=" + comboBoxLungoTermine + ", frmtdtxtfldImma="
-				+ frmtdtxtfldImma + ", frmtdtxtfldBollo=" + frmtdtxtfldBollo + ", frmtdtxtfldTagliando="
-				+ frmtdtxtfldTagliando + ", frmtdtxtfldAssicurazione=" + frmtdtxtfldAssicurazione
-				+ ", frmtdtxtfldOrmeggio=" + frmtdtxtfldOrmeggio + ", frmtdtxtfldAlaggio=" + frmtdtxtfldAlaggio
-				+ ", txtNome=" + txtNome + ", txtMarca=" + txtMarca + ", txtKm=" + txtKm + ", txtTarga=" + txtTarga
-				+ ", txtDimensioni=" + txtDimensioni + ", txtTargaCerca=" + txtTargaCerca + ", tblVeicoli=" + tblVeicoli
-				+ ", scroll=" + scroll + "]";
+		return "ModuloFlotta [La classe ModuloFlotta si comporta in maniera differente a seconda dell'oggetto String che viene passato al costruttore.]";
 	}
 
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -1217,10 +1298,10 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 				return false;
 		} else if (!btnElimina.equals(other.btnElimina))
 			return false;
-		if (btnModificaV == null) {
-			if (other.btnModificaV != null)
+		if (btnModifica == null) {
+			if (other.btnModifica != null)
 				return false;
-		} else if (!btnModificaV.equals(other.btnModificaV))
+		} else if (!btnModifica.equals(other.btnModifica))
 			return false;
 		if (comboBoxAlimentazione == null) {
 			if (other.comboBoxAlimentazione != null)

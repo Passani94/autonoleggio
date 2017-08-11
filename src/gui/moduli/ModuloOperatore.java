@@ -25,33 +25,59 @@ import entita.Operatore;
 import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
-
+/**
+ * La classe ModuloOperatore si comporta in maniera differente a seconda dell'oggetto String che viene passato al costruttore.
+ */
 public class ModuloOperatore extends JPanel implements ActionListener{
 
-	private static final long serialVersionUID = 7776472295622776147L; 
-	private JTable tblOperatori;
+	private static final long serialVersionUID = 1L; 
+	
+	/**
+	 * La casella di testo in cui inserire la password dell'operatore.
+	 */
 	public JTextField txtPassword;
+	
+	/**
+	 * La casella di testo in cui inserire l'username dell'operatore.
+	 */
 	public JTextField txtUsername;
+	
 	private JButton btnAggiungi;
 	private JButton btnElimina;
+	private JTable tblOperatori;
 	private JScrollPane scroll = new JScrollPane(tblOperatori);
 	
 	private Operatore operatore;
 	private DBConnect elencoOperatori;
 	
-	/* Costruttore ModuloOp */
-	
+	/**
+	 * Inizializza un nuovo oggetto ModuloOperatore e richiama il metodo {@code set} passando come argomento l'oggetto String {@code str}.
+	 * 
+	 * @param str una stringa che determina il diverso comportamento del metodo {@code set}.
+	 */
 	public ModuloOperatore(String str){
 		set(str);
 	}
 
-	public void set(String str){
-		if (str == "Elenca"){
+	/**
+	 * Si comporta in maniera differente a seconda dell'oggetto String che viene passato come argomento. <br><br>
+	 * 
+	 * - Se viene passato "Nuovo", viene creato il form per aggiungere un nuovo operatore. <br>
+	 * - Se viene passato "Elimina", viene creato il form per eliminare un operatore. <br>
+	 * - Se viene passato "Elenca", viene generato l'elenco degli operatori contenuti nel database.
+	 * 
+	 * @param str una stringa che determina cosa verrà mostrato a schermo.
+	 */
+	public void set(String str) {
+		
+		if (str == "Elenca") { 
+			
+			/* Viene generato l'elenco degli operatori contenuti nel database. */
 			elencoOperatori = new DBConnect();
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Operatori"));
 			
-			try{
+			try {
 				elencoOperatori.exequery("SELECT * FROM operatore","select");
 				
 				tblOperatori = new JTable();
@@ -63,16 +89,12 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 				scroll.setViewportView(tblOperatori);
 				
 				elencoOperatori.con.close();
-			}
-			catch (SQLException e) {  
+			} catch (SQLException e) {  
 				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco degli operatori!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);}
 			
-			
-			
-			/* Crea il Layout per l'elenco degli Operatori. */
-			
+			/* Crea il layout per l'elenco degli operatori. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -90,14 +112,16 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		}
-		else if (str == "Nuovo"){
+		
+		} else if (str == "Nuovo") {
+			
+			/* Viene creato il form per aggiungere un operatore. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Nuovo Operatore"));
 			
 			btnAggiungi = new JButton("Aggiungi Operatore");
 			btnAggiungi.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnAggiungi.addActionListener(this);	/* Action Listener per il bottone Accedi.*/
+			btnAggiungi.addActionListener(this); // Action Listener per il bottone Accedi.
 			
 			txtPassword = new JPasswordField();
 			
@@ -112,8 +136,7 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			
-			/* Crea il Layout per un nuovo Operatore. */
-			
+			/* Crea il layout del form per aggiungere un nuovo operatore. */
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -148,14 +171,16 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		}
-		else if (str == "Elimina"){
+		
+		} else if (str == "Elimina") {
+			
+			/* Viene creato il form per eliminare un operatore. */
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Elimina Operatore"));
 			
 			btnElimina = new JButton("Elimina Operatore");
 			btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnElimina.addActionListener(this);	/* Action Listener per il bottone Elimina.*/
+			btnElimina.addActionListener(this);	// Action Listener per il bottone Elimina.
 			
 			txtUsername = new JTextField();
 			txtUsername.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -163,8 +188,7 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 			JLabel lblUsername = new JLabel("Username");
 			lblUsername.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			/* Crea il Layout per eleminare un Operatore. */
-			
+			/* Crea il layout del form per eleminare un operatore. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -195,8 +219,9 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 		}
 	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
-	
+	/**
+	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
+	 */
 	public void actionPerformed(ActionEvent e){
 		if (btnAggiungi == e.getSource()){
 			operatore = new Operatore();
@@ -210,12 +235,23 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 		}
 	}
 
-	@Override
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
-		return "ModuloOperatore [txtPassword=" + txtPassword + ", txtUsername=" + txtUsername + "]";
+		return "ModuloOperatore [La classe ModuloOperatore si comporta in maniera differente a seconda dell'oggetto String che viene passato al costruttore.]";
 	}
 
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
