@@ -18,51 +18,70 @@ import autonoleggio.Login;
 import gui.finestre.Finestra;
 import gui.moduli.ModuloContratto;
 
-
-public class PannelloContratto extends JPanel implements ActionListener{
+/**
+ * La classe PannelloContratto implementa un pannello contenuto all'interno del frame Finestra.
+ */
+public class PannelloContratto extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 1L; 
+	
 	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
 	private JButton btnNuovo = new JButton("Nuovo Contratto");
 	private JButton btnElimina = new JButton("Elimina Contratto");
 	private JButton btnPreventivo = new JButton("Calcola Preventivo");
 	private JButton btnModifica = new JButton("Modifica Contratto");
-	private ModuloContratto pnlModulo = new ModuloContratto("Elenca");
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
-	private Finestra frame;
-	private JLabel user;
+	
+	private ModuloContratto pnlModulo = new ModuloContratto("Elenca");
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	
-	/* Modifica il contentPane Contratto.*/
+	private Finestra frame;
+	private JLabel user;
 	
-	public JPanel run(JPanel contentPane){
+	/**
+	 * Inizializza un nuovo oggetto PannelloContratto.
+	 * 
+	 * @param window un frame Finestra.
+	 */
+	public PannelloContratto(Finestra window) {
+		frame = window;
+		window.setTitle("Autonoleggio - Contratto");
+		window.setContentPane(this.run(window.contentPane));
+	}
+	
+	/**
+	 * Modifica il pannello PannelloContratto.
+	 * 
+	 * @param contentPane un pannello "vuoto".
+	 * @return il pannello modificato.
+	 */
+	public JPanel run(JPanel contentPane) {
 		
 		scrollPane.setViewportView(pnlModulo);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	        
 		btnAggiorna.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAggiorna.addActionListener(this); /* Action Listener per il bottone Aggiorna.*/
+		btnAggiorna.addActionListener(this); // Action Listener per il bottone Aggiorna.
 		
 		btnNuovo.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnNuovo.addActionListener(this); /* Action Listener per il bottone Nuovo.*/
+		btnNuovo.addActionListener(this); // Action Listener per il bottone Nuovo.
 		
 		btnPreventivo.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnPreventivo.addActionListener(this);/* Action Listener per il bottone Modifica.*/
+		btnPreventivo.addActionListener(this);// Action Listener per il bottone Modifica.
 		
 		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEsci.addActionListener(this); /* Action Listener per il bottone Esci.*/
+		btnEsci.addActionListener(this); // Action Listener per il bottone Esci.
 		
 		btnLogout.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnLogout.addActionListener(this); /* Action Listener per il bottone Logout.*/
+		btnLogout.addActionListener(this); // Action Listener per il bottone Logout.
 		
 		btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnElimina.addActionListener(this); /* Action Listener per il bottone Elimina.*/
+		btnElimina.addActionListener(this); // Action Listener per il bottone Elimina.
 		
 		btnModifica.setFont(new Font("Arial", Font.PLAIN, 12));
-		
-		btnModifica.addActionListener(this); /* Action Listener per il bottone Modifica.*/
+		btnModifica.addActionListener(this); // Action Listener per il bottone Modifica.
 		
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -71,8 +90,7 @@ public class PannelloContratto extends JPanel implements ActionListener{
 		user.setFont(new Font("Arial", Font.BOLD, 12));
 		user.setForeground(Color.RED);
 		
-		/* Crea il Layout.*/
-		
+		/* Crea il layout del PannelloContratto.*/
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -128,31 +146,22 @@ public class PannelloContratto extends JPanel implements ActionListener{
 		return contentPane;
 	}
 	
-	/* Costruttore contentPane Contratto .*/
-	
-	public PannelloContratto(Finestra pn) {
-		frame = pn;
-		pn.setTitle("Autonoleggio - Contratto");
-		pn.setContentPane(this.run(pn.contentPane));
-	}
-	
-	/* Costruttore contentPane Contratto per l'Utente.*/
-	
-	
-	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
-	
-	public void actionPerformed(ActionEvent e){
-		if (btnEsci == e.getSource()){ 
+	/**
+	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
+	 */
+	public void actionPerformed(ActionEvent e) {
+		
+		if (btnEsci == e.getSource()) { 
 			int scelta = JOptionPane.showConfirmDialog(
 				    null,
 				    "Si desidera uscire dall'applicazione?",
 				    "Conferma uscita",
 				    JOptionPane.YES_NO_OPTION);
-			if (scelta == JOptionPane.YES_OPTION){
+			if (scelta == JOptionPane.YES_OPTION) {
 				System.exit(0);
 			}
-		}
-		else if(btnLogout == e.getSource()){
+		
+		} else if(btnLogout == e.getSource()) {
 			int scelta = JOptionPane.showConfirmDialog(
 					null,
 					"Si desidera effettuare il logout?",
@@ -163,32 +172,38 @@ public class PannelloContratto extends JPanel implements ActionListener{
 				Login log = new Login();
 				log.run();
 			}
-		}
-		else if(btnAggiorna == e.getSource()){
+		
+		} else if(btnAggiorna == e.getSource()) {
 			btnAggiorna.setText("Aggiorna Elenco");
 			pnlModulo.set("Elenca");
-		}
-		else if(btnNuovo == e.getSource()){
+		
+		} else if(btnNuovo == e.getSource()) {
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Nuovo");
-		}
-		else if(btnElimina == e.getSource()){
+		
+		} else if(btnElimina == e.getSource()) {
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Elimina");
-		}
-		else if(btnPreventivo == e.getSource()){
+		
+		} else if(btnPreventivo == e.getSource()) {
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Preventivo");
-		}
-		else if(btnModifica == e.getSource()){
+		
+		} else if(btnModifica == e.getSource()) {
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Modifica");
 		}
 	}
 
-	@Override
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
-		return "PannelloContratto [Questa classe genera il pannello contratto.]";
+		return "PannelloContratto [La classe PannelloContratto implementa un pannello contenuto all'interno del frame Finestra.]";
 	}
 
 	@Override

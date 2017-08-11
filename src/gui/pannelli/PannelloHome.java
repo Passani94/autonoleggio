@@ -21,37 +21,58 @@ import gui.moduli.moduloHome.ModuloMezziRitorno;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class PannelloHome extends JPanel implements ActionListener{
+/**
+ * La classe PannelloHome implementa un pannello contenuto all'interno del frame Finestra.
+ */
+public class PannelloHome extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 1L; 
+	
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	private JPanel pnlCalendar = new JPanel(null);
+	
 	private ModuloMezziRitorno pnlModulo = new ModuloMezziRitorno();
 	private ModuloMezziNoleggiabili pnlModulo2 = new ModuloMezziNoleggiabili();
+	
 	private Finestra frame;
+	private JLabel user;
 	
-	/* Modifica il contentPane Home.*/
+	/**
+	 * Inizializza un nuovo oggetto PannelloHome.
+	 * 
+	 * @param window un frame Finestra.
+	 */
+	public PannelloHome(Finestra window) {
+		frame = window;
+		window.setTitle("Autonoleggio - Home");
+		window.setContentPane(this.run(window.contentPane));
+	}
 	
+	/**
+	 * Modifica il pannello PannelloHome.
+	 * 
+	 * @param contentPane un pannello "vuoto".
+	 * @return il pannello modificato.
+	 */
 	public JPanel run(JPanel contentPane) {
 		
 		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEsci.addActionListener(this); /* Action Listener per il bottone Esci.*/
+		btnEsci.addActionListener(this); // Action Listener per il bottone Esci.
 		
 		btnLogout.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnLogout.addActionListener(this); /* Action Listener per il bottone Logout.*/
+		btnLogout.addActionListener(this); // Action Listener per il bottone Logout.
 		
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JLabel user = new JLabel(frame.username);
+		user = new JLabel(frame.username);
 		user.setFont(new Font("Arial", Font.BOLD, 12));
 		user.setForeground(Color.RED);
 		
 		ModuloCalendario cal = new ModuloCalendario(contentPane,pnlCalendar);
 		
-		/* Crea il Layout.*/
-		
+		/* Crea il layout del PannelloHome.*/
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -100,34 +121,28 @@ public class PannelloHome extends JPanel implements ActionListener{
 		return contentPane;
 	}
 	
-	/* Costruttore contentPane Home .*/
-	
-	public PannelloHome(Finestra pn) {
-		frame = pn;
-		pn.setTitle("Autonoleggio - Home");
-		pn.setContentPane(this.run(pn.contentPane));
-	}
-	
-	/* Definisce le azioni da eseguire in base al pulsante cliccato.*/
-	
-	public void actionPerformed(ActionEvent e){
-		if (btnEsci == e.getSource()){ 
+	/**
+	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
+	 */
+	public void actionPerformed(ActionEvent e) {
+		
+		if (btnEsci == e.getSource()) { 
 				int scelta = JOptionPane.showConfirmDialog(
 					    null,
 					    "Si desidera uscire dall'applicazione?",
 					    "Conferma uscita",
 					    JOptionPane.YES_NO_OPTION);
-				if (scelta == JOptionPane.YES_OPTION){
+				if (scelta == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
-		}
-		else if(btnLogout == e.getSource()){
+		
+		} else if(btnLogout == e.getSource()) {
 				int scelta = JOptionPane.showConfirmDialog(
 						null,
 						"Si desidera effettuare il logout?",
 						"Conferma logout",
 						JOptionPane.YES_NO_OPTION);
-				if (scelta == JOptionPane.YES_OPTION){
+				if (scelta == JOptionPane.YES_OPTION) {
 					frame.dispose();
 					Login log = new Login();
 					log.run();
@@ -135,12 +150,23 @@ public class PannelloHome extends JPanel implements ActionListener{
 		}
 	}
 
-	@Override
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
-		return "PannelloHome [Questa classe genera il pannello home.]";
+		return "PannelloHome [La classe PannelloHome implementa un pannello contenuto all'interno del frame Finestra.]";
 	}
 
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

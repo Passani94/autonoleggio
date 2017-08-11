@@ -18,54 +18,74 @@ import autonoleggio.Login;
 import gui.finestre.Finestra;
 import gui.moduli.ModuloExtra;
 
-
-public class PannelloExtra extends JPanel implements ActionListener{
+/**
+ * La classe PannelloExtra implementa un pannello contenuto all'interno del frame Finestra.
+ */
+public class PannelloExtra extends JPanel implements ActionListener {
 	
-	private static final long serialVersionUID = 8526472295622776147L; 
+	private static final long serialVersionUID = 1L; 
+	
 	private JButton btnScadenze = new JButton("Scadenze Varie");
 	private JButton btnStatistica = new JButton("Veicoli Pi\u00F9 Noleggiati");
 	private JButton btnMensile = new JButton("Calcola Profitto Mensile");
 	private JButton btnAnnuale = new JButton("Calcola Profitto Annuale");
-	private ModuloExtra pnlModulo = new ModuloExtra();
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
-	private Finestra frame;
+	
+	private ModuloExtra pnlModulo = new ModuloExtra();
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	
-	/* Modifica il contentPane Extra.*/
+	private Finestra frame;
+	private JLabel user;
 	
-	public JPanel run(JPanel contentPane){
+	/**
+	 * Inizializza un nuovo oggetto PannelloExtra.
+	 * 
+	 * @param window un frame Finestra.
+	 */
+	public PannelloExtra(Finestra window) {
+		frame = window;
+		window.setTitle("Autonoleggio - Altre Funzionalità");
+		window.setContentPane(this.run(window.contentPane));
+	}
+	
+	/**
+	 * Modifica il pannello PannelloExtra.
+	 * 
+	 * @param contentPane un pannello "vuoto".
+	 * @return il pannello modificato.
+	 */
+	public JPanel run(JPanel contentPane) {
 	       
 		scrollPane.setViewportView(pnlModulo);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		btnScadenze.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnScadenze.addActionListener(this); /* Action Listener per il bottone Aggiorna.*/
+		btnScadenze.addActionListener(this); // Action Listener per il bottone Aggiorna.
 		
 		btnStatistica.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnStatistica.addActionListener(this); /* Action Listener per il bottone Nuovo.*/
+		btnStatistica.addActionListener(this); // Action Listener per il bottone Nuovo.
 		
 		btnMensile.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnMensile.addActionListener(this); /* Action Listener per il bottone Elimina.*/
+		btnMensile.addActionListener(this); // Action Listener per il bottone Elimina.
 		
 		btnAnnuale.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAnnuale.addActionListener(this); /* Action Listener per il bottone Modifica.*/
+		btnAnnuale.addActionListener(this); // Action Listener per il bottone Modifica.
 		
 		btnEsci.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEsci.addActionListener(this); /* Action Listener per il bottone Esci.*/
+		btnEsci.addActionListener(this); // Action Listener per il bottone Esci.
 		
 		btnLogout.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnLogout.addActionListener(this); /* Action Listener per il bottone Logout.*/
+		btnLogout.addActionListener(this); // Action Listener per il bottone Logout.
 		
 		JLabel lbllog = new JLabel("Loggato come");
 		lbllog.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JLabel user = new JLabel(frame.username);
+		user = new JLabel(frame.username);
 		user.setFont(new Font("Arial", Font.BOLD, 12));
 		user.setForeground(Color.RED);
 		
-		/* Crea il Layout.*/
-		
+		/* Crea il layout del PannelloExtra.*/
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -121,18 +141,13 @@ public class PannelloExtra extends JPanel implements ActionListener{
 		return contentPane;
 	}
 	
-	/* Costruttore contentPane Extra .*/
 	
-	public PannelloExtra(Finestra pn) {
-		frame = pn;
-		pn.setTitle("Autonoleggio - Altre Funzionalità");
-		pn.setContentPane(this.run(pn.contentPane));
-	}
 	
-	/* Definisce le azioni da eseguire in base al pulsante clickato.*/
-	
-	public void actionPerformed(ActionEvent e){
-		if (btnEsci == e.getSource()){ 
+	/**
+	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
+	 */
+	public void actionPerformed(ActionEvent e) {
+		if (btnEsci == e.getSource()) { 
 			int scelta = JOptionPane.showConfirmDialog(
 				    null,
 				    "Si desidera uscire dall'applicazione?",
@@ -141,39 +156,50 @@ public class PannelloExtra extends JPanel implements ActionListener{
 			if (scelta == JOptionPane.YES_OPTION){
 				System.exit(0);
 			}
-		}
-		else if(btnLogout == e.getSource()){
+		
+		} else if(btnLogout == e.getSource()) {
 			int scelta = JOptionPane.showConfirmDialog(
 					null,
 					"Si desidera effettuare il logout?",
 					"Conferma logout",
 					JOptionPane.YES_NO_OPTION);
-			if (scelta == JOptionPane.YES_OPTION){
+			if (scelta == JOptionPane.YES_OPTION) {
 				frame.dispose();
 				Login log = new Login();
 				log.run();
 			}
-		}
-		else if(btnStatistica == e.getSource()){
+		
+		} else if(btnStatistica == e.getSource()) {
 			pnlModulo.set("Statistica");
-		}
-		else if(btnMensile == e.getSource()){
+		
+		} else if(btnMensile == e.getSource()) {
 			pnlModulo.set("Mensile");
-		}
-		else if(btnAnnuale == e.getSource()){
+		
+		} else if(btnAnnuale == e.getSource()) {
 			pnlModulo.set("Annuale");
-		}
-		else if(btnScadenze == e.getSource()){
+		
+		} else if(btnScadenze == e.getSource()) {
 			pnlModulo.set("Scadenze");
 		}
 	}
 
-	@Override
+/* OVERRIDING METODI toString() ED equals() */
+	
+	/**
+	 * Restituisce una rappresentazione testuale dell'oggetto.
+	 * 
+	 * @return una stringa rappresentante l'oggetto.
+	 */
 	public String toString() {
-		return "PannelloExtra [Questa classe genera il pannello extra.]";
+		return "PannelloExtra [La classe PannelloExtra implementa un pannello contenuto all'interno del frame Finestra.]";
 	}
 
-	@Override
+	/**
+	 * Confronta questo oggetto con quello passato come argomento.
+	 * 
+	 * @param obj l'oggetto da confrontare.
+	 * @return true se i due oggetti sono uguali; false altrimenti.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

@@ -20,18 +20,23 @@ public class ModuloCalendario extends JPanel {
     static JScrollPane stblCalendar;
     static int realYear, realMonth, realDay, currentYear, currentMonth;
     
-    public ModuloCalendario(JPanel pane,JPanel pnlCalendar){
+    /**
+     *     
+     * @param pane
+     * @param pnlCalendar
+     */
+    public ModuloCalendario(JPanel pane, JPanel pnlCalendar) {
  
-        //Crea i controlli
+        /* Crea le etichette ed i controlli. */
         lblMonth = new JLabel ("January");
         lblYear = new JLabel ("Cambia anno:");
         cmbYear = new JComboBox <>();
         btnPrev = new JButton ("<<");
         btnNext = new JButton (">>");
-        mtblCalendar = new DefaultTableModel()
-        {
-        	public boolean isCellEditable(int rowIndex, int mColIndex)
-        	{return false;
+        mtblCalendar = new DefaultTableModel() {
+        	
+        	public boolean isCellEditable(int rowIndex, int mColIndex) {
+        		return false;
         	}
         	private static final long serialVersionUID = 7526472295622776147L; 
         	};
