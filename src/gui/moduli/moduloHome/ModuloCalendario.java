@@ -11,149 +11,171 @@ import java.util.*;
  */
 public class ModuloCalendario extends JPanel {
 	
-	private static final long serialVersionUID = 1L; 
-    static JLabel lblMonth, lblYear;
-    static JButton btnPrev, btnNext;
+	private static final long serialVersionUID = 1L;
+	
+    static JLabel lblMese, lblAnno;
+    static JButton btnPrec, btnSucc;
     static JTable tblCalendar;
-    static JComboBox <String> cmbYear;
+    static JComboBox <String> cmbAnno;
     static DefaultTableModel mtblCalendar; 
     static JScrollPane stblCalendar;
-    static int realYear, realMonth, realDay, currentYear, currentMonth;
+    static int annoAttuale, meseAttuale, giornoAttuale, annoCorrente, meseCorrente;
     
     /**
-     *     
-     * @param pane
-     * @param pnlCalendar
+     * Inizializza un nuovo oggetto ModuloCalendario.
+     * 
+     * @param pane il container di {@code pnlCalendar}.
+     * @param pnlCalendar il pannello in cui viene visualizzato il calendario.
      */
     public ModuloCalendario(JPanel pane, JPanel pnlCalendar) {
  
-        /* Crea le etichette ed i controlli. */
-        lblMonth = new JLabel ("January");
-        lblYear = new JLabel ("Cambia anno:");
-        cmbYear = new JComboBox <>();
-        btnPrev = new JButton ("<<");
-        btnNext = new JButton (">>");
+        // Crea le etichette ed i controlli.
+        lblMese = new JLabel ("Gennaio");
+        lblAnno = new JLabel ("Cambia anno:");
+        cmbAnno = new JComboBox <>();
+        btnPrec = new JButton ("<<");
+        btnSucc = new JButton (">>");
         mtblCalendar = new DefaultTableModel() {
         	
-        	public boolean isCellEditable(int rowIndex, int mColIndex) {
+        	public boolean isCellEditable(int indiceRiga, int indiceColonna) {
+        		
         		return false;
         	}
-        	private static final long serialVersionUID = 7526472295622776147L; 
-        	};
+        	
+        	private static final long serialVersionUID = 1L; 
+        };
+        
         tblCalendar = new JTable(mtblCalendar);
         stblCalendar = new JScrollPane(tblCalendar);
         
         pnlCalendar.setBorder(BorderFactory.createTitledBorder("Calendario"));
         
-        //Crea gli ActionListeners
-        btnPrev.addActionListener(new btnPrev_Action());
-        btnNext.addActionListener(new btnNext_Action());
-        cmbYear.addActionListener(new cmbYear_Action());
+        //Crea gli ActionListeners.
+        btnPrec.addActionListener(new btnPrec_Action());
+        btnSucc.addActionListener(new btnSucc_Action());
+        cmbAnno.addActionListener(new cmbYear_Action());
         
-        //Aggiunge i controlli
+        //Aggiunge le etichette ed i controlli.
         pane.add(pnlCalendar);
-        pnlCalendar.add(lblMonth);
-        pnlCalendar.add(lblYear);
-        pnlCalendar.add(cmbYear);
-        pnlCalendar.add(btnPrev);
-        pnlCalendar.add(btnNext);
+        pnlCalendar.add(lblMese);
+        pnlCalendar.add(lblAnno);
+        pnlCalendar.add(cmbAnno);
+        pnlCalendar.add(btnPrec);
+        pnlCalendar.add(btnSucc);
         pnlCalendar.add(stblCalendar);
         
         pnlCalendar.setBounds(0, 0, 320, 180);
-        lblMonth.setBounds(160-lblMonth.getPreferredSize().width/2, 25, 100, 25);
-        lblYear.setBounds(10, 205, 80, 20);
-        cmbYear.setBounds(230, 205, 80, 20);
-        btnPrev.setBounds(10, 25, 50, 25);
-        btnNext.setBounds(260, 25, 50, 25);
+        lblMese.setBounds(160-lblMese.getPreferredSize().width/2, 25, 100, 25);
+        lblAnno.setBounds(10, 205, 80, 20);
+        cmbAnno.setBounds(230, 205, 80, 20);
+        btnPrec.setBounds(10, 25, 50, 25);
+        btnSucc.setBounds(260, 25, 50, 25);
         stblCalendar.setBounds(10, 50, 300, 147);
         
-        //Prende i valori attuali di giorno/mese/anno
-        GregorianCalendar cal = new GregorianCalendar(); //Crea il calendaio
-        realDay = cal.get(GregorianCalendar.DAY_OF_MONTH); 
-        realMonth = cal.get(GregorianCalendar.MONTH); 
-        realYear = cal.get(GregorianCalendar.YEAR); 
-        currentMonth = realMonth; 
-        currentYear = realYear;
+        //Crea il calendario.
+        GregorianCalendar cal = new GregorianCalendar(); 
         
-        //Agggiunge la prima riga del calendario
-        String[] headers = {"Lun", "Mar", "Mer", "Gio", "Ven", "Sab","Dom"}; 
+        //Prende i valori attuali di giorno, mese e anno.
+        giornoAttuale = cal.get(GregorianCalendar.DAY_OF_MONTH); 
+        meseAttuale = cal.get(GregorianCalendar.MONTH); 
+        annoAttuale = cal.get(GregorianCalendar.YEAR); 
+        meseCorrente = meseAttuale; 
+        annoCorrente = annoAttuale;
+        
+        //Agggiunge i giorni della settimana al calendario.
+        String[] headers = {"Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"}; 
         for (int i=0; i<7; i++){
             mtblCalendar.addColumn(headers[i]);
         }
         
-        tblCalendar.getParent().setBackground(tblCalendar.getBackground()); //Crea lo sfondo a griglia del calendario
+     	//Crea lo sfondo del calendario.
+        tblCalendar.getParent().setBackground(tblCalendar.getBackground()); 
         
-        //Impone che il calendario non è modificabile
+        //Impone che il calendario non è modificabile.
         tblCalendar.getTableHeader().setResizingAllowed(false);
         tblCalendar.getTableHeader().setReorderingAllowed(false);
         
-        //Permette di scegliere il giorno sul calendario
-        tblCalendar.setColumnSelectionAllowed(true);
-        tblCalendar.setRowSelectionAllowed(true);
-        tblCalendar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        //Indica il numero di righe/colonne
+        //Indica il numero di righe e di colonne.
         tblCalendar.setRowHeight(20);
         mtblCalendar.setColumnCount(7);
         mtblCalendar.setRowCount(6);
         
-        //Riempie la tabella
-        for (int i=realYear-100; i<=realYear+100; i++){
-            cmbYear.addItem(String.valueOf(i));
+        //Riempie la comboBox cmbAnno.
+        for (int i=annoAttuale-10; i<=annoAttuale+10; i++) {
+            cmbAnno.addItem(String.valueOf(i));
         }
         
-        //Aggiorna il calendario 
-        refreshCalendar (realMonth, realYear); 
+        //Aggiorna il calendario.
+        aggiornaCalendario (meseAttuale, annoAttuale); 
     }
     
-    public static void refreshCalendar(int month, int year){
-        String[] months =  {"Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"};
-        int nod, som; //Numero di giorni e inizio del mese
+    /**
+     * Riempie il calendario con gli opportuni giorni.
+     * 
+     * @param mese il mese corrente
+     * @param anno l'anno corrente
+     */
+    public static void aggiornaCalendario(int mese, int anno) {
+    	
+        String[] mesi =  {"Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"};
         
-        btnPrev.setEnabled(true);
-        btnNext.setEnabled(true);
-        if (month == 0 && year <= realYear-10){btnPrev.setEnabled(false);} 
-        if (month == 11 && year >= realYear+100){btnNext.setEnabled(false);} 
-        lblMonth.setText(months[month]); 
-        lblMonth.setBounds(160-lblMonth.getPreferredSize().width/2, 25, 180, 25); 
-        cmbYear.setSelectedItem(String.valueOf(year)); 
+        int numeroGiorni, inizioMese;
         
-        //Svuota la tabella
-        for (int i=0; i<6; i++){
-            for (int j=0; j<7; j++){
+        btnPrec.setEnabled(true);
+        btnSucc.setEnabled(true);
+        
+        if (mese == 0 && anno <= annoAttuale-10) {
+        	btnPrec.setEnabled(false);
+        } 
+        if (mese == 11 && anno >= annoAttuale+10) {
+        	btnSucc.setEnabled(false);
+        } 
+        
+        lblMese.setText(mesi[mese]); 
+        lblMese.setBounds(160-lblMese.getPreferredSize().width/2, 25, 180, 25); 
+        cmbAnno.setSelectedItem(String.valueOf(anno)); 
+        
+        //Svuota la tabella.
+        for (int i=0; i<6; i++) {
+            for (int j=0; j<7; j++) {
                 mtblCalendar.setValueAt(null, i, j);
             }
         }
         
-        //Prende il primo giorno del mese e il numero di giorni
-        GregorianCalendar cal = new GregorianCalendar(year, month, 1);
-        nod = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-        som = cal.get(GregorianCalendar.DAY_OF_WEEK);
+        //Prende il primo giorno del mese e il numero di giorni.
+        GregorianCalendar cal = new GregorianCalendar(anno, mese, 1);
+        numeroGiorni = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+        inizioMese = cal.get(GregorianCalendar.DAY_OF_WEEK);
         
-        //Disegna il calendario
-        for (int i=1; i<=nod; i++){
-            int row = new Integer((i+som-3)/7);
-            int column  =  (i+som-3)%7;
+        //Riempe la tabella.
+        for (int i=1; i<=numeroGiorni; i++) {
+            int row = new Integer((i+inizioMese-2)/7);
+            int column = (i+inizioMese-2)%7;
             mtblCalendar.setValueAt(i, row, column);
         }
         
         tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
     }
     
-    //Colori celle
-    static class tblCalendarRenderer extends DefaultTableCellRenderer{
+    
+    //Imposta i colori delle celle del calendario.
+    static class tblCalendarRenderer extends DefaultTableCellRenderer {
     	
-    	private static final long serialVersionUID = 7525572295622776147L; 
-        public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused, int row, int column){
+    	private static final long serialVersionUID = 1L;
+    	
+        public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused, int row, int column) {
+        	
             super.getTableCellRendererComponent(table, value, selected, focused, row, column);
-            if (column == 5 || column == 6){ //Week-end
+            if (column == 0 || column == 6) {
+            	//Sabato e domenica
                 setBackground(new Color(255, 220, 220));
-            }
-            else{ //Week
+            } else {
+            	//Gli altri giorni della settimana
                 setBackground(new Color(255, 255, 255));
             }
             if (value != null){
-                if (Integer.parseInt(value.toString()) == realDay && currentMonth == realMonth && currentYear == realYear){ //Today
+                if (Integer.parseInt(value.toString()) == giornoAttuale && meseCorrente == meseAttuale && annoCorrente == annoAttuale) { 
+                	//Il giorno corrente
                     setBackground(new Color(220, 220, 255));
                 }
             }
@@ -163,43 +185,52 @@ public class ModuloCalendario extends JPanel {
         }
     }
     
-    static class btnPrev_Action implements ActionListener{
-        public void actionPerformed (ActionEvent e){
-            if (currentMonth == 0){ //Indietro un anno
-            	currentMonth = 11;
-                currentYear -= 1;
+    //Definisce le azioni da eseguire se viene cliccato il bottone btnPrec
+    static class btnPrec_Action implements ActionListener {
+        
+    	public void actionPerformed (ActionEvent e) {
+            
+    		if (meseCorrente == 0) { 
+    			//Indietro un anno
+            	meseCorrente = 11;
+                annoCorrente -= 1;
+            } else { 
+            	//Indietro un mese
+                meseCorrente -= 1;
             }
-            else{ //Indietro un mese
-                currentMonth -= 1;
-            }
-            refreshCalendar(currentMonth, currentYear);
+            aggiornaCalendario(meseCorrente, annoCorrente);
         }
     }
-    static class btnNext_Action implements ActionListener{
-        public void actionPerformed (ActionEvent e){
-            if (currentMonth == 11){ //Avanti un anno
-                currentMonth = 0;
-                currentYear += 1;
-            }
-            else{ //Avanti un mese
-                currentMonth += 1;
-            }
-            refreshCalendar(currentMonth, currentYear);
-        }
-    }
-    static class cmbYear_Action implements ActionListener{
-        public void actionPerformed (ActionEvent e){
-            if (cmbYear.getSelectedItem() != null){
-                String b = cmbYear.getSelectedItem().toString();
-                currentYear = Integer.parseInt(b);
-                refreshCalendar(currentMonth, currentYear);
-            }
-        }
-    }
-	@Override
-	public String toString() {
-	return "ModuloCalendario [Questa classe crea un calendario.]";
-	}
     
+  //Definisce le azioni da eseguire se viene cliccato il bottone btnSucc
+    static class btnSucc_Action implements ActionListener {
+    	
+        public void actionPerformed (ActionEvent e) {
+        	
+            if (meseCorrente == 11) {
+            	//Avanti un anno
+                meseCorrente = 0;
+                annoCorrente += 1;
+            } else {
+            	//Avanti un mese
+                meseCorrente += 1;
+            }
+            aggiornaCalendario(meseCorrente, annoCorrente);
+        }
+    }
+    
+  //Definisce le azioni da eseguire se viene modificato il comboBox cmbAnno
+    static class cmbYear_Action implements ActionListener {
+    	
+        public void actionPerformed (ActionEvent e) {
+            
+        	if (cmbAnno.getSelectedItem() != null) {
+        		
+                String b = cmbAnno.getSelectedItem().toString();
+                annoCorrente = Integer.parseInt(b);
+                aggiornaCalendario(meseCorrente, annoCorrente);
+            }
+        }
+    }  
     
 }
