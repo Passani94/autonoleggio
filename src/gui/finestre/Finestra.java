@@ -61,7 +61,7 @@ public class Finestra extends JFrame implements ActionListener {
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.menu();
 			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			this.setBounds(100, 100, 1000, (screenSize.height-100));
+			this.setBounds(100, 100, 1050, (screenSize.height-100));
 			this.setMinimumSize(new Dimension(1000,(screenSize.height-100)));
 			this.setLocationRelativeTo(null);
 			this.setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/External/car.png")));

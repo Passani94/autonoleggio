@@ -22,6 +22,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 
 import db.DBConnect;
 import entita.Cliente;
@@ -116,54 +117,62 @@ public class ModuloCliente extends JPanel implements ActionListener {
 	 */
 	public void set(String str) {
 		
-		if (str.equals("Elenca")) {
+		if (str.equals("Principale")) {
 			
-			/* Viene generato l'elenco dei clienti contenuti nel database. */
-			elencoClienti = new DBConnect();
 			this.removeAll();
-			this.setBorder(BorderFactory.createTitledBorder("Elenco Clienti"));
+			this.setBorder(BorderFactory.createTitledBorder("Pannello Principale"));
 			
-			try {
-				elencoClienti.exequery("SELECT * FROM cliente","select");
-				
-				tblClienti = new JTable();
-				tblClienti.setModel(new CostruisciTabella(elencoClienti.rs).model);
-				tblClienti.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-				TableColumnAdjuster tca = new TableColumnAdjuster(tblClienti);
-				tca.adjustColumns();
-				
-				scroll = new JScrollPane(tblClienti);
-				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-				scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-				scroll.setViewportView(tblClienti);
-				
-				elencoClienti.con.close();
-			} catch(SQLException e) {
-				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei clienti!",
-					"Errore ",
-					JOptionPane.ERROR_MESSAGE);
-			}
+			JLabel lblFunz = new JLabel("Contenuto Principale");
+			lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
+			lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			
-			/* Crea il layout per l'elenco dei clienti. */
+			/* Crea il layout iniziale del "Pannello Principale". */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
-					gl_contentPane.createParallelGroup(Alignment.CENTER)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(1)
-							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 450, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(360, Short.MAX_VALUE))
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addContainerGap(18, Short.MAX_VALUE)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE,420, GroupLayout.PREFERRED_SIZE)
+							.addGap(170))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(1)
-							.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-							.addGap(50))
+							.addGap(120)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(255, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		
+			
+		} else if (str.equals("Opzionale")) {
+			
+			this.removeAll();
+			this.setBorder(BorderFactory.createTitledBorder("Pannello Opzionale"));
+			
+			JLabel lblFunz = new JLabel("Contenuto Opzionale");
+			lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
+			lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			/* Crea il layout iniziale del "Pannello Opzionale". */
+			GroupLayout gl_contentPane = new GroupLayout(this);
+			gl_contentPane.setHorizontalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addContainerGap(18, Short.MAX_VALUE)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE,420, GroupLayout.PREFERRED_SIZE)
+							.addGap(170))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(120)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(255, Short.MAX_VALUE))
+				);
+			this.setLayout(gl_contentPane);
+			this.revalidate();
+			
 		} else if (str.equals("Nuovo")) {
 			
 			/* Viene creato il form per aggiungere un nuovo cliente. */
@@ -317,53 +326,6 @@ public class ModuloCliente extends JPanel implements ActionListener {
 							.addGap(34)
 							.addComponent(btnAggiungi, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addGap(41))
-				);
-			this.setLayout(gl_contentPane);
-			this.revalidate();
-		
-		} else if (str.equals("Elimina")) {
-			
-			/* Viene creato il form per eliminare un cliente. */
-			this.removeAll();
-			this.setBorder(BorderFactory.createTitledBorder("Elimina Cliente"));
-			
-			btnElimina = new JButton("Elimina Cliente");
-			btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnElimina.addActionListener(this);	// Action Listener per il bottone Elimina.
-			
-			txtCF_PIVA = new JTextField();
-			txtCF_PIVA.setFont(new Font("Arial", Font.PLAIN, 12));
-			txtCF_PIVA.setColumns(10);
-			
-			
-			JLabel lblid = new JLabel("CF o P.IVA *");
-			lblid.setFont(new Font("Arial", Font.BOLD, 14));
-			
-			/* Crea il layout del form usato per un eliminare un cliente. */
-			GroupLayout gl_contentPane = new GroupLayout(this);
-			gl_contentPane.setHorizontalGroup(
-					gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(42)
-							.addComponent(lblid, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-							.addComponent(txtCF_PIVA, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-							.addGap(62))
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(179)
-							.addComponent(btnElimina)
-							.addContainerGap(194, Short.MAX_VALUE))
-				);
-				gl_contentPane.setVerticalGroup(
-					gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(37)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCF_PIVA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(50)
-							.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(169, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
@@ -545,6 +507,101 @@ public class ModuloCliente extends JPanel implements ActionListener {
 							.addGap(26)
 							.addComponent(btnModificaC, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				);
+			this.setLayout(gl_contentPane);
+			this.revalidate();
+		
+		} else if (str.equals("Elimina")) {
+			
+			/* Viene creato il form per eliminare un cliente. */
+			this.removeAll();
+			this.setBorder(BorderFactory.createTitledBorder("Elimina Cliente"));
+			
+			btnElimina = new JButton("Elimina Cliente");
+			btnElimina.setFont(new Font("Arial", Font.PLAIN, 12));
+			btnElimina.addActionListener(this);	// Action Listener per il bottone Elimina.
+			
+			txtCF_PIVA = new JTextField();
+			txtCF_PIVA.setFont(new Font("Arial", Font.PLAIN, 12));
+			txtCF_PIVA.setColumns(10);
+			
+			
+			JLabel lblid = new JLabel("CF o P.IVA *");
+			lblid.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			/* Crea il layout del form usato per un eliminare un cliente. */
+			GroupLayout gl_contentPane = new GroupLayout(this);
+			gl_contentPane.setHorizontalGroup(
+					gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addGap(42)
+							.addComponent(lblid, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+							.addComponent(txtCF_PIVA, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+							.addGap(62))
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addGap(179)
+							.addComponent(btnElimina)
+							.addContainerGap(194, Short.MAX_VALUE))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(37)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtCF_PIVA, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(50)
+							.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(169, Short.MAX_VALUE))
+				);
+			this.setLayout(gl_contentPane);
+			this.revalidate();
+		
+		} else if (str.equals("Elenca")) {
+			
+			/* Viene generato l'elenco dei clienti contenuti nel database. */
+			elencoClienti = new DBConnect();
+			this.removeAll();
+			this.setBorder(BorderFactory.createTitledBorder("Elenco Clienti"));
+			
+			try {
+				elencoClienti.exequery("SELECT * FROM cliente","select");
+				
+				tblClienti = new JTable();
+				tblClienti.setModel(new CostruisciTabella(elencoClienti.rs).model);
+				tblClienti.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblClienti);
+				tca.adjustColumns();
+				
+				scroll = new JScrollPane(tblClienti);
+				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+				scroll.setViewportView(tblClienti);
+				
+				elencoClienti.con.close();
+			} catch(SQLException e) {
+				JOptionPane.showMessageDialog(null, "Errore! Impossibile caricare l'elenco dei clienti!",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);
+			}
+			
+			
+			/* Crea il layout per l'elenco dei clienti. */
+			GroupLayout gl_contentPane = new GroupLayout(this);
+			gl_contentPane.setHorizontalGroup(
+					gl_contentPane.createParallelGroup(Alignment.CENTER)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(1)
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 450, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(360, Short.MAX_VALUE))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(1)
+							.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+							.addGap(50))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
