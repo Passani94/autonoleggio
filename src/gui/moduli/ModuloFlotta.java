@@ -31,6 +31,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -162,52 +163,62 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 	 */
 	public void set(String str) {
 		
-		if (str.equals("Elenca")){
+		if (str.equals("Principale")) {
 			
-			/* Viene generato l'elenco dei veicoli contenuti nel database. */
-			elencoVeicoli = new DBConnect();
 			this.removeAll();
-			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli"));
+			this.setBorder(BorderFactory.createTitledBorder("Pannello Principale"));
 			
-			try {
-				elencoVeicoli.exequery("SELECT * FROM veicolo","select");
-				
-				tblVeicoli = new JTable();
-				tblVeicoli.setModel(new CostruisciTabella(elencoVeicoli.rs).model);
-				tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-				TableColumnAdjuster tca = new TableColumnAdjuster(tblVeicoli);
-				tca.adjustColumns();
-				
-				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-				scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-				scroll.setViewportView(tblVeicoli);
-				
-				elencoVeicoli.con.close();
-			} catch (SQLException e) {  
-			JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli! ",
-					"Errore ",
-					JOptionPane.ERROR_MESSAGE);
-			}
+			JLabel lblFunz = new JLabel("Contenuto Principale");
+			lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
+			lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			/* Crea il layout per l'elenco dei veicoli. */
+			/* Crea il layout iniziale del "Pannello Principale". */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 439, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(115, Short.MAX_VALUE))
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addContainerGap(18, Short.MAX_VALUE)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE,420, GroupLayout.PREFERRED_SIZE)
+							.addGap(170))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(35)
-							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 379, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(75, Short.MAX_VALUE))
+							.addGap(120)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(255, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		
+			
+		} else if (str.equals("Opzionale")) {
+			
+			this.removeAll();
+			this.setBorder(BorderFactory.createTitledBorder("Pannello Opzionale"));
+			
+			JLabel lblFunz = new JLabel("Contenuto Opzionale");
+			lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
+			lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			/* Crea il layout iniziale del "Pannello Opzionale". */
+			GroupLayout gl_contentPane = new GroupLayout(this);
+			gl_contentPane.setHorizontalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addContainerGap(18, Short.MAX_VALUE)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE,420, GroupLayout.PREFERRED_SIZE)
+							.addGap(170))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(120)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(255, Short.MAX_VALUE))
+				);
+			this.setLayout(gl_contentPane);
+			this.revalidate();
+			
 		} else if (str.equals("Nuovo")) {
 			
 			/* Viene creato il form per aggiungere un veicolo. */
@@ -1168,6 +1179,52 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 							.addGap(50)
 							.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(169, Short.MAX_VALUE))
+				);
+			this.setLayout(gl_contentPane);
+			this.revalidate();
+		
+		} else if (str.equals("Elenca")){
+			
+			/* Viene generato l'elenco dei veicoli contenuti nel database. */
+			elencoVeicoli = new DBConnect();
+			this.removeAll();
+			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli"));
+			
+			try {
+				elencoVeicoli.exequery("SELECT * FROM veicolo","select");
+				
+				tblVeicoli = new JTable();
+				tblVeicoli.setModel(new CostruisciTabella(elencoVeicoli.rs).model);
+				tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblVeicoli);
+				tca.adjustColumns();
+				
+				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+				scroll.setViewportView(tblVeicoli);
+				
+				elencoVeicoli.con.close();
+			} catch (SQLException e) {  
+			JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli! ",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);
+			}
+			
+			/* Crea il layout per l'elenco dei veicoli. */
+			GroupLayout gl_contentPane = new GroupLayout(this);
+			gl_contentPane.setHorizontalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 439, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(115, Short.MAX_VALUE))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(35)
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 379, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(75, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
