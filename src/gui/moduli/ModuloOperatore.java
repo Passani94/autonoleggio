@@ -261,16 +261,16 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 453, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(103, Short.MAX_VALUE))
+							.addGap(3)
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 450, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(360, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
-							.addContainerGap())
+							.addGap(7)
+							.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+							.addGap(10))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();

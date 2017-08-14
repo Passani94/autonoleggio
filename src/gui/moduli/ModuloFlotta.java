@@ -1217,16 +1217,16 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 439, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(115, Short.MAX_VALUE))
+							.addGap(3)
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 450, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(360, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(35)
-							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 379, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(75, Short.MAX_VALUE))
+							.addGap(7)
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 430, Short.MAX_VALUE)
+							.addGap(10))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();

@@ -96,11 +96,11 @@ public class ModuloMezziNoleggiabili extends JPanel{
 				
 		try {
 			noleggiabili.exequery("SELECT Targa, Tipologia, Marca, Nome, Alimentazione , "
-					+ "Km_Effettuati, Dimensioni FROM mezzinoleggiabili", "select");
+					+ "Dimensioni FROM mezzinoleggiabili", "select");
 			
 			tblDisponibili = new JTable();
 			tblDisponibili.setModel(new CostruisciTabella(noleggiabili.rs).model);
-			tblDisponibili.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			tblDisponibili.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 			TableColumnAdjuster tca = new TableColumnAdjuster(tblDisponibili);
 			tca.adjustColumns();
 			

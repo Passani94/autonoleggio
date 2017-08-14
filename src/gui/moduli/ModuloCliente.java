@@ -594,16 +594,16 @@ public class ModuloCliente extends JPanel implements ActionListener {
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.CENTER)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(1)
+							.addGap(3)
 							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 450, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(360, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(1)
+							.addGap(7)
 							.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-							.addGap(50))
+							.addGap(10))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();

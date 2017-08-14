@@ -65,12 +65,12 @@ public class ModuloCalendario extends JPanel {
         pnlCalendar.add(stblCalendar);
         
         pnlCalendar.setBounds(0, 0, 320, 180);
-        lblMese.setBounds(160-lblMese.getPreferredSize().width/2, 25, 100, 25);
-        lblAnno.setBounds(10, 205, 80, 20);
-        cmbAnno.setBounds(230, 205, 80, 20);
-        btnPrec.setBounds(10, 25, 50, 25);
-        btnSucc.setBounds(260, 25, 50, 25);
-        stblCalendar.setBounds(10, 50, 300, 147);
+        lblMese.setBounds(100, 25, 100, 25);
+        lblAnno.setBounds(22, 205, 80, 20);
+        cmbAnno.setBounds(240, 205, 80, 20);
+        btnPrec.setBounds(20, 25, 50, 25);
+        btnSucc.setBounds(270, 25, 50, 25);
+        stblCalendar.setBounds(20, 50, 300, 147);
         
         //Crea il calendario.
         GregorianCalendar cal = new GregorianCalendar(); 

@@ -116,7 +116,7 @@ public class PannelloHome extends JPanel implements ActionListener {
 						.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
-		cal.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		cal.setLayout(new FlowLayout(FlowLayout.LEADING, 50, 5));
 		contentPane.setLayout(gl_contentPane);
 		return contentPane;
 	}
