@@ -16,9 +16,9 @@ import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
 /**
- * La classe ModuloPrezziExtra genera il tarifarrio per il kilometraggio extra.
+ * La classe ModuloElencoPrezziExtra genera il tarifarrio per il kilometraggio extra.
  */
-public class ModuloPrezziExtra extends JPanel {
+public class ModuloElencoPrezziExtra extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -27,9 +27,9 @@ public class ModuloPrezziExtra extends JPanel {
 	private DBConnect prezzi = new DBConnect();
 	
 	/**
-	 * Inizializza un nuovo oggetto ModuloMezziRitorno e richiama il metodo {@code set}.
+	 * Inizializza un nuovo oggetto ModuloElencoPrezziExtra e richiama il metodo {@code set}.
 	 */
-	public ModuloPrezziExtra() {
+	public ModuloElencoPrezziExtra() {
 		set();
 	}
 	
@@ -85,7 +85,7 @@ public class ModuloPrezziExtra extends JPanel {
 	 * @return una stringa rappresentante l'oggetto.
 	 */
 	public String toString() {
-		return "ModuloPrezziExtra [La classe ModuloPrezziExtra genera il tarifarrio per il kilometraggio extra.]";
+		return "ModuloPrezziExtra [La classe ModuloElencoPrezziExtra genera il tarifarrio per il kilometraggio extra.]";
 	}
 
 
@@ -102,7 +102,7 @@ public class ModuloPrezziExtra extends JPanel {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ModuloPrezziExtra other = (ModuloPrezziExtra) obj;
+		ModuloElencoPrezziExtra other = (ModuloElencoPrezziExtra) obj;
 		if (prezzi == null) {
 			if (other.prezzi != null)
 				return false;

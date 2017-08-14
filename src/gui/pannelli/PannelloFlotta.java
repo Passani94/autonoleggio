@@ -17,6 +17,7 @@ import java.awt.Font;
 import autonoleggio.Login;
 import gui.finestre.Finestra;
 import gui.moduli.ModuloFlotta;
+import gui.moduli.moduliOpzionali.ModuloElencoVeicoli;
 
 /**
  * La classe PannelloFlotta implementa un pannello contenuto all'interno del frame Finestra.
@@ -33,9 +34,10 @@ public class PannelloFlotta extends JPanel implements ActionListener {
 	private JButton btnLogout = new JButton("Logout");
 	
 	private ModuloFlotta pnlModulo = new ModuloFlotta("Principale");
-	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
-	
 	private ModuloFlotta pnlModulo2 = new ModuloFlotta("Opzionale");
+	private ModuloElencoVeicoli pnlModulo3 = new ModuloElencoVeicoli("Completo");
+	
+	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	private JScrollPane scrollPane2 = new JScrollPane(pnlModulo2);
 	
 	private Finestra frame;
@@ -179,22 +181,22 @@ public class PannelloFlotta extends JPanel implements ActionListener {
 		} else if (btnNuovo == e.getSource()) {
 			btnAggiorna.setText("Elenco Veicoli");
 			pnlModulo.set("Nuovo");
-			pnlModulo2.set("Opzionale");
+			scrollPane2.setViewportView(pnlModulo2);
 		
 		} else if (btnModifica == e.getSource()) {
 			btnAggiorna.setText("Elenco Veicoli");
 			pnlModulo.set("Modifica");
-			pnlModulo2.set("Elenca");
+			scrollPane2.setViewportView(pnlModulo3);
 			
 		} else if(btnElimina == e.getSource()) {
 			btnAggiorna.setText("Elenco Veicoli");
 			pnlModulo.set("Elimina");
-			pnlModulo2.set("Elenca");
+			scrollPane2.setViewportView(pnlModulo3);
 		
 		} else if(btnAggiorna == e.getSource()) {
 			btnAggiorna.setText("Aggiorna Elenco");
 			pnlModulo.set("Elenca");
-			pnlModulo2.set("Opzionale");
+			scrollPane2.setViewportView(pnlModulo2);
 		
 		}
 	}

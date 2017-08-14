@@ -159,14 +159,14 @@ public class ModuloContratto extends JPanel implements ActionListener {
 	/**
 	 * Si comporta in maniera differente a seconda dell'oggetto String che viene passato come argomento. <br><br>
 	 * 
-	 * - Se viene passato "Principale", <br>
-	 * - Se viene passato "Opzionale", <br>
+	 * - Se viene passato "Principale", viene creato un pannello vuoto recante la scritta "Pannello Principale".<br>
+	 * - Se viene passato "Opzionale", viene creato un pannello vuoto recante la scritta "Pannello Opzionale".<br>
 	 * - Se viene passato "Preventivo", viene creato il form per calcolare un preventivo. <br>
 	 * - Se viene passato "Passaggio", viene creato il form per aggiungere un contratto, precaricato con i dati del preventivo. <br>
 	 * - Se viene passato "Nuovo", viene creato il form per aggiungere un nuovo contratto. <br>
 	 * - Se viene passato "Modifica", viene creato il form per modificare un contratto. <br>
 	 * - Se viene passato "Elimina", viene creato il form per eliminare un contratto. <br>
-	 * - Se viene passato "Elenca", viene generato l'elenco dei contratti contenuti nel database.
+	 * - Se viene passato "Elenca", viene creato l'elenco dei contratti contenuti nel database.
 	 * 
 	 * @param str una stringa che determina cosa verrà mostrato a schermo.
 	 */
@@ -1060,7 +1060,7 @@ public class ModuloContratto extends JPanel implements ActionListener {
 			txtContrattoCerca = new JTextField();
 			txtContrattoCerca.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JLabel lblContrattoCerca = new JLabel("Codice contratto da Modificare ");
+			JLabel lblContrattoCerca = new JLabel("Codice Contratto da Modificare ");
 			lblContrattoCerca.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			btnModificaC = new JButton("Modifica Contratto");

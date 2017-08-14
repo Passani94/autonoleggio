@@ -16,10 +16,11 @@ import java.awt.Font;
 
 import autonoleggio.Login;
 import gui.finestre.Finestra;
-import gui.moduli.ModuloCliente;
 import gui.moduli.ModuloContratto;
-import gui.moduli.ModuloFlotta;
-import gui.moduli.moduliOpzionali.ModuloPrezziExtra;
+import gui.moduli.moduliOpzionali.ModuloElencoClienti;
+import gui.moduli.moduliOpzionali.ModuloElencoContratti;
+import gui.moduli.moduliOpzionali.ModuloElencoPrezziExtra;
+import gui.moduli.moduliOpzionali.ModuloElencoVeicoli;
 
 /**
  * La classe PannelloContratto implementa un pannello contenuto all'interno del frame Finestra.
@@ -39,17 +40,14 @@ public class PannelloContratto extends JPanel implements ActionListener {
 	private ModuloContratto pnlModulo = new ModuloContratto("Principale");
 	private ModuloContratto pnlModulo2 = new ModuloContratto("Opzionale");
 	private ModuloContratto pnlModulo3 = new ModuloContratto("Opzionale");
-	private ModuloContratto pnlModulo4 = new ModuloContratto("Elenca");
-	private ModuloPrezziExtra pnlModulo5 = new ModuloPrezziExtra();
-	private ModuloCliente pnlModulo6 = new ModuloCliente("Elenca");
-	private ModuloFlotta pnlModulo7 = new ModuloFlotta("Elenca");
-	
+	private ModuloElencoClienti pnlModulo4 = new ModuloElencoClienti();
+	private ModuloElencoContratti pnlModulo5 = new ModuloElencoContratti();
+	private ModuloElencoPrezziExtra pnlModulo6 = new ModuloElencoPrezziExtra();
+	private ModuloElencoVeicoli pnlModulo7 = new ModuloElencoVeicoli("Disponibili");
 	
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	private JScrollPane scrollPane2 = new JScrollPane(pnlModulo2);
 	private JScrollPane scrollPane3 = new JScrollPane(pnlModulo2);
-	
-	
 	
 	private Finestra frame;
 	private JLabel user;
@@ -214,18 +212,18 @@ public class PannelloContratto extends JPanel implements ActionListener {
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Nuovo");
 			scrollPane2.setViewportView(pnlModulo7);
-			scrollPane3.setViewportView(pnlModulo6);
+			scrollPane3.setViewportView(pnlModulo4);
 			
 		} else if(btnModifica == e.getSource()) {
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Modifica");
-			scrollPane2.setViewportView(pnlModulo4);
-			scrollPane3.setViewportView(pnlModulo5);
+			scrollPane2.setViewportView(pnlModulo5);
+			scrollPane3.setViewportView(pnlModulo6);
 			
 		} else if(btnElimina == e.getSource()) {
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Elimina");
-			scrollPane2.setViewportView(pnlModulo4);
+			scrollPane2.setViewportView(pnlModulo5);
 			scrollPane3.setViewportView(pnlModulo3);
 		
 		} else if(btnAggiorna == e.getSource()) {

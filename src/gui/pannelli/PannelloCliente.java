@@ -17,6 +17,7 @@ import java.awt.Font;
 import autonoleggio.Login;
 import gui.finestre.Finestra;
 import gui.moduli.ModuloCliente;
+import gui.moduli.moduliOpzionali.ModuloElencoClienti;
 
 /**
  * La classe PannelloCliente implementa un pannello contenuto all'interno del frame Finestra.
@@ -33,9 +34,10 @@ public class PannelloCliente extends JPanel implements ActionListener {
 	private JButton btnLogout = new JButton("Logout");
 	
 	private ModuloCliente pnlModulo = new ModuloCliente("Principale");
-	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
-	
 	private ModuloCliente pnlModulo2 = new ModuloCliente("Opzionale");
+	private ModuloElencoClienti pnlModulo3 = new ModuloElencoClienti();
+	
+	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	private JScrollPane scrollPane2 = new JScrollPane(pnlModulo2);
 	
 	private Finestra frame;
@@ -180,22 +182,22 @@ public class PannelloCliente extends JPanel implements ActionListener {
 		}  else if (btnNuovo == e.getSource()) {
 			btnAggiorna.setText("Elenco Clienti");
 			pnlModulo.set("Nuovo");
-			pnlModulo2.set("Opzionale");
+			scrollPane2.setViewportView(pnlModulo2);
 		
 		} else if (btnModifica == e.getSource()) {
 			btnAggiorna.setText("Elenco Clienti");
 			pnlModulo.set("Modifica");
-			pnlModulo2.set("Elenca");
+			scrollPane2.setViewportView(pnlModulo3);
 			
 		} else if (btnElimina == e.getSource()) {
 			btnAggiorna.setText("Elenco Clienti");
 			pnlModulo.set("Elimina");
-			pnlModulo2.set("Elenca");
+			scrollPane2.setViewportView(pnlModulo3);
 		
 		} else if (btnAggiorna == e.getSource()) {
 			btnAggiorna.setText("Aggiorna Elenco");
 			pnlModulo.set("Elenca");
-			pnlModulo2.set("Opzionale");
+			scrollPane2.setViewportView(pnlModulo2);
 		}
 	}
 

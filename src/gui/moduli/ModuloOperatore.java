@@ -62,8 +62,8 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 	/**
 	 * Si comporta in maniera differente a seconda dell'oggetto String che viene passato come argomento. <br><br>
 	 * 
-	 * - Se viene passato "Principale", <br>
-	 * - Se viene passato "Opzionale", <br>
+	 * - Se viene passato "Principale", viene creato un pannello vuoto recante la scritta "Pannello Principale".<br>
+	 * - Se viene passato "Opzionale", viene creato un pannello vuoto recante la scritta "Pannello Opzionale".<br>
 	 * - Se viene passato "Nuovo", viene creato il form per aggiungere un nuovo operatore. <br>
 	 * - Se viene passato "Elimina", viene creato il form per eliminare un operatore. <br>
 	 * - Se viene passato "Elenca", viene generato l'elenco degli operatori contenuti nel database.
