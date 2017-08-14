@@ -16,7 +16,10 @@ import java.awt.Font;
 
 import autonoleggio.Login;
 import gui.finestre.Finestra;
+import gui.moduli.ModuloCliente;
 import gui.moduli.ModuloContratto;
+import gui.moduli.ModuloFlotta;
+import gui.moduli.moduliOpzionali.ModuloPrezziExtra;
 
 /**
  * La classe PannelloContratto implementa un pannello contenuto all'interno del frame Finestra.
@@ -33,8 +36,20 @@ public class PannelloContratto extends JPanel implements ActionListener {
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	
-	private ModuloContratto pnlModulo = new ModuloContratto("Elenca");
+	private ModuloContratto pnlModulo = new ModuloContratto("Principale");
+	private ModuloContratto pnlModulo2 = new ModuloContratto("Opzionale");
+	private ModuloContratto pnlModulo3 = new ModuloContratto("Opzionale");
+	private ModuloContratto pnlModulo4 = new ModuloContratto("Elenca");
+	private ModuloPrezziExtra pnlModulo5 = new ModuloPrezziExtra();
+	private ModuloCliente pnlModulo6 = new ModuloCliente("Elenca");
+	private ModuloFlotta pnlModulo7 = new ModuloFlotta("Elenca");
+	
+	
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
+	private JScrollPane scrollPane2 = new JScrollPane(pnlModulo2);
+	private JScrollPane scrollPane3 = new JScrollPane(pnlModulo2);
+	
+	
 	
 	private Finestra frame;
 	private JLabel user;
@@ -61,6 +76,14 @@ public class PannelloContratto extends JPanel implements ActionListener {
 		scrollPane.setViewportView(pnlModulo);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		scrollPane2.setViewportView(pnlModulo2);
+		scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		scrollPane3.setViewportView(pnlModulo3);
+		scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	        
 		btnAggiorna.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAggiorna.addActionListener(this); // Action Listener per il bottone Aggiorna.
@@ -97,25 +120,30 @@ public class PannelloContratto extends JPanel implements ActionListener {
 					.addGroup(gl_contentPane.createSequentialGroup()
 						.addContainerGap()
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-								.addComponent(btnPreventivo, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addComponent(btnPreventivo, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnNuovo)
+								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnModifica)
+								.addComponent(btnModifica, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, 492, Short.MAX_VALUE)
 								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(user, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
+								.addGap(18)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addComponent(scrollPane3, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
+									.addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)))
 							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 								.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE))
+								.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)))
 						.addContainerGap())
 			);
 			gl_contentPane.setVerticalGroup(
@@ -125,23 +153,26 @@ public class PannelloContratto extends JPanel implements ActionListener {
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnPreventivo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnModifica, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(user, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-							.addComponent(btnModifica, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
-						.addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addGroup(Alignment.TRAILING, gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+								.addGap(18)
+								.addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)))
+						.addGap(15)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 						.addContainerGap())
 			);
-
 		contentPane.setLayout(gl_contentPane);
 		return contentPane;
 	}
@@ -173,26 +204,37 @@ public class PannelloContratto extends JPanel implements ActionListener {
 				log.run();
 			}
 		
-		} else if(btnAggiorna == e.getSource()) {
-			btnAggiorna.setText("Aggiorna Elenco");
-			pnlModulo.set("Elenca");
+		} else if(btnPreventivo == e.getSource()) {
+			btnAggiorna.setText("Elenco Contratti");
+			pnlModulo.set("Preventivo");
+			scrollPane2.setViewportView(pnlModulo7);
+			scrollPane3.setViewportView(pnlModulo2);
 		
 		} else if(btnNuovo == e.getSource()) {
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Nuovo");
-		
-		} else if(btnElimina == e.getSource()) {
-			btnAggiorna.setText("Elenco Contratti");
-			pnlModulo.set("Elimina");
-		
-		} else if(btnPreventivo == e.getSource()) {
-			btnAggiorna.setText("Elenco Contratti");
-			pnlModulo.set("Preventivo");
-		
+			scrollPane2.setViewportView(pnlModulo7);
+			scrollPane3.setViewportView(pnlModulo6);
+			
 		} else if(btnModifica == e.getSource()) {
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Modifica");
-		}
+			scrollPane2.setViewportView(pnlModulo4);
+			scrollPane3.setViewportView(pnlModulo5);
+			
+		} else if(btnElimina == e.getSource()) {
+			btnAggiorna.setText("Elenco Contratti");
+			pnlModulo.set("Elimina");
+			scrollPane2.setViewportView(pnlModulo4);
+			scrollPane3.setViewportView(pnlModulo3);
+		
+		} else if(btnAggiorna == e.getSource()) {
+			btnAggiorna.setText("Aggiorna Elenco");
+			pnlModulo.set("Elenca");
+			scrollPane2.setViewportView(pnlModulo2);
+			scrollPane3.setViewportView(pnlModulo3);
+		
+		} 
 	}
 
 /* OVERRIDING METODI toString() ED equals() */

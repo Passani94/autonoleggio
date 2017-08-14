@@ -1,4 +1,4 @@
-package gui.moduli.moduloHome;
+package gui.moduli.moduliOpzionali;
 import javax.swing.*;
 //import javax.swing.event.*;
 import javax.swing.table.*;

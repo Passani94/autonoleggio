@@ -1,4 +1,4 @@
-package gui.moduli.moduloHome;
+package gui.moduli.moduliOpzionali;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -25,7 +25,7 @@ public class ModuloMezziRitorno extends JPanel {
 	
 	private JTable tblRitorno;
 	private JScrollPane scroll = new JScrollPane(tblRitorno);
-	private DBConnect InRitorno = new DBConnect();
+	private DBConnect inRitorno = new DBConnect();
 	
 	/**
 	 * Inizializza un nuovo oggetto ModuloMezziRitorno e richiama il metodo {@code set}.
@@ -43,7 +43,7 @@ public class ModuloMezziRitorno extends JPanel {
 		
 		java.sql.Date DataOggi = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		try {
-			InRitorno.exequery("SELECT n.Cod_Noleggio, n.Tipologia, n.Veicolo, v.Marca, v.Nome, n.Cliente, n.Costo_Totale "
+			inRitorno.exequery("SELECT n.Cod_Noleggio, n.Tipologia, n.Veicolo, v.Marca, v.Nome, n.Cliente, n.Costo_Totale "
 					+ "FROM noleggio n,veicolo v WHERE n.Data_Fine='"+DataOggi+"' AND n.Veicolo=v.Targa","select");
 		} catch (SQLException e) {  
 		JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli in rientro oggi!",
@@ -51,7 +51,7 @@ public class ModuloMezziRitorno extends JPanel {
 				JOptionPane.ERROR_MESSAGE);}
 		
 		tblRitorno = new JTable();
-		tblRitorno.setModel(new CostruisciTabella(InRitorno.rs).model);
+		tblRitorno.setModel(new CostruisciTabella(inRitorno.rs).model);
 		tblRitorno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		TableColumnAdjuster tca = new TableColumnAdjuster(tblRitorno);
 		tca.adjustColumns();		
@@ -103,10 +103,10 @@ public class ModuloMezziRitorno extends JPanel {
 		if (getClass() != obj.getClass())
 			return false;
 		ModuloMezziRitorno other = (ModuloMezziRitorno) obj;
-		if (InRitorno == null) {
-			if (other.InRitorno != null)
+		if (inRitorno == null) {
+			if (other.inRitorno != null)
 				return false;
-		} else if (!InRitorno.equals(other.InRitorno))
+		} else if (!inRitorno.equals(other.inRitorno))
 			return false;
 		if (scroll == null) {
 			if (other.scroll != null)

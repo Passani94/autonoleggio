@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-
+import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -62,6 +62,8 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 	/**
 	 * Si comporta in maniera differente a seconda dell'oggetto String che viene passato come argomento. <br><br>
 	 * 
+	 * - Se viene passato "Principale", <br>
+	 * - Se viene passato "Opzionale", <br>
 	 * - Se viene passato "Nuovo", viene creato il form per aggiungere un nuovo operatore. <br>
 	 * - Se viene passato "Elimina", viene creato il form per eliminare un operatore. <br>
 	 * - Se viene passato "Elenca", viene generato l'elenco degli operatori contenuti nel database.
@@ -70,49 +72,62 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 	 */
 	public void set(String str) {
 		
-		if (str == "Elenca") { 
+		if (str.equals("Principale")) {
 			
-			/* Viene generato l'elenco degli operatori contenuti nel database. */
-			elencoOperatori = new DBConnect();
 			this.removeAll();
-			this.setBorder(BorderFactory.createTitledBorder("Elenco Operatori"));
+			this.setBorder(BorderFactory.createTitledBorder("Pannello Principale"));
 			
-			try {
-				elencoOperatori.exequery("SELECT * FROM operatore","select");
-				
-				tblOperatori = new JTable();
-				tblOperatori.setModel(new CostruisciTabella(elencoOperatori.rs).model);
-				TableColumnAdjuster tca = new TableColumnAdjuster(tblOperatori);
-				tca.adjustColumns();
-				
-				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-				scroll.setViewportView(tblOperatori);
-				
-				elencoOperatori.con.close();
-			} catch (SQLException e) {  
-				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco degli operatori!",
-						"Errore ",
-						JOptionPane.ERROR_MESSAGE);}
+			JLabel lblFunz = new JLabel("Pannello Principale");
+			lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
+			lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			/* Crea il layout per l'elenco degli operatori. */
+			/* Crea il layout iniziale del "Pannello Principale". */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 453, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(103, Short.MAX_VALUE))
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addContainerGap(18, Short.MAX_VALUE)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE,420, GroupLayout.PREFERRED_SIZE)
+							.addGap(170))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
-							.addContainerGap())
+							.addGap(120)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(255, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
-		
+			
+		} else if (str.equals("Opzionale")) {
+			
+			this.removeAll();
+			this.setBorder(BorderFactory.createTitledBorder("Pannello Opzionale"));
+			
+			JLabel lblFunz = new JLabel("Pannello Opzionale");
+			lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
+			lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			/* Crea il layout iniziale del "Pannello Opzionale". */
+			GroupLayout gl_contentPane = new GroupLayout(this);
+			gl_contentPane.setHorizontalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addContainerGap(18, Short.MAX_VALUE)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE,420, GroupLayout.PREFERRED_SIZE)
+							.addGap(170))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(120)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(255, Short.MAX_VALUE))
+				);
+			this.setLayout(gl_contentPane);
+			this.revalidate();
+			
 		} else if (str == "Nuovo") {
 			
 			/* Viene creato il form per aggiungere un operatore. */
@@ -140,17 +155,17 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(27)
+							.addGap(10)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(txtUsername, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
-							.addGap(10))
+								.addComponent(txtUsername, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtPassword, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+							.addGap(20))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap(194, Short.MAX_VALUE)
+							.addContainerGap(160, Short.MAX_VALUE)
 							.addComponent(btnAggiungi)
 							.addGap(177))
 				);
@@ -193,15 +208,15 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(27)
+							.addGap(10)
 							.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
-							.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
-							.addGap(10))
+							.addPreferredGap(ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+							.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+							.addGap(14))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap(188, Short.MAX_VALUE)
+							.addContainerGap(160, Short.MAX_VALUE)
 							.addComponent(btnElimina)
-							.addGap(169))
+							.addGap(177))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -216,6 +231,50 @@ public class ModuloOperatore extends JPanel implements ActionListener{
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
+			
+		} else if (str == "Elenca") { 
+			
+			/* Viene generato l'elenco degli operatori contenuti nel database. */
+			elencoOperatori = new DBConnect();
+			this.removeAll();
+			this.setBorder(BorderFactory.createTitledBorder("Elenco Operatori"));
+			
+			try {
+				elencoOperatori.exequery("SELECT * FROM operatore","select");
+				
+				tblOperatori = new JTable();
+				tblOperatori.setModel(new CostruisciTabella(elencoOperatori.rs).model);
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblOperatori);
+				tca.adjustColumns();
+				
+				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scroll.setViewportView(tblOperatori);
+				
+				elencoOperatori.con.close();
+			} catch (SQLException e) {  
+				JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco degli operatori!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);}
+			
+			/* Crea il layout per l'elenco degli operatori. */
+			GroupLayout gl_contentPane = new GroupLayout(this);
+			gl_contentPane.setHorizontalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 453, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(103, Short.MAX_VALUE))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+							.addContainerGap())
+				);
+			this.setLayout(gl_contentPane);
+			this.revalidate();
+		
 		}
 	}
 	

@@ -1,6 +1,7 @@
 package gui.pannelli;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -29,7 +30,11 @@ public class PannelloOperatore extends JPanel implements ActionListener {
 	private JButton btnEsci = new JButton("Esci");
 	private JButton btnLogout = new JButton("Logout");
 	
-	private ModuloOperatore pnlModulo = new ModuloOperatore("Elenca");
+	private ModuloOperatore pnlModulo = new ModuloOperatore("Principale");
+	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
+	
+	private ModuloOperatore pnlModulo2 = new ModuloOperatore("Opzionale");
+	private JScrollPane scrollPane2 = new JScrollPane(pnlModulo2);
 	
 	private Finestra frame;
 	private JLabel user;
@@ -52,6 +57,14 @@ public class PannelloOperatore extends JPanel implements ActionListener {
 	 * @return il pannello modificato.
 	 */
 	public JPanel run(JPanel contentPane){
+		
+		scrollPane.setViewportView(pnlModulo);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		scrollPane2.setViewportView(pnlModulo2);
+		scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		btnAggiorna.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAggiorna.addActionListener(this); // Action Listener per il bottone Aggiorna.
@@ -81,40 +94,43 @@ public class PannelloOperatore extends JPanel implements ActionListener {
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_contentPane.createSequentialGroup()
 						.addContainerGap()
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(btnNuovo)
+								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
+								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, 492, Short.MAX_VALUE)
 								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(user, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap())
-							.addComponent(pnlModulo, GroupLayout.PREFERRED_SIZE, 506, GroupLayout.PREFERRED_SIZE)
-							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+								.addComponent(user, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_contentPane.createSequentialGroup()
 								.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap())))
+								.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
+							.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
+								.addGap(18)
+								.addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)))
+						.addContainerGap())
 			);
 			gl_contentPane.setVerticalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_contentPane.createSequentialGroup()
 						.addContainerGap()
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-									.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(pnlModulo, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnNuovo, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnElimina, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnAggiorna, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(user, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lbllog, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+							.addComponent(scrollPane2, GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE))
 						.addGap(15)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 							.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
@@ -152,17 +168,21 @@ public class PannelloOperatore extends JPanel implements ActionListener {
 				log.run();
 			}
 		
-		} else if(btnAggiorna == e.getSource()) {
-			btnAggiorna.setText("Aggiorna Elenco");
-			pnlModulo.set("Elenca");
-		
 		} else if(btnNuovo == e.getSource()) {
 			btnAggiorna.setText("Elenco Operatori");
 			pnlModulo.set("Nuovo");
+			pnlModulo2.set("Opzionale");
 		
 		} else if(btnElimina == e.getSource()) {
 			btnAggiorna.setText("Elenco Operatori");
 			pnlModulo.set("Elimina");
+			pnlModulo2.set("Elenca");
+			
+		} else if(btnAggiorna == e.getSource()) {
+			btnAggiorna.setText("Aggiorna Elenco");
+			pnlModulo.set("Elenca");
+			pnlModulo2.set("Opzionale");
+		
 		}
 	}
 
