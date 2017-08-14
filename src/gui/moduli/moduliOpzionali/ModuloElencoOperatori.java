@@ -49,7 +49,6 @@ public class ModuloElencoOperatori extends JPanel {
 		
 		tblOperatori = new JTable();
 		tblOperatori.setModel(new CostruisciTabella(operatori.rs).model);
-		tblOperatori.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		TableColumnAdjuster tca = new TableColumnAdjuster(tblOperatori);
 		tca.adjustColumns();		
 		

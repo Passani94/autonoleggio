@@ -10,6 +10,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import db.DBConnect;
 import utils.CostruisciTabella;
@@ -42,7 +45,7 @@ public class ModuloElencoContratti extends JPanel {
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Contratti"));
 			
 			try {
-				contratti.exequery("SELECT * FROM noleggio","select");
+				contratti.exequery("SELECT Cod_Noleggio, Tipologia, Veicolo, Cliente, Data_Inizio, Data_Fine FROM noleggio","select");
 			} catch (SQLException e) {  
 			JOptionPane.showMessageDialog(null, "Errore, impossibile generare l'elenco dei contratti!",
 					"Errore ",
@@ -53,6 +56,11 @@ public class ModuloElencoContratti extends JPanel {
 			tblContratti.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			TableColumnAdjuster tca = new TableColumnAdjuster(tblContratti);
 			tca.adjustColumns();		
+			
+			JTableHeader header= tblContratti.getTableHeader();
+			TableColumnModel colMod = header.getColumnModel();
+			TableColumn tabCol = colMod.getColumn(0);
+			tabCol.setHeaderValue("Codice");
 			
 			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scroll.setViewportView(tblContratti);

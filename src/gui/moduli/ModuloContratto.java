@@ -221,7 +221,7 @@ public class ModuloContratto extends JPanel implements ActionListener {
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(120)
+							.addGap(60)
 							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(255, Short.MAX_VALUE))
 				);

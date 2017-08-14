@@ -52,7 +52,7 @@ public class ModuloMezziRitorno extends JPanel {
 		
 		tblRitorno = new JTable();
 		tblRitorno.setModel(new CostruisciTabella(inRitorno.rs).model);
-		tblRitorno.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		tblRitorno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		TableColumnAdjuster tca = new TableColumnAdjuster(tblRitorno);
 		tca.adjustColumns();		
 		

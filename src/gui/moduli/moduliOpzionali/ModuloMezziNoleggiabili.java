@@ -28,8 +28,8 @@ import utils.TableColumnAdjuster;
 public class ModuloMezziNoleggiabili extends JPanel{
 	
 	private static final long serialVersionUID = 1L; 
-	private JTable tblDisponibili;
-	private JScrollPane scroll = new JScrollPane(tblDisponibili);
+	private JTable tblNoleggiabili;
+	private JScrollPane scroll = new JScrollPane(tblNoleggiabili);
 	private DBConnect noleggiabili = new DBConnect();
 	private String dataOggi;
 	private Date day;
@@ -98,14 +98,13 @@ public class ModuloMezziNoleggiabili extends JPanel{
 			noleggiabili.exequery("SELECT Targa, Tipologia, Marca, Nome, Alimentazione , "
 					+ "Dimensioni FROM mezzinoleggiabili", "select");
 			
-			tblDisponibili = new JTable();
-			tblDisponibili.setModel(new CostruisciTabella(noleggiabili.rs).model);
-			tblDisponibili.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-			TableColumnAdjuster tca = new TableColumnAdjuster(tblDisponibili);
+			tblNoleggiabili = new JTable();
+			tblNoleggiabili.setModel(new CostruisciTabella(noleggiabili.rs).model);
+			TableColumnAdjuster tca = new TableColumnAdjuster(tblNoleggiabili);
 			tca.adjustColumns();
 			
 			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scroll.setViewportView(tblDisponibili);
+			scroll.setViewportView(tblNoleggiabili);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -191,10 +190,10 @@ public class ModuloMezziNoleggiabili extends JPanel{
 				return false;
 		} else if (!targhe.equals(other.targhe))
 			return false;
-		if (tblDisponibili == null) {
-			if (other.tblDisponibili != null)
+		if (tblNoleggiabili == null) {
+			if (other.tblNoleggiabili != null)
 				return false;
-		} else if (!tblDisponibili.equals(other.tblDisponibili))
+		} else if (!tblNoleggiabili.equals(other.tblNoleggiabili))
 			return false;
 		return true;
 	}

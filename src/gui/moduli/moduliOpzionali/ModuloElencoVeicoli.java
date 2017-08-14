@@ -50,7 +50,7 @@ public class ModuloElencoVeicoli extends JPanel {
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli"));
 			
 			try {
-				veicoli.exequery("SELECT * FROM veicolo","select");
+				veicoli.exequery("SELECT Targa, Tipologia, Marca, Nome, Disponibilita, Alimentazione, Km_Effettuati, Dimensioni FROM veicolo","select");
 			} catch (SQLException e) {  
 				JOptionPane.showMessageDialog(null, "Errore, impossibile generare l'elenco dei veicoli!",
 						"Errore ",
@@ -88,7 +88,7 @@ public class ModuloElencoVeicoli extends JPanel {
 			this.setBorder(BorderFactory.createTitledBorder("Elenco Veicoli Disponibili"));
 		
 			try {
-				veicoli.exequery("SELECT * FROM veicolo WHERE Disponibilita = 'SI'","select");
+				veicoli.exequery("SELECT Targa, Tipologia, Marca, Nome, Alimentazione, Km_Effettuati, Dimensioni FROM veicolo WHERE Disponibilita = 'SI'","select");
 			} catch (SQLException e) {  
 				JOptionPane.showMessageDialog(null, "Errore, impossibile generare l'elenco dei veicoli disponibili!",
 						"Errore ",
