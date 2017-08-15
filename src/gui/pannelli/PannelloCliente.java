@@ -26,7 +26,7 @@ public class PannelloCliente extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L; 
 	
-	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
+	private JButton btnAggiorna = new JButton("Elenco Clienti");
 	private JButton btnNuovo = new JButton("Nuovo Cliente");
 	private JButton btnElimina = new JButton("Elimina Cliente");
 	private JButton btnModifica = new JButton("Modifica Cliente");

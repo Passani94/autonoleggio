@@ -26,7 +26,7 @@ public class PannelloFlotta extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 1L; 
 	
-	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
+	private JButton btnAggiorna = new JButton("Elenco Veicoli");
 	private JButton btnNuovo = new JButton("Nuovo Veicolo");
 	private JButton btnElimina = new JButton("Elimina Veicolo");
 	private JButton btnModifica = new JButton("Modifica Veicolo");

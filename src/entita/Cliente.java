@@ -287,7 +287,7 @@ public class Cliente {
 			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale deve avere 16 caratteri e la Partita IVA 11 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if (rs.length() > 30) {
+		} else if (rs.length() > 40) {
 			content.txtRS.setText("");
 			content.txtRS.requestFocus();
 			check=false;
@@ -301,7 +301,7 @@ public class Cliente {
 			JOptionPane.showMessageDialog(null, "Errore! Il CAP deve essere composto da 5 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if (citta.length() > 20) {
+		} else if (citta.length() > 25) {
 			content.txtCitta.setText("");
 			content.txtCitta.requestFocus();
 			check=false;
@@ -322,7 +322,7 @@ public class Cliente {
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Numero deve essere composto al massimo da 3 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if ((email.length() > 25 || !email.matches(EMAILPATTERN)) && !email.equals("")) {
+		} else if ((email.length() > 30 || !email.matches(EMAILPATTERN)) && !email.equals("")) {
 			content.txtEmail.setText("");
 			content.txtEmail.requestFocus();
 			check=false;

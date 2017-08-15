@@ -29,7 +29,7 @@ public class PannelloContratto extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 1L; 
 	
-	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
+	private JButton btnAggiorna = new JButton("Elenco Contratti");
 	private JButton btnNuovo = new JButton("Nuovo Contratto");
 	private JButton btnElimina = new JButton("Elimina Contratto");
 	private JButton btnPreventivo = new JButton("Calcola Preventivo");

@@ -25,7 +25,7 @@ import gui.moduli.moduliOpzionali.ModuloElencoOperatori;
 public class PannelloOperatore extends JPanel implements ActionListener {
 	
 	private static final long serialVersionUID = 1L; 
-	private JButton btnAggiorna = new JButton("Aggiorna Elenco");
+	private JButton btnAggiorna = new JButton("Elenco Operatori");
 	private JButton btnNuovo = new JButton("Nuovo Operatore");
 	private JButton btnElimina = new JButton("Elimina Operatore");
 	private JButton btnEsci = new JButton("Esci");
