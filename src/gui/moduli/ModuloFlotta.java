@@ -132,6 +132,8 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 	 */
 	public JTextField txtTargaCerca;
 	
+	private JDateChooser dateChooserAlaggio=null;
+	private JDateChooser dateChooserOrmeggio=null;
 	private JButton btnAggiungi;
 	private JButton btnElimina;
 	private JButton btnModifica;
@@ -431,8 +433,6 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			frmtdtxtfldOrmeggio.addFocusListener(this);
 			frmtdtxtfldOrmeggio.setEditable(false);
 			
-			JDateChooser dateChooserOrmeggio=null;
-					
 			try {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
 				dateChooserOrmeggio= new JDateChooser();
@@ -461,7 +461,7 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			frmtdtxtfldAlaggio.addFocusListener(this);
 			frmtdtxtfldAlaggio.setEditable(false);
 			
-			JDateChooser dateChooserAlaggio=null;
+			
 					
 			try {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());		
@@ -495,7 +495,7 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			comboBoxTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxTipologia.setToolTipText("Seleziona una tipologia.");
 			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Autobus_12_Posti", "Autobus_16_Posti", "Autocaravan_4_Posti",
-					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Barca_Motore", "Berlina", "Cabriolet", "Catamarano", "Coup\u00E8",
+					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Barca_Motore", "Berlina", "Cabriolet", "Catamarano", "Coup\u00E9",
 					"Fuoristrada", "Gommone", "Limousine", "Motocicletta", "Multispazio", "Quad_BIke", "Scooter", "SUV", "Utilitaria"}));
 			comboBoxTipologia.addActionListener(new ActionListener() {
 	            
@@ -508,10 +508,23 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 	                Object selected = comboBox.getSelectedItem();
 	                if(selected.toString().equals("Barca_Motore") || selected.toString().equals("Catamarano") || selected.toString().equals("Gommone") ) {
 	                	frmtdtxtfldOrmeggio.setEnabled(true);
+	                	dateChooserOrmeggio.setEnabled(true);	                	
 						frmtdtxtfldAlaggio.setEnabled(true);
+						dateChooserAlaggio.setEnabled(true);
 	                }else {
 	                	frmtdtxtfldOrmeggio.setEnabled(false);
+	                	dateChooserOrmeggio.setEnabled(false);
 						frmtdtxtfldAlaggio.setEnabled(false);
+						dateChooserAlaggio.setEnabled(false);
+	                }
+	                if (selected.toString().equals("Berlina") || selected.toString().equals("Cabriolet") || 
+	                		selected.toString().equals("Coupé") || selected.toString().equals("Fuoristrada") || 	                		
+	                		selected.toString().equals("Multispazio") || selected.toString().equals("SUV") ||
+	                		selected.toString().equals("Utilitaria")) {
+	                	comboBoxLungoTermine.setEnabled(true);
+	                }
+	                else {
+	                	comboBoxLungoTermine.setEnabled(false);     
 	                }
 	            }
 	        });
@@ -526,7 +539,7 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			comboBoxBreveTermine = new JComboBox<>();
 			comboBoxBreveTermine.setToolTipText("Seleziona un costo a breve termine.");
 			comboBoxBreveTermine.setModel(new DefaultComboBoxModel<>(new String[] {"", "Autobus_12_Posti", "Autobus_16_Posti", "Autocaravan_4_Posti",
-					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Automobile_Berlina", "Automobile_Cabriolet", "Automobile_Coup\u00E8",
+					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Automobile_Berlina", "Automobile_Cabriolet", "Automobile_Coup\u00E9",
 					"Automobile_Fuoristrada", "Automobile_Limousine", "Automobile_Multispazio", "Automobile_SUV", "Automobile_Utilitaria", "Imbarcazione_Barca_Motore",
 					"Imbarcazione_Catamarano", "Motociclo_Motocicletta\t", "Motociclo_Scooter", "Natante_Gommone", "Quadriciclo_Quad_Bike"}));
 			comboBoxBreveTermine.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -534,7 +547,7 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			comboBoxBreveTermine.addFocusListener(this);
 			
 			comboBoxLungoTermine = new JComboBox<>();
-			comboBoxLungoTermine.setModel(new DefaultComboBoxModel<>(new String[] {"", "Automobile_Berlina", "Automobile_Cabriolet", "Automobile_Coup\u00E8",
+			comboBoxLungoTermine.setModel(new DefaultComboBoxModel<>(new String[] {"", "Automobile_Berlina", "Automobile_Cabriolet", "Automobile_Coup\u00E9",
 					"Automobile_Fuoristrada", "Automobile_Multispazio", "Automobile_SUV", "Automobile_Utilitaria"}));
 			comboBoxLungoTermine.setToolTipText("Seleziona un costo a lungo termine");
 			comboBoxLungoTermine.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -776,7 +789,7 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 			comboBoxTipologia.setFont(new Font("Arial", Font.PLAIN, 12));
 			comboBoxTipologia.setToolTipText("Seleziona una tipologia.");
 			comboBoxTipologia.setModel(new DefaultComboBoxModel<>(new String[] {"", "Autobus_12_Posti", "Autobus_16_Posti", "Autocaravan_4_Posti",
-					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Barca_Motore", "Berlina", "Cabriolet", "Catamarano", "Coup\u00E8",
+					"Autocaravan_6_Posti", "Autocarro_Cabinato", "Autocarro_Furgonato", "Barca_Motore", "Berlina", "Cabriolet", "Catamarano", "Coup\u00E9",
 					"Fuoristrada", "Gommone", "Limousine", "Motocicletta", "Multispazio", "Quad_BIke", "Scooter", "SUV", "Utilitaria"}));
 			comboBoxTipologia.addFocusListener(this);
 			
