@@ -159,8 +159,8 @@ public class ModuloContratto extends JPanel implements ActionListener {
 	/**
 	 * Si comporta in maniera differente a seconda dell'oggetto String che viene passato come argomento. <br><br>
 	 * 
-	 * - Se viene passato "Principale", viene creato un pannello vuoto recante la scritta "Pannello Principale".<br>
-	 * - Se viene passato "Opzionale", viene creato un pannello vuoto recante la scritta "Pannello Opzionale".<br>
+	* - Se viene passato "Principale", viene creato un modulo vuoto recante la scritta "Modulo Principale".<br>
+	 * - Se viene passato "Opzionale", viene creato un modulo vuoto recante la scritta "Modulo Opzionale".<br>
 	 * - Se viene passato "Preventivo", viene creato il form per calcolare un preventivo. <br>
 	 * - Se viene passato "Passaggio", viene creato il form per aggiungere un contratto, precaricato con i dati del preventivo. <br>
 	 * - Se viene passato "Nuovo", viene creato il form per aggiungere un nuovo contratto. <br>
@@ -175,13 +175,13 @@ public class ModuloContratto extends JPanel implements ActionListener {
 		if (str.equals("Principale")) {
 			
 			this.removeAll();
-			this.setBorder(BorderFactory.createTitledBorder("Pannello Principale"));
+			this.setBorder(BorderFactory.createTitledBorder("Modulo Principale"));
 			
-			JLabel lblFunz = new JLabel("Pannello Principale");
+			JLabel lblFunz = new JLabel("Modulo Principale");
 			lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
 			lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			/* Crea il layout iniziale del "Pannello Principale". */
+			/* Crea il layout iniziale del "Modulo Principale". */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -205,11 +205,11 @@ public class ModuloContratto extends JPanel implements ActionListener {
 			this.removeAll();
 			this.setBorder(BorderFactory.createTitledBorder("Pannello Opzionale"));
 			
-			JLabel lblFunz = new JLabel("Pannello Opzionale");
+			JLabel lblFunz = new JLabel("Modulo Opzionale");
 			lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
 			lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
 			
-			/* Crea il layout iniziale del "Pannello Opzionale". */
+			/* Crea il layout iniziale del "Modulo Opzionale". */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
