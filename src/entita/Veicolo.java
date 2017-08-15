@@ -202,10 +202,14 @@ public class Veicolo {
 					
 					if (veicolo.rs.getString(2).equals("Barca_Motore") || veicolo.rs.getString(2).equals("Catamarano") || veicolo.rs.getString(2).equals("Gommone")) {
 						content.frmtdtxtfldOrmeggio.setEnabled(true);
+						content.dateChooserOrmeggio.setEnabled(true);
 						content.frmtdtxtfldAlaggio.setEnabled(true);
+						content.dateChooserAlaggio.setEnabled(true);
 					} else {
 						content.frmtdtxtfldOrmeggio.setEnabled(false);
+						content.dateChooserOrmeggio.setEnabled(false);
 						content.frmtdtxtfldAlaggio.setEnabled(false);	
+						content.dateChooserAlaggio.setEnabled(false);
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Errore! Non è presente un veicolo con tale targa!",
