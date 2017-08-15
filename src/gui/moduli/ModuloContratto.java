@@ -159,100 +159,76 @@ public class ModuloContratto extends JPanel implements ActionListener {
 	/**
 	 * Si comporta in maniera differente a seconda dell'oggetto String che viene passato come argomento. <br><br>
 	 * 
+	* - Se viene passato "Principale", viene creato un modulo vuoto recante la scritta "Modulo Principale".<br>
+	 * - Se viene passato "Opzionale", viene creato un modulo vuoto recante la scritta "Modulo Opzionale".<br>
 	 * - Se viene passato "Preventivo", viene creato il form per calcolare un preventivo. <br>
 	 * - Se viene passato "Passaggio", viene creato il form per aggiungere un contratto, precaricato con i dati del preventivo. <br>
 	 * - Se viene passato "Nuovo", viene creato il form per aggiungere un nuovo contratto. <br>
 	 * - Se viene passato "Modifica", viene creato il form per modificare un contratto. <br>
 	 * - Se viene passato "Elimina", viene creato il form per eliminare un contratto. <br>
-	 * - Se viene passato "Elenca", viene generato l'elenco dei contratti contenuti nel database.
+	 * - Se viene passato "Elenca", viene creato l'elenco dei contratti contenuti nel database.
 	 * 
 	 * @param str una stringa che determina cosa verrà mostrato a schermo.
 	 */
 	public void set(String str){
 		
-		 if (str.equals("Elenca")) {
+		if (str.equals("Principale")) {
 			
-			/* Viene generato l'elenco dei contratti contenuti nel database. */
-			elencoContratti = new DBConnect();			
-				this.removeAll();
-				this.setBorder(BorderFactory.createTitledBorder("Elenco Contratti"));
-
-				try {
-					elencoContratti.exequery("SELECT * FROM noleggio","select");
-					
-					tblNoleggi = new JTable();
-					tblNoleggi.setModel(new CostruisciTabella(elencoContratti.rs).model);
-					tblNoleggi.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-					TableColumnAdjuster tca = new TableColumnAdjuster(tblNoleggi);
-					tca.adjustColumns();
-					
-					scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-					scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-					scroll.setViewportView(tblNoleggi);
-					
-					elencoContratti.con.close();
-				} catch (SQLException e) {
-					JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco noleggi!",
-						"Errore ",
-						JOptionPane.ERROR_MESSAGE);
-				}
-				
-				JLabel lblCliente = new JLabel("Cliente da filtrare");
-				lblCliente.setFont(new Font("Arial", Font.BOLD, 13));
-				
-				txtCliente = new JTextField();
-				txtCliente.setColumns(10);
-				
-				JLabel lblVeicoloDaFiltrare = new JLabel("Veicolo da filtrare");
-				lblVeicoloDaFiltrare.setFont(new Font("Arial", Font.BOLD, 13));
-				
-				txtVeicolo = new JTextField();
-				txtVeicolo.setColumns(10);
-				
-				btnFiltra = new JButton("Filtra Contratti");
-				btnFiltra.addActionListener(this); 	// Action Listener per il bottone Filtra.
-				
-				/* Crea il layout per l'elenco dei contratti. */
-				GroupLayout gl_contentPane = new GroupLayout(this);
-				gl_contentPane.setHorizontalGroup(
-						gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 452, GroupLayout.PREFERRED_SIZE)
-									.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-											.addComponent(txtCliente)
-											.addComponent(lblCliente, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addGap(18)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-											.addComponent(lblVeicoloDaFiltrare, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(txtVeicolo, Alignment.TRAILING))
-										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(btnFiltra, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-										.addGap(17)))
-								.addGap(28))
-					);
-					gl_contentPane.setVerticalGroup(
-						gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
-								.addGap(18)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-									.addComponent(lblCliente)
-									.addComponent(lblVeicoloDaFiltrare, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-									.addComponent(txtCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnFiltra))
-								.addContainerGap())
-					);
-				this.setLayout(gl_contentPane);
-				this.revalidate();
+			this.removeAll();
+			this.setBorder(BorderFactory.createTitledBorder("Modulo Principale"));
 			
-		 } else if (str.equals("Preventivo")) {
+			JLabel lblFunz = new JLabel("Modulo Principale");
+			lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
+			lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			/* Crea il layout iniziale del "Modulo Principale". */
+			GroupLayout gl_contentPane = new GroupLayout(this);
+			gl_contentPane.setHorizontalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addContainerGap(18, Short.MAX_VALUE)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE,420, GroupLayout.PREFERRED_SIZE)
+							.addGap(170))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(120)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(255, Short.MAX_VALUE))
+				);
+			this.setLayout(gl_contentPane);
+			this.revalidate();
+			
+		} else if (str.equals("Opzionale")) {
+			
+			this.removeAll();
+			this.setBorder(BorderFactory.createTitledBorder("Pannello Opzionale"));
+			
+			JLabel lblFunz = new JLabel("Modulo Opzionale");
+			lblFunz.setHorizontalAlignment(SwingConstants.CENTER);
+			lblFunz.setFont(new Font("Arial", Font.BOLD, 14));
+			
+			/* Crea il layout iniziale del "Modulo Opzionale". */
+			GroupLayout gl_contentPane = new GroupLayout(this);
+			gl_contentPane.setHorizontalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addContainerGap(18, Short.MAX_VALUE)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE,420, GroupLayout.PREFERRED_SIZE)
+							.addGap(170))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(60)
+							.addComponent(lblFunz, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(255, Short.MAX_VALUE))
+				);
+			this.setLayout(gl_contentPane);
+			this.revalidate();
+			
+		} else if (str.equals("Preventivo")) {
 			
 			/* Viene creato il form per calcolare un preventivo. */
 			this.removeAll();
@@ -1084,7 +1060,7 @@ public class ModuloContratto extends JPanel implements ActionListener {
 			txtContrattoCerca = new JTextField();
 			txtContrattoCerca.setFont(new Font("Arial", Font.PLAIN, 12));
 			
-			JLabel lblContrattoCerca = new JLabel("Codice contratto da Modificare ");
+			JLabel lblContrattoCerca = new JLabel("Codice Contratto da Modificare ");
 			lblContrattoCerca.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			btnModificaC = new JButton("Modifica Contratto");
@@ -1465,7 +1441,89 @@ public class ModuloContratto extends JPanel implements ActionListener {
 			this.setLayout(gl_contentPane);
 			this.revalidate();
 		
-		}
+		} else if (str.equals("Elenca")) {
+			
+			/* Viene generato l'elenco dei contratti contenuti nel database. */
+			elencoContratti = new DBConnect();			
+				this.removeAll();
+				this.setBorder(BorderFactory.createTitledBorder("Elenco Contratti"));
+
+				try {
+					elencoContratti.exequery("SELECT * FROM noleggio","select");
+					
+					tblNoleggi = new JTable();
+					tblNoleggi.setModel(new CostruisciTabella(elencoContratti.rs).model);
+					tblNoleggi.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+					TableColumnAdjuster tca = new TableColumnAdjuster(tblNoleggi);
+					tca.adjustColumns();
+					
+					scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+					scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+					scroll.setViewportView(tblNoleggi);
+					
+					elencoContratti.con.close();
+				} catch (SQLException e) {
+					JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco noleggi!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+				}
+				
+				JLabel lblCliente = new JLabel("Cliente da filtrare");
+				lblCliente.setFont(new Font("Arial", Font.BOLD, 13));
+				
+				txtCliente = new JTextField();
+				txtCliente.setColumns(10);
+				
+				JLabel lblVeicoloDaFiltrare = new JLabel("Veicolo da filtrare");
+				lblVeicoloDaFiltrare.setFont(new Font("Arial", Font.BOLD, 13));
+				
+				txtVeicolo = new JTextField();
+				txtVeicolo.setColumns(10);
+				
+				btnFiltra = new JButton("Filtra Contratti");
+				btnFiltra.addActionListener(this); 	// Action Listener per il bottone Filtra.
+				
+				/* Crea il layout per l'elenco dei contratti. */
+				GroupLayout gl_contentPane = new GroupLayout(this);
+				gl_contentPane.setHorizontalGroup(
+						gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addContainerGap()
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+									.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 452, GroupLayout.PREFERRED_SIZE)
+									.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+											.addComponent(txtCliente)
+											.addComponent(lblCliente, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addGap(18)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(lblVeicoloDaFiltrare, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(txtVeicolo, Alignment.TRAILING))
+										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnFiltra, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+										.addGap(17)))
+								.addGap(28))
+					);
+					gl_contentPane.setVerticalGroup(
+						gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+								.addContainerGap()
+								.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+								.addGap(18)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+									.addComponent(lblCliente)
+									.addComponent(lblVeicoloDaFiltrare, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+									.addComponent(txtCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnFiltra))
+								.addContainerGap())
+					);
+				this.setLayout(gl_contentPane);
+				this.revalidate();
+			
+		 }
 	}
 		
 	/**

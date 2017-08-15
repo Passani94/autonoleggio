@@ -126,12 +126,12 @@ public class ModuloExtra extends JPanel implements ActionListener {
 			this.setBorder(BorderFactory.createTitledBorder("Elenco veicoli più noleggiati"));
 			
 			try {
-				extra.exequery("SELECT COUNT(*) as Numero_Noleggi, b.Targa, b.Tipologia, b.Marca, b.Nome, b.Disponibilita "
+				extra.exequery("SELECT COUNT(*) as Numero_Noleggi, b.Targa, b.Tipologia, b.Marca, b.Nome "
 						+ "FROM noleggio a INNER JOIN veicolo b ON a.Veicolo = b.Targa GROUP BY b.Targa ORDER BY Numero_Noleggi DESC","select");
 				
 				tblVeicoli = new JTable();
 				tblVeicoli.setModel(new CostruisciTabella(extra.rs).model);
-				tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 				
 				JTableHeader header= tblVeicoli.getTableHeader();
 				TableColumnModel colMod = header.getColumnModel();
@@ -158,7 +158,7 @@ public class ModuloExtra extends JPanel implements ActionListener {
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(10)
-							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
+							.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 450, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap(54, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
@@ -166,7 +166,7 @@ public class ModuloExtra extends JPanel implements ActionListener {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(10)
 							.addComponent(scroll, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-							.addContainerGap())
+							.addGap(10))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
@@ -244,7 +244,7 @@ public class ModuloExtra extends JPanel implements ActionListener {
 							.addComponent(comboBoxAnnoMensile, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGap(30)
 						.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(560, Short.MAX_VALUE))
+						.addContainerGap(300, Short.MAX_VALUE))
 			);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
@@ -316,7 +316,7 @@ public class ModuloExtra extends JPanel implements ActionListener {
 								.addComponent(btnProfittoA))
 							.addGap(30)
 							.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(560, Short.MAX_VALUE))
+							.addContainerGap(300, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();

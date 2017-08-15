@@ -14,9 +14,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import autonoleggio.Login;
 import gui.finestre.Finestra;
-import gui.moduli.moduloHome.ModuloCalendario;
-import gui.moduli.moduloHome.ModuloMezziNoleggiabili;
-import gui.moduli.moduloHome.ModuloMezziRitorno;
+import gui.moduli.moduliOpzionali.ModuloCalendario;
+import gui.moduli.moduliOpzionali.ModuloMezziNoleggiabili;
+import gui.moduli.moduliOpzionali.ModuloMezziRitorno;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -116,7 +116,7 @@ public class PannelloHome extends JPanel implements ActionListener {
 						.addComponent(btnEsci, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
-		cal.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		cal.setLayout(new FlowLayout(FlowLayout.LEADING, 50, 5));
 		contentPane.setLayout(gl_contentPane);
 		return contentPane;
 	}

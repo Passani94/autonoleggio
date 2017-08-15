@@ -1,65 +1,63 @@
-package gui.moduli.moduloHome;
+package gui.moduli.moduliOpzionali;
 
 import java.sql.SQLException;
-import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.GroupLayout.Alignment;
 
 import db.DBConnect;
 import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
 /**
- * La classe ModuloMezziRitorno genera l'elenco dei mezzi in ritorno nella data odierna.
+ * La classe ModuloElencoPrezziExtra genera il tarifarrio per il kilometraggio extra.
  */
-public class ModuloMezziRitorno extends JPanel {
+public class ModuloElencoPrezziExtra extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 	
-	private static final long serialVersionUID = 1L; 
-	
-	private JTable tblRitorno;
-	private JScrollPane scroll = new JScrollPane(tblRitorno);
-	private DBConnect InRitorno = new DBConnect();
+	private JTable tblPrezzi;
+	private JScrollPane scroll = new JScrollPane(tblPrezzi);
+	private DBConnect prezzi = new DBConnect();
 	
 	/**
-	 * Inizializza un nuovo oggetto ModuloMezziRitorno e richiama il metodo {@code set}.
+	 * Inizializza un nuovo oggetto ModuloElencoPrezziExtra e richiama il metodo {@code set}.
 	 */
-	public ModuloMezziRitorno() {
+	public ModuloElencoPrezziExtra() {
 		set();
 	}
 	
 	/**
-	 * Costruisce l'elenco dei mezzi in ritorno nella data odierna.
+	 * Costruisce il tarifarrio per il kilometraggio extra.
 	 */
 	public void set() {
 		
-		this.setBorder(BorderFactory.createTitledBorder("Mezzi in Ritorno Oggi"));
+		this.setBorder(BorderFactory.createTitledBorder("Tariffario Km Extra"));
 		
-		java.sql.Date DataOggi = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		try {
-			InRitorno.exequery("SELECT n.Cod_Noleggio, n.Tipologia, n.Veicolo, v.Marca, v.Nome, n.Cliente, n.Costo_Totale "
-					+ "FROM noleggio n,veicolo v WHERE n.Data_Fine='"+DataOggi+"' AND n.Veicolo=v.Targa","select");
+			prezzi.exequery("SELECT v.Targa, v.Nome, v.Km_Effettuati, b.Km_al_Giorno, b.Km_Extra "
+					+ "FROM veicolo v, breve_termine b WHERE v.Costobt = b.Cod_BT","select");
 		} catch (SQLException e) {  
-		JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli in rientro oggi!",
+		JOptionPane.showMessageDialog(null, "Errore, impossibile generare il tarifarrio per il kilometraggio extra!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);}
 		
-		tblRitorno = new JTable();
-		tblRitorno.setModel(new CostruisciTabella(InRitorno.rs).model);
-		tblRitorno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		TableColumnAdjuster tca = new TableColumnAdjuster(tblRitorno);
+		tblPrezzi = new JTable();
+		tblPrezzi.setModel(new CostruisciTabella(prezzi.rs).model);
+		tblPrezzi.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		TableColumnAdjuster tca = new TableColumnAdjuster(tblPrezzi);
 		tca.adjustColumns();		
 		
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setViewportView(tblRitorno);
+		scroll.setViewportView(tblPrezzi);
 		
-		/* Crea il layout per l'elenco dei mezzi in ritorno nella data odierna. */
+		/* Crea il layout per il tarifarrio per il kilometraggio extra. */
 		GroupLayout gl_contentPane = new GroupLayout(this);
 		gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -78,6 +76,7 @@ public class ModuloMezziRitorno extends JPanel {
 		this.setLayout(gl_contentPane);
 	}
 
+
 /* OVERRIDING METODI toString() ED equals() */
 	
 	/**
@@ -86,8 +85,9 @@ public class ModuloMezziRitorno extends JPanel {
 	 * @return una stringa rappresentante l'oggetto.
 	 */
 	public String toString() {
-		return "ModuloMezziRitorno [La classe ModuloMezziRitorno genera l'elenco dei mezzi in ritorno nella data odierna.]";
+		return "ModuloPrezziExtra [La classe ModuloElencoPrezziExtra genera il tarifarrio per il kilometraggio extra.]";
 	}
+
 
 	/**
 	 * Confronta questo oggetto con quello passato come argomento.
@@ -102,22 +102,25 @@ public class ModuloMezziRitorno extends JPanel {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ModuloMezziRitorno other = (ModuloMezziRitorno) obj;
-		if (InRitorno == null) {
-			if (other.InRitorno != null)
+		ModuloElencoPrezziExtra other = (ModuloElencoPrezziExtra) obj;
+		if (prezzi == null) {
+			if (other.prezzi != null)
 				return false;
-		} else if (!InRitorno.equals(other.InRitorno))
+		} else if (!prezzi.equals(other.prezzi))
 			return false;
 		if (scroll == null) {
 			if (other.scroll != null)
 				return false;
 		} else if (!scroll.equals(other.scroll))
 			return false;
-		if (tblRitorno == null) {
-			if (other.tblRitorno != null)
+		if (tblPrezzi == null) {
+			if (other.tblPrezzi != null)
 				return false;
-		} else if (!tblRitorno.equals(other.tblRitorno))
+		} else if (!tblPrezzi.equals(other.tblPrezzi))
 			return false;
 		return true;
-	}	
-}	
+	}
+	
+	
+	
+}

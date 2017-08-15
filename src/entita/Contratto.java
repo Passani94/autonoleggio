@@ -4,10 +4,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import db.DBConnect;
+import gui.moduli.ModuloContratto;
+
 import java.sql.SQLException;
 
-
-import gui.moduli.ModuloContratto;
 import utils.CostruisciTabella;
 import utils.TableColumnAdjuster;
 
