@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Ago 16, 2017 alle 23:01
+-- Creato il: Ago 17, 2017 alle 00:38
 -- Versione del server: 10.1.25-MariaDB
 -- Versione PHP: 7.1.7
 
@@ -171,7 +171,44 @@ CREATE TABLE `noleggio` (
 --
 
 INSERT INTO `noleggio` (`Cod_Noleggio`, `Tipologia`, `Veicolo`, `Cliente`, `Data_Inizio`, `Data_Fine`, `Costo_Totale`, `Acconto`, `Cognome`, `Nome`, `Num_Patente`, `Valida_Fino_a`, `Rilasciata_Da`, `Rilasciata_Il`) VALUES
-(1, 'Lungo', 'BA456ER', 'MRTSRN73H13H501X', '2016-01-10', '2017-01-10', '4440.00', NULL, 'Severino', 'Moretti', 'RM1234567M', '2022-10-08', 'MC-RM', '2012-10-08');
+(1, 'Lungo', 'BA456ER', 'MRTSRN73H13H501X', '2016-01-10', '2017-01-10', '4440.00', '1500.00', 'Severino', 'Moretti', 'RM1234567M', '2022-10-08', 'MC-RM', '2012-10-08'),
+(2, 'Breve', 'DH179PK', 'MRCNRO73S55E202J', '2016-02-05', '2016-02-15', '1440.00', NULL, 'Marchesi', 'Nora', 'GR2341567P', '2021-11-09', 'MC-GR', '2011-11-09'),
+(3, 'Breve', 'EB000LA', 'LGGPLT55B13A271X', '2016-02-16', '2016-02-18', '207.00', NULL, 'Loggia', 'Ippolito', 'AN1205671G', '2020-08-08', 'MC-AN', '2010-08-08'),
+(4, 'Breve', 'EJ789VK', 'FLLVIA96R61I754S', '2016-03-01', '2016-03-07', '1005.00', NULL, 'Folliero', 'Iva', 'SR5734310Z', '2017-12-12', 'MC-SR', '2007-12-12'),
+(5, 'Lungo', 'DJ123RD', 'CLMCTN74P26E098H', '2016-03-05', '2017-03-05', '4680.00', '2500.00', 'Catone', 'Colombo', 'GO5790015A', '2018-01-01', 'MC-GO', '2008-01-01'),
+(6, 'Lungo', 'ER954AD', '06672120158', '2016-04-02', '2016-04-02', '86.00', NULL, 'Dellucci', 'Martino', 'MI5078901B', '2019-07-07', 'MC-MI', '2009-07-07'),
+(7, 'Breve', 'X269DL', 'GDTGLL76B59G478N', '2016-04-10', '2016-04-14', '150.00', NULL, 'Gallo', 'Giuditta', 'SI7335049Y', '2019-09-09', 'MC-SI', '2010-09-09'),
+(8, 'Breve', 'BC567DE', '01863160675', '2016-05-29', '2016-05-29', '400.00', NULL, 'Sabbatini', 'Nadia', 'TE2634647B', '2021-08-08', 'MC-TE', '2011-08-01'),
+(9, 'Breve', 'AA12345', 'SLAFNZ83M04E506Z', '2016-05-14', '2016-05-17', '304.00', NULL, 'Sal', 'Fiorenzo', 'LE2344413C', '2022-05-05', 'MC-LE', '2012-05-05'),
+(10, 'Breve', 'ZA709TZ', 'MRCCLL90E50G224L', '2016-06-16', '2016-06-22', '860.00', NULL, 'Marchesi ', 'Camilla', 'PV7030201F', '2018-01-01', 'MC-PV', '2008-01-01'),
+(11, 'Breve', 'ZC829PA', 'MZZDNT86D10H199X', '2016-06-25', '2016-06-28', '620.00', NULL, 'Mazzi', 'Durante', 'TN8099017T', '2023-06-06', 'MC-TN', '2013-06-06'),
+(12, 'Lungo', 'DH179PK', 'MRCNTL83M44A952G', '2016-07-04', '2017-07-04', '4680.00', '2500.00', 'Marcelo', 'Natalia', 'BZ9288114C', '2023-07-07', 'MC-BZ', '2013-07-07'),
+(13, 'Breve', 'EB000LA', 'GRCSTN83H52H703G', '2016-07-15', '2016-07-18', '276.00', NULL, 'Greco', 'Santina', 'SA7123553F', '2017-11-11', 'MC-SA', '2007-11-11'),
+(14, 'Breve', 'FI777GA', '91033760447', '2016-08-04', '2016-08-07', '688.00', NULL, 'Mancini', 'Siro', 'AP9150290R', '2019-12-12', 'MC-AP', '2009-12-12'),
+(15, 'Breve', '4PC123', '05935650969', '2016-08-17', '2016-08-22', '25920.00', NULL, 'Diamante', 'Marino', 'BO1021050A', '2025-07-06', 'MC-BO', '2015-07-06'),
+(16, 'Breve', 'DT765PC', '00061290672', '2016-09-02', '2016-09-07', '870.00', NULL, 'Bianchi', 'Luisa', 'TE8221421B', '2019-01-10', 'MC-TE', '2009-01-10'),
+(17, 'Breve', 'X269DL', 'MNLMRS71R64A662K', '2016-09-14', '2016-09-17', '128.00', NULL, 'Monaldo', 'Marisa', 'BT1000567D', '2019-09-09', 'MC-BT', '2009-09-09'),
+(18, 'Breve', 'BA567TA', 'SCSVLR94T06C134G', '2016-10-11', '2016-10-18', '730.00', NULL, 'Scisci', 'Valerio', 'PE2052051F', '2022-05-05', 'MC-PE', '2012-05-05'),
+(19, 'Lungo', 'DC123AB', 'MZZDNT86D10H199X', '2016-10-21', '2017-10-21', '5640.00', '3500.00', 'Mazzi', 'Durante', 'TN8099017T', '2023-06-06', 'MC-TN', '2013-06-06'),
+(20, 'Breve', 'FI777GA', '91033760447', '2016-11-12', '2016-11-17', '1080.00', NULL, 'Mancini', 'Siro', 'AP9150290R', '2019-12-12', 'MC-AP', '2009-12-12'),
+(21, 'Breve', 'BC567DE', 'CMPPLA95S18I348F', '2016-11-18', '2016-11-18', '400.00', NULL, 'Compagnoni', 'Paolo', 'TE1457896A', '2023-12-12', 'MC-TE', '2013-12-12'),
+(22, 'Breve', 'FI777GA', '01634280679', '2017-01-01', '2017-01-07', '1080.00', NULL, 'Zettici', 'Clemente', 'TE5612983B', '2019-10-10', 'MC-TE', '2009-10-10'),
+(23, 'Breve', 'DR675CD', 'MRTSRN73H13H501X', '2017-01-15', '2017-01-22', '420.00', NULL, 'Moretti', 'Severino', 'RM1234567M', '2022-10-08', 'MC-RM', '2012-10-08'),
+(24, 'Breve', 'DE789PE', 'MRCNRO73S55E202J', '2017-02-01', '2017-01-09', '1190.00', NULL, 'Marchesi', 'Nora', 'GR2341567P', '2021-11-09', 'MC-GR', '2011-11-09'),
+(25, 'Breve', 'DR657CD', 'SLAFNZ83M04E506Z', '2017-02-02', '2017-02-07', '410.00', NULL, 'Sal', 'Fiorenzo', 'LE2344413C', '2022-05-05', 'MC-LE', '2012-05-05'),
+(26, 'Lungo', 'BA456ER', '00061290672', '2017-03-01', '2018-03-01', '3996.00', '3500.00', 'Bianchi', 'Luisa', 'TE8221421B', '2019-01-10', 'MC-TE', '2009-01-10'),
+(27, 'Breve', 'FI777GA', '01898110679', '2017-03-03', '2017-03-07', '840.00', NULL, 'Bellucci', 'Smeralda', 'TE4376841G', '2017-12-15', 'MC-TE', '2007-12-15'),
+(28, 'Breve', 'ZC829PA', 'LGGPLT55B13A271X', '2017-04-02', '2017-04-07', '860.00', NULL, 'Loggia', 'Ippolito', 'AN1205671G', '2020-08-08', 'MC-AN', '2010-08-08'),
+(29, 'Breve', '4PC123', '00179300447', '2017-04-04', '2017-04-04', '5000.00', NULL, 'Costa', 'Marcella', 'AP1296854A', '2017-10-10', 'MC-AP', '2007-10-10'),
+(30, 'Lungo', 'DJ123RD', '01863160675', '2017-05-14', '2018-05-14', '4212.00', '2500.00', 'Boni', 'Eleonora', 'TE5671234X', '2018-09-09', 'MC-TE', '2008-09-09'),
+(31, 'Breve', 'BC567DE', 'BBDLNZ94E29H769Q', '2017-05-29', '2017-05-30', '770.00', NULL, 'Abbadini', 'Lorenzo', 'TE1234567A', '2022-09-05', 'MC-TE', '2012-09-05'),
+(32, 'Breve', '8PC789', '06996881006', '2017-06-10', '2017-06-10', '150.00', NULL, 'Fiorentini', 'Sandro', 'RM5643789S', '2021-12-12', 'MC-RM', '2011-12-12'),
+(33, 'Breve', 'AA12345', 'CLMCTN74P26E098H', '2017-06-18', '2017-06-19', '156.00', NULL, 'Catone', 'Colombo', 'GO5790015A', '2018-01-01', 'MC-GO', '2008-01-01'),
+(34, 'Lungo', 'DV145FD', '00179300447', '2017-07-09', '2018-07-09', '3996.00', '3500.00', 'Schiavone', 'Azzurra', 'AP5469812A', '2019-06-06', 'MC-AP', '2009-06-06'),
+(35, 'Lungo', 'BB105FD', '01846840674', '2017-07-11', '2018-07-11', '4644.00', '3500.00', 'Padovano', 'Savino', 'TE456123A', '2025-05-05', 'MC-TE', '2015-05-05'),
+(36, 'Breve', 'EB000LA', 'BBDLNZ94E29H769Q', '2017-08-27', '2017-09-05', '650.00', NULL, 'Abbadini', 'Lorenzo', 'TE1234567A', '2022-09-05', 'MC-TE', '2012-09-05'),
+(37, 'Breve', 'ER954AD', 'CMPPLA95S18I348F', '2017-08-28', '2017-09-05', '570.00', NULL, 'Compagnoni', 'Paolo', 'TE1457896A', '2023-12-12', 'MC-TE', '2013-12-12'),
+(38, 'Breve', 'DR657CD', 'SCSVLR94T06C134G', '2017-08-29', '2017-09-05', '490.00', NULL, 'Scisci', 'Valerio', 'PE2052051F', '2022-05-05', 'MC-PE', '2012-05-05');
 
 -- --------------------------------------------------------
 
@@ -299,7 +336,7 @@ ALTER TABLE `veicolo`
 -- AUTO_INCREMENT per la tabella `noleggio`
 --
 ALTER TABLE `noleggio`
-  MODIFY `Cod_Noleggio` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;COMMIT;
+  MODIFY `Cod_Noleggio` mediumint(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

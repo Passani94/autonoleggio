@@ -392,7 +392,7 @@ public class Preventivo {
 				    			((giorniNoleggio==732 || giorniNoleggio==733) && tipologia.matches(LUNGO)) || 
 				    				((giorniNoleggio==1098 || giorniNoleggio==1099) && tipologia.matches(LUNGO))) {
 				    		JOptionPane.showMessageDialog(null, "L'acconto da pagare è di "+ acconto + " €.",
-				    				"Anticipo", JOptionPane.INFORMATION_MESSAGE);
+				    				"Acconto", JOptionPane.INFORMATION_MESSAGE);
 				    	}
 				    }
 				} else { 

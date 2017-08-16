@@ -133,12 +133,12 @@ public class ModuloFlotta extends JPanel implements ActionListener, FocusListene
 	public JTextField txtTargaCerca;
 	
 	/**
-	 * Il pulsante per selezionare la data di alaggio.
+	 * Il pulsante per selezionare la data di scadenza alaggio.
 	 */
 	public JDateChooser dateChooserAlaggio=null;
 	
 	/**
-	 * Il pulsante per selezionare la data di ormeggio.
+	 * Il pulsante per selezionare la data di scadenza ormeggio.
 	 */
 	public JDateChooser dateChooserOrmeggio=null;
 	private JButton btnAggiungi;
