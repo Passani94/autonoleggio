@@ -41,7 +41,7 @@ public class ModuloElencoClienti extends JPanel {
 		this.setBorder(BorderFactory.createTitledBorder("Elenco Clienti"));
 		
 		try {
-			clienti.exequery("SELECT * FROM cliente","select");
+			clienti.exequery("SELECT * FROM cliente ORDER BY Tipologia, Ragione_Sociale","select");
 		} catch (SQLException e) {  
 		JOptionPane.showMessageDialog(null, "Errore, impossibile generare l'elenco dei clienti!",
 				"Errore ",

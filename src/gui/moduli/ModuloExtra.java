@@ -244,7 +244,7 @@ public class ModuloExtra extends JPanel implements ActionListener {
 							.addComponent(comboBoxAnnoMensile, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGap(30)
 						.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(300, Short.MAX_VALUE))
+						.addContainerGap(200, Short.MAX_VALUE))
 			);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
@@ -316,7 +316,7 @@ public class ModuloExtra extends JPanel implements ActionListener {
 								.addComponent(btnProfittoA))
 							.addGap(30)
 							.addComponent(lblProfitto, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(300, Short.MAX_VALUE))
+							.addContainerGap(200, Short.MAX_VALUE))
 				);
 			this.setLayout(gl_contentPane);
 			this.revalidate();
