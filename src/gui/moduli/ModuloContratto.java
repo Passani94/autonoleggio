@@ -133,6 +133,11 @@ public class ModuloContratto extends JPanel implements ActionListener {
 	 */
 	public JFormattedTextField frmtdtxtfldRilasciatail;
 	
+	/**
+	 *Il combo box dal quale selezionare la tipologia di cliente.
+	 */
+	public JComboBox <String> comboBoxTipologiaCliente;
+
 	private JButton btnAggiungi;
 	private JButton btnCalcola;
 	private JButton btnFiltra;
@@ -140,6 +145,7 @@ public class ModuloContratto extends JPanel implements ActionListener {
 	private JButton btnElimina;
 	private JButton btnCerca;
 	private JButton btnModificaC;
+	private JLabel lblTipologiaCliente;	
 	private JScrollPane scroll = new JScrollPane(tblNoleggi);
 	
 	private Contratto contratto;
@@ -316,66 +322,86 @@ public class ModuloContratto extends JPanel implements ActionListener {
 		
 			btnPassaAContratto = new JButton("Passa a Contratto");
 			btnPassaAContratto.setFont(new Font("Arial", Font.PLAIN, 12));
-			btnPassaAContratto.addActionListener(this);
+			btnPassaAContratto.addActionListener(this);			
+
+			comboBoxTipologiaCliente = new JComboBox <>();
+			comboBoxTipologiaCliente.setToolTipText("Seleziona la tipologia di cliente.\r\n");
+			comboBoxTipologiaCliente.setModel(new DefaultComboBoxModel <>(new String[] {"", "Associazione", "Azienda", "Privato"}));
+			comboBoxTipologiaCliente.setBackground(Color.WHITE);
+			
+			lblTipologiaCliente = new JLabel("Tipologia Cliente");
+			lblTipologiaCliente.setFont(new Font("Arial", Font.BOLD, 14));
 		
 			/* Crea il layout del form per il calcolo del preventivo. */
 			GroupLayout gl_contentPane = new GroupLayout(this);
 			gl_contentPane.setHorizontalGroup(
-				gl_contentPane.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_contentPane.createSequentialGroup()
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addGap(30)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-									.addComponent(lblVeicolo, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblInizio, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblFine, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
-								.addGap(76)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(frmtdtxtfldInizio)
-									.addComponent(frmtdtxtfldFine)
-									.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-									.addComponent(dateChooserInizio, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-									.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addGap(94)
-								.addComponent(lblPreventivo, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE))
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addGap(61)
-								.addComponent(btnCalcola)
-								.addGap(49)
-								.addComponent(btnPassaAContratto)))
-						.addContainerGap(129, Short.MAX_VALUE))
-			);
-			gl_contentPane.setVerticalGroup(
-				gl_contentPane.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_contentPane.createSequentialGroup()
-						.addGap(37)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblVeicolo)
-							.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addComponent(dateChooserInizio, GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(10)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblFine, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblInizio, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblVeicolo, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblTipologiaCliente))
+									.addGap(76)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(frmtdtxtfldFine)
+										.addComponent(frmtdtxtfldInizio)
+										.addComponent(txtVeicolo, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+										.addComponent(comboBoxTipologiaCliente, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+										.addComponent(dateChooserInizio, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(62)
+									.addComponent(btnCalcola)
+									.addGap(47)
+									.addComponent(btnPassaAContratto))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(91)
+									.addComponent(lblPreventivo, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE)))
+							.addContainerGap(178, Short.MAX_VALUE))
+				);
+				gl_contentPane.setVerticalGroup(
+					gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(26)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-								.addComponent(frmtdtxtfldInizio, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)))
-						.addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addComponent(dateChooserFine, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+								.addComponent(comboBoxTipologiaCliente, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTipologiaCliente))
+							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(frmtdtxtfldFine, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-								.addComponent(lblFine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
-						.addGap(37)
-						.addComponent(lblPreventivo, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-						.addGap(41)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addComponent(btnPassaAContratto, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-							.addComponent(btnCalcola, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
-						.addGap(475))
-			);
+								.addComponent(txtVeicolo, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblVeicolo))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(frmtdtxtfldInizio, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+										.addComponent(lblInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+									.addGap(12))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(dateChooserInizio, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblFine, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+										.addComponent(frmtdtxtfldFine, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+									.addGap(54)
+									.addComponent(lblPreventivo, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+									.addGap(49)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(btnCalcola, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+										.addComponent(btnPassaAContratto, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+									.addGap(50))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(dateChooserFine, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap())))
+				);
 				this.setLayout(gl_contentPane);
 				this.revalidate();
 		
