@@ -28,7 +28,7 @@ public class Preventivo {
 	private static String fine;
 	private String giorni;
 	private String anni;
-	private String anticipo;
+	private String acconto;
 	private static long giorniNoleggio;
 	private static double totale;
 	private double alGiorno, alMese, giornoExtra, meseScontato, sconto;
@@ -329,7 +329,7 @@ public class Preventivo {
 				    		/* Prende il prezzo in base agli anni di noleggio. */
 				    		if (preventivo.rs.next()) {
 				    			alMese = preventivo.rs.getBigDecimal(anni).floatValue();
-				    			anticipo = preventivo.rs.getBigDecimal("Anticipo").toString();
+				    			acconto = preventivo.rs.getBigDecimal("Anticipo").toString();
 				    		}
 				    		totale = alMese * 12;
 				    	} else if ((giorniNoleggio==731 || giorniNoleggio==732) && tipologia.matches(LUNGO)) {
@@ -339,7 +339,7 @@ public class Preventivo {
 				    		/* Prende il prezzo in base agli anni di noleggio. */
 				    		if (preventivo.rs.next()) {
 				    			alMese = preventivo.rs.getBigDecimal(anni).floatValue();
-				    			anticipo = preventivo.rs.getBigDecimal("Anticipo").toString();
+				    			acconto = preventivo.rs.getBigDecimal("Anticipo").toString();
 				    		}
 				    		totale = alMese * 24;	
 				    	} else if ((giorniNoleggio==1096 || giorniNoleggio==1097) && tipologia.matches(LUNGO)) { 
@@ -349,11 +349,20 @@ public class Preventivo {
 				    		/* Prende il prezzo in base agli anni di noleggio. */
 				    		if (preventivo.rs.next()){
 				    			alMese = preventivo.rs.getBigDecimal(anni).floatValue();
-				    			anticipo = preventivo.rs.getBigDecimal("Anticipo").toString();
+				    			acconto = preventivo.rs.getBigDecimal("Anticipo").toString();
 				    		}
 				    		totale = alMese * 36;
 				    	}
-					
+				    	
+				    	/* Calcola lo sconto in base alla tipologia di cliente. */				    	
+				    	if (content.comboBoxTipologiaCliente.getSelectedIndex()==1) {
+				    		totale = totale - (totale * 0.20);
+				    	} else if ((content.comboBoxTipologiaCliente.getSelectedIndex()==2) && (((giorniNoleggio==366 || giorniNoleggio==367) && tipologia.matches(LUNGO)) ||
+				    			((giorniNoleggio==732 || giorniNoleggio==733) && tipologia.matches(LUNGO)) || 
+				    			((giorniNoleggio==1098 || giorniNoleggio==1099) && tipologia.matches(LUNGO)))) {
+				    		totale = totale - (totale * 0.10);
+				    	}
+												
 				    	/* Calcola il sovrapprezzo per un conducente under 25. */
 				    	if (giorniNoleggio>0 && giorniNoleggio<16) { 
 				    		int eta = JOptionPane.showConfirmDialog(
@@ -366,6 +375,7 @@ public class Preventivo {
 				    		}
 				    	}
 					
+					/* Calcola il sovrapprezzo per kilometraggio illimitato. */
 				    	int km = JOptionPane.showConfirmDialog(
 						    null,
 						    "Si desidera avere km illimitati?",
@@ -381,7 +391,7 @@ public class Preventivo {
 				    	if(((giorniNoleggio==366 || giorniNoleggio==367) && tipologia.matches(LUNGO)) ||
 				    			((giorniNoleggio==732 || giorniNoleggio==733) && tipologia.matches(LUNGO)) || 
 				    				((giorniNoleggio==1098 || giorniNoleggio==1099) && tipologia.matches(LUNGO))) {
-				    		JOptionPane.showMessageDialog(null, "L'anticipo da pagare è di "+ anticipo + " €.",
+				    		JOptionPane.showMessageDialog(null, "L'acconto da pagare è di "+ acconto + " €.",
 				    				"Anticipo", JOptionPane.INFORMATION_MESSAGE);
 				    	}
 				    }
@@ -410,8 +420,8 @@ public class Preventivo {
 	 */
 	private boolean check(ModuloContratto content) throws Exception {
 		
-		boolean check=true;
-		if (inizio.equals("Seleziona una data") || fine.equals("Seleziona una data")) {
+		boolean check=true;		
+		if (content.comboBoxTipologiaCliente.getSelectedIndex()==0 || inizio.equals("Seleziona una data") || fine.equals("Seleziona una data")) {
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Inserisci tutti i Campi!",
 				"Errore ",
@@ -512,8 +522,7 @@ public class Preventivo {
 	public static long getGiorniNoleggio () {
 		
 		return giorniNoleggio;
-	}
-	
+	}	
 	
 	/**
 	 * Assegna i valori inseriti nella form alle variabili dell'oggetto {@code Preventivo}.
@@ -563,10 +572,10 @@ public class Preventivo {
 				return false;
 		} else if (!anni.equals(other.anni))
 			return false;
-		if (anticipo == null) {
-			if (other.anticipo != null)
+		if (acconto == null) {
+			if (other.acconto != null)
 				return false;
-		} else if (!anticipo.equals(other.anticipo))
+		} else if (!acconto.equals(other.acconto))
 			return false;
 		if (disponibilita == null) {
 			if (other.disponibilita != null)
