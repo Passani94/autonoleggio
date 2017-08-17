@@ -48,7 +48,7 @@ public class ModuloMezziNoleggiabili extends JPanel{
 	public void set() {
 		
 		int i,numero=0;
-		this.setBorder(BorderFactory.createTitledBorder("Mezzi noleggiabili in giornata"));
+		this.setBorder(BorderFactory.createTitledBorder("Mezzi Noleggiabili in Giornata"));
 		
 		TimeZone zone = TimeZone.getTimeZone("GMT+1");
 		
