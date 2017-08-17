@@ -206,7 +206,7 @@ public class PannelloContratto extends JPanel implements ActionListener {
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Preventivo");
 			scrollPane2.setViewportView(pnlModulo7);
-			scrollPane3.setViewportView(pnlModulo2);
+			scrollPane3.setViewportView(pnlModulo4);
 		
 		} else if(btnNuovo == e.getSource()) {
 			btnAggiorna.setText("Elenco Contratti");
