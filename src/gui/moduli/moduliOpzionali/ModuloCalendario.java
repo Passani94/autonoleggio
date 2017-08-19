@@ -51,9 +51,52 @@ public class ModuloCalendario extends JPanel {
         pnlCalendar.setBorder(BorderFactory.createTitledBorder("Calendario"));
         
         //Crea gli ActionListeners.
-        btnPrec.addActionListener(new btnPrec_Action());
-        btnSucc.addActionListener(new btnSucc_Action());
-        cmbAnno.addActionListener(new cmbYear_Action());
+        btnPrec.addActionListener(new ActionListener() {
+        	
+        	//Definisce le azioni da eseguire se viene cliccato il bottone btnPrec
+        	public void actionPerformed (ActionEvent e) {
+                
+        		if (meseCorrente == 0) { 
+        			//Indietro un anno
+                	meseCorrente = 11;
+                    annoCorrente -= 1;
+                } else { 
+                	//Indietro un mese
+                    meseCorrente -= 1;
+                }
+                aggiornaCalendario(meseCorrente, annoCorrente);
+            }
+        });
+        btnSucc.addActionListener(new ActionListener() {
+        	
+        	//Definisce le azioni da eseguire se viene cliccato il bottone btnSucc
+        	public void actionPerformed (ActionEvent e) {
+            	
+                if (meseCorrente == 11) {
+                	//Avanti un anno
+                    meseCorrente = 0;
+                    annoCorrente += 1;
+                } else {
+                	//Avanti un mese
+                    meseCorrente += 1;
+                }
+                aggiornaCalendario(meseCorrente, annoCorrente);
+            }
+        });
+        cmbAnno.addActionListener(new ActionListener() {
+
+        	//Definisce le azioni da eseguire se viene modificato il comboBox cmbAnno
+        	public void actionPerformed (ActionEvent e) {
+
+        		if (cmbAnno.getSelectedItem() != null) {
+
+        			String b = cmbAnno.getSelectedItem().toString();
+        			annoCorrente = Integer.parseInt(b);
+        			aggiornaCalendario(meseCorrente, annoCorrente);
+        		}
+        	}
+
+        });
         
         //Aggiunge le etichette ed i controlli.
         pane.add(pnlCalendar);
@@ -184,53 +227,5 @@ public class ModuloCalendario extends JPanel {
             return this;
         }
     }
-    
-    //Definisce le azioni da eseguire se viene cliccato il bottone btnPrec
-    static class btnPrec_Action implements ActionListener {
-        
-    	public void actionPerformed (ActionEvent e) {
-            
-    		if (meseCorrente == 0) { 
-    			//Indietro un anno
-            	meseCorrente = 11;
-                annoCorrente -= 1;
-            } else { 
-            	//Indietro un mese
-                meseCorrente -= 1;
-            }
-            aggiornaCalendario(meseCorrente, annoCorrente);
-        }
-    }
-    
-  //Definisce le azioni da eseguire se viene cliccato il bottone btnSucc
-    static class btnSucc_Action implements ActionListener {
-    	
-        public void actionPerformed (ActionEvent e) {
-        	
-            if (meseCorrente == 11) {
-            	//Avanti un anno
-                meseCorrente = 0;
-                annoCorrente += 1;
-            } else {
-            	//Avanti un mese
-                meseCorrente += 1;
-            }
-            aggiornaCalendario(meseCorrente, annoCorrente);
-        }
-    }
-    
-  //Definisce le azioni da eseguire se viene modificato il comboBox cmbAnno
-    static class cmbYear_Action implements ActionListener {
-    	
-        public void actionPerformed (ActionEvent e) {
-            
-        	if (cmbAnno.getSelectedItem() != null) {
-        		
-                String b = cmbAnno.getSelectedItem().toString();
-                annoCorrente = Integer.parseInt(b);
-                aggiornaCalendario(meseCorrente, annoCorrente);
-            }
-        }
-    }  
-    
+      
 }
