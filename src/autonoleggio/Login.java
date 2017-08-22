@@ -174,14 +174,16 @@ public class Login extends JFrame implements ActionListener, Runnable {
 	 * Verifica che le credenziali di accesso siano valide.
 	 */
 	private void check(){
-		
+
 		int size=0;
-			try {
-			String user = txtUsername.getText().trim(); //Il metodo trim() prende una stringa e rimuove eventuali whitespaces in testa ed in coda
+		try {
+			/* Il metodo trim() prende una stringa e rimuove eventuali whitespaces in testa ed in coda. */
+			String user = txtUsername.getText().trim(); 
 			char[] pass = txtPassword.getPassword();
 			String pwd=String.copyValueOf(pass);
 			/* Effettua una connessione al DB e cerca una corrispondenza con l'utente e la password inseriti.*/
-			log.exequery("SELECT * FROM operatore WHERE (BINARY ID_Operatore='" + user + "' AND BINARY Password='" + pwd + "')","select"); 
+			log.exequery("SELECT * FROM operatore WHERE (BINARY ID_Operatore='" + user + 
+					"' AND BINARY Password='" + pwd + "')","select"); 
 			/* Se la ricerca ha esito positivo, aggiorna il valore size ad 1*/
 			if (log.rs.next()) size=1;	
 			/* Se non viene inserito l'username o la password, viene restituito un errore.*/
@@ -202,18 +204,18 @@ public class Login extends JFrame implements ActionListener, Runnable {
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);
 				txtUsername.requestFocus();
-				} else {	
-					/* Se l'utente viene trovato ed è l'admin, viene avviato il pannello di controllo dell'admin */
-					this.dispose();
-					new Finestra (user);
-					}
-				log.con.close();
-			} catch (SQLException e1) {
+			} else {	
+				/* Se l'utente viene trovato ed è l'admin, viene avviato il pannello di controllo dell'admin */
+				this.dispose();
+				new Finestra (user);
+			}
+			log.con.close();
+		} catch (SQLException e1) {
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Errore! Impossibile connettersi al DB per effettuare l'accesso!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);
-			}
+		}
 	}
 	
 	/**

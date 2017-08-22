@@ -23,7 +23,7 @@ public class Autonoleggio {
 		}	
 	}
 	
-/* OVERRIDING METODI toString() */
+/* OVERRIDING METODO toString() */
 	
 	/**
 	 * Restituisce una rappresentazione testuale dell'oggetto.
@@ -34,5 +34,5 @@ public class Autonoleggio {
 		return "Autonoleggio [La classe Autonoleggio manda in esecuzione l'applicazione.]";
 	}	
 		
-	
 }
+

@@ -79,6 +79,8 @@ public class DBConnect {
 			}
 		}
 	}
+	
+/* OVERRIDING METODI toString() ED equals() */	
 
 	/**
 	 * Restituisce una rappresentazione testuale dell'oggetto.
