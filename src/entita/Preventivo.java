@@ -410,8 +410,6 @@ public class Preventivo {
 		}
 	}
 	
-	
-	
 	/**
 	 * Verifica che i dati del preventivo da calcolare siano corretti.
 	 * 
@@ -474,16 +472,6 @@ public class Preventivo {
 		}
 		return test;
 	}
-
-	/**
-	 * Metodo usato quando si sceglie "Passa a Contratto" nel form {@code "Calcola Preventivo"}.
-	 * 
-	 * @return il costo totale del noleggio
-	 */
-	public static double getVarTotale() {
-		
-		return totale;
-	}
 	
 	/**
 	 * Metodo usato quando si sceglie "Passa a Contratto" nel form {@code "Calcola Preventivo"}.
@@ -523,6 +511,16 @@ public class Preventivo {
 		
 		return giorniNoleggio;
 	}	
+	
+	/**
+	 * Metodo usato quando si sceglie "Passa a Contratto" nel form {@code "Calcola Preventivo"}.
+	 * 
+	 * @return il costo totale del noleggio
+	 */
+	public static double getVarTotale() {
+		
+		return totale;
+	}
 	
 	/**
 	 * Assegna i valori inseriti nella form alle variabili dell'oggetto {@code Preventivo}.

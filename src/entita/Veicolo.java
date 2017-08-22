@@ -6,6 +6,7 @@ import db.DBConnect;
 import java.sql.SQLException;
 
 import gui.moduli.ModuloFlotta;
+import utils.IsNumeric;
 
 /**
  * La classe Veicolo rappresenta i veicoli dell'autonoleggio.
@@ -104,45 +105,6 @@ public class Veicolo {
 			}
 		}
 	}
-	
-	/**
-	 * Elimina un veicolo dal database.
-	 * 
-	 * @param content il form {@code "Elimina Veicolo"} ed i relativi dati inseriti.
-	 */
-	public void elimina(ModuloFlotta content) {
-		
-		if (checkelimina(content)){
-			try {
-				/* Verifica se è presente un veicolo con tale targa. */
-				veicolo.exequery("SELECT * FROM veicolo where Targa='"+targa+"'","select"); 
-				if(!veicolo.rs.next()) {
-					JOptionPane.showMessageDialog(null, "Errore! Non è presente un veicolo con tale targa!",
-							"Errore ",
-							JOptionPane.ERROR_MESSAGE);
-					content.txtTarga.requestFocus();
-				} else {
-					int scelta = JOptionPane.showConfirmDialog(
-							null,
-							"Si desidera eliminare il veicolo targato "+targa+" ?",
-							"Conferma eliminazione",
-							JOptionPane.YES_NO_OPTION);
-					if (scelta == JOptionPane.YES_OPTION) {
-						veicolo.exequery("DELETE FROM veicolo WHERE Targa='"+targa+"'","delete");
-						JOptionPane.showMessageDialog(null , "Veicolo eliminato!");
-						content.txtTarga.setText("");
-						content.txtTarga.requestFocus();
-					}	
-				}
-				veicolo.con.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore! Veicolo non eliminato!",
-						"Errore ",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		}
-	}
 
 	/**
 	 * Cerca un veicolo nel database.
@@ -152,7 +114,7 @@ public class Veicolo {
 	public void cerca(ModuloFlotta content) {
 		
 		String item;
-		if (checkcerca(content)) {
+		if (checkCerca(content)) {
 			try {
 				veicolo.exequery("SELECT * FROM veicolo where Targa='"+targaCerca+"'","select");
 				if (veicolo.rs.next()) {					
@@ -271,6 +233,45 @@ public class Veicolo {
 	}
 	
 	/**
+	 * Elimina un veicolo dal database.
+	 * 
+	 * @param content il form {@code "Elimina Veicolo"} ed i relativi dati inseriti.
+	 */
+	public void elimina(ModuloFlotta content) {
+		
+		if (checkElimina(content)){
+			try {
+				/* Verifica se è presente un veicolo con tale targa. */
+				veicolo.exequery("SELECT * FROM veicolo where Targa='"+targa+"'","select"); 
+				if(!veicolo.rs.next()) {
+					JOptionPane.showMessageDialog(null, "Errore! Non è presente un veicolo con tale targa!",
+							"Errore ",
+							JOptionPane.ERROR_MESSAGE);
+					content.txtTarga.requestFocus();
+				} else {
+					int scelta = JOptionPane.showConfirmDialog(
+							null,
+							"Si desidera eliminare il veicolo targato "+targa+" ?",
+							"Conferma eliminazione",
+							JOptionPane.YES_NO_OPTION);
+					if (scelta == JOptionPane.YES_OPTION) {
+						veicolo.exequery("DELETE FROM veicolo WHERE Targa='"+targa+"'","delete");
+						JOptionPane.showMessageDialog(null , "Veicolo eliminato!");
+						content.txtTarga.setText("");
+						content.txtTarga.requestFocus();
+					}	
+				}
+				veicolo.con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Errore! Veicolo non eliminato!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+	/**
 	 * Verifica che i dati del veicolo da aggiungere/modificare siano corretti.
 	 * 
 	 * @param content il form {@code "Nuovo Veicolo"/"Modifica Veicolo"} ed i relativi dati inseriti.
@@ -317,7 +318,7 @@ public class Veicolo {
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Nome deve avere meno di 20 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if (!isNumeric(km) || km.length()>20) {
+		} else if (!IsNumeric.isNumeric(km) || km.length()>20) {
 			content.txtKm.setText("");
 			content.txtKm.requestFocus();
 			check=false;
@@ -391,36 +392,12 @@ public class Veicolo {
 	}
 	
 	/**
-	 * Verifica che la targa del veicolo da eliminare sia corretto.
-	 * 
-	 * @param content il form {@code "Elimina Veicolo"} ed i relativi dati inseriti.
-	 * @return true se i dati sono validi; false altrimenti.
-	 */
-	private boolean checkelimina(ModuloFlotta content) {
-		
-		boolean check=true;
-		if (!targa.matches(TGPATTERN1) && !targa.matches(TGPATTERN2) && !targa.matches(TGPATTERN3) && !targa.matches(TGPATTERN4)) {
-			content.txtTarga.setText("");
-			content.txtTarga.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La Targa del veicolo deve essere composta da: \n - Autoveicolo: 4 caratteri e 3 cifre (es. TO175RP); "
-					+ "\n - Scooter: 3 caratteri e 3 cifre (es. X269DL); \n - Motocicletta e Quad-Bike: 2 caratteri e 5 cifre (es. AA12345);"
-					+ "\n - Mezzo Acquatico: 2 caratteri e 4 cifre (es. 8PC567).",
-			    "Errore ",
-			    JOptionPane.ERROR_MESSAGE);
-		}
-		if (check==false) test=check; 
-		else test=true;
-		return test;
-	}
-
-	/**
 	 * Verifica che la targa del veicolo da modificare sia corretto.
 	 * 
 	 * @param content il form {@code "Modifica Veicolo"} ed i relativi dati inseriti.
 	 * @return true se i dati sono validi; false altrimenti.
 	 */
-	private boolean checkcerca(ModuloFlotta content) {
+	private boolean checkCerca(ModuloFlotta content) {
 		
 		boolean check=true;
 		if (!targaCerca.matches(TGPATTERN1) && !targaCerca.matches(TGPATTERN2) && !targaCerca.matches(TGPATTERN3) && !targaCerca.matches(TGPATTERN4)) {
@@ -439,21 +416,28 @@ public class Veicolo {
 	}
 	
 	/**
-	 * Verifica se la stringa passata come argomento è numerica.
+	 * Verifica che la targa del veicolo da eliminare sia corretto.
 	 * 
-	 * @param string la stringa da controllare.
-	 * @return true se la stringa è numerica; false altrimenti.
+	 * @param content il form {@code "Elimina Veicolo"} ed i relativi dati inseriti.
+	 * @return true se i dati sono validi; false altrimenti.
 	 */
-	private static boolean isNumeric(String string) {
+	private boolean checkElimina(ModuloFlotta content) {
 		
-	    try {
-	        Long.parseLong(string);
-	    } catch (Exception e) {
-	        return false;
-	    }
-	    return true;
-	}
-	
+		boolean check=true;
+		if (!targa.matches(TGPATTERN1) && !targa.matches(TGPATTERN2) && !targa.matches(TGPATTERN3) && !targa.matches(TGPATTERN4)) {
+			content.txtTarga.setText("");
+			content.txtTarga.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! La Targa del veicolo deve essere composta da: \n - Autoveicolo: 4 caratteri e 3 cifre (es. TO175RP); "
+					+ "\n - Scooter: 3 caratteri e 3 cifre (es. X269DL); \n - Motocicletta e Quad-Bike: 2 caratteri e 5 cifre (es. AA12345);"
+					+ "\n - Mezzo Acquatico: 2 caratteri e 4 cifre (es. 8PC567).",
+			    "Errore ",
+			    JOptionPane.ERROR_MESSAGE);
+		}
+		if (check==false) test=check; 
+		else test=true;
+		return test;
+	}	
 	
 /* METODI USATI DALLA GUI PER LA GESTIONE DEI VEICOLI (--> vedi classe ModuloFl <--) */
 
@@ -485,6 +469,16 @@ public class Veicolo {
 			disponibilita = content.comboBoxDisponibilita.getSelectedItem().toString();
 		}
 	}
+	
+	/**
+	 * Assegna la targa del veicolo da cercare.
+	 * 
+	 * @param content il form {@code "Modifica Veicolo"} ed i relativi dati inseriti.
+	 */
+	public void setTargaCerca(ModuloFlotta content){
+		
+		targaCerca = content.txtTargaCerca.getText().trim();
+	}
 
 	/**
 	 * Assegna la targa del veicolo da eliminare.
@@ -494,16 +488,6 @@ public class Veicolo {
 	public void setTargaElimina(ModuloFlotta content) {
 		
 		targa = content.txtTarga.getText().trim();
-	}
-
-	/**
-	 * Assegna la targa del veicolo da cercare.
-	 * 
-	 * @param content il form {@code "Modifica Veicolo"} ed i relativi dati inseriti.
-	 */
-	public void setTargaCerca(ModuloFlotta content){
-		
-		targaCerca = content.txtTargaCerca.getText().trim();
 	}
 
 /* OVERRIDING METODI toString() ED equals() */

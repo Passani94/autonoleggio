@@ -4,6 +4,7 @@ import db.DBConnect;
 import java.sql.SQLException;
 
 import gui.moduli.ModuloCliente;
+import utils.IsNumeric;
 
 import javax.swing.JOptionPane;
 
@@ -123,45 +124,6 @@ public class Cliente {
 	}
 	
 	/**
-	 * Elimina un cliente dal database.
-	 * 
-	 * @param content il form {@code "Elimina Cliente"} ed i relativi dati inseriti.
-	 */
-	public void elimina(ModuloCliente content) {
-		
-		if (checkElimina(content)) {
-			try {
-				/* Verifica se nel DB esiste un cliente con il CF (o la Partita IVA) inseriti.*/
-				cliente.exequery("SELECT * FROM cliente where CF_PIVA='"+CF_PIVA+"'","select");
-				if (!cliente.rs.next()) {
-					JOptionPane.showMessageDialog(null, "Errore! Non \u00E8 presente un cliente con tale CF/Partita IVA!",
-							"Errore ",
-							JOptionPane.ERROR_MESSAGE);
-					content.txtCF_PIVA.requestFocus();
-				} else {
-					int scelta = JOptionPane.showConfirmDialog(
-							null,
-							"Si desidera eliminare l'utente "+CF_PIVA+" ?",
-							"Conferma eliminazione",
-							JOptionPane.YES_NO_OPTION);
-					if (scelta == JOptionPane.YES_OPTION) {
-						cliente.exequery("DELETE FROM cliente WHERE CF_PIVA='"+CF_PIVA+"'","delete");
-					JOptionPane.showMessageDialog(null , "Cliente Eliminato!");
-					content.txtCF_PIVA.setText("");
-					content.txtCF_PIVA.requestFocus();
-					}
-				}
-				cliente.con.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore! Cliente non eliminato!",
-						"Errore ",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		}
-	}
-	
-	/**
 	 * Cerca un cliente nel database.
 	 * 
 	 * @param content il form {@code "Modifica Cliente"} ed i relativi campi inseriti.
@@ -252,6 +214,45 @@ public class Cliente {
 	}
 	
 	/**
+	 * Elimina un cliente dal database.
+	 * 
+	 * @param content il form {@code "Elimina Cliente"} ed i relativi dati inseriti.
+	 */
+	public void elimina(ModuloCliente content) {
+		
+		if (checkElimina(content)) {
+			try {
+				/* Verifica se nel DB esiste un cliente con il CF (o la Partita IVA) inseriti.*/
+				cliente.exequery("SELECT * FROM cliente where CF_PIVA='"+CF_PIVA+"'","select");
+				if (!cliente.rs.next()) {
+					JOptionPane.showMessageDialog(null, "Errore! Non \u00E8 presente un cliente con tale CF/Partita IVA!",
+							"Errore ",
+							JOptionPane.ERROR_MESSAGE);
+					content.txtCF_PIVA.requestFocus();
+				} else {
+					int scelta = JOptionPane.showConfirmDialog(
+							null,
+							"Si desidera eliminare l'utente "+CF_PIVA+" ?",
+							"Conferma eliminazione",
+							JOptionPane.YES_NO_OPTION);
+					if (scelta == JOptionPane.YES_OPTION) {
+						cliente.exequery("DELETE FROM cliente WHERE CF_PIVA='"+CF_PIVA+"'","delete");
+					JOptionPane.showMessageDialog(null , "Cliente Eliminato!");
+					content.txtCF_PIVA.setText("");
+					content.txtCF_PIVA.requestFocus();
+					}
+				}
+				cliente.con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Errore! Cliente non eliminato!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+	/**
 	 * Verifica che i dati del cliente da aggiungere/modificare siano corretti.
 	 * 
 	 * @param content il form {@code "Nuovo Cliente"/"Modifica Cliente"} ed i relativi dati inseriti.
@@ -294,7 +295,7 @@ public class Cliente {
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Ragione Sociale deve avere meno di 30 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if ((!isNumeric(cap) || cap.length() > 5 || cap.length() < 5) && !cap.equals("")) {
+		} else if ((!IsNumeric.isNumeric(cap) || cap.length() > 5 || cap.length() < 5) && !cap.equals("")) {
 			content.txtCAP.setText("");
 			content.txtCAP.requestFocus();
 			check=false;
@@ -315,7 +316,7 @@ public class Cliente {
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Via deve avere meno di 20 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if ((!isNumeric(numero) || numero.length() > 3) && !numero.equals("")) {
+		} else if ((!IsNumeric.isNumeric(numero) || numero.length() > 3) && !numero.equals("")) {
 			content.txtNumero.setText("");
 			content.txtNumero.requestFocus();
 			check=false;
@@ -329,7 +330,7 @@ public class Cliente {
 			JOptionPane.showMessageDialog(null, "Errore! L'Email inserita non \u00E8 valida o \u00E8 troppo lunga!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if ((telefono.length() > 10 || telefono.length() < 10 || !isNumeric(telefono)) && !telefono.equals("")) {
+		} else if ((telefono.length() > 10 || telefono.length() < 10 || !IsNumeric.isNumeric(telefono)) && !telefono.equals("")) {
 			content.txtTelefono.setText("");
 			content.txtTelefono.requestFocus();
 			check=false;
@@ -348,6 +349,42 @@ public class Cliente {
 			if (email.equals("")) email="";
 			test=true;
 		}
+		return test;
+	}
+	
+	/**
+	 *  Verifica la correttezza del {@code Codice Fiscale} (o della {@code Partita IVA}) del cliente da cercare.
+	 *  
+	 *  @param content il form {@code "Modifica Cliente"} ed i relativi dati inseriti.
+	 */
+	private boolean checkCerca(ModuloCliente content) {
+		
+		boolean check=true;
+		if (clienteCerca.length() == 16 && !clienteCerca.matches(CFPATTERN)) {
+			content.txtClienteCerca.setText("");
+			content.txtClienteCerca.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale inserito non \u00E8 valido!",
+				"Errore ",
+		    	JOptionPane.ERROR_MESSAGE);
+		} else if((clienteCerca.length() == 11 && !clienteCerca.matches("\\d{11}"))) {
+			content.txtClienteCerca.setText("");
+			content.txtClienteCerca.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! La Partita IVA inserita non \u00E8 valida!",
+				"Errore ",
+		    	JOptionPane.ERROR_MESSAGE);
+		} else if(clienteCerca.length() < 11 || (clienteCerca.length() > 11 && clienteCerca.length() < 16) || clienteCerca.length() > 16) {
+			content.txtClienteCerca.setText("");
+			content.txtClienteCerca.requestFocus();
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale deve avere 16 caratteri e la Partita IVA 11 cifre!",
+				"Errore ",
+				JOptionPane.ERROR_MESSAGE);
+		}
+		
+		if (check==false) test=check; 
+		else test=true;
 		return test;
 	}
 	
@@ -394,58 +431,6 @@ public class Cliente {
 		
 		return test;
 	}
-	
-	/**
-	 *  Verifica la correttezza del {@code Codice Fiscale} (o della {@code Partita IVA}) del cliente da cercare.
-	 *  
-	 *  @param content il form {@code "Modifica Cliente"} ed i relativi dati inseriti.
-	 */
-	private boolean checkCerca(ModuloCliente content) {
-		
-		boolean check=true;
-		if (clienteCerca.length() == 16 && !clienteCerca.matches(CFPATTERN)) {
-			content.txtClienteCerca.setText("");
-			content.txtClienteCerca.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale inserito non \u00E8 valido!",
-				"Errore ",
-		    	JOptionPane.ERROR_MESSAGE);
-		} else if((clienteCerca.length() == 11 && !clienteCerca.matches("\\d{11}"))) {
-			content.txtClienteCerca.setText("");
-			content.txtClienteCerca.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! La Partita IVA inserita non \u00E8 valida!",
-				"Errore ",
-		    	JOptionPane.ERROR_MESSAGE);
-		} else if(clienteCerca.length() < 11 || (clienteCerca.length() > 11 && clienteCerca.length() < 16) || clienteCerca.length() > 16) {
-			content.txtClienteCerca.setText("");
-			content.txtClienteCerca.requestFocus();
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale deve avere 16 caratteri e la Partita IVA 11 cifre!",
-				"Errore ",
-				JOptionPane.ERROR_MESSAGE);
-		}
-		
-		if (check==false) test=check; 
-		else test=true;
-		return test;
-	}
-	
-	/**
-	 * Verifica se la stringa passata come argomento è numerica.
-	 * 
-	 * @param string la stringa da controllare.
-	 * @return true se la stringa è numerica; false altrimenti.
-	 */
-	private static boolean isNumeric(String string) {
-		
-	    try {
-	        Long.parseLong(string);
-	    } catch (Exception e) {
-	    	return false;
-	    }
-	    return true;
-	}
 
 /* METODI USATI DALLA GUI PER LA GESTIONE DEI CLIENTI ( --> vedi classe ModuloCl <-- ) */
 
@@ -466,16 +451,6 @@ public class Cliente {
 		email = content.txtEmail.getText().trim();
 		telefono = content.txtTelefono.getText().trim();
 	}
-	
-	/**
-	 * Assegna il {@code Codice Fiscale} (o la {@code Partita IVA}) del cliente da eliminare.
-	 * 
-	 * @param content il form {@code "Elimina Cliente"} ed i relativi dati inseriti.
-	 */
-	public void setIDElimina(ModuloCliente content) {
-		
-		CF_PIVA = content.txtCF_PIVA.getText().trim();
-	}
 
 	/**
 	 * Assegna il {@code Codice Fiscale} (o la {@code Partita IVA}) del cliente da cercare.
@@ -486,7 +461,16 @@ public class Cliente {
 		
 		clienteCerca = content.txtClienteCerca.getText().trim();
 	}
-
+	
+	/**
+	 * Assegna il {@code Codice Fiscale} (o la {@code Partita IVA}) del cliente da eliminare.
+	 * 
+	 * @param content il form {@code "Elimina Cliente"} ed i relativi dati inseriti.
+	 */
+	public void setIDElimina(ModuloCliente content) {
+		
+		CF_PIVA = content.txtCF_PIVA.getText().trim();
+	}
 
 /* OVERRIDING METODI toString() ED equals() */
 	

@@ -9,6 +9,7 @@ import gui.moduli.ModuloContratto;
 import java.sql.SQLException;
 
 import utils.CostruisciTabella;
+import utils.IsNumeric;
 import utils.TableColumnAdjuster;
 
 /**
@@ -181,7 +182,7 @@ public class Contratto {
 	public void cerca(ModuloContratto content){
 		
 		String item;
-			if (checkcerca(content)) {
+			if (checkCerca(content)) {
 				try {
 				noleggio.exequery("SELECT * FROM noleggio where Cod_Noleggio="+codiceCerca+"","select");
 				if (noleggio.rs.next()) {
@@ -242,45 +243,6 @@ public class Contratto {
 	}
 	
 	/**
-	 * Elimina un contratto dal database.
-	 * 
-	 * @param content il form {@code "Elimina Contratto"} ed i relativi dati inseriti.
-	 */
-	public void elimina(ModuloContratto content) {
-		
-		if (checkelimina(content)) {
-			try {
-				noleggio.exequery("SELECT * FROM noleggio where Cod_Noleggio="+codice+"","select");
-				/*Verifica se è presente un contratto con tale codice*/
-				if (!noleggio.rs.next()) {
-					JOptionPane.showMessageDialog(null, "Errore! Non è presente un contratto con tale codice!",
-							"Errore ",
-							JOptionPane.ERROR_MESSAGE);
-					content.txtCodiceElimina.requestFocus();
-				} else {
-					int scelta = JOptionPane.showConfirmDialog(
-							null,
-							"Si desidera eliminare il contratto con codice "+codice+" ?",
-							"Conferma eliminazione",
-							JOptionPane.YES_NO_OPTION);
-					if (scelta == JOptionPane.YES_OPTION) {
-						noleggio.exequery("DELETE FROM noleggio WHERE Cod_Noleggio="+codice+"","delete");
-					JOptionPane.showMessageDialog(null , "Contratto Eliminato!");
-					content.txtCodiceElimina.setText("");
-					content.txtCodiceElimina.requestFocus();
-					}
-				}
-				noleggio.con.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Errore! Contratto non eliminato!",
-						"Errore ",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		}
-	}
-	
-	/**
 	 * Modifica un contratto presente nel database.
 	 * 
 	 * @param content il form {@code "Modifica Contratto"} ed i relativi dati inseriti.
@@ -321,7 +283,46 @@ public class Contratto {
 			}
 		}
 	}
-	/* Metodo. Filtra la tabella dei contratti. */
+	
+	/**
+	 * Elimina un contratto dal database.
+	 * 
+	 * @param content il form {@code "Elimina Contratto"} ed i relativi dati inseriti.
+	 */
+	public void elimina(ModuloContratto content) {
+		
+		if (checkElimina(content)) {
+			try {
+				noleggio.exequery("SELECT * FROM noleggio where Cod_Noleggio="+codice+"","select");
+				/*Verifica se è presente un contratto con tale codice*/
+				if (!noleggio.rs.next()) {
+					JOptionPane.showMessageDialog(null, "Errore! Non è presente un contratto con tale codice!",
+							"Errore ",
+							JOptionPane.ERROR_MESSAGE);
+					content.txtCodiceElimina.requestFocus();
+				} else {
+					int scelta = JOptionPane.showConfirmDialog(
+							null,
+							"Si desidera eliminare il contratto con codice "+codice+" ?",
+							"Conferma eliminazione",
+							JOptionPane.YES_NO_OPTION);
+					if (scelta == JOptionPane.YES_OPTION) {
+						noleggio.exequery("DELETE FROM noleggio WHERE Cod_Noleggio="+codice+"","delete");
+					JOptionPane.showMessageDialog(null , "Contratto Eliminato!");
+					content.txtCodiceElimina.setText("");
+					content.txtCodiceElimina.requestFocus();
+					}
+				}
+				noleggio.con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Errore! Contratto non eliminato!",
+						"Errore ",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
 	/**
 	 * Filtra un contratto presente nell'elenco contratti.
 	 * 
@@ -329,7 +330,7 @@ public class Contratto {
 	 */
 	public void filtra(ModuloContratto content) {
 		
-		if (checkfiltra(content)) {
+		if (checkFiltra(content)) {
 			try {
 				if (cliente.equals("")) {
 					noleggio.exequery("SELECT * FROM noleggio WHERE Veicolo='"+veicolo+"'","select");
@@ -400,25 +401,25 @@ public class Contratto {
 			JOptionPane.showMessageDialog(null, "Errore! Il Codice Fiscale deve avere 16 caratteri e la Partita IVA 11 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if (!isNumeric(costo) || costo.length()>10) {
+		} else if (!IsNumeric.isNumeric(costo) || costo.length()>10) {
 			content.txtCosto.setText("");
 			content.txtCosto.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Costo Totale deve essere composto da meno di 10 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if ((!isNumeric(costo) || (acconto.length()>10)) && !acconto.equals("")) {
+		} else if ((!IsNumeric.isNumeric(costo) || (acconto.length()>10)) && !acconto.equals("")) {
 			content.txtAcconto.setText("");
 			content.txtAcconto.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! Il campo Acconto deve essere composto da meno di 10 cifre!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if (cognome.length()>15) {
+		} else if (cognome.length()>20) {
 			content.txtCognome.setText("");
 			content.txtCognome.requestFocus();
 			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il campo Cognome deve avere meno di 15 caratteri!",
+			JOptionPane.showMessageDialog(null, "Errore! Il campo Cognome deve avere meno di 20 caratteri!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
 		} else if (nome.length()>15) {
@@ -490,12 +491,58 @@ public class Contratto {
 	}
 	
 	/**
-	 * Verifica che i dati (cliente e/o veicolo) del contratto  da filtrare sianno corretti.
+	 * Verifica che il codice del contratto da modificare sia corretto.
+	 * 
+	 * @param content il form {@code "Modifica Contratto"} ed i relativi dati inseriti.
+	 * @return true se i dati sono validi; false altrimenti.
+	 */
+	private boolean checkCerca(ModuloContratto content){
+		boolean check=true;
+		
+		if (codiceCerca <= 0) {
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere maggiore o uguale ad 1!",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		
+		
+		if (check==false) test=check; 
+		else test=true;
+		
+		return test;
+	}
+	
+	/**
+	 * Verifica che il codice del contratto da eliminare sia corretto.
+	 * 
+	 * @param content il form {@code "Elimina Contratto"} ed i relativi dati inseriti.
+	 * @return true se i dati sono validi; false altrimenti.
+	 */
+	private boolean checkElimina(ModuloContratto content) {
+		
+		boolean check=true;
+		
+		if (codice  <=0) {
+			check=false;
+			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere maggiore o uguale ad 1!",
+					"Errore ",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		
+		if (check==false) test=check; 
+		else test=true;
+		
+		return test;
+	}
+	
+	/**
+	 * Verifica che i dati (cliente e/o veicolo) del contratto da filtrare sianno corretti.
 	 * 
 	 * @param content il form {@code "Elenco Contratti"} ed i relativi dati inseriti.
 	 * @return true se i dati sono validi; false altrimenti.
 	 */
-	private boolean checkfiltra(ModuloContratto content) {
+	private boolean checkFiltra(ModuloContratto content) {
 		
 		boolean check=true;
 		/* Verifica se è stato inserito almeno un campo. */
@@ -541,64 +588,7 @@ public class Contratto {
 		
 		return test;
 	}
-	
-	/**
-	 * Verifica che il codice del contratto da eliminare sia corretto.
-	 * 
-	 * @param content il form {@code "Elimina Contratto"} ed i relativi dati inseriti.
-	 * @return true se i dati sono validi; false altrimenti.
-	 */
-	private boolean checkelimina(ModuloContratto content) {
-		
-		boolean check=true;
-		
-		if (codice  <=0) {
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere maggiore o uguale ad 1!",
-					"Errore ",
-					JOptionPane.ERROR_MESSAGE);
-		}
-		
-		if (check==false) test=check; 
-		else test=true;
-		
-		return test;
-	}
-	
-	/**
-	 * Verifica che il codice del contratto da modificare sia corretto.
-	 * 
-	 * @param content il form {@code "Modifica Contratto"} ed i relativi dati inseriti.
-	 * @return true se i dati sono validi; false altrimenti.
-	 */
-	private boolean checkcerca (ModuloContratto content){
-		boolean check=true;
-		
-		if (codiceCerca <= 0) {
-			check=false;
-			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere maggiore o uguale ad 1!",
-					"Errore ",
-					JOptionPane.ERROR_MESSAGE);
-		}
-		
-		
-		if (check==false) test=check; 
-		else test=true;
-		
-		return test;
-	}
-	
-	/**
-	 * Verifica se la stringa passata come argomento è numerica.
-	 * 
-	 * @param string la stringa da controllare.
-	 * @return true se la stringa è numerica; false altrimenti.
-	 */
-	private static boolean isNumeric(String string) {
-	    
-		return string!= null && string.matches("[-+]?\\d*\\.?\\d*");
-	}
-	
+
 	
 	/* METODI USATI DALLA GUI PER LA GESTIONE DEI CONTRATTI (--> vedi classe ModuloCt <--) */
 	
@@ -622,33 +612,6 @@ public class Contratto {
 		valida = content.frmtdtxtfldValida.getText().trim();
 		rilasciataDa = content.txtRilasciatada.getText().trim();
 		rilasciataIl = content.frmtdtxtfldRilasciatail.getText().trim();
-	}
-	
-	/**
-	 * Assegna il codice del contratto da eliminare.
-	 * 
-	 * @param content il form {@code "Elimina Cliente"} ed i relativi dati inseriti.
-	 * @return true l'operazione di set è andata a buon fine; false altrimenti.
-	 */
-	public boolean setCodiceElimina (ModuloContratto content) {
-		
-		boolean esito = false;
-		
-		if (content.txtCodiceElimina.getText().trim().toString().equals("")) {		
-			JOptionPane.showMessageDialog(null, "Errore! Inserisci il codice di un contratto!",
-				"Errore ",
-				JOptionPane.ERROR_MESSAGE);
-		} else if (!content.txtCodiceElimina.getText().trim().toString().matches("\\d*")) {
-			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere composto da sole cifre!",
-				"Errore ",
-				JOptionPane.ERROR_MESSAGE);
-			content.txtCodiceElimina.setText("");
-		} else {
-			codice=Integer.decode((content.txtCodiceElimina.getText().trim()));
-			esito = true;
-		}
-		
-		return esito;
 	}
 	
 	/**
@@ -686,6 +649,33 @@ public class Contratto {
 	public void setCodiceModifica (ModuloContratto content) {
 		
 			codiceModifica = Integer.decode(content.txtContrattoCerca.getText().trim());
+	}
+	
+	/**
+	 * Assegna il codice del contratto da eliminare.
+	 * 
+	 * @param content il form {@code "Elimina Cliente"} ed i relativi dati inseriti.
+	 * @return true l'operazione di set è andata a buon fine; false altrimenti.
+	 */
+	public boolean setCodiceElimina (ModuloContratto content) {
+		
+		boolean esito = false;
+		
+		if (content.txtCodiceElimina.getText().trim().toString().equals("")) {		
+			JOptionPane.showMessageDialog(null, "Errore! Inserisci il codice di un contratto!",
+				"Errore ",
+				JOptionPane.ERROR_MESSAGE);
+		} else if (!content.txtCodiceElimina.getText().trim().toString().matches("\\d*")) {
+			JOptionPane.showMessageDialog(null, "Errore! Il codice deve essere composto da sole cifre!",
+				"Errore ",
+				JOptionPane.ERROR_MESSAGE);
+			content.txtCodiceElimina.setText("");
+		} else {
+			codice=Integer.decode((content.txtCodiceElimina.getText().trim()));
+			esito = true;
+		}
+		
+		return esito;
 	}
 	
 	/**
