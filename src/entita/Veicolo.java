@@ -442,7 +442,7 @@ public class Veicolo {
 /* METODI USATI DALLA GUI PER LA GESTIONE DEI VEICOLI (--> vedi classe ModuloFl <--) */
 
 	/**
-	 * Assegna i valori inseriti nella form alle variabili dell'oggetto {@code Veicolo}.
+	 * Assegna i valori inseriti nel form alle variabili dell'oggetto {@code Veicolo}.
 	 * 
 	 * @param content il form {@code "Nuovo Veicolo"/"Modifica Veicolo"} ed i relativi dati inseriti.
 	 * @param tipo il tipo di form che viene passato.

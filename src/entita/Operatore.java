@@ -150,7 +150,7 @@ public class Operatore {
 /* METODI USATI DALLA GUI PER LA GESTIONE DEGLI OPERATORI (--> vedi classe ModuloOp <--) */
 	
 	/**
-	 * Assegna i valori inseriti nella form alle variabili dell'oggetto {@code Operatore}.
+	 * Assegna i valori inseriti nel form alle variabili dell'oggetto {@code Operatore}.
 	 * 
 	 * @param content il form {@code "Nuovo Operatore"} ed i relativi dati inseriti.
 	 */

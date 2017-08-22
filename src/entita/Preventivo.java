@@ -42,7 +42,6 @@ public class Preventivo {
 	private static final String TGPATTERN2 = "[a-zA-Z]{1}\\d\\d\\d[a-zA-Z]{2}"; //Pattern Targa Scooter
 	private static final String TGPATTERN3 = "[a-zA-Z]{2}\\d\\d\\d\\d\\d"; //Pattern Targa Motocicletta e Quad-Bike
 	private static final String TGPATTERN4 = "\\d[a-zA-Z]{2}\\d\\d\\d"; //Pattern Targa Mezzo Acquatico
-	private static final String DATEPATTERN = "^\\d{4}-\\d{2}-\\d{2}$";
 	
 	
 	/**
@@ -433,8 +432,8 @@ public class Preventivo {
 					+ "\n - Mezzo Acquatico: 2 caratteri e 4 cifre (es. 8PC567).",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if (!inizio.matches(DATEPATTERN) && !inizio.equals("Seleziona una data")) {
-			content.frmtdtxtfldInizio.setText("");
+		} else if (inizio.equals("")) {
+			content.frmtdtxtfldInizio.setText("Seleziona una data");
 			content.frmtdtxtfldInizio.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La data di inizio noleggio inserita non è valida!",
@@ -446,8 +445,8 @@ public class Preventivo {
 			JOptionPane.showMessageDialog(null, "Errore! La data di inizio noleggio deve essere almeno uguale alla data odierna!",
 			    "Errore ",
 			    JOptionPane.ERROR_MESSAGE);
-		} else if (!fine.matches(DATEPATTERN) && !fine.matches("Seleziona una data")) {
-			content.frmtdtxtfldFine.setText("");
+		} else if (fine.equals("")) {
+			content.frmtdtxtfldFine.setText("Seleziona una data");
 			content.frmtdtxtfldFine.requestFocus();
 			check=false;
 			JOptionPane.showMessageDialog(null, "Errore! La data di fine noleggio inserita non è valida!",
@@ -478,7 +477,7 @@ public class Preventivo {
 	 * 
 	 * @return la targa del veicolo noleggiato
 	 */
-	public static String getVarVeicolo() {
+	public static String getVeicolo() {
 		
 		return veicolo;
 	}
@@ -502,6 +501,7 @@ public class Preventivo {
 		
 		return fine;
 	}
+	
 	/**
 	 * Metodo usato quando si sceglie "Passa a Contratto" nel form {@code "Calcola Preventivo"}.
 	 * 
@@ -517,13 +517,13 @@ public class Preventivo {
 	 * 
 	 * @return il costo totale del noleggio
 	 */
-	public static double getVarTotale() {
+	public static double getTotale() {
 		
 		return totale;
 	}
 	
 	/**
-	 * Assegna i valori inseriti nella form alle variabili dell'oggetto {@code Preventivo}.
+	 * Assegna i valori inseriti nel form alle variabili dell'oggetto {@code Preventivo}.
 	 * 
 	 * @param content il form {@code "Calcola Preventivo"} ed i relativi dati inseriti.
 	 */

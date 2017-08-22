@@ -435,7 +435,7 @@ public class Cliente {
 /* METODI USATI DALLA GUI PER LA GESTIONE DEI CLIENTI ( --> vedi classe ModuloCl <-- ) */
 
 	/**
-	 * Assegna i valori inseriti nella form alle variabili dell'oggetto {@code Cliente}.
+	 * Assegna i valori inseriti nel form alle variabili dell'oggetto {@code Cliente}.
 	 * 
 	 * @param content il form {@code "Nuovo Cliente"/"Modifica Cliente"} ed i relativi dati inseriti.
 	 */

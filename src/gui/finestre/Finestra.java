@@ -49,7 +49,8 @@ public class Finestra extends JFrame implements ActionListener {
 	
 	
 	/**
-	 * Inizializza un nuovo oggetto Finestra e memorizza l'oggetto String {@code user} passato come argomento nella variabile {@code username}.
+	 * Inizializza un nuovo oggetto Finestra e memorizza l'oggetto String {@code user}
+	 *  passato come argomento nella variabile {@code username}.
 	 * 
 	 * @param user l'username dell'utente che utilizza l'applicazione.
 	 */
@@ -85,9 +86,10 @@ public class Finestra extends JFrame implements ActionListener {
 	}
 	
 	/**
-	 * Crea i bottoni che costituiscono il menù dell'applicazione.
+	 * Aggiunge i pulsanti al menu principale dell'applicazione.
 	 */
 	public void menu(){
+		
 		setJMenuBar(menuBar);
 		
 		menuBar.add(btnHome);

@@ -435,7 +435,7 @@ public class ModuloContratto extends JPanel implements ActionListener {
 			
 			txtVeicolo = new JTextField();
 			txtVeicolo.setFont(new Font("Arial", Font.PLAIN, 12));
-			String veicoloContratto = Preventivo.getVarVeicolo();
+			String veicoloContratto = Preventivo.getVeicolo();
 			txtVeicolo.setText(veicoloContratto);
 			txtVeicolo.setEditable(false);
 			
@@ -513,7 +513,7 @@ public class ModuloContratto extends JPanel implements ActionListener {
 		
 			txtCosto = new JTextField();
 			txtCosto.setFont(new Font("Arial", Font.PLAIN, 12));
-			double prezzoContratto = (Preventivo.getVarTotale());
+			double prezzoContratto = (Preventivo.getTotale());
 			prezzoContratto = ArrotondaNumero.arrotonda(prezzoContratto, 2);
 			txtCosto.setText(String.valueOf(prezzoContratto));
 			txtCosto.setEditable(false);
@@ -1575,7 +1575,7 @@ public class ModuloContratto extends JPanel implements ActionListener {
 			}
 		
 		} else if (btnPassaAContratto == e.getSource()) {
-			if (Preventivo.getVarTotale()!=0) {
+			if (Preventivo.getTotale()!=0) {
 				this.set("Passaggio");
 			} else {
 				JOptionPane.showMessageDialog(null, "Si deve prima calcolare il preventivo!",

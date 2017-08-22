@@ -179,7 +179,7 @@ public class Contratto {
 	 * 
 	 * @param content il form {@code "Modifica Contratto"} ed i relativi campi inseriti.
 	 */
-	public void cerca(ModuloContratto content){
+	public void cerca(ModuloContratto content) {
 		
 		String item;
 			if (checkCerca(content)) {
@@ -593,7 +593,7 @@ public class Contratto {
 	/* METODI USATI DALLA GUI PER LA GESTIONE DEI CONTRATTI (--> vedi classe ModuloCt <--) */
 	
 	/**
-	 * Assegna i valori inseriti nella form alle variabili dell'oggetto {@code Contratto}.
+	 * Assegna i valori inseriti nel form alle variabili dell'oggetto {@code Contratto}.
 	 * 
 	 * @param content il form {@code "Nuovo Contratto"/"Modifica Contratto"} ed i relativi dati inseriti.
 	 */
@@ -679,7 +679,7 @@ public class Contratto {
 	}
 	
 	/**
-	 * Assegna i valori inseriti nella form alle variabili dell'oggetto {@code Contratto}.
+	 * Assegna i valori inseriti nel form alle variabili dell'oggetto {@code Contratto}.
 	 * 
 	 * @param content il form {@code "Elenco Contratti"} ed i relativi dati inseriti.
 	 */
