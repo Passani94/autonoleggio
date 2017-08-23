@@ -64,7 +64,7 @@ public class PannelloContratto extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * Modifica il pannello PannelloContratto.
+	 * Modifica il pannello passato come argomento.
 	 * 
 	 * @param contentPane un pannello "vuoto".
 	 * @return il pannello modificato.
@@ -180,29 +180,7 @@ public class PannelloContratto extends JPanel implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		
-		if (btnEsci == e.getSource()) { 
-			int scelta = JOptionPane.showConfirmDialog(
-				    null,
-				    "Si desidera uscire dall'applicazione?",
-				    "Conferma uscita",
-				    JOptionPane.YES_NO_OPTION);
-			if (scelta == JOptionPane.YES_OPTION) {
-				System.exit(0);
-			}
-		
-		} else if(btnLogout == e.getSource()) {
-			int scelta = JOptionPane.showConfirmDialog(
-					null,
-					"Si desidera effettuare il logout?",
-					"Conferma logout",
-					JOptionPane.YES_NO_OPTION);
-			if (scelta == JOptionPane.YES_OPTION){
-				frame.dispose();
-				Login log = new Login();
-				log.run();
-			}
-		
-		} else if(btnPreventivo == e.getSource()) {
+		if(btnPreventivo == e.getSource()) {
 			btnAggiorna.setText("Elenco Contratti");
 			pnlModulo.set("Preventivo");
 			scrollPane2.setViewportView(pnlModulo7);
@@ -232,7 +210,29 @@ public class PannelloContratto extends JPanel implements ActionListener {
 			scrollPane2.setViewportView(pnlModulo2);
 			scrollPane3.setViewportView(pnlModulo3);
 		
-		} 
+		} else if(btnLogout == e.getSource()) {
+			int scelta = JOptionPane.showConfirmDialog(
+					null,
+					"Si desidera effettuare il logout?",
+					"Conferma logout",
+					JOptionPane.YES_NO_OPTION);
+			if (scelta == JOptionPane.YES_OPTION){
+				frame.dispose();
+				Login log = new Login();
+				log.run();
+			}
+		
+		} else if (btnEsci == e.getSource()) { 
+			int scelta = JOptionPane.showConfirmDialog(
+				    null,
+				    "Si desidera uscire dall'applicazione?",
+				    "Conferma uscita",
+				    JOptionPane.YES_NO_OPTION);
+			if (scelta == JOptionPane.YES_OPTION) {
+				System.exit(0);
+			}
+		
+		}
 	}
 
 /* OVERRIDING METODI toString() ED equals() */

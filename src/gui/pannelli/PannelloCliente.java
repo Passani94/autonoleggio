@@ -26,12 +26,8 @@ public class PannelloCliente extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L; 
 	
-	private JButton btnAggiorna = new JButton("Elenco Clienti");
-	private JButton btnNuovo = new JButton("Nuovo Cliente");
-	private JButton btnElimina = new JButton("Elimina Cliente");
-	private JButton btnModifica = new JButton("Modifica Cliente");
-	private JButton btnEsci = new JButton("Esci");
-	private JButton btnLogout = new JButton("Logout");
+	private Finestra frame;
+	private JLabel user;
 	
 	private ModuloCliente pnlModulo = new ModuloCliente("Principale");
 	private ModuloCliente pnlModulo2 = new ModuloCliente("Opzionale");
@@ -40,8 +36,13 @@ public class PannelloCliente extends JPanel implements ActionListener {
 	private JScrollPane scrollPane = new JScrollPane(pnlModulo);
 	private JScrollPane scrollPane2 = new JScrollPane(pnlModulo2);
 	
-	private Finestra frame;
-	private JLabel user;
+	private JButton btnNuovo = new JButton("Nuovo Cliente");
+	private JButton btnModifica = new JButton("Modifica Cliente");
+	private JButton btnElimina = new JButton("Elimina Cliente");
+	private JButton btnAggiorna = new JButton("Elenco Clienti");
+	private JButton btnLogout = new JButton("Logout");
+	private JButton btnEsci = new JButton("Esci");
+	
 	
 	/**
 	 * Inizializza un nuovo oggetto PannelloCliente.
@@ -56,7 +57,7 @@ public class PannelloCliente extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * Modifica il pannello PannelloCliente.
+	 * Modifica il pannello passato come argomento.
 	 * 
 	 * @param contentPane un pannello "vuoto".
 	 * @return il pannello modificato.
@@ -157,29 +158,7 @@ public class PannelloCliente extends JPanel implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		
-		if (btnEsci == e.getSource()) { 
-			int scelta = JOptionPane.showConfirmDialog(
-				    null,
-				    "Si desidera uscire dall'applicazione?",
-				    "Conferma uscita",
-				    JOptionPane.YES_NO_OPTION);
-			if (scelta == JOptionPane.YES_OPTION) {
-				System.exit(0);
-			}
-		
-		} else if (btnLogout == e.getSource()) {
-			int scelta = JOptionPane.showConfirmDialog(
-					null,
-					"Si desidera effettuare il logout?",
-					"Conferma logout",
-					JOptionPane.YES_NO_OPTION);
-			if (scelta == JOptionPane.YES_OPTION) {
-				frame.dispose();
-				Login log = new Login();
-				log.run();
-			}
-		
-		}  else if (btnNuovo == e.getSource()) {
+		if (btnNuovo == e.getSource()) {
 			btnAggiorna.setText("Elenco Clienti");
 			pnlModulo.set("Nuovo");
 			scrollPane2.setViewportView(pnlModulo2);
@@ -198,6 +177,29 @@ public class PannelloCliente extends JPanel implements ActionListener {
 			btnAggiorna.setText("Aggiorna Elenco");
 			pnlModulo.set("Elenca");
 			scrollPane2.setViewportView(pnlModulo2);
+			
+		} else if (btnLogout == e.getSource()) {
+			int scelta = JOptionPane.showConfirmDialog(
+					null,
+					"Si desidera effettuare il logout?",
+					"Conferma logout",
+					JOptionPane.YES_NO_OPTION);
+			if (scelta == JOptionPane.YES_OPTION) {
+				frame.dispose();
+				Login log = new Login();
+				log.run();
+			}
+		
+		} else if (btnEsci == e.getSource()) { 
+			int scelta = JOptionPane.showConfirmDialog(
+				    null,
+				    "Si desidera uscire dall'applicazione?",
+				    "Conferma uscita",
+				    JOptionPane.YES_NO_OPTION);
+			if (scelta == JOptionPane.YES_OPTION) {
+				System.exit(0);
+			}
+		
 		}
 	}
 

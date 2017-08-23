@@ -50,7 +50,7 @@ public class PannelloExtra extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * Modifica il pannello PannelloExtra.
+	 * Modifica il pannello passato come argomento.
 	 * 
 	 * @param contentPane un pannello "vuoto".
 	 * @return il pannello modificato.
@@ -147,15 +147,18 @@ public class PannelloExtra extends JPanel implements ActionListener {
 	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if (btnEsci == e.getSource()) { 
-			int scelta = JOptionPane.showConfirmDialog(
-				    null,
-				    "Si desidera uscire dall'applicazione?",
-				    "Conferma uscita",
-				    JOptionPane.YES_NO_OPTION);
-			if (scelta == JOptionPane.YES_OPTION){
-				System.exit(0);
-			}
+		
+		if(btnStatistica == e.getSource()) {
+			pnlModulo.set("Statistica");
+		
+		} else if(btnMensile == e.getSource()) {
+			pnlModulo.set("Mensile");
+		
+		} else if(btnAnnuale == e.getSource()) {
+			pnlModulo.set("Annuale");
+		
+		} else if(btnScadenze == e.getSource()) {
+			pnlModulo.set("Scadenze");
 		
 		} else if(btnLogout == e.getSource()) {
 			int scelta = JOptionPane.showConfirmDialog(
@@ -169,17 +172,16 @@ public class PannelloExtra extends JPanel implements ActionListener {
 				log.run();
 			}
 		
-		} else if(btnStatistica == e.getSource()) {
-			pnlModulo.set("Statistica");
+		} else if (btnEsci == e.getSource()) { 
+			int scelta = JOptionPane.showConfirmDialog(
+				    null,
+				    "Si desidera uscire dall'applicazione?",
+				    "Conferma uscita",
+				    JOptionPane.YES_NO_OPTION);
+			if (scelta == JOptionPane.YES_OPTION){
+				System.exit(0);
+			}
 		
-		} else if(btnMensile == e.getSource()) {
-			pnlModulo.set("Mensile");
-		
-		} else if(btnAnnuale == e.getSource()) {
-			pnlModulo.set("Annuale");
-		
-		} else if(btnScadenze == e.getSource()) {
-			pnlModulo.set("Scadenze");
 		}
 	}
 

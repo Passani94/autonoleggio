@@ -19,7 +19,7 @@ import utils.TableColumnAdjuster;
 /**
  * La classe ModuloMezziRitorno genera l'elenco dei mezzi in ritorno nella data odierna.
  */
-public class ModuloMezziRitorno extends JPanel {
+public class ModuloElencoMezziRitorno extends JPanel {
 	
 	private static final long serialVersionUID = 1L; 
 	
@@ -30,7 +30,7 @@ public class ModuloMezziRitorno extends JPanel {
 	/**
 	 * Inizializza un nuovo oggetto ModuloMezziRitorno e richiama il metodo {@code set}.
 	 */
-	public ModuloMezziRitorno() {
+	public ModuloElencoMezziRitorno() {
 		set();
 	}
 	
@@ -102,7 +102,7 @@ public class ModuloMezziRitorno extends JPanel {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ModuloMezziRitorno other = (ModuloMezziRitorno) obj;
+		ModuloElencoMezziRitorno other = (ModuloElencoMezziRitorno) obj;
 		if (inRitorno == null) {
 			if (other.inRitorno != null)
 				return false;

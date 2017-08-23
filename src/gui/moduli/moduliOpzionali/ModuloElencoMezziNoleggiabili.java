@@ -25,7 +25,7 @@ import utils.TableColumnAdjuster;
 /**
  * La classe ModuloMezziNoleggiabili genera l'elenco dei mezzi noleggiabili.
  */
-public class ModuloMezziNoleggiabili extends JPanel{
+public class ModuloElencoMezziNoleggiabili extends JPanel{
 	
 	private static final long serialVersionUID = 1L; 
 	private JTable tblNoleggiabili;
@@ -38,7 +38,7 @@ public class ModuloMezziNoleggiabili extends JPanel{
 	/**
 	 * Inizializza un nuovo oggetto ModuloMezziNoleggiabili e richiama il metodo {@code set}.
 	 */
-	public ModuloMezziNoleggiabili() {
+	public ModuloElencoMezziNoleggiabili() {
 		set();
 	}
 	
@@ -159,7 +159,7 @@ public class ModuloMezziNoleggiabili extends JPanel{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ModuloMezziNoleggiabili other = (ModuloMezziNoleggiabili) obj;
+		ModuloElencoMezziNoleggiabili other = (ModuloElencoMezziNoleggiabili) obj;
 		if (dataOggi == null) {
 			if (other.dataOggi != null)
 				return false;

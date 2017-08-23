@@ -15,8 +15,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import autonoleggio.Login;
 import gui.finestre.Finestra;
 import gui.moduli.moduliOpzionali.ModuloCalendario;
-import gui.moduli.moduliOpzionali.ModuloMezziNoleggiabili;
-import gui.moduli.moduliOpzionali.ModuloMezziRitorno;
+import gui.moduli.moduliOpzionali.ModuloElencoMezziNoleggiabili;
+import gui.moduli.moduliOpzionali.ModuloElencoMezziRitorno;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -32,8 +32,8 @@ public class PannelloHome extends JPanel implements ActionListener {
 	private JButton btnLogout = new JButton("Logout");
 	private JPanel pnlCalendar = new JPanel(null);
 	
-	private ModuloMezziRitorno pnlModulo = new ModuloMezziRitorno();
-	private ModuloMezziNoleggiabili pnlModulo2 = new ModuloMezziNoleggiabili();
+	private ModuloElencoMezziRitorno pnlModulo = new ModuloElencoMezziRitorno();
+	private ModuloElencoMezziNoleggiabili pnlModulo2 = new ModuloElencoMezziNoleggiabili();
 	
 	private Finestra frame;
 	private JLabel user;
@@ -50,7 +50,7 @@ public class PannelloHome extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * Modifica il pannello PannelloHome.
+	 * Modifica il pannello passato come argomento.
 	 * 
 	 * @param contentPane un pannello "vuoto".
 	 * @return il pannello modificato.

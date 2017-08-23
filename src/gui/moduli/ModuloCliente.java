@@ -615,6 +615,7 @@ public class ModuloCliente extends JPanel implements ActionListener {
 	 * Definisce le azioni da eseguire a seconda del bottone cliccato.
 	 */
 	public void actionPerformed(ActionEvent e) {
+		
 		if (btnAggiungi == e.getSource()) {
 			cliente = new Cliente();
 			cliente.setValori(this);

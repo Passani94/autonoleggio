@@ -53,7 +53,7 @@ public class PannelloOperatore extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * Modifica il pannello PannelloOperatore.
+	 * Modifica il pannello passato come argomento.
 	 * 
 	 * @param contentPane un pannello "vuoto".
 	 * @return il pannello modificato.
@@ -148,29 +148,7 @@ public class PannelloOperatore extends JPanel implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		
-		if (btnEsci == e.getSource()) { 
-			int scelta = JOptionPane.showConfirmDialog(
-				    null,
-				    "Si desidera uscire dall'applicazione?",
-				    "Conferma uscita",
-				    JOptionPane.YES_NO_OPTION);
-			if (scelta == JOptionPane.YES_OPTION) {
-				System.exit(0);
-			}
-		
-		} else if(btnLogout == e.getSource()) {
-			int scelta = JOptionPane.showConfirmDialog(
-					null,
-					"Si desidera effettuare il logout?",
-					"Conferma logout",
-					JOptionPane.YES_NO_OPTION);
-			if (scelta == JOptionPane.YES_OPTION) {
-				frame.dispose();
-				Login log = new Login();
-				log.run();
-			}
-		
-		} else if(btnNuovo == e.getSource()) {
+		if(btnNuovo == e.getSource()) {
 			btnAggiorna.setText("Elenco Operatori");
 			pnlModulo.set("Nuovo");
 			scrollPane2.setViewportView(pnlModulo2);
@@ -184,6 +162,28 @@ public class PannelloOperatore extends JPanel implements ActionListener {
 			btnAggiorna.setText("Aggiorna Elenco");
 			pnlModulo.set("Elenca");
 			scrollPane2.setViewportView(pnlModulo2);
+		
+		} else if(btnLogout == e.getSource()) {
+			int scelta = JOptionPane.showConfirmDialog(
+					null,
+					"Si desidera effettuare il logout?",
+					"Conferma logout",
+					JOptionPane.YES_NO_OPTION);
+			if (scelta == JOptionPane.YES_OPTION) {
+				frame.dispose();
+				Login log = new Login();
+				log.run();
+			}
+		
+		} else if(btnEsci == e.getSource()) { 
+			int scelta = JOptionPane.showConfirmDialog(
+				    null,
+				    "Si desidera uscire dall'applicazione?",
+				    "Conferma uscita",
+				    JOptionPane.YES_NO_OPTION);
+			if (scelta == JOptionPane.YES_OPTION) {
+				System.exit(0);
+			}
 		
 		}
 	}
