@@ -43,19 +43,22 @@ public class ModuloElencoPrezziExtra extends JPanel {
 		try {
 			prezzi.exequery("SELECT v.Targa, v.Nome, v.Km_Effettuati, b.Km_al_Giorno, b.Km_Extra "
 					+ "FROM veicolo v, breve_termine b WHERE v.Costobt = b.Cod_BT","select");
+			
+			tblPrezzi = new JTable();
+			tblPrezzi.setModel(new CostruisciTabella(prezzi.rs).model);
+			tblPrezzi.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			TableColumnAdjuster tca = new TableColumnAdjuster(tblPrezzi);
+			tca.adjustColumns();		
+			
+			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scroll.setViewportView(tblPrezzi);
+			
+			prezzi.con.close();
 		} catch (SQLException e) {  
 		JOptionPane.showMessageDialog(null, "Errore, impossibile generare il tarifarrio per il kilometraggio extra!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);}
 		
-		tblPrezzi = new JTable();
-		tblPrezzi.setModel(new CostruisciTabella(prezzi.rs).model);
-		tblPrezzi.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		TableColumnAdjuster tca = new TableColumnAdjuster(tblPrezzi);
-		tca.adjustColumns();		
-		
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setViewportView(tblPrezzi);
 		
 		/* Crea il layout per il tarifarrio per il kilometraggio extra. */
 		GroupLayout gl_contentPane = new GroupLayout(this);

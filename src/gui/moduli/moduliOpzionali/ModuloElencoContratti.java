@@ -46,24 +46,28 @@ public class ModuloElencoContratti extends JPanel {
 			
 			try {
 				contratti.exequery("SELECT Cod_Noleggio, Tipologia, Veicolo, Cliente, Data_Inizio, Data_Fine FROM noleggio","select");
+				
+				tblContratti = new JTable();
+				tblContratti.setModel(new CostruisciTabella(contratti.rs).model);
+				tblContratti.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblContratti);
+				tca.adjustColumns();		
+				
+				JTableHeader header= tblContratti.getTableHeader();
+				TableColumnModel colMod = header.getColumnModel();
+				TableColumn tabCol = colMod.getColumn(0);
+				tabCol.setHeaderValue("Codice");
+				
+				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scroll.setViewportView(tblContratti);
+				
+				contratti.con.close();
 			} catch (SQLException e) {  
 			JOptionPane.showMessageDialog(null, "Errore, impossibile generare l'elenco dei contratti!",
 					"Errore ",
 					JOptionPane.ERROR_MESSAGE);}
 			
-			tblContratti = new JTable();
-			tblContratti.setModel(new CostruisciTabella(contratti.rs).model);
-			tblContratti.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			TableColumnAdjuster tca = new TableColumnAdjuster(tblContratti);
-			tca.adjustColumns();		
 			
-			JTableHeader header= tblContratti.getTableHeader();
-			TableColumnModel colMod = header.getColumnModel();
-			TableColumn tabCol = colMod.getColumn(0);
-			tabCol.setHeaderValue("Codice");
-			
-			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scroll.setViewportView(tblContratti);
 			
 			/* Crea il layout per l'elenco dei contratti contenuti nel database. */
 			GroupLayout gl_contentPane = new GroupLayout(this);

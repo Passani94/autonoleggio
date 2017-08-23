@@ -28,6 +28,7 @@ import utils.TableColumnAdjuster;
 public class ModuloElencoMezziNoleggiabili extends JPanel{
 	
 	private static final long serialVersionUID = 1L; 
+	
 	private JTable tblNoleggiabili;
 	private JScrollPane scroll = new JScrollPane(tblNoleggiabili);
 	private DBConnect noleggiabili = new DBConnect();
@@ -111,6 +112,8 @@ public class ModuloElencoMezziNoleggiabili extends JPanel{
 		
 		try {
 			noleggiabili.exequery("DROP TABLE mezzinoleggiabili", "delete");
+			
+			noleggiabili.con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -45,19 +45,22 @@ public class ModuloElencoMezziRitorno extends JPanel {
 		try {
 			inRitorno.exequery("SELECT n.Cod_Noleggio, n.Tipologia, n.Veicolo, v.Marca, v.Nome, n.Cliente, n.Costo_Totale "
 					+ "FROM noleggio n,veicolo v WHERE n.Data_Fine='"+DataOggi+"' AND n.Veicolo=v.Targa","select");
+			
+			tblRitorno = new JTable();
+			tblRitorno.setModel(new CostruisciTabella(inRitorno.rs).model);
+			tblRitorno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			TableColumnAdjuster tca = new TableColumnAdjuster(tblRitorno);
+			tca.adjustColumns();		
+			
+			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scroll.setViewportView(tblRitorno);
+			
+			inRitorno.con.close();
 		} catch (SQLException e) {  
 		JOptionPane.showMessageDialog(null, "Errore, impossibile caricare l'elenco dei veicoli in rientro oggi!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);}
 		
-		tblRitorno = new JTable();
-		tblRitorno.setModel(new CostruisciTabella(inRitorno.rs).model);
-		tblRitorno.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		TableColumnAdjuster tca = new TableColumnAdjuster(tblRitorno);
-		tca.adjustColumns();		
-		
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setViewportView(tblRitorno);
 		
 		/* Crea il layout per l'elenco dei mezzi in ritorno nella data odierna. */
 		GroupLayout gl_contentPane = new GroupLayout(this);

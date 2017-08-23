@@ -51,19 +51,23 @@ public class ModuloElencoVeicoli extends JPanel {
 			
 			try {
 				veicoli.exequery("SELECT Targa, Tipologia, Marca, Nome, Disponibilita, Alimentazione, Km_Effettuati, Dimensioni FROM veicolo","select");
+				
+				tblVeicoli = new JTable();
+				tblVeicoli.setModel(new CostruisciTabella(veicoli.rs).model);
+				tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				TableColumnAdjuster tca = new TableColumnAdjuster(tblVeicoli);
+				tca.adjustColumns();		
+			
+				scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				scroll.setViewportView(tblVeicoli);
+				
+				veicoli.con.close();
 			} catch (SQLException e) {  
 				JOptionPane.showMessageDialog(null, "Errore, impossibile generare l'elenco dei veicoli!",
 						"Errore ",
 						JOptionPane.ERROR_MESSAGE);}
 		
-			tblVeicoli = new JTable();
-			tblVeicoli.setModel(new CostruisciTabella(veicoli.rs).model);
-			tblVeicoli.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			TableColumnAdjuster tca = new TableColumnAdjuster(tblVeicoli);
-			tca.adjustColumns();		
-		
-			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-			scroll.setViewportView(tblVeicoli);
+			
 		
 			/* Crea il layout per l'elenco dei veicoli contenuti nel database. */
 			GroupLayout gl_contentPane = new GroupLayout(this);

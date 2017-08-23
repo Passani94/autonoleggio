@@ -42,18 +42,22 @@ public class ModuloElencoOperatori extends JPanel {
 		
 		try {
 			operatori.exequery("SELECT * FROM operatore","select");
+			
+			tblOperatori = new JTable();
+			tblOperatori.setModel(new CostruisciTabella(operatori.rs).model);
+			TableColumnAdjuster tca = new TableColumnAdjuster(tblOperatori);
+			tca.adjustColumns();		
+			
+			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scroll.setViewportView(tblOperatori);
+			
+			operatori.con.close();
 		} catch (SQLException e) {  
 		JOptionPane.showMessageDialog(null, "Errore, impossibile generare l'elenco degli operatori!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);}
 		
-		tblOperatori = new JTable();
-		tblOperatori.setModel(new CostruisciTabella(operatori.rs).model);
-		TableColumnAdjuster tca = new TableColumnAdjuster(tblOperatori);
-		tca.adjustColumns();		
 		
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setViewportView(tblOperatori);
 		
 		/* Crea il layout per l'elenco degli operatori. */
 		GroupLayout gl_contentPane = new GroupLayout(this);

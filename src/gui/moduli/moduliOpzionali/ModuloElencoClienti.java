@@ -42,19 +42,23 @@ public class ModuloElencoClienti extends JPanel {
 		
 		try {
 			clienti.exequery("SELECT * FROM cliente ORDER BY Tipologia, Ragione_Sociale","select");
+			
+			tblClienti = new JTable();
+			tblClienti.setModel(new CostruisciTabella(clienti.rs).model);
+			tblClienti.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			TableColumnAdjuster tca = new TableColumnAdjuster(tblClienti);
+			tca.adjustColumns();		
+			
+			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scroll.setViewportView(tblClienti);
+			
+			clienti.con.close();
 		} catch (SQLException e) {  
 		JOptionPane.showMessageDialog(null, "Errore, impossibile generare l'elenco dei clienti!",
 				"Errore ",
 				JOptionPane.ERROR_MESSAGE);}
 		
-		tblClienti = new JTable();
-		tblClienti.setModel(new CostruisciTabella(clienti.rs).model);
-		tblClienti.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		TableColumnAdjuster tca = new TableColumnAdjuster(tblClienti);
-		tca.adjustColumns();		
 		
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setViewportView(tblClienti);
 		
 		/* Crea il layout per l'elenco dei clienti contenuti nel database. */
 		GroupLayout gl_contentPane = new GroupLayout(this);
