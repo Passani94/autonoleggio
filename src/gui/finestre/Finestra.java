@@ -1,8 +1,5 @@
 package gui.finestre;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import autonoleggio.Login;
 import gui.pannelli.PannelloCliente;
 import gui.pannelli.PannelloContratto;
@@ -11,8 +8,11 @@ import gui.pannelli.PannelloFlotta;
 import gui.pannelli.PannelloHome;
 import gui.pannelli.PannelloOperatore;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -20,7 +20,7 @@ import java.awt.event.WindowEvent;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import javax.swing.JButton;
+
 
 /**
  * La classe Finestra implementa il frame dell'applicazione.
