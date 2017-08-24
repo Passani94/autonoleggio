@@ -94,12 +94,7 @@ public class TableColumnAdjuster implements PropertyChangeListener, TableModelLi
 		updateTableColumn(column, preferredWidth);
 	}
 
-	/**
-	 * Calcola la larghezza in base all'intestazione della colonna passata come argomento.
-	 * 
-	 * @param column la colonna da esaminare.
-	 * @return la larghezza della colonna in base all'intestazione.
-	 */
+	//Calcola la larghezza in base all'intestazione della colonna passata come argomento.
 	private int getColumnHeaderWidth(int column) {
 		
 		if (!isColumnHeaderIncluded) return 0;
@@ -113,12 +108,8 @@ public class TableColumnAdjuster implements PropertyChangeListener, TableModelLi
 		return c.getPreferredSize().width;
 	}
 
-	/**
-	 * Calcola la larghezza in base all'elemento più largo della colonna passata come aegomento.
-	 * 
-	 * @param column la colonna da esaminare.
-	 * @return la larghezza della colonna in base all'elemento più largo.
-	 */
+	
+	//Calcola la larghezza in base all'elemento più largo della colonna passata come argomento.
 	private int getColumnDataWidth(int column) {
 		
 		if (!isColumnDataIncluded) return 0;
@@ -132,13 +123,7 @@ public class TableColumnAdjuster implements PropertyChangeListener, TableModelLi
 		return preferredWidth;
 	}
 
-	/**
-	 * Calcola la larghezza della colonna in base all'elemento corrente.
-	 * 
-	 * @param row la riga dell'elemento da esaminare.
-	 * @param column la colonna da esaminare.
-	 * @return la larghezza dell'elemento esaminato.
-	 */
+	//Calcola la larghezza della colonna in base all'elemento corrente.
 	private int getCellDataWidth(int row, int column) {
 		
 		TableCellRenderer cellRenderer = table.getCellRenderer(row, column);
@@ -148,13 +133,7 @@ public class TableColumnAdjuster implements PropertyChangeListener, TableModelLi
 	}
 
 	
-	/* Update the TableColumn with the newly calculated width. */
-	/**
-	 * Ridimensiona la colonna con la nuova larghezza calcolata.
-	 * 
-	 * @param column la colonna da ridimensionare.
-	 * @param width la larghezza da impostare.
-	 */
+	//Ridimensiona la colonna con la nuova larghezza calcolata.
 	private void updateTableColumn(int column, int width) {
 		
 		final TableColumn tableColumn = table.getColumnModel().getColumn(column);
@@ -179,12 +158,8 @@ public class TableColumnAdjuster implements PropertyChangeListener, TableModelLi
 			restoreColumn(i);
 		}
 	}
-
-	/**
-	 * Ripristina la larghezza della colonna passata come argomento al suo valore precendente.
-	 * 
-	 * @param column la colonna da ridimensionare.
-	 */
+	
+	//Ripristina la larghezza della colonna passata come argomento al suo valore precendente.
 	private void restoreColumn(int column) {
 		
 		TableColumn tableColumn = table.getColumnModel().getColumn(column);

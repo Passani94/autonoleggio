@@ -13,13 +13,16 @@ public class ModuloCalendario extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	
+	static int annoAttuale, meseAttuale, giornoAttuale, annoCorrente, meseCorrente;
+	
+	static JTable tblCalendar;
+	static JScrollPane stblCalendar;
+	static DefaultTableModel mtblCalendar; 
+	
     static JLabel lblMese, lblAnno;
     static JButton btnPrec, btnSucc;
-    static JTable tblCalendar;
     static JComboBox <String> cmbAnno;
-    static DefaultTableModel mtblCalendar; 
-    static JScrollPane stblCalendar;
-    static int annoAttuale, meseAttuale, giornoAttuale, annoCorrente, meseCorrente;
+    
     
     /**
      * Inizializza un nuovo oggetto ModuloCalendario.
@@ -37,12 +40,14 @@ public class ModuloCalendario extends JPanel {
         btnSucc = new JButton (">>");
         mtblCalendar = new DefaultTableModel() {
         	
-        	public boolean isCellEditable(int indiceRiga, int indiceColonna) {
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int indiceRiga, int indiceColonna) {
         		
         		return false;
         	}
         	
-        	private static final long serialVersionUID = 1L; 
+       
         };
         
         tblCalendar = new JTable(mtblCalendar);
@@ -201,11 +206,12 @@ public class ModuloCalendario extends JPanel {
     }
     
     
-    //Imposta i colori delle celle del calendario.
+    
     static class tblCalendarRenderer extends DefaultTableCellRenderer {
     	
     	private static final long serialVersionUID = 1L;
     	
+    	//Imposta i colori delle celle del calendario.
         public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused, int row, int column) {
         	
             super.getTableCellRendererComponent(table, value, selected, focused, row, column);

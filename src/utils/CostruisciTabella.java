@@ -20,17 +20,17 @@ public class CostruisciTabella {
 	public DefaultTableModel model;
 	
 	/**
-	 * 	Inizializza un nuovo oggetto CostruisciTabella e costruisce una tabella a partire dal ResultSet passato come argomento.
+	 * Inizializza un nuovo oggetto CostruisciTabella e richiama il metodo {@code costruisci} passando come argomento il ResultSet di una query SQL.
 	 * 
 	 * @param rs il ResultSet ottenuto da una query SQL.
 	 */
 	public CostruisciTabella(ResultSet rs){
-		Costruisci(rs);
+		costruisci(rs);
 	}
 	
 	
 	/*Costruisce una tabella a partire dal ResultSet di una query SQL. */
-	private void Costruisci(ResultSet result){
+	private void costruisci(ResultSet result){
 	
 		try{
 			ResultSetMetaData metaData = result.getMetaData();
@@ -61,6 +61,7 @@ public class CostruisciTabella {
 		}
 	}
 
+	
 	/**
 	 * Restituisce una rappresentazione testuale dell'oggetto.
 	 * 
