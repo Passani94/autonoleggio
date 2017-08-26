@@ -6,12 +6,10 @@ import java.math.RoundingMode;
 /**
  * La classe ArrotondaNumero contiene metodi per gestire operazioni di arrotondamento di numeri.
  */
-public class ArrotondaNumero {
+public final class ArrotondaNumero {
 	
-	/**
-	 *  Inizializza un nuovo oggetto ArrotondaNumero.
-	 */
-	public ArrotondaNumero() {
+	// Inizializza un nuovo oggetto ArrotondaNumero.
+	private ArrotondaNumero() {
 		
 	}
 

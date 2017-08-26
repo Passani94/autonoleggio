@@ -11,14 +11,12 @@ import utils.GestioneGiorni;
  * La classe Noleggiabilità permette di controllare se un veicolo è noleggiabile o meno.
  */
 
-public class Noleggiabilita {
+public final class Noleggiabilita {
 	
 	private static DBConnect connessione;
 	
-	/**
-	 * Inizializza un nuovo oggetto Noleggiabilita.
-	 */
-	public Noleggiabilita() {
+	// Inizializza un nuovo oggetto Noleggiabilita.
+	private Noleggiabilita() {
 		
 	}
 	

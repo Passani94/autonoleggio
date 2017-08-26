@@ -3,12 +3,10 @@ package utils;
 /**
  * La classe IsNumeric contiene metodi per controllare se una stringa è numerica.
  */
-public class IsNumeric {
+public final class IsNumeric {
 	
-	/**
-	 * Inizializza un nuovo oggetto IsNumeric.
-	 */
-	public IsNumeric() {
+	// Inizializza un nuovo oggetto IsNumeric.
+	private IsNumeric() {
 		
 	}
 

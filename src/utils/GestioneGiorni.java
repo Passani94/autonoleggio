@@ -10,12 +10,10 @@ import java.util.TimeZone;
 /**
  * La classe GestioneGiorni contiene metodi per gestire date.
  */
-public class GestioneGiorni {
+public final class GestioneGiorni {
 	
-	/**
-	 *  Inizializza un nuovo oggetto GestioneGiorni.
-	 */
-	public GestioneGiorni() {
+	// Inizializza un nuovo oggetto GestioneGiorni.
+	private GestioneGiorni() {
 		
 	}
 	
