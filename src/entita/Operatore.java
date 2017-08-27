@@ -20,7 +20,7 @@ public class Operatore {
 	private DBConnect operatore;
 	
 	/**
-	 * Inizializza un nuovo oggetto Contratto e stabilisce una connessione con il database.
+	 * Inizializza un nuovo oggetto Operatore e stabilisce una connessione con il database.
 	 */
 	public Operatore(){
 		test=true;
