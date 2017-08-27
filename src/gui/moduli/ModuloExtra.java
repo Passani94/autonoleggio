@@ -511,7 +511,7 @@ public class ModuloExtra extends JPanel implements ActionListener {
 														.addComponent(lblOrmeggio)))
 												.addGroup(gl_contentPane.createSequentialGroup()
 													.addGap(63)
-													.addComponent(scrollOrmeggio, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))))
+													.addComponent(scrollOrmeggio, GroupLayout.PREFERRED_SIZE, 327, GroupLayout.PREFERRED_SIZE))))
 										.addComponent(lblAlaggio))))
 							.addContainerGap())
 				);
