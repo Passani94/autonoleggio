@@ -1364,7 +1364,7 @@ public class ModuloContratto extends JPanel implements ActionListener {
 							.addComponent(lblCliente, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addComponent(dateChooserInizio, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+							.addComponent(dateChooserInizio, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(frmtdtxtfldInizio, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
 								.addComponent(lblDataInizio, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
